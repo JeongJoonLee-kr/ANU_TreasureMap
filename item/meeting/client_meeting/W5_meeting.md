@@ -35,4 +35,3 @@
 | [Organising new Teams channel] | [Jeongjoon Lee] | [27/8/25] |
 | [Working on finding treasure]  |      [all]      | [27/8/25] |
 | [Working on Mood board]        |      [all]      | [27/8/25] |
-
