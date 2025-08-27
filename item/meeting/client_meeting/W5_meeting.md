@@ -7,6 +7,7 @@
 **Lead/scribe:** Jeongjoon Lee
 
 ## Agreed Procedure
+
 - Weekly Wed 15:00–16:00
 - Team leader will scribe the meeting
 
