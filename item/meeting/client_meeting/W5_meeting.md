@@ -3,7 +3,6 @@
 ## Client Meeting [2] - Week [5] - [20/8/25] (15:00 - 16:00)
 
 **Absent:** None
-<br>
 **Lead/scribe:** Jeongjoon Lee
 
 ## Agreed Procedure
