@@ -73,7 +73,7 @@
 | Finish the week6 meeting                           |  Anlin Bai  |     31/08/2025      |
 | Submit a reflection about Sprint 1                 |     All     |     27/08/2025      |
 | Finish a feedback about the team members on Wattle |     All     |     27/08/2025      |
-| Communicate with others to refine your own ideas and creativity |     All     | Before next meeting |
+| Communicate with others to refine the ideas        |     All     | Before next meeting |
 
 
 
