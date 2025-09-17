@@ -8,7 +8,7 @@ This following is a very simple team meeting template. You should expand it base
 
 ## Agreed Procedure
 Stand up Procedure: 
-- {Conclude the cilent meetings, tutor meeting and shares feedbacks between each other.}
+- Conclude the cilent meetings, tutor meeting and shares feedbacks from meetings between each other.
 
 
 ## Agenda Items
