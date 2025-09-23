@@ -44,8 +44,8 @@ Stand up Procedure:
 The following dictates who will scribe in this and the next meeting.
 | Name |
 | :---: |
-| Shaoming Qin |
-| Wing Sze Shing |
+| Shaoming Qin(This) |
+| Wing Sze Shing(Next) |
 | Xiyin Li |
 | Zijun Yang |
 | Suya Xie |
