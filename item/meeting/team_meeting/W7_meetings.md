@@ -24,9 +24,9 @@ Stand up Procedure:
 - Summary of the progress reports, discussions, decisions, and matters to be confirmed from the meeting.
 - All the thing in actions items
 - Write PBIs as we did in sprint 1
-- Idea is mot limited, and it should be supported by more photos
+- Idea is not limited, and it should be supported by more photoes
 - Share things and disccuss about their relationship on detective board
-- Do most things in advance before Wednsdays
+- Do most things in advance before Wednesdays
 
 
 ## Action Items
