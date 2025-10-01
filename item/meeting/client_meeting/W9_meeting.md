@@ -1,6 +1,6 @@
 # ANU TreasureMap Client Meeting
 
-## Client Meeting [5] - Week [8] - [24/09/25] ([15:00 - 16:00])
+## Client Meeting [6] - Week [9] - [1/10/25] ([15:00 - 16:00])
 **Absent:** None  
 **Lead/scribe:** [Jeongjoon Lee]
 
@@ -18,7 +18,7 @@
 | 1 | Share the story of photos                                 |
 | 2 | Explain all ideas of us                                   |
 | 3 | vote for our ideas to choose great ideas                  |
-| 4 | Devide into Group 'game' and Group 'forum'                |
+| 4 | Devide into Group 'Inner-curated' and Group 'crowdsourced'                |
 | 5 | (Recommended) Prototyping guest lecture & team share-back |
 
 ---
@@ -26,7 +26,7 @@
 ## Meeting Minutes
 - **Provide a draft with detailed elaboration for each concept.
 - **Print-ready handoff:** When printing is needed, provide a **single PDF already laid out at the final size** so the client can “download & print.”  
-- **Guest lecture (recommended):** Attend **Prototyping talk (Alan Chen)** next **Thursday**; share key takeaways with the team afterward.
+- **Guest lecture (recommended):** Attend **Prototyping talk (Alan Chen)** **tomorrow**; share key takeaways with the team afterward.
 
 ---
 
