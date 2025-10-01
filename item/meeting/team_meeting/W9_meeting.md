@@ -9,38 +9,39 @@
 
 **Stand up Procedure:**
 
-- Each team member prepare all of their summary for the client share, and discuss on the detective board.
+- Each team member prepare all of their summary for the client share, and discuss on the draft of the chosen concept
 
 ## Agenda Items
-|  Number  | Item                                                      |
-|:--------:|:----------------------------------------------------------|
-|    1     | Review and update the detective board                     |
-|    2     | Discuss and assign the PBIs for Sprint 2                  |
-|    2     | Exchange the ideas in summary before sharing with clients |
+|  Number  | Item                                                    |
+|:--------:|:--------------------------------------------------------|
+|    1     | Discuss which concept is better                         |
+|    2     | Discuss and assign the PBIs for Sprint 2                |
+|    2     | Upload the ideas in summary before sharing with clients |
 
 ## Meeting Minutes
 
-- Extend ideas from mind map to do clustering on the detective board
+- Refine the details and produce a rough draft of the chosen concept
 - Add new PBIs with user story for Sprint 2 on Jira
-- Upload summary sheet to Teams for client share
+- Finish Reflection before 7:30
+- Finish Contribution form  
 
 ## Action Items
-| Task                                               | Assigned To |      Due Date       |
-|:---------------------------------------------------|:-----------:|:-------------------:|
-| Finish the week8 meeting minute                    |    Xiyin    |     01/10/2025      |
-| Explore the assigned area in ANU to find treasure  |     All     |     01/10/2025      |
-| Prepare for Sprint 2 reflection                    |     All     | Before next meeting |
+| Task                            | Assigned To |  Due Date  |
+|:--------------------------------|:-----------:|:----------:|
+| Finish the week9 meeting minute |    Xiyin    | 01/10/2025 |
+| Finish Reflection               |     All     | 01/10/2025 |
+| Finish Contribution form        |     All     | 01/10/2025 |
 
 
 
 ## Scribe Rotation
 The following dictates who will scribe in this and the next meeting.
 
-|         Name          |
-|:---------------------:|
-|  **Xiyin Li (this)**  |
-|      Zijun Yang       |
-|       Suya xie        |
-|       Anlin Bai       |
-|     Shaoming Qin      |
-| Wing Sze Shing (next) |
+|        Name         |
+|:-------------------:|
+| **Xiyin Li (this)** |
+| Zijun Yang  (next)  |
+|      Suya xie       |
+|      Anlin Bai      |
+|    Shaoming Qin     |
+|   Wing Sze Shing    |
