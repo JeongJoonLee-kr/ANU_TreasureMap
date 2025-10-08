@@ -1,0 +1,56 @@
+# ANU Treasure Map Team (AT)
+
+## Team Meeting 7 - Week [10] - 08/10/25 (14:00‚Ä?15:00)
+
+**Absent:** None  
+**Lead/scribe:** Zijun Yang
+
+### Agreed Procedure
+
+**Stand up Procedure:**
+
+- Each team member briefly shares their progress and any roadblocks.
+
+### Agenda Items
+
+| Number | Item                                               |
+| :----: | :------------------------------------------------- |
+|   1    | Design the prototype to report on client meeting  |
+|   2    | Decide what to report about internal curation and outsource |
+
+### Meeting Minutes
+
+**1. Design the prototype to report on client meeting**
+
+The team discussed the design of the prototype:
+
+We have designed a prototype for a Pok√©mon-style 2D pixel art game, where the character can move up, down, left, and right across a pre-designed ANU map. Players can interact with specially designed objects or NPCs to obtain ANU treasure. The interaction mechanics may include obtaining treasure through dice roll checks, answering specific questions, or discovering three scattered clues. Our prototype is similar to a TRPG (Tabletop Role-Playing Game).
+
+The example we provide could be a simple scenario based on our weekly client meetings. The goal of participating in the game is to collect treasures to prepare for the final client meeting, where scores will be evaluated. At the end of a scenario, grades such as HD, D, etc., will be given, along with a notation like 4/4 to indicate the number of treasures collected versus the total available in that scenario. Outside the game, players who have completed the scenarios can participate in forum discussions, share tips, and provide full-collection guides. Achieving HD grades and full collections can also be used as badges to decorate the player's room.
+
+**2. Decide what to report about internal curation and outsource**
+
+Outsourcing is accomplished by entrusting the design of events to clubs or the school's official organizations. Internal curation involves introducing new scenarios (instances) through version updates, along with adding new dialogues and new treasures.
+
+
+### Action Items
+
+| Task                                                                 | Assigned To    | Due Date   |
+| :------------------------------------------------------------------- | :------------- | :--------- |
+| Complete technical route exploration (game engine or game mod)                    | All     | 15/10/2025 |
+| Finalize the game's storyline design                               | All            | 15/10/2025 |
+| Develop a proposal design to articulate the game's appeal and target audience               | All      | 15/10/2025 |
+
+### Scribe Rotation
+
+The following dictates who will scribe in this and the next meeting.
+
+|                Name                 |
+| :---------------------------------: |
+|   Suya Xie (Scribe for Next Meeting) |
+|   Anlin Bai  |
+|   Shaoming Qin |
+|   Wing Sze Shing |
+|   Xiyin Li  |
+|   Zijun Yang(Scribed This Meeting)  |
+ 
