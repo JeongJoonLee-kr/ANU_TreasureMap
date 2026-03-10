@@ -1,12 +1,12 @@
 # ANU Treasure Map Team (AT)
 
-## Team Meeting 1 - Week 2 - 04/03/2026 (16:20 - 17:00)
+## Team Meeting 2 - Week 2 - 04/03/2026 (16:20 - 17:00)
 **Absent:** Anlin Bai
 **Lead/scribe:** Suya Xie
 
 ## Agreed Procedure
 **Stand up Procedure:**
-- Each sub-team lead shares their group's progress, plans, and any roadblocks.
+- Each members shares their group's progress, plans, and any roadblocks.
 
 ## Agenda Items
 | Number | Item                                      |
@@ -40,9 +40,9 @@
 ## Action Items
 | Task                                                               |  Assigned To  |   Due Date   |
 |:-------------------------------------------------------------------|:-------------:|:------------:|
-| Initialize the new Jira workspace and invite all team members      | Jeongjoon Lee |  11/03/2026  |
-| Set up the GitHub repository and project structure                 | Shaoming Qin  |  11/03/2026  |
-| Review the detailed rubric and update the project timeline         |  All Members  |  11/03/2026  |
+| Initialize the new Jira workspace and invite all team members      | Jeongjoon Lee |  03/03/2026  |
+| Set up the GitHub repository and project structure                 | Shaoming Qin  |  10/03/2026  |
+| Review the detailed rubric and update the project timeline         |  All Members  |  10/03/2026  |
 
 ## Scribe Rotation
 The following dictates who will scribe in this and the next meeting.
