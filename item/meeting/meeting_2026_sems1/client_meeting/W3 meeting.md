@@ -48,5 +48,5 @@ The team presented two distinct game concepts—an indoor deduction style (Cludo
 |:---|:---:|:---:|
 | Define a unified, simplified game concept and adjust roles accordingly | All Team Members | Week 4 |
 | Create a list of "Pins" (treasure locations and encounters) based on campus walks | All Team Members | Week 4 |
-| Generate encounter artwork and pixel art images using AI | Xiyin, Alien | Week 5 |
+| Generate encounter artwork and pixel art images using AI | Xiyin, Anlin | Week 5 |
 | Update Jira board and refine the user service plan | Jeongjoon | Next Meeting |
