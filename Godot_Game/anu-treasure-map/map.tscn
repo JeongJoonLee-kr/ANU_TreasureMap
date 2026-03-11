@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=3 uid="uid://0sowkn4nyat2"]
+
+[ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://map.gd" id="1_71pa8"]
+[ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://map_event_panel.gd.gd" id="2_05x41"]
+[ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="3_gqbix"]
+[ext_resource type="Texture2D" uid="uid://dmotgwep7q3er" path="res://resources/Map/Lab_Cafe_Photo.png" id="4_oysan"]
+[ext_resource type="Texture2D" uid="uid://esoq62x5asc" path="res://resources/Map/Lab_Cafe_Photo_1.png" id="5_sb2pt"]
+[ext_resource type="Texture2D" uid="uid://cp7gpjjhajoub" path="res://resources/Map/Lake_Photo.png" id="6_0t07s"]
+[ext_resource type="Texture2D" uid="uid://sl2wlxpk2cl8" path="res://resources/Map/Lab_Cafe_Photo_2.png" id="6_05x41"]
+[ext_resource type="Texture2D" uid="uid://deuocrif52sul" path="res://resources/Map/Lake_Photo_1.png" id="7_6qsgm"]
+[ext_resource type="Texture2D" uid="uid://c0eupgspep761" path="res://resources/Map/Lake_Photo_2.png" id="9_gqbix"]
+
+[sub_resource type="Shortcut" id="Shortcut_7if1s"]
+
+[node name="Map" type="Node2D"]
+
+[node name="MapControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_71pa8")
+
+[node name="EventPanel" type="Panel" parent="MapControl"]
+z_index = 1
+layout_mode = 0
+offset_left = 11.0000305
+offset_top = 1056.0
+offset_right = 511.00003
+offset_bottom = 1556.0
+scale = Vector2(0.997, 1)
+script = ExtResource("2_05x41")
+
+[node name="LocationTitle" type="Label" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(2.3229768, 2.252979)
+
+[node name="Description" type="Label" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_left = 11.0331
+offset_top = 90.0
+offset_right = 496.25052
+offset_bottom = 369.0
+scale = Vector2(0.98141456, 1.1649898)
+
+[node name="CloseButton" type="Button" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_left = 384.15247
+offset_top = 3.0
+offset_right = 442.15247
+offset_bottom = 34.0
+scale = Vector2(1.9488021, 1.9488021)
+action_mode = 0
+shortcut = SubResource("Shortcut_7if1s")
+text = "CLOSE"
+
+[node name="GoButton" type="Button" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_left = 384.15247
+offset_top = 436.0
+offset_right = 442.15247
+offset_bottom = 467.0
+scale = Vector2(1.9488021, 1.9488021)
+action_mode = 0
+shortcut = SubResource("Shortcut_7if1s")
+text = "GO"
+
+[node name="MapBackground" type="TextureRect" parent="MapControl"]
+modulate = Color(0.86553645, 0.8655369, 0.86553687, 1)
+layout_mode = 0
+offset_right = 1536.0
+offset_bottom = 1024.0
+scale = Vector2(1, 0.9960509)
+mouse_filter = 2
+texture = ExtResource("3_gqbix")
+
+[node name="CafeIcon" type="TextureButton" parent="MapControl"]
+layout_mode = 0
+offset_left = 876.00006
+offset_top = 489.0
+offset_right = 1900.0
+offset_bottom = 1513.0
+scale = Vector2(0.20062219, 0.20010982)
+keep_pressed_outside = true
+texture_normal = ExtResource("4_oysan")
+texture_pressed = ExtResource("5_sb2pt")
+texture_hover = ExtResource("6_05x41")
+
+[node name="LakeIcon" type="TextureButton" parent="MapControl"]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 243.0
+offset_right = 1171.0
+offset_bottom = 1267.0
+scale = Vector2(0.20062219, 0.20010982)
+keep_pressed_outside = true
+texture_normal = ExtResource("6_0t07s")
+texture_pressed = ExtResource("7_6qsgm")
+texture_hover = ExtResource("9_gqbix")
+
+[connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]
+[connection signal="pressed" from="MapControl/CafeIcon" to="MapControl" method="_on_cafe_icon_pressed"]
+[connection signal="pressed" from="MapControl/LakeIcon" to="MapControl" method="_on_lake_icon_pressed"]

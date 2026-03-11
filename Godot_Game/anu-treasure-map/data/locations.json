@@ -1,0 +1,22 @@
+{
+  "cafe": {
+	"title": "Lab Cafe",
+	"description": "You go to Lab Cafe, something might happen here.",
+	"image_path": "res://resources/Location/Lab_Cafe.png",
+	"texts": [
+	  "This is Lab Cafe.",
+	  "It is a good place to take a break.",
+      "Many students come here for coffee and food."
+	]
+  },
+  "lake": {
+	"title": "Griffin Lake",
+	"description": "You go to Griffin Lake, something might happen here.",
+	"image_path": "res://resources/Location/Griffin_Lake.jpg",
+	"texts": [
+	  "This is Griffin Lake.",
+	  "The wind is strong and the water is quiet.",
+      "It feels like a peaceful place to stop for a while."
+	]
+  }
+}

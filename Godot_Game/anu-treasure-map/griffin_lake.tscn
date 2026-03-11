@@ -1,0 +1,113 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwwy004t7b2x7"]
+
+[ext_resource type="Texture2D" uid="uid://c4yj1lfh6rneh" path="res://resources/Location/Griffin_Lake.jpg" id="2_grq77"]
+
+[sub_resource type="GDScript" id="GDScript_ugupr"]
+script/source = "extends Control
+
+@export var map_scene_path: String = \"res://Map.tscn\"
+
+@onready var back_button: Button = $BackButton
+@onready var description: Label = $Description
+@onready var event_panel: Control = $EventPanel
+
+var texts: Array[String] = [
+	\"This is Lab Cafe.\",
+	\"The wind is mild and the sunshine is bright.\",
+	\"It feels like a peaceful place to stop for a while.\"
+]
+
+var text_index: int = 0
+var text_finished: bool = false
+
+func _ready() -> void:
+	back_button.pressed.connect(_on_back_button_pressed)
+	_show_current_text()
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file(map_scene_path)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton \\
+	and event.button_index == MOUSE_BUTTON_LEFT \\
+	and event.pressed:
+		_show_next_text()
+
+func _show_current_text() -> void:
+	if text_index >= 0 and text_index < texts.size():
+		description.text = texts[text_index]
+
+func _show_next_text() -> void:
+	if text_finished:
+		return
+
+	if text_index < texts.size() - 1:
+		text_index += 1
+		_show_current_text()
+	else:
+		text_finished = true
+		description.hide()
+		event_panel.hide()
+"
+
+[sub_resource type="Shortcut" id="Shortcut_ylbkv"]
+
+[node name="GriffinLake" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 2277.0
+offset_bottom = 1280.0
+scale = Vector2(0.79963005, 0.79963005)
+texture = ExtResource("2_grq77")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_right = 119.0
+offset_bottom = 23.0
+scale = Vector2(2.4940512, 2.4940512)
+text = "Griffin Lake"
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_ugupr")
+metadata/_edit_use_anchors_ = true
+
+[node name="EventPanel" type="Panel" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = -2.0
+offset_top = 737.99994
+offset_right = 498.0
+offset_bottom = 1238.0
+scale = Vector2(3.6458745, 0.5692471)
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="Label" parent="Control"]
+z_index = 2
+layout_mode = 0
+offset_left = 27.0
+offset_top = 765.0
+offset_right = 367.0
+offset_bottom = 985.0
+theme_override_font_sizes/font_size = 32
+metadata/_edit_use_anchors_ = true
+
+[node name="BackButton" type="Button" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 1416.0
+offset_top = 6.0
+offset_right = 1474.0
+offset_bottom = 37.0
+scale = Vector2(1.9488021, 1.7988944)
+action_mode = 0
+shortcut = SubResource("Shortcut_ylbkv")
+text = "BACK"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Control/BackButton" to="Control" method="_on_back_button_pressed"]
