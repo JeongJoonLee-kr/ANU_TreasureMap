@@ -1,6 +1,6 @@
 # ANU Treasure Map Team (AT)
 
-## Team Meeting 2 - Week 2 - 04/03/2026 (16:20 - 17:00)
+## Team Meeting 2 - Week 2 - 04/03/2026 (11:45 - 12:25)
 **Absent:** Anlin Bai
 **Lead/scribe:** Suya Xie
 
