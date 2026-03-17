@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://2wtnh4gdwks"]
+
+[ext_resource type="Script" uid="uid://c44qcr4grsjxa" path="res://control.gd" id="1_52bhu"]
+[ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="1_r305v"]
+
+[node name="Start" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_52bhu")
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_r305v")
+
+[node name="Label" type="Label" parent="Control"]
+modulate = Color(1, 1, 0, 1)
+self_modulate = Color(1, 0.4745098, 1, 1)
+layout_mode = 0
+offset_left = 278.0
+offset_top = 230.0
+offset_right = 424.0
+offset_bottom = 253.0
+scale = Vector2(7.397213, 7.397213)
+text = "ANU Treasure Map"
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 659.0
+offset_top = 825.0
+offset_right = 939.0
+offset_bottom = 905.0
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[connection signal="pressed" from="Control/Button" to="Control" method="_on_start_button_pressed"]

@@ -15,7 +15,7 @@ general/updates_per_second=30
 [application]
 
 config/name="ANU_Treasure_Map"
-run/main_scene="uid://0sowkn4nyat2"
+run/main_scene="uid://2wtnh4gdwks"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://cd4lwtgxx7odo"
 
