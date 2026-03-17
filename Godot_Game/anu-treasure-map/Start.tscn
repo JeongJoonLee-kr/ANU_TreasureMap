@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://c44qcr4grsjxa" path="res://control.gd" id="1_52bhu"]
 [ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="1_r305v"]
 
-[node name="Start" type="Node2D"]
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -26,7 +27,7 @@ offset_left = 278.0
 offset_top = 230.0
 offset_right = 424.0
 offset_bottom = 253.0
-scale = Vector2(7.397213, 7.397213)
+theme_override_font_sizes/font_size = 110
 text = "ANU Treasure Map"
 
 [node name="Button" type="Button" parent="Control"]
