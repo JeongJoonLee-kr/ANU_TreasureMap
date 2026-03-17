@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=14 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://map_event_panel.gd.gd" id="2_05x41"]
@@ -9,8 +9,15 @@
 [ext_resource type="Texture2D" uid="uid://sl2wlxpk2cl8" path="res://resources/Map/Lab_Cafe_Photo_2.png" id="6_05x41"]
 [ext_resource type="Texture2D" uid="uid://deuocrif52sul" path="res://resources/Map/Lake_Photo_1.png" id="7_6qsgm"]
 [ext_resource type="Texture2D" uid="uid://c0eupgspep761" path="res://resources/Map/Lake_Photo_2.png" id="9_gqbix"]
+[ext_resource type="Script" uid="uid://cfdocbimtb6kt" path="res://ui_layer.gd" id="10_oysan"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
+
+[sub_resource type="Gradient" id="Gradient_sb2pt"]
+colors = PackedColorArray(0, 0, 0, 0.64705884, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0t07s"]
+gradient = SubResource("Gradient_sb2pt")
 
 [node name="Map" type="Node2D"]
 
@@ -99,6 +106,68 @@ keep_pressed_outside = true
 texture_normal = ExtResource("6_0t07s")
 texture_pressed = ExtResource("7_6qsgm")
 texture_hover = ExtResource("9_gqbix")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("10_oysan")
+
+[node name="MenuButton" type="Button" parent="UILayer"]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 68.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 32
+text = "Menu"
+
+[node name="PauseMenu" type="ColorRect" parent="UILayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="MenuBox" type="TextureRect" parent="UILayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_0t07s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -68.0
+offset_right = 64.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContinueButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Continue Game"
+
+[node name="HomeButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back to Home"
+
+[node name="SettingsButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit Game"
 
 [connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]
 [connection signal="pressed" from="MapControl/CafeIcon" to="MapControl" method="_on_cafe_icon_pressed"]
