@@ -1,7 +1,7 @@
 extends Node2D
 
 # Path back to the main map scene.
-@export var map_scene_path: String = "res://Map.tscn"
+@export var map_scene_path: String = "res://map.tscn"
 
 # Store the current location id passed from the map scene.
 var location_id: String = ""
