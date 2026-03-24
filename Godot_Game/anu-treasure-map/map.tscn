@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://0sowkn4nyat2"]
 
-[ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://map.gd" id="1_71pa8"]
-[ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://map_event_panel.gd.gd" id="2_05x41"]
+[ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
+[ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
 [ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="3_gqbix"]
 [ext_resource type="Texture2D" uid="uid://dmotgwep7q3er" path="res://resources/Map/Lab_Cafe_Photo.png" id="4_oysan"]
 [ext_resource type="Texture2D" uid="uid://esoq62x5asc" path="res://resources/Map/Lab_Cafe_Photo_1.png" id="5_sb2pt"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://sl2wlxpk2cl8" path="res://resources/Map/Lab_Cafe_Photo_2.png" id="6_05x41"]
 [ext_resource type="Texture2D" uid="uid://deuocrif52sul" path="res://resources/Map/Lake_Photo_1.png" id="7_6qsgm"]
 [ext_resource type="Texture2D" uid="uid://c0eupgspep761" path="res://resources/Map/Lake_Photo_2.png" id="9_gqbix"]
-[ext_resource type="Script" uid="uid://cfdocbimtb6kt" path="res://ui_layer.gd" id="10_oysan"]
+[ext_resource type="Script" uid="uid://cfdocbimtb6kt" path="res://systems/Script/ui/ui_layer.gd" id="10_oysan"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
 

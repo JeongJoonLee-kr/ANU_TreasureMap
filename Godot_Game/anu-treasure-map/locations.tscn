@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://duf00c663dvr0"]
 
-[ext_resource type="Script" uid="uid://mj1pc6uleuqr" path="res://locations.gd" id="2_nc2o8"]
+[ext_resource type="Script" uid="uid://mj1pc6uleuqr" path="res://systems/Script/map/locations.gd" id="2_nc2o8"]
 
 [sub_resource type="Shortcut" id="Shortcut_fi8n4"]
 
