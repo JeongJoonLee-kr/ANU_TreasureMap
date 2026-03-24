@@ -6,6 +6,12 @@ extends Node2D
 # Store the current location id passed from the map scene.
 var location_id: String = ""
 
+# Store loaded location data and dialogue state.
+var location_data: Dictionary = {}
+var texts: Array[String] = []
+var text_index: int = 0
+var text_finished: bool = false
+
 # References to the UI elements in the shared location scene.
 @onready var background: TextureRect = $TextureRect
 @onready var title_label: Label = $TitleLabel
@@ -13,11 +19,6 @@ var location_id: String = ""
 @onready var event_panel: Control = $Control/EventPanel
 @onready var back_button: Button = $Control/BackButton
 
-# Store loaded location data and dialogue state.
-var location_data := {}
-var texts: Array = []
-var text_index: int = 0
-var text_finished: bool = false
 
 func _ready() -> void:
 	# Read the selected location id from the global script.
@@ -30,22 +31,24 @@ func _ready() -> void:
 	load_location_data()
 	show_location()
 
+
 # Read and parse the location data file.
 func load_location_data() -> void:
-	var file = FileAccess.open("res://data/locations.json", FileAccess.READ)
+	var file: FileAccess = FileAccess.open("res://data/locations.json", FileAccess.READ)
 	if file == null:
 		push_error("Failed to open locations.json")
 		return
 
-	var json_text = file.get_as_text()
+	var json_text: String = file.get_as_text()
 	file.close()
 
-	var parsed = JSON.parse_string(json_text)
+	var parsed: Variant = JSON.parse_string(json_text)
 	if parsed == null:
 		push_error("Failed to parse locations.json")
 		return
 
-	location_data = parsed
+	location_data = parsed as Dictionary
+
 
 # Show the selected location using data from locations.json.
 func show_location() -> void:
@@ -53,18 +56,18 @@ func show_location() -> void:
 		push_error("Unknown location id: " + location_id)
 		return
 
-	var data = location_data[location_id]
+	var data: Dictionary = location_data[location_id] as Dictionary
 
 	# Show the location title.
 	title_label.text = data.get("title", "Unknown Location")
 
 	# Load and show the background image.
-	var image_path = data.get("image_path", "")
+	var image_path: String = data.get("image_path", "") as String
 	if image_path != "":
 		background.texture = load(image_path)
 
 	# Load dialogue text list and reset text state.
-	texts = data.get("texts", [])
+	texts = Array(data.get("texts", []), TYPE_STRING, "", null)
 	text_index = 0
 	text_finished = false
 
@@ -77,16 +80,17 @@ func show_location() -> void:
 		description.hide()
 		event_panel.hide()
 
+
 # Return to the map scene.
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file(map_scene_path)
 
+
 # Listen for left mouse clicks to move to the next text.
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton \
-	and event.button_index == MOUSE_BUTTON_LEFT \
-	and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		show_next_text()
+
 
 # Show the next text in the list.
 # After the last text, hide the text panel.

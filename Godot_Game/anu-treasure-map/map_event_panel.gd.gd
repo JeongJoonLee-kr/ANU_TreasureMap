@@ -1,14 +1,15 @@
 extends Panel
 
-# Get references to the UI nodes inside the popup panel.
-@onready var location_title = $LocationTitle
-@onready var description = $Description
-@onready var close_button = $CloseButton
-@onready var go_button = $GoButton
-
 # Store the selected location id.
 # This id will be used when the player presses the Go button.
 var target_location_id: String = ""
+
+# Get references to the UI nodes inside the popup panel.
+@onready var location_title: Label = $LocationTitle
+@onready var description: Label = $Description
+@onready var close_button: Button = $CloseButton
+@onready var go_button: Button = $GoButton
+
 
 func _ready() -> void:
 	# Connect the Close button signal only once.
@@ -18,6 +19,7 @@ func _ready() -> void:
 	# Connect the Go button signal only once.
 	if not go_button.pressed.is_connected(_on_go_button_pressed):
 		go_button.pressed.connect(_on_go_button_pressed)
+
 
 # Show the popup near the clicked location icon.
 # title: location name
@@ -36,10 +38,10 @@ func open_popup(title: String, desc: String, icon: Control, location_id: String)
 	await get_tree().process_frame
 
 	# Get popup size, window size, and icon position/size.
-	var popup_size = size
-	var window_size = get_viewport_rect().size
-	var icon_pos = icon.global_position
-	var icon_size = icon.size
+	var popup_size: Vector2 = size
+	var window_size: Vector2 = get_viewport_rect().size
+	var icon_pos: Vector2 = icon.global_position
+	var icon_size: Vector2 = icon.size
 
 	var margin_x := 180
 	var margin_y := 0
@@ -74,14 +76,17 @@ func open_popup(title: String, desc: String, icon: Control, location_id: String)
 	# Apply the final popup position.
 	global_position = pos
 
+
 # Hide the popup and clear the saved location id.
 func close_popup() -> void:
 	hide()
 	target_location_id = ""
 
+
 # Called when the Close button is pressed.
 func _on_close_button_pressed() -> void:
 	close_popup()
+
 
 # Called when the Go button is pressed.
 # Save the location id globally and switch to the shared location scene.

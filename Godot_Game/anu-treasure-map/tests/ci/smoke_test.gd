@@ -76,12 +76,12 @@ func _check_scenes(failures: Array[String]) -> void:
 
 
 func _check_locations_data(failures: Array[String]) -> void:
-	var file := FileAccess.open(LOCATION_DATA_PATH, FileAccess.READ)
+	var file: FileAccess = FileAccess.open(LOCATION_DATA_PATH, FileAccess.READ)
 	if file == null:
 		failures.append("Failed to open %s" % LOCATION_DATA_PATH)
 		return
 
-	var parsed := JSON.parse_string(file.get_as_text())
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	file.close()
 
 	if typeof(parsed) != TYPE_DICTIONARY:
@@ -94,9 +94,9 @@ func _check_locations_data(failures: Array[String]) -> void:
 		return
 
 	for location_id in locations.keys():
-		var location := locations[location_id] as Dictionary
+		var location: Dictionary = locations[location_id] as Dictionary
 		var image_path := location.get("image_path", "") as String
-		var texts := location.get("texts", []) as Array
+		var texts: Array = location.get("texts", []) as Array
 
 		if image_path.is_empty() or not ResourceLoader.exists(image_path):
 			failures.append("Missing image for location %s: %s" % [location_id, image_path])
