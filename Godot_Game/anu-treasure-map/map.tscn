@@ -169,6 +169,30 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Exit Game"
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Topbar" type="HBoxContainer" parent="HUD"]
+offset_left = 146.0
+offset_top = 24.0
+offset_right = 546.0
+offset_bottom = 64.0
+theme_override_constants/separation = 50
+
+[node name="StaminaLabel" type="Label" parent="HUD/Topbar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Stamina:"
+
+[node name="TimeLabel" type="Label" parent="HUD/Topbar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Time:"
+
+[node name="MoneyLabel" type="Label" parent="HUD/Topbar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Money:"
+
 [connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]
 [connection signal="pressed" from="MapControl/CafeIcon" to="MapControl" method="_on_cafe_icon_pressed"]
 [connection signal="pressed" from="MapControl/LakeIcon" to="MapControl" method="_on_lake_icon_pressed"]

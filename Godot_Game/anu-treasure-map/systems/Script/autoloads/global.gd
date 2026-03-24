@@ -4,3 +4,7 @@ extends Node
 # This value is used to pass location information
 # from the map scene to the shared location scene.
 var current_location_id: String = ""
+
+var stamina: int = 100
+var time: int = 8
+var money: int = 50
