@@ -21,7 +21,7 @@ config/icon="uid://cd4lwtgxx7odo"
 
 [autoload]
 
-Global="*res://global.gd"
+Global="*res://systems/Script/autoloads/global.gd"
 
 [display]
 

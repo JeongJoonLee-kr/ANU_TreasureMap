@@ -1,12 +1,12 @@
 extends Control
 
-# References to the popup panel and location icons on the map.
-@onready var event_panel = $EventPanel
-@onready var cafe_icon = $CafeIcon
-@onready var lake_icon = $LakeIcon
-
 # Store all location data loaded from locations.json.
-var location_data = {}
+var location_data: Dictionary = {}
+
+# References to the popup panel and location icons on the map.
+@onready var event_panel: Panel = $EventPanel
+@onready var cafe_icon: Control = $CafeIcon
+@onready var lake_icon: Control = $LakeIcon
 
 
 func _ready() -> void:
@@ -17,20 +17,20 @@ func _ready() -> void:
 
 # Read and parse the location data file.
 func load_location_data() -> void:
-	var file = FileAccess.open("res://data/locations.json", FileAccess.READ)
+	var file: FileAccess = FileAccess.open("res://data/locations.json", FileAccess.READ)
 	if file == null:
 		push_error("Failed to open locations.json")
 		return
 
-	var json_text = file.get_as_text()
+	var json_text: String = file.get_as_text()
 	file.close()
 
-	var parsed = JSON.parse_string(json_text)
+	var parsed: Variant = JSON.parse_string(json_text)
 	if parsed == null:
 		push_error("Failed to parse locations.json")
 		return
 
-	location_data = parsed
+	location_data = parsed as Dictionary
 
 
 # Open a location popup using loaded data.
@@ -41,7 +41,7 @@ func open_location(location_id: String, icon: Control) -> void:
 		push_error("Unknown location id: " + location_id)
 		return
 
-	var data = location_data[location_id]
+	var data: Dictionary = location_data[location_id] as Dictionary
 
 	event_panel.open_popup(data.get("title", ""), data.get("description", ""), icon, location_id)
 
