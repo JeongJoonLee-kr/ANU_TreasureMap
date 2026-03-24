@@ -3,9 +3,10 @@
 set -euo pipefail
 
 GODOT_VERSION="${GODOT_VERSION:-4.5-stable}"
+GODOT_TEMPLATES_VERSION="${GODOT_TEMPLATES_VERSION:-${GODOT_VERSION//-/.}}"
 CACHE_DIR="${RUNNER_TEMP:-/tmp}/godot-ci"
 GODOT_DIR="$CACHE_DIR/godot"
-TEMPLATES_DIR="$HOME/.local/share/godot/export_templates/${GODOT_VERSION}"
+TEMPLATES_DIR="$HOME/.local/share/godot/export_templates/${GODOT_TEMPLATES_VERSION}"
 
 mkdir -p "$GODOT_DIR" "$TEMPLATES_DIR"
 
