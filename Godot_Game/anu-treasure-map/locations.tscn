@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://duf00c663dvr0"]
+[gd_scene load_steps=4 format=3 uid="uid://duf00c663dvr0"]
 
 [ext_resource type="Script" uid="uid://mj1pc6uleuqr" path="res://systems/Script/map/locations.gd" id="2_nc2o8"]
+[ext_resource type="Script" uid="uid://bjubudh236ger" path="res://systems/Script/options/options_component.gd" id="2_xmwjg"]
 
 [sub_resource type="Shortcut" id="Shortcut_fi8n4"]
 
@@ -33,9 +34,23 @@ z_index = 1
 layout_mode = 0
 offset_left = -2.0
 offset_top = 737.99994
-offset_right = 498.0
-offset_bottom = 1238.0
-scale = Vector2(3.6458745, 0.5692471)
+offset_right = 1548.0
+offset_bottom = 1048.0
+metadata/_edit_use_anchors_ = true
+
+[node name="OptionsContainer" type="VBoxContainer" parent="Control/EventPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Description" type="Label" parent="Control"]
@@ -60,5 +75,8 @@ action_mode = 0
 shortcut = SubResource("Shortcut_fi8n4")
 text = "BACK"
 metadata/_edit_use_anchors_ = true
+
+[node name="OptionsComponent" type="Node" parent="."]
+script = ExtResource("2_xmwjg")
 
 [connection signal="pressed" from="Control/BackButton" to="Control" method="_on_back_button_pressed"]

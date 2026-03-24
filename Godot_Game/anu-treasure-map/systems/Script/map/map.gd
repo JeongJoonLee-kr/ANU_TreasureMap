@@ -48,7 +48,7 @@ func open_location(location_id: String, icon: Control) -> void:
 
 # Called when the cafe icon is pressed.
 func _on_cafe_icon_pressed() -> void:
-	open_location("cafe", cafe_icon)
+	open_location("lab_cafe", cafe_icon)
 
 
 # Called when the lake icon is pressed.
