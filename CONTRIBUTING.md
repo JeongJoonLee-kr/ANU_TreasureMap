@@ -85,6 +85,12 @@ If `gdformat` or `gdlint` is missing:
 python3 -m pip install --user "gdtoolkit==4.*"
 ```
 
+### Automatic formatting on pull requests
+
+GitHub Actions also runs `gdformat` on pull requests that change `.gd` files.
+If a contributor opens a PR without local formatting set up, the workflow may push a
+small follow-up commit named `style: auto-format Godot scripts` to the same branch.
+
 ## GitHub CI Policy
 
 This repository uses three CI layers for the Godot project:
