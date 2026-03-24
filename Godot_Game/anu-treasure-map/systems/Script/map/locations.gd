@@ -106,6 +106,9 @@ func show_next_text() -> void:
 func show_interactive_options() -> void:
 	event_panel.show()
 	options_container.show()
+	
+	for child in options_container.get_children():
+		child.queue_free()
 
 	# 1. if the coffee price is setted
 	if options_component.has_option("coffee_cost"):
@@ -134,12 +137,26 @@ func show_interactive_options() -> void:
 		options_container.add_child(btn)
 
 
-# --- the events ---
+# Events
 func _on_buy_coffee(cost: int) -> void:
-	print("You spend $", cost, " and get one coffee!")
-	# TODO
-
-
+	# hide the option ubtton
+	options_container.hide()
+	
+	# dialogue system
+	texts = ["You spent " + str(cost) + " Gold and enjoyed a hot coffee!"]
+	text_index = 0
+	text_finished = false
+	
+	description.text = texts[text_index]
+	description.show()
+	
 func _on_buy_meal(cost: int) -> void:
-	print("You spend $", cost, " and have a good meal!")
-	# TODO
+
+	options_container.hide()
+	
+	texts = ["You spent " + str(cost) + " Gold and had a hearty meal!"]
+	text_index = 0
+	text_finished = false	
+
+	description.text = texts[text_index]
+	description.show()
