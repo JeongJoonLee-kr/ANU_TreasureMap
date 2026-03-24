@@ -31,7 +31,7 @@ func _ready() -> void:
 ## Fetches location metadata from the local JSON database
 func load_location_data() -> void:
 	var file: FileAccess = FileAccess.open("res://data/locations.json", FileAccess.READ)
-	
+
 	if file:
 		var json_text: String = file.get_as_text()
 		var parsed: Variant = JSON.parse_string(json_text)
