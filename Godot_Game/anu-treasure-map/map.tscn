@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=19 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
@@ -10,14 +10,15 @@
 [ext_resource type="Texture2D" uid="uid://deuocrif52sul" path="res://resources/Map/Lake_Photo_1.png" id="7_6qsgm"]
 [ext_resource type="Texture2D" uid="uid://c0eupgspep761" path="res://resources/Map/Lake_Photo_2.png" id="9_gqbix"]
 [ext_resource type="Script" uid="uid://cfdocbimtb6kt" path="res://systems/Script/ui/ui_layer.gd" id="10_oysan"]
+[ext_resource type="Texture2D" uid="uid://bqjatt4asw58i" path="res://systems/Script/ui/PAUSE-MENU_0000s_0001__Group_.png" id="11_wbpbn"]
+[ext_resource type="Texture2D" uid="uid://b285c1cedr0mh" path="res://systems/Script/ui/PAUSE-MENU_0000s_0010_PAUSE.png" id="12_a6rn7"]
+[ext_resource type="Texture2D" uid="uid://dysqqpftgb41n" path="res://systems/Script/ui/PAUSE-MENU_0000s_0009_RESUME.png" id="13_4on3e"]
+[ext_resource type="Texture2D" uid="uid://6lbeev4n0flc" path="res://systems/Script/ui/PAUSE-MENU_0000s_0008_Layer-1.png" id="14_bssq0"]
+[ext_resource type="Texture2D" uid="uid://bjrb4hlrefmsj" path="res://systems/Script/ui/PAUSE-MENU_0000s_0007_RETRY.png" id="15_jk4ss"]
+[ext_resource type="Texture2D" uid="uid://b0g04418bvb0o" path="res://systems/Script/ui/PAUSE-MENU_0000s_0005_SETTING.png" id="16_r5om4"]
+[ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://systems/Script/ui/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
-
-[sub_resource type="Gradient" id="Gradient_sb2pt"]
-colors = PackedColorArray(0, 0, 0, 0.64705884, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0t07s"]
-gradient = SubResource("Gradient_sb2pt")
 
 [node name="Map" type="Node2D"]
 
@@ -127,47 +128,137 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
 
-[node name="MenuBox" type="TextureRect" parent="UILayer/PauseMenu"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 400.0
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_0t07s")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox"]
+[node name="MenuBox" type="NinePatchRect" parent="UILayer/PauseMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -68.0
-offset_right = 64.0
-offset_bottom = 68.0
+offset_left = -189.5625
+offset_top = -277.0
+offset_right = 189.5625
+offset_bottom = 277.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_wbpbn")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseMenu/MenuBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -154.0
+offset_right = 124.0
+offset_bottom = 154.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ContinueButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Continue Game"
 
-[node name="HomeButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+[node name="PauseTitle" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Back to Home"
+texture = ExtResource("12_a6rn7")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="SettingsButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+[node name="Control" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Settings"
 
-[node name="QuitButton" type="Button" parent="UILayer/PauseMenu/MenuBox/VBoxContainer"]
+[node name="ResumeOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Exit Game"
+
+[node name="ContinueButton" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("13_4on3e")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ContinueLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
+custom_minimum_size = Vector2(143, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("14_bssq0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control2" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="RetryOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RetryText" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("15_jk4ss")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RetryLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
+custom_minimum_size = Vector2(143, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("14_bssq0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control3" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="SettingsOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SettingsText" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("16_r5om4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SettingsLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
+custom_minimum_size = Vector2(143, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("14_bssq0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control4" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ExitOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ExitText" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("17_a6rn7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ExitLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
+custom_minimum_size = Vector2(143, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("14_bssq0")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]
 [connection signal="pressed" from="MapControl/CafeIcon" to="MapControl" method="_on_cafe_icon_pressed"]
