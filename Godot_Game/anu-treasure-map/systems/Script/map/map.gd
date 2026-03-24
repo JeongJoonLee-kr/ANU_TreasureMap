@@ -33,7 +33,7 @@ func test_change_resources() -> void:
 	update_resource_ui()
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test_resource"):
-		test_change_resources()	
+		test_change_resources()
 # Test End
 # Read and parse the location data file.
 func load_location_data() -> void:
