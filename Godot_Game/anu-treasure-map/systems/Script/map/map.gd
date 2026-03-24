@@ -20,25 +20,21 @@ func _ready() -> void:
 	event_panel.hide()
 	update_resource_ui()
 	load_location_data()
-	
 # Load the resource UI.
 func update_resource_ui() -> void:
 	stamina_label.text = "Stamina: " + str(Global.stamina)
 	time_label.text = "Time: " + str(Global.time)
 	money_label.text = "Money: $" + str(Global.money)
-	
 # Test，press P to change the number
 func test_change_resources() -> void:
 	Global.stamina -= 10
 	Global.time += 1
 	Global.money += 20
 	update_resource_ui()
-	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test_resource"):
 		test_change_resources()	
 # Test End
-
 # Read and parse the location data file.
 func load_location_data() -> void:
 	var file: FileAccess = FileAccess.open("res://data/locations.json", FileAccess.READ)
