@@ -68,13 +68,35 @@ Before opening a PR:
 - Open the affected scenes in Godot and click through the changed flow.
 - If you touched exported paths or file names, test on a case-sensitive path in CI or a Linux environment.
 
+### Optional local pre-commit hook
+
+To auto-format Godot scripts before every commit:
+
+```bash
+chmod +x scripts/git-hooks/pre-commit
+ln -sf ../../scripts/git-hooks/pre-commit .git/hooks/pre-commit
+```
+
+The hook runs `gdformat Godot_Game/anu-treasure-map` and re-stages the formatted files.
+
+If `gdformat` or `gdlint` is missing:
+
+```bash
+python3 -m pip install --user "gdtoolkit==4.*"
+```
+
+### Automatic formatting on pull requests
+
+GitHub Actions also runs `gdformat` on pull requests that change `.gd` files.
+If a contributor opens a PR without local formatting set up, the workflow may push a
+small follow-up commit named `style: auto-format Godot scripts` to the same branch.
+
 ## GitHub CI Policy
 
-This repository uses three CI layers for the Godot project:
+This repository uses two CI layers for the Godot project:
 
 - `lint`: GDScript style and JSON validation.
 - `smoke-test`: Headless Godot checks that key scenes and data load correctly.
-- `build-windows`: Command-line export using the committed export preset.
 
 This is intentionally lighter than a full gameplay test harness. Right now the project has no dedicated unit test framework such as GUT or GdUnit4, so the smoke test acts as the first safety net.
 
