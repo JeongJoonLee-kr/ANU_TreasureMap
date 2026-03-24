@@ -34,11 +34,11 @@ func load_location_data() -> void:
 	if file == null:
 		push_error("Failed to open locations.json!")
 		return
-		
+
 	if file:
 		var json_text: String = file.get_as_text()
 		var parsed: Variant = JSON.parse_string(json_text)
-		
+
 		if parsed == null:
 			push_error("Failed to parse locations.json!")
 			return
