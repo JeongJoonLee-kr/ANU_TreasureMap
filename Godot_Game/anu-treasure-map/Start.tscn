@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://2wtnh4gdwks"]
 
-[ext_resource type="Script" uid="uid://c44qcr4grsjxa" path="res://control.gd" id="1_52bhu"]
+[ext_resource type="Script" uid="uid://c44qcr4grsjxa" path="res://systems/Script/ui/control.gd" id="1_52bhu"]
 [ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="1_r305v"]
 
 [node name="Start" type="Control"]
