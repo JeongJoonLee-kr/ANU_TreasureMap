@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+PROJECT_PATH="Godot_Game/anu-treasure-map"
+LOCAL_BIN="$HOME/Library/Python/3.9/bin"
+
+if [ -d "$LOCAL_BIN" ]; then
+  export PATH="$LOCAL_BIN:$PATH"
+fi
+
+if ! command -v gdformat >/dev/null 2>&1; then
+  echo "gdformat is not installed. Install gdtoolkit first:"
+  echo "  python3 -m pip install --user 'gdtoolkit==4.*'"
+  exit 1
+fi
+
+gdformat "$PROJECT_PATH"
+git add "$PROJECT_PATH"

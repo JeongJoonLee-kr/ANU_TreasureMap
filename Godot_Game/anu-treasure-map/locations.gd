@@ -19,6 +19,7 @@ var texts: Array = []
 var text_index: int = 0
 var text_finished: bool = false
 
+
 func _ready() -> void:
 	# Read the selected location id from the global script.
 	location_id = Global.current_location_id
@@ -29,6 +30,7 @@ func _ready() -> void:
 	# Load all location data and show the current location.
 	load_location_data()
 	show_location()
+
 
 # Read and parse the location data file.
 func load_location_data() -> void:
@@ -46,6 +48,7 @@ func load_location_data() -> void:
 		return
 
 	location_data = parsed
+
 
 # Show the selected location using data from locations.json.
 func show_location() -> void:
@@ -77,16 +80,17 @@ func show_location() -> void:
 		description.hide()
 		event_panel.hide()
 
+
 # Return to the map scene.
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file(map_scene_path)
 
+
 # Listen for left mouse clicks to move to the next text.
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton \
-	and event.button_index == MOUSE_BUTTON_LEFT \
-	and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		show_next_text()
+
 
 # Show the next text in the list.
 # After the last text, hide the text panel.

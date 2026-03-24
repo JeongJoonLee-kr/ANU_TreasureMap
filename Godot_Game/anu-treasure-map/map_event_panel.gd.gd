@@ -10,6 +10,7 @@ extends Panel
 # This id will be used when the player presses the Go button.
 var target_location_id: String = ""
 
+
 func _ready() -> void:
 	# Connect the Close button signal only once.
 	if not close_button.pressed.is_connected(_on_close_button_pressed):
@@ -18,6 +19,7 @@ func _ready() -> void:
 	# Connect the Go button signal only once.
 	if not go_button.pressed.is_connected(_on_go_button_pressed):
 		go_button.pressed.connect(_on_go_button_pressed)
+
 
 # Show the popup near the clicked location icon.
 # title: location name
@@ -74,14 +76,17 @@ func open_popup(title: String, desc: String, icon: Control, location_id: String)
 	# Apply the final popup position.
 	global_position = pos
 
+
 # Hide the popup and clear the saved location id.
 func close_popup() -> void:
 	hide()
 	target_location_id = ""
 
+
 # Called when the Close button is pressed.
 func _on_close_button_pressed() -> void:
 	close_popup()
+
 
 # Called when the Go button is pressed.
 # Save the location id globally and switch to the shared location scene.
