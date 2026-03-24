@@ -1,7 +1,6 @@
 class_name GameOptionsData
 extends Resource
 
-
 @export var data: Dictionary = {}
 
 
