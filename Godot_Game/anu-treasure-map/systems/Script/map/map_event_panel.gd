@@ -1,5 +1,6 @@
 extends Panel
 
+
 # Store the selected location id.
 # This id will be used when the player presses the Go button.
 var target_location_id: String = ""
