@@ -49,21 +49,21 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          gdlint "$GODOT_PROJECT_PATH" | tee /tmp/gdlint.log
+          gdlint "$GODOT_PROJECT_PATH" 2>&1 | tee /tmp/gdlint.log
 
       - name: Check formatting
         id: gdformat
         continue-on-error: true
         run: |
           set -o pipefail
-          gdformat --check "$GODOT_PROJECT_PATH" | tee /tmp/gdformat.log
+          gdformat --check "$GODOT_PROJECT_PATH" 2>&1 | tee /tmp/gdformat.log
 
       - name: Validate location data
         id: validate
         continue-on-error: true
         run: |
           set -o pipefail
-          python scripts/ci/validate_locations.py | tee /tmp/validate.log
+          python scripts/ci/validate_locations.py 2>&1 | tee /tmp/validate.log
 
       - name: Build lint comment body
         if: github.event_name == 'pull_request'
