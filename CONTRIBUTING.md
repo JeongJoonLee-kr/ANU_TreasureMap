@@ -20,6 +20,7 @@ The collaboration rules below are tuned for the Godot side first, because that i
 - Follow the official GDScript style guide for naming, spacing, and script organization.
 - Use static typing for exported values, local variables whose type is not obvious, function arguments, and return types.
 - Prefer `:=` only when the inferred type is obvious on the same line.
+- Keep declarations in a predictable order when practical, but do not block a PR on declaration-order cleanup alone.
 
 Good:
 
