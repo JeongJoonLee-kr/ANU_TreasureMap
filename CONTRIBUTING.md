@@ -20,6 +20,7 @@ The collaboration rules below are tuned for the Godot side first, because that i
 - Follow the official GDScript style guide for naming, spacing, and script organization.
 - Use static typing for exported values, local variables whose type is not obvious, function arguments, and return types.
 - Prefer `:=` only when the inferred type is obvious on the same line.
+- Keep declarations in a predictable order when practical, but do not block a PR on declaration-order cleanup alone.
 
 Good:
 
@@ -93,11 +94,10 @@ small follow-up commit named `style: auto-format Godot scripts` to the same bran
 
 ## GitHub CI Policy
 
-This repository uses three CI layers for the Godot project:
+This repository uses two CI layers for the Godot project:
 
 - `lint`: GDScript style and JSON validation.
 - `smoke-test`: Headless Godot checks that key scenes and data load correctly.
-- `build-windows`: Command-line export using the committed export preset.
 
 This is intentionally lighter than a full gameplay test harness. Right now the project has no dedicated unit test framework such as GUT or GdUnit4, so the smoke test acts as the first safety net.
 
