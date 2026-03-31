@@ -8,11 +8,37 @@ var location_data: Dictionary = {}
 @onready var cafe_icon: Control = $CafeIcon
 @onready var lake_icon: Control = $LakeIcon
 
+@onready var stamina_label = $"../HUD/Topbar/StaminaLabel"
+@onready var time_label = $"../HUD/Topbar/TimeLabel"
+@onready var money_label = $"../HUD/Topbar/MoneyLabel"
+
 
 func _ready() -> void:
 	# Hide the popup when the map scene starts.
 	event_panel.hide()
+	update_resource_ui()
 	load_location_data()
+
+
+# Load the resource UI.
+func update_resource_ui() -> void:
+	stamina_label.text = "Stamina: " + str(Global.stamina)
+	time_label.text = "Time: " + str(Global.time)
+	money_label.text = "Money: $" + str(Global.money)
+
+
+# Test，press P to change the number
+func test_change_resources() -> void:
+	Global.stamina -= 10
+	Global.time += 1
+	Global.money += 20
+	update_resource_ui()
+
+
+# Test End
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("test_resource"):
+		test_change_resources()
 
 
 # Read and parse the location data file.
