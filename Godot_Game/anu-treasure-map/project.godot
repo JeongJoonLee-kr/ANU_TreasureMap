@@ -27,6 +27,7 @@ Global="*res://systems/Script/autoloads/global.gd"
 
 window/size/viewport_width=1536
 window/size/viewport_height=1024
+window/stretch/mode="canvas_items"
 
 [input]
 
