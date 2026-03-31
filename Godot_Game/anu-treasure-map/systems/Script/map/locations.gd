@@ -22,7 +22,11 @@ var text_finished: bool = false
 
 
 func _ready() -> void:
-	location_id = Global.selected_location_id if Global.selected_location_id != "" else Global.current_location_id
+	location_id = (
+		Global.selected_location_id
+		if Global.selected_location_id != ""
+		else Global.current_location_id
+	)
 	back_button.pressed.connect(_on_back_button_pressed)
 	load_location_data()
 	show_location()
