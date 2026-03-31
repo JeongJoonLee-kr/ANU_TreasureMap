@@ -9,7 +9,6 @@ var location_data: Dictionary = {}
 @onready var lake_icon: Control = $LakeIcon
 @onready var current_location_marker: TextureRect = $CurrentLocationMarker
 
-@onready var stamina_label = $"../HUD/Topbar/StaminaLabel"
 @onready var time_label = $"../HUD/Topbar/TimeLabel"
 @onready var money_label = $"../HUD/Topbar/MoneyLabel"
 
@@ -25,14 +24,12 @@ func _ready() -> void:
 
 # Load the resource UI.
 func update_resource_ui() -> void:
-	stamina_label.text = "Stamina: " + str(Global.stamina)
 	time_label.text = "Time: " + str(Global.time)
 	money_label.text = "Money: $" + str(Global.money)
 
 
 # Test，press P to change the number
 func test_change_resources() -> void:
-	Global.stamina -= 10
 	Global.time += 1
 	Global.money += 20
 	update_resource_ui()
@@ -99,7 +96,7 @@ func open_location(location_id: String, icon: Control) -> void:
 		return
 
 	var data: Dictionary = location_data[location_id] as Dictionary
-	var travel_cost := get_travel_cost(Global.player_location_id, location_id)
+	var travel_time := get_travel_time(Global.player_location_id, location_id)
 	var can_travel := can_travel_to_location(location_id)
 
 	event_panel.open_popup(
@@ -107,23 +104,23 @@ func open_location(location_id: String, icon: Control) -> void:
 		data.get("description", ""),
 		icon,
 		location_id,
-		travel_cost,
+		travel_time,
 		can_travel
 	)
 
 
 func try_move_to_location(target_location_id: String) -> void:
-	var travel_cost := get_travel_cost(Global.player_location_id, target_location_id)
+	var travel_time := get_travel_time(Global.player_location_id, target_location_id)
 
-	if travel_cost < 0:
-		event_panel.show_travel_status("Travel Cost: Unreachable", false)
+	if travel_time < 0:
+		event_panel.show_travel_status("Travel Time: Unreachable", false)
 		return
 
-	if Global.stamina < travel_cost:
-		event_panel.show_travel_status("Travel Cost: %d Stamina (Not enough)" % travel_cost, false)
+	if Global.time < travel_time:
+		event_panel.show_travel_status("Travel Time: %d (Not enough)" % travel_time, false)
 		return
 
-	Global.stamina -= travel_cost
+	Global.time -= travel_time
 	Global.current_location_id = target_location_id
 	Global.selected_location_id = target_location_id
 	Global.player_location_id = target_location_id
@@ -133,11 +130,11 @@ func try_move_to_location(target_location_id: String) -> void:
 
 
 func can_travel_to_location(target_location_id: String) -> bool:
-	var travel_cost := get_travel_cost(Global.player_location_id, target_location_id)
-	return travel_cost >= 0 and Global.stamina >= travel_cost
+	var travel_time := get_travel_time(Global.player_location_id, target_location_id)
+	return travel_time >= 0 and Global.time >= travel_time
 
 
-func get_travel_cost(from_location_id: String, to_location_id: String) -> int:
+func get_travel_time(from_location_id: String, to_location_id: String) -> int:
 	if from_location_id == "" or to_location_id == "":
 		return -1
 
@@ -161,7 +158,7 @@ func get_travel_cost(from_location_id: String, to_location_id: String) -> int:
 
 			var next_distance := current_distance + 1
 			if neighbor_id == to_location_id:
-				return next_distance
+				return next_distance * Global.travel_time_per_edge
 
 			visited[neighbor_id] = true
 			queue.push_back({"id": neighbor_id, "distance": next_distance})

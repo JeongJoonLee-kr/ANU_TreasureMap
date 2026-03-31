@@ -31,14 +31,14 @@ func open_popup(
 	desc: String,
 	icon: Control,
 	location_id: String,
-	travel_cost: int,
+	travel_time: int,
 	can_travel: bool
 ) -> void:
 	# Update popup text content.
 	location_title.text = title
 	description.text = desc
 	target_location_id = location_id
-	show_travel_status(_build_travel_cost_text(travel_cost, can_travel), can_travel)
+	show_travel_status(_build_travel_time_text(travel_time, can_travel), can_travel)
 
 	# Show the popup first, then wait one frame
 	# so the popup size can be updated correctly.
@@ -111,11 +111,11 @@ func show_travel_status(status_text: String, can_travel: bool) -> void:
 	go_button.disabled = not can_travel
 
 
-func _build_travel_cost_text(travel_cost: int, can_travel: bool) -> String:
-	if travel_cost < 0:
-		return "Travel Cost: Unreachable"
+func _build_travel_time_text(travel_time: int, can_travel: bool) -> String:
+	if travel_time < 0:
+		return "Travel Time: Unreachable"
 
 	if can_travel:
-		return "Travel Cost: %d Stamina" % travel_cost
+		return "Travel Time: %d" % travel_time
 
-	return "Travel Cost: %d Stamina (Not enough)" % travel_cost
+	return "Travel Time: %d (Not enough)" % travel_time

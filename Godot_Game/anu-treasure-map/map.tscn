@@ -78,12 +78,12 @@ text = "GO"
 
 [node name="TravelCostLabel" type="Label" parent="MapControl/EventPanel"]
 layout_mode = 0
-offset_left = 128.38513
-offset_top = 462.0
-offset_right = 371.38513
-offset_bottom = 490.0
+offset_left = 124.0
+offset_top = 438.0
+offset_right = 367.0
+offset_bottom = 464.0
 theme_override_font_sizes/font_size = 20
-text = "Travel Cost: 0 Stamina"
+text = "Travel Time: 0"
 horizontal_alignment = 2
 
 [node name="MapBackground" type="TextureRect" parent="MapControl"]
@@ -127,6 +127,12 @@ offset_right = 64.0
 offset_bottom = 64.0
 mouse_filter = 2
 texture = ExtResource("18_star")
+
+[node name="TextureButton" type="TextureButton" parent="MapControl"]
+layout_mode = 0
+offset_left = -1.0
+offset_right = 39.0
+offset_bottom = 40.0
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -288,11 +294,6 @@ offset_top = 24.0
 offset_right = 546.0
 offset_bottom = 64.0
 theme_override_constants/separation = 50
-
-[node name="StaminaLabel" type="Label" parent="HUD/Topbar"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Stamina:"
 
 [node name="TimeLabel" type="Label" parent="HUD/Topbar"]
 layout_mode = 2
