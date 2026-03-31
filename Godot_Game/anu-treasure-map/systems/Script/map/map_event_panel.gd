@@ -8,7 +8,7 @@ var target_location_id: String = ""
 # Get references to the UI nodes inside the popup panel.
 @onready var location_title: Label = $LocationTitle
 @onready var description: Label = $Description
-@onready var close_button: Button = $CloseButton
+@onready var close_button: Button = $CloseButton 
 @onready var go_button: Button = $GoButton
 
 
