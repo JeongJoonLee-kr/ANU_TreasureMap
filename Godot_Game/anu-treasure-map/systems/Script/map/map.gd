@@ -34,6 +34,7 @@ func test_change_resources() -> void:
 	Global.money += 20
 	update_resource_ui()
 
+
 # Test End
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test_resource"):
