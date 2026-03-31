@@ -7,6 +7,6 @@ var current_location_id: String = "lab_cafe"
 var selected_location_id: String = "lab_cafe"
 var player_location_id: String = "lab_cafe"
 
-var stamina: int = 100
-var time: int = 8
+var time: int = 24
 var money: int = 50
+var travel_time_per_edge: int = 1
