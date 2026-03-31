@@ -31,7 +31,7 @@
 
 - **Challenges & Risk Analysis:**
     - Map Complexity: The real‑world ANU map is detailed; simplifying it for gameplay without losing landmarks is a challenge.
-	- Godot Learning Curve: Most members have no prior Godot experience. 
+	- Godot Learning Curve: Most members have no prior Godot experience.
 	- Tight Deadline: With the playable build target approaching, scope creep must be avoided.
 
 - **Subgroup Allocation:**
@@ -45,12 +45,12 @@
 
 ## Action Items
 
-| Task                                                               |     Assigned To      |   Due Date   |
-|:-------------------------------------------------------------------|:--------------------:|:------------:|
-| Paper Prototype: Create a low‑fidelity paper of the main game flow |    Zijun Yang and Xiyin Li    |  24/03/2026  |
-| Godot Development: Continue to make up Godot project. 			 |  Shaoming Qin and Suya Xie |  24/03/2026  |
-| Art Assets: Design bakcground, and UI buttons						 |  Anlin Bai and Xiyin Xie |  24/03/2026  |
-| Risk Review: All members to reconvene on Wednesday to check progress and address any blockers. | All member | 24/03/2026 |
+| Task                                                               |        Assigned To        |   Due Date   |
+|:-------------------------------------------------------------------|:-------------------------:|:------------:|
+| Paper Prototype: Create a low‑fidelity paper of the main game flow |  Zijun Yang and Xiyin Li  |  24/03/2026  |
+| Godot Development: Continue to make up Godot project. 			 | Shaoming Qin and Suya Xie |  24/03/2026  |
+| Art Assets: Design bakcground, and UI buttons						 |  Anlin Bai and Xiyin Li   |  24/03/2026  |
+| Risk Review: All members to reconvene on Wednesday to check progress and address any blockers. |        All member         | 24/03/2026 |
 
 ## Scribe Rotation
 The following dictates who will scribe in this and the next meeting.
@@ -58,7 +58,7 @@ The following dictates who will scribe in this and the next meeting.
 |                Name                 |
 | :---------------------------------: |
 |   Shaoming Qin |（Scribed This Meeting）
-|   Xiyin Li  | (Scribe for Next Meeting) 
+|   Xiyin Li  | (Scribe for Next Meeting)
 |   Zijun Yang  |
 |   Anlin Bai |
 |   Suya Xie |
