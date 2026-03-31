@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=20 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bjrb4hlrefmsj" path="res://systems/Script/ui/PAUSE-MENU_0000s_0007_RETRY.png" id="15_jk4ss"]
 [ext_resource type="Texture2D" uid="uid://b0g04418bvb0o" path="res://systems/Script/ui/PAUSE-MENU_0000s_0005_SETTING.png" id="16_r5om4"]
 [ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://systems/Script/ui/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
+[ext_resource type="Texture2D" uid="uid://bbjmg32xqixy" path="res://resources/Location/Current_Location_Star.png" id="18_star"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
 
@@ -75,6 +76,16 @@ action_mode = 0
 shortcut = SubResource("Shortcut_7if1s")
 text = "GO"
 
+[node name="TravelCostLabel" type="Label" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_left = 128.38513
+offset_top = 462.0
+offset_right = 371.38513
+offset_bottom = 490.0
+theme_override_font_sizes/font_size = 20
+text = "Travel Cost: 0 Stamina"
+horizontal_alignment = 2
+
 [node name="MapBackground" type="TextureRect" parent="MapControl"]
 modulate = Color(0.86553645, 0.8655369, 0.86553687, 1)
 layout_mode = 0
@@ -107,6 +118,15 @@ keep_pressed_outside = true
 texture_normal = ExtResource("6_0t07s")
 texture_pressed = ExtResource("7_6qsgm")
 texture_hover = ExtResource("9_gqbix")
+
+[node name="CurrentLocationMarker" type="TextureRect" parent="MapControl"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource("18_star")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3

@@ -8,6 +8,7 @@ var target_location_id: String = ""
 @onready var description: Label = $Description
 @onready var close_button: Button = $CloseButton
 @onready var go_button: Button = $GoButton
+@onready var travel_cost_label: Label = $TravelCostLabel
 
 
 func _ready() -> void:
@@ -25,11 +26,19 @@ func _ready() -> void:
 # desc: short description shown in the popup
 # icon: the clicked icon on the map
 # location_id: id used to open the location scene later
-func open_popup(title: String, desc: String, icon: Control, location_id: String) -> void:
+func open_popup(
+	title: String,
+	desc: String,
+	icon: Control,
+	location_id: String,
+	travel_cost: int,
+	can_travel: bool
+) -> void:
 	# Update popup text content.
 	location_title.text = title
 	description.text = desc
 	target_location_id = location_id
+	show_travel_status(_build_travel_cost_text(travel_cost, can_travel), can_travel)
 
 	# Show the popup first, then wait one frame
 	# so the popup size can be updated correctly.
@@ -91,5 +100,22 @@ func _on_close_button_pressed() -> void:
 # Save the location id globally and switch to the shared location scene.
 func _on_go_button_pressed() -> void:
 	if target_location_id != "":
-		Global.current_location_id = target_location_id
-		get_tree().change_scene_to_file("res://locations.tscn")
+		var map_control = get_parent()
+		if map_control != null and map_control.has_method("try_move_to_location"):
+			map_control.try_move_to_location(target_location_id)
+
+
+func show_travel_status(status_text: String, can_travel: bool) -> void:
+	travel_cost_label.text = status_text
+	travel_cost_label.modulate = Color(1, 1, 1, 1) if can_travel else Color(1, 0.4, 0.4, 1)
+	go_button.disabled = not can_travel
+
+
+func _build_travel_cost_text(travel_cost: int, can_travel: bool) -> String:
+	if travel_cost < 0:
+		return "Travel Cost: Unreachable"
+
+	if can_travel:
+		return "Travel Cost: %d Stamina" % travel_cost
+
+	return "Travel Cost: %d Stamina (Not enough)" % travel_cost
