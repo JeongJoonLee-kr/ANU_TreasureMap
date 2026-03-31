@@ -21,18 +21,17 @@ func _ready() -> void:
 func setup_post(data: Dictionary, characters_data: Dictionary = {}) -> void:
 	my_post_id = data.get("post_id", "")
 	
-	# 1. 拿到作者 ID（比如 "ALEX"）
+	# 1. ID
 	var author_id = data.get("author", "Unknown")
 	
-	# 2. 去角色字典里查这个作者的信息，查不到就给个空字典
+	# 2. Look up the author's information in the character dictionary; if you can't find it, just give an empty dictionary.
 	var author_info = characters_data.get(author_id, {})
 	
-	# 3. 设置名字和头像（从 author_info 里拿）
-	# 如果 characters.json 里没配 name，就默认显示 ID
+	# 3. Name and Profile
 	name_label.text = author_info.get("name", author_id)
 	_load_texture(avatar_img, author_info.get("avatar_path", ""))
 	
-	# 4. 设置帖子正文和配图（从帖子的 data 里拿）
+	# 4. Set the post body and images (take them from the post's data).
 	post_text.text = data.get("text", "")
 	_load_texture(post_image, data.get("image_path", ""))
 	current_annotations = data.get("annotations", {})
@@ -61,15 +60,14 @@ func _on_post_text_meta_clicked(meta: Variant) -> void:
 func _reveal_annotation(text_content: String) -> void:
 	annotation_text.text = text_content
 	
-	# 如果注释框本来就是可见的，就不重复播放动画了
 	if annotation_box.visible: 
 		return
 		
-	# 先把透明度设为 0（完全透明），然后再显示。
-	# 这样做的效果是：UI 会在一瞬间把空间撑开，但玩家由于透明度是0，此时看不见它
+	# First set the opacity to 0 (completely transparent), then display it.
+
+	# The effect of this is: the UI will expand the space for a moment, but the player cannot see it because the opacity is 0.
 	annotation_box.modulate.a = 0.0
 	annotation_box.show()
 	
-	# 使用 Tween 动画，在 0.3 秒内把透明度从 0 渐变到 1
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(annotation_box, "modulate:a", 1.0, 0.3)

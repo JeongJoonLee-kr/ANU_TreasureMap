@@ -50,9 +50,14 @@ func _on_mouse_exited() -> void:
 func _on_pressed() -> void:
 	if disabled: return
 	
-	await get_tree().create_timer(0.15).timeout
+	#await get_tree().create_timer(0.15).timeout
+
+	var ins_scene = load("res://ins.tscn")
+
+	var ins_instance = ins_scene.instantiate()
 	
-	get_tree().change_scene_to_file("res://ins.tscn")
+	# Add it directly to the root node of the game tree, so that it perfectly covers the Map.
+	get_tree().root.add_child(ins_instance)
 
 # 6. disabled
 func _set(property: StringName, value: Variant) -> bool:

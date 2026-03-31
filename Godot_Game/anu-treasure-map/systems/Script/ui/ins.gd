@@ -1,54 +1,52 @@
-extends Control
+extends CanvasLayer
 
 const POST_SCENE = preload("res://post_item.tscn")
 
-# 1. 根据你最新的节点树，重新绑定这4个节点
 @onready var bg_blur = $BG_Blur
 @onready var phone_screen = $PhoneScreen
 @onready var phone_frame = $PhoneFrame
 @onready var feed_list = $PhoneScreen/ScrollContainer/FeedList
 
-# 记录屏幕和手机壳原本在中间的位置
+# Record the original position of the screen and phone case in the middle.
 @onready var target_screen_pos = phone_screen.position
 @onready var target_frame_pos = phone_frame.position
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Key point: Complete physical state initialization instantaneously before any logic begins
+
+	# This way, in the frame of `add_child`, it will be transparent and shrunk, without any "flash".
+	bg_blur.modulate.a = 0.0
+	bg_blur.material.set_shader_parameter("lod", 0.0)
 	
-	# 2. 设置缩放中心点为各自的中心
-	phone_screen.pivot_offset = phone_screen.size / 2
-	phone_frame.pivot_offset = phone_frame.size / 2
-	
-	# 3. 设置初始状态：缩到最小，藏在屏幕右下角
-	var screen_size = get_viewport_rect().size
-	var start_pos = Vector2(screen_size.x, screen_size.y) # 右下角坐标
-	
-	phone_screen.scale = Vector2(0.05, 0.05)
-	phone_frame.scale = Vector2(0.05, 0.05)
+	# lock the initial position firmly outside the screen/bottom right corner.
+	var screen_size = get_viewport().get_visible_rect().size
+	var start_pos = Vector2(screen_size.x, screen_size.y)
 	phone_screen.position = start_pos
 	phone_frame.position = start_pos
+	phone_screen.scale = Vector2(0.01, 0.01)
+	phone_frame.scale = Vector2(0.01, 0.01)
 	
-	bg_blur.modulate.a = 0.0 # 背景全透明
-
-	# 4. 加载帖子数据
+	# Here we connect the signal and load the data.
+	if not bg_blur.gui_input.is_connected(_on_bg_blur_gui_input):
+		bg_blur.gui_input.connect(_on_bg_blur_gui_input)
+	
 	load_posts()
 
-	# 5. 执行飞入展开动画
-	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	# Achieve the most breathable start using TRANS_SINE + EASE_OUT
+	var duration = 0.3
+	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
-	# 手机屏幕和外壳一起飞回原来的中心位置
-	tween.tween_property(phone_screen, "position", target_screen_pos, 0.6)
-	tween.tween_property(phone_frame, "position", target_frame_pos, 0.6)
+	# The background and phone synchronization begin to change.
+	tween.tween_property(bg_blur, "modulate:a", 1.0, duration)
+	tween.tween_method(func(v): bg_blur.material.set_shader_parameter("lod", v), 0.0, 2.5, duration)
 	
-	# 手机屏幕和外壳一起放大到 100%
-	tween.tween_property(phone_screen, "scale", Vector2(1.0, 1.0), 0.6)
-	tween.tween_property(phone_frame, "scale", Vector2(1.0, 1.0), 0.6)
-	
-	# 背景逐渐变暗/模糊
-	tween.tween_property(bg_blur, "modulate:a", 1.0, 0.4)
+	tween.tween_property(phone_screen, "position", target_screen_pos, duration)
+	tween.tween_property(phone_frame, "position", target_frame_pos, duration)
+	tween.tween_property(phone_screen, "scale", Vector2(1.0, 1.0), duration)
+	tween.tween_property(phone_frame, "scale", Vector2(1.0, 1.0), duration)
 
 func load_posts() -> void:
-	# 1. 先读取角色数据
+	# 1. load character
 	var characters_data: Dictionary = {}
 	var char_file = FileAccess.open("res://data/characters.json", FileAccess.READ)
 	if char_file:
@@ -56,7 +54,7 @@ func load_posts() -> void:
 		if typeof(parsed) == TYPE_DICTIONARY:
 			characters_data = parsed
 
-	# 2. 读取帖子数据
+	# 2. load posts
 	var file = FileAccess.open("res://data/ins_posts.json", FileAccess.READ)
 	if file:
 		var json_string = file.get_as_text()
@@ -70,28 +68,40 @@ func load_posts() -> void:
 					# 注意这里：我们把角色数据(characters_data)也传给了 setup_post
 					post.setup_post(post_data, characters_data)
 
-# 退场动画及销毁
+# Exit animation and destruction
 func close_phone() -> void:
-	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	var screen_size = get_viewport_rect().size
+	# Use the TRANS_SINE curve
+	var tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
+	var screen_size = get_viewport().get_visible_rect().size
 	var end_pos = Vector2(screen_size.x, screen_size.y)
+	var duration = 0.4
 	
-	# 一起飞回右下角并缩小
-	tween.tween_property(phone_screen, "position", end_pos, 0.4)
-	tween.tween_property(phone_frame, "position", end_pos, 0.4)
-	tween.tween_property(phone_screen, "scale", Vector2(0.05, 0.05), 0.4)
-	tween.tween_property(phone_frame, "scale", Vector2(0.05, 0.05), 0.4)
-	tween.tween_property(bg_blur, "modulate:a", 0.0, 0.3)
+	# 1. Mobile phone displacement and zoom synchronization
+	tween.tween_property(phone_screen, "position", end_pos, duration)
+	tween.tween_property(phone_frame, "position", end_pos, duration)
+	tween.tween_property(phone_screen, "scale", Vector2(0.01, 0.01), duration)
+	tween.tween_property(phone_frame, "scale", Vector2(0.01, 0.01), duration)
 	
-	# 动画结束后销毁自己
+	# 2. [Core Modification] Dynamically Adjust Shader Blur Values
+
+	# Smoothly reduce the blur level from the current blur (e.g., 2.5) to 0.0 (completely clear).
+	tween.tween_method(
+		func(value): bg_blur.material.set_shader_parameter("lod", value),
+		2.5,
+		0.0,
+		duration
+	)
+	
+	# 3. At the same time, reduce transparency to ensure that the node eventually disappears completely.
+	tween.tween_property(bg_blur, "modulate:a", 0.0, duration)
+	
 	tween.chain().tween_callback(queue_free)
 
-# 处理点击背景退出
-func _gui_input(event: InputEvent) -> void:
+func _on_bg_blur_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		close_phone()
 		
-# 允许按 ESC 退出
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		close_phone()
