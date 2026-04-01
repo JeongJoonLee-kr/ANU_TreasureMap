@@ -11,6 +11,7 @@ var stamina: int = 100
 var time: int = 8
 var money: int = 50
 
+var travel_time_per_edge: int = 1
 
 var unlocked_clues: Array[String] = []
 
