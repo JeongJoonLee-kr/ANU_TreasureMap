@@ -66,7 +66,7 @@ func _ready():
 	right_zone.gui_input.connect(_on_click_zone.bind("right"))
 	
 	# Delay the drop-in animation slightly for better pacing
-	get_tree().create_timer(0.5).timeout.connect(drop_in)
+	get_tree().create_timer(0.2).timeout.connect(drop_in)
 
 func drop_in():
 	show()
