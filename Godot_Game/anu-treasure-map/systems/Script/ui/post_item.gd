@@ -10,12 +10,14 @@ var current_annotations: Dictionary = {}
 var my_post_id: String = ""
 
 func _ready() -> void:
-	# Hide annotation box by default
 	annotation_box.hide()
 	annotation_box.modulate.a = 0.0
 	
-	# Connect RichTextLabel click signal
+	# 连接点击信号
 	post_text.meta_clicked.connect(_on_post_text_meta_clicked)
+	
+
+
 
 # Setup post data from JSON
 func setup_post(data: Dictionary, characters_data: Dictionary = {}) -> void:
@@ -56,18 +58,28 @@ func _on_post_text_meta_clicked(meta: Variant) -> void:
 	if current_annotations.has(keyword):
 		_reveal_annotation(current_annotations[keyword])
 
-# Smoothly reveal the annotation box
 func _reveal_annotation(text_content: String) -> void:
+	if annotation_box.visible and annotation_text.text == text_content:
+		return
+
 	annotation_text.text = text_content
 	
-	if annotation_box.visible: 
-		return
-		
-	# First set the opacity to 0 (completely transparent), then display it.
+	if annotation_box.has_meta("active_tween"):
+		var t = annotation_box.get_meta("active_tween")
+		if t and t.is_valid():
+			t.kill()
 
-	# The effect of this is: the UI will expand the space for a moment, but the player cannot see it because the opacity is 0.
-	annotation_box.modulate.a = 0.0
-	annotation_box.show()
-	
-	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(annotation_box, "modulate:a", 1.0, 0.3)
+	var tween = create_tween().set_parallel(true)
+	annotation_box.set_meta("active_tween", tween)
+
+	if not annotation_box.visible:
+		annotation_box.modulate.a = 0.0
+		annotation_box.scale = Vector2(0.95, 0.8) 
+		annotation_box.pivot_offset = annotation_box.size / 2.0
+		annotation_box.show()
+		
+		tween.tween_property(annotation_box, "scale", Vector2(1.0, 1.0), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+	annotation_text.modulate.a = 0.0
+	tween.tween_property(annotation_text, "modulate:a", 1.0, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(annotation_box, "modulate:a", 1.0, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
