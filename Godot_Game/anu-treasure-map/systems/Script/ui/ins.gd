@@ -21,7 +21,7 @@ func _ready() -> void:
 
 	# lock the initial position firmly outside the screen/bottom right corner.
 	var screen_size = get_viewport().get_visible_rect().size
-	var start_pos = Vector2(screen_size.x, screen_size.y)
+	var start_pos = Vector2(screen_size.x - 20, screen_size.y - 20)
 	phone_screen.position = start_pos
 	phone_frame.position = start_pos
 	phone_screen.scale = Vector2(0.01, 0.01)
@@ -81,7 +81,7 @@ func close_phone() -> void:
 	)
 
 	var screen_size = get_viewport().get_visible_rect().size
-	var end_pos = Vector2(screen_size.x, screen_size.y)
+	var end_pos = Vector2(screen_size.x - 30, screen_size.y - 30)
 	var duration = 0.4
 
 	# 1. Mobile phone displacement and zoom synchronization

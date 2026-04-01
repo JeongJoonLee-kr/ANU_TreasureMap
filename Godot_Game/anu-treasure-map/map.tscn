@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=22 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
@@ -10,33 +10,28 @@
 [ext_resource type="Texture2D" uid="uid://deuocrif52sul" path="res://resources/Map/Lake_Photo_1.png" id="7_6qsgm"]
 [ext_resource type="Texture2D" uid="uid://c0eupgspep761" path="res://resources/Map/Lake_Photo_2.png" id="9_gqbix"]
 [ext_resource type="Script" uid="uid://cfdocbimtb6kt" path="res://systems/Script/ui/ui_layer.gd" id="10_oysan"]
-[ext_resource type="Texture2D" uid="uid://bqjatt4asw58i" path="res://systems/Script/ui/PAUSE-MENU_0000s_0001__Group_.png" id="11_wbpbn"]
-[ext_resource type="Texture2D" uid="uid://b285c1cedr0mh" path="res://systems/Script/ui/PAUSE-MENU_0000s_0010_PAUSE.png" id="12_a6rn7"]
-[ext_resource type="Texture2D" uid="uid://dysqqpftgb41n" path="res://systems/Script/ui/PAUSE-MENU_0000s_0009_RESUME.png" id="13_4on3e"]
-[ext_resource type="Texture2D" uid="uid://6lbeev4n0flc" path="res://systems/Script/ui/PAUSE-MENU_0000s_0008_Layer-1.png" id="14_bssq0"]
-[ext_resource type="Texture2D" uid="uid://bjrb4hlrefmsj" path="res://systems/Script/ui/PAUSE-MENU_0000s_0007_RETRY.png" id="15_jk4ss"]
-[ext_resource type="Texture2D" uid="uid://b0g04418bvb0o" path="res://systems/Script/ui/PAUSE-MENU_0000s_0005_SETTING.png" id="16_r5om4"]
-[ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://systems/Script/ui/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
+[ext_resource type="Texture2D" uid="uid://bqjatt4asw58i" path="res://resources/icon/PAUSE-MENU_0000s_0001__Group_.png" id="11_wbpbn"]
+[ext_resource type="Texture2D" uid="uid://b285c1cedr0mh" path="res://resources/icon/PAUSE-MENU_0000s_0010_PAUSE.png" id="12_a6rn7"]
+[ext_resource type="Texture2D" uid="uid://dysqqpftgb41n" path="res://resources/icon/PAUSE-MENU_0000s_0009_RESUME.png" id="13_4on3e"]
+[ext_resource type="Texture2D" uid="uid://6lbeev4n0flc" path="res://resources/icon/PAUSE-MENU_0000s_0008_Layer-1.png" id="14_bssq0"]
+[ext_resource type="Texture2D" uid="uid://bjrb4hlrefmsj" path="res://resources/icon/PAUSE-MENU_0000s_0007_RETRY.png" id="15_jk4ss"]
+[ext_resource type="Texture2D" uid="uid://b0g04418bvb0o" path="res://resources/icon/PAUSE-MENU_0000s_0005_SETTING.png" id="16_r5om4"]
+[ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://resources/icon/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
 [ext_resource type="Texture2D" uid="uid://bbjmg32xqixy" path="res://resources/Location/Current_Location_Star.png" id="18_star"]
 [ext_resource type="Texture2D" uid="uid://b7wk6bm7hf8sg" path="res://resources/icon/iphone-removebg-preview.png" id="19_jk4ss"]
 [ext_resource type="Script" uid="uid://p0w1yktaynak" path="res://systems/Script/ui/ins_button.gd" id="20_r5om4"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jky6x"]
-bg_color = Color(1, 0.23137255, 0.1882353, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
 [node name="Map" type="Node2D"]
 
 [node name="MapControl" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_71pa8")
 
 [node name="EventPanel" type="Panel" parent="MapControl"]
@@ -314,8 +309,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Money:"
 
-[node name="InsButton" type="TextureButton" parent="HUD"]
-custom_minimum_size = Vector2(90, 150)
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -325,16 +319,18 @@ offset_left = -90.0
 offset_top = -150.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="InsButton" type="TextureButton" parent="HUD/MarginContainer"]
+custom_minimum_size = Vector2(90, 150)
+layout_mode = 2
 texture_normal = ExtResource("19_jk4ss")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("20_r5om4")
-
-[node name="RedDot" type="Panel" parent="HUD/InsButton"]
-layout_mode = 1
-offset_right = 35.0
-offset_bottom = 35.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_jky6x")
 
 [connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]
 [connection signal="pressed" from="MapControl/CafeIcon" to="MapControl" method="_on_cafe_icon_pressed"]

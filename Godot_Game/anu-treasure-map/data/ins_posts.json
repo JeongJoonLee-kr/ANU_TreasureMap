@@ -3,7 +3,11 @@
 	"post_id": "p001",
 	"author": "ALEX",
 	"text": "Just saw a weird flyer at [color=#F6416C][url=market_day]Market Day[/url][/color]... Scanned the QR code and suddenly I'm a Relic Investigator? 🤯",
-	"image_path": "res://resources/icon/ins-removebg-preview 1.png",
+	"image_path": "res://resources/icon/qr_code.png",
+	"image_action": {
+		"type": "qr_scan",
+		"tooltip": "🔗 Scan to initiate Investigator Protocol."
+	},
 	"annotations": {
 	  "market_day": "Where various clubs share information with us student body."
 	}
