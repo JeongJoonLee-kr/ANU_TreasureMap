@@ -1,5 +1,7 @@
 extends Control
 
+const InsShader = preload("res://ins.gdshader")
+
 @onready var bg_mask = $BackgroundMask
 @onready var shadow_pivot = $ShadowPivot
 @onready var shadow_panel = $ShadowPivot/ShadowPanel
@@ -19,8 +21,9 @@ var base_rotation: float = 0.0
 var is_active: bool = false
 var current_state: String = "idle" # "idle", "hover_left", "hover_right", "zoomed_left", "zoomed_right"
 
-# Set this to true if the card is opened directly on top of the phone UI
+# Context flags for dynamic UX behavior
 var is_opened_from_phone: bool = true 
+var is_first_time_setup: bool = false # Triggers auto-zoom to the registration half
 
 # Global Tween reference to prevent animation conflicts (Tween fighting)
 var active_tween: Tween 
@@ -33,10 +36,21 @@ func _ready():
 	bg_mask.global_position = Vector2.ZERO
 	bg_mask.size = get_viewport_rect().size
 	
-	# Initialize background mask to be completely invisible and unblurred
+	# [FIX] The node's base color MUST be pure white so modulate.a animation works properly
+	bg_mask.color = Color(1, 1, 1, 1) 
+	
+	# Ensure the shader material is attached programmatically if forgotten in the editor
+	if not bg_mask.material:
+		var mat = ShaderMaterial.new()
+		mat.shader = InsShader
+		bg_mask.material = mat
+		
+	# [KEY] Hand over the semi-transparent darkening effect to the shader's tint_color parameter
+	bg_mask.material.set_shader_parameter("tint_color", Color(0, 0, 0, 0.4))
+	
+	# Initialization: completely transparent and unblurred at the start
 	bg_mask.modulate.a = 0.0 
-	if bg_mask.material:
-		bg_mask.material.set_shader_parameter("lod", 0.0)
+	bg_mask.material.set_shader_parameter("lod", 0.0)
 	
 	# Bind background click signal to exit logic
 	bg_mask.gui_input.connect(_on_bg_click)
@@ -108,13 +122,20 @@ func drop_in():
 	active_tween.tween_property(shadow_pivot, "position", Vector2(12, 18), fall_duration).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	active_tween.tween_property(shadow_panel, "modulate:a", 0.6, fall_duration * 0.8)
 	
-	# Enable interactions only after the drop-in animation finishes
-	active_tween.chain().tween_callback(func(): is_active = true)
+	# Setup post-animation logic
+	active_tween.chain().tween_callback(func(): 
+		is_active = true
+		
+		# Auto-frame the left side if this is the player's first time setting up the ID
+		if is_first_time_setup:
+			get_tree().create_timer(0.6).timeout.connect(func(): _execute_zoom("left"))
+	)
 
 # ==========================================
 # Interaction: Hover (3D Tilt Effect)
 # ==========================================
 func _on_hover_zone(zone: String):
+	if is_first_time_setup: return
 	if not is_active or current_state.begins_with("zoomed"): return
 	current_state = "hover_" + zone
 	
@@ -153,41 +174,47 @@ func _on_unhover():
 # Interaction: Click (Zoom & Center)
 # ==========================================
 func _on_click_zone(event: InputEvent, zone: String):
+	if is_first_time_setup: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if not is_active or current_state.begins_with("zoomed"): return
-		current_state = "zoomed_" + zone
-		
-		if active_tween and active_tween.is_valid():
-			active_tween.kill()
-		active_tween = create_tween().set_parallel(true)
-		
-		var scale_val = 2.2 
-		var target_scale = Vector2(scale_val, scale_val) 
-		# Calculate exact X offset to perfectly center the clicked half on the screen
-		var target_x = (304.5 * scale_val) if zone == "left" else (-145.5 * scale_val) 
-		
-		# Zoom in, snap rotation to 0 (flat), and translate to center
-		active_tween.tween_property(card_pivot, "scale", target_scale, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		active_tween.tween_property(card_pivot, "rotation_degrees", 0.0, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		active_tween.tween_property(card_pivot, "position", Vector2(target_x, 0), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		
-		# Sync shadow animations perfectly with the card's movement and easing
-		active_tween.tween_property(shadow_pivot, "scale", target_scale * 1.1, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		active_tween.tween_property(shadow_pivot, "rotation_degrees", 0.0, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		active_tween.tween_property(shadow_pivot, "position", Vector2(target_x + 40, 60), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		
-		# Fade the shadow out slightly to simulate light scattering when close
-		active_tween.tween_property(shadow_panel, "modulate:a", 0.2, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+		_execute_zoom(zone)
+
+func _execute_zoom(zone: String):
+	if not is_active or current_state.begins_with("zoomed"): return
+	current_state = "zoomed_" + zone
+	
+	if active_tween and active_tween.is_valid():
+		active_tween.kill()
+	active_tween = create_tween().set_parallel(true)
+	
+	var scale_val = 2.2
+	var target_scale = Vector2(scale_val, scale_val) 
+	# Calculate exact X offset to perfectly center the clicked half on the screen
+	var target_x = (304.5 * scale_val) if zone == "left" else (-145.5 * scale_val) 
+	
+	# Zoom in, snap rotation to 0 (flat), and translate to center
+	active_tween.tween_property(card_pivot, "scale", target_scale, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	active_tween.tween_property(card_pivot, "rotation_degrees", 0.0, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	active_tween.tween_property(card_pivot, "position", Vector2(target_x, 0), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	
+	# Sync shadow animations perfectly with the card's movement and easing
+	active_tween.tween_property(shadow_pivot, "scale", target_scale * 1.1, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	active_tween.tween_property(shadow_pivot, "rotation_degrees", 0.0, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	active_tween.tween_property(shadow_pivot, "position", Vector2(target_x + 40, 60), 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	
+	# Fade the shadow out slightly to simulate light scattering when close
+	active_tween.tween_property(shadow_panel, "modulate:a", 0.2, 0.5).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 
 # ==========================================
 # Interaction: Background Click & ESC (Exit)
 # ==========================================
 func _on_bg_click(event: InputEvent):
+	if is_first_time_setup: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if is_active:
 			exit_card()
 
 func _input(event):
+	if is_first_time_setup: return
 	# Trigger exit when hitting the ESC key (mapped to "ui_cancel" by default in Godot)
 	if event.is_action_pressed("ui_cancel"):
 		if is_active and visible:
@@ -214,5 +241,11 @@ func exit_card():
 	# Fade out the entire UI layer with a slight delay
 	active_tween.tween_property(self, "modulate:a", 0.0, 0.3).set_delay(0.2) 
 	
-	# Safely hide the UI node after all tweens complete
-	active_tween.chain().tween_callback(hide)
+	# Safely hide the UI node (or queue_free if you prefer to destroy it) after tweens complete
+	active_tween.chain().tween_callback(func():
+		var parent = get_parent()
+		if parent is CanvasLayer:
+			parent.queue_free()
+		else:
+			queue_free()
+	)

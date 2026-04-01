@@ -1,5 +1,8 @@
 extends PanelContainer
 
+# Preload the ID Card Scene
+const InvestigatorCardScene = preload("res://investigator_card.tscn")
+
 @onready var avatar_img = $MarginContainer/VBoxContainer/HBoxContainer/Profile
 @onready var name_label = $MarginContainer/VBoxContainer/HBoxContainer/Name
 @onready var post_text = $MarginContainer/VBoxContainer/PostText 
@@ -67,18 +70,23 @@ func _on_post_text_meta_clicked(meta: Variant) -> void:
 func _reveal_annotation(text_content: String) -> void:
 	if annotation_box.visible and annotation_text.text == text_content:
 		return
+		
 	annotation_text.text = text_content
+	
 	if annotation_box.has_meta("active_tween"):
 		var t = annotation_box.get_meta("active_tween")
 		if t and t.is_valid(): t.kill()
+		
 	var tween = create_tween().set_parallel(true)
 	annotation_box.set_meta("active_tween", tween)
+	
 	if not annotation_box.visible:
 		annotation_box.modulate.a = 0.0
 		annotation_box.scale = Vector2(0.95, 0.8) 
 		annotation_box.pivot_offset = annotation_box.size / 2.0
 		annotation_box.show()
 		tween.tween_property(annotation_box, "scale", Vector2(1.0, 1.0), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		
 	annotation_text.modulate.a = 0.0
 	tween.tween_property(annotation_text, "modulate:a", 1.0, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(annotation_box, "modulate:a", 1.0, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -97,7 +105,7 @@ func _on_post_image_gui_input(event: InputEvent) -> void:
 			_trigger_visual_hover(true)
 			_start_tooltip_timer()
 				
-		# CASE 2: Moving WHILE inside the image (Real UX: Hide tooltip on move!)
+		# CASE 2: Moving WHILE inside the image (Hide tooltip on move)
 		elif over_image and is_hovering_actual_image:
 			if is_instance_valid(custom_tooltip_node):
 				_stop_tooltip_logic() # Mouse moved, kill the existing tooltip
@@ -109,10 +117,17 @@ func _on_post_image_gui_input(event: InputEvent) -> void:
 			_trigger_visual_hover(false)
 			_stop_tooltip_logic()
 
+	# Handle Clicking on the image
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if is_hovering_actual_image and not current_image_action.is_empty():
 			_stop_tooltip_logic() # Click also hides tooltip
-			print("TODO: Image Action triggered!")
+			
+			# Check if the action specifically requests to open the ID card (e.g., clicking a QR code)
+			var action_type = current_image_action.get("type", "")
+			if action_type == "open_id_card" or action_type == "qr_scan":
+				_open_investigator_card()
+			else:
+				print("TODO: Other Image Action triggered!")
 
 func _on_post_image_mouse_exited() -> void:
 	if is_hovering_actual_image:
@@ -133,7 +148,6 @@ func _start_tooltip_timer() -> void:
 	# If we already have a timer waiting, we don't need to do anything 
 	# unless the mouse moved (which is handled in gui_input)
 	if current_image_action.has("tooltip"):
-		# Using a simple counter or checking if timer exists
 		tooltip_timer = get_tree().create_timer(0.7) 
 		tooltip_timer.timeout.connect(_show_tooltip)
 
@@ -159,11 +173,10 @@ func _show_tooltip() -> void:
 	custom_tooltip_node.text = current_image_action["tooltip"]
 	custom_tooltip_node.top_level = true
 	
-	# Font & Color
+	# Font & Color Setup
 	var custom_font = load("res://resources/font/Literata-Regular.ttf")
 	if custom_font: custom_tooltip_node.add_theme_font_override("font", custom_font)
 	custom_tooltip_node.add_theme_font_size_override("font_size", 10)
-	
 	custom_tooltip_node.add_theme_color_override("font_color", Color(0.2, 0.2, 0.2))
 	
 	# Style Setup
@@ -191,3 +204,20 @@ func _show_tooltip() -> void:
 
 	custom_tooltip_node.modulate.a = 0
 	create_tween().tween_property(custom_tooltip_node, "modulate:a", 1.0, 0.1)
+
+# ==========================================
+# Application Integration: Investigator Card
+# ==========================================
+
+func _open_investigator_card() -> void:
+	var top_canvas = CanvasLayer.new()
+	top_canvas.layer = 100
+	
+	var card_instance = InvestigatorCardScene.instantiate()
+	card_instance.is_opened_from_phone = true
+	
+	# TODO: replace to the real status
+	card_instance.is_first_time_setup = true 
+	
+	top_canvas.add_child(card_instance)
+	get_tree().current_scene.add_child(top_canvas)
