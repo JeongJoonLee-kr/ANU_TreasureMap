@@ -2,9 +2,9 @@ extends PanelContainer
 
 @onready var avatar_img = $MarginContainer/VBoxContainer/HBoxContainer/Profile
 @onready var name_label = $MarginContainer/VBoxContainer/HBoxContainer/Name
-@onready var post_text = $MarginContainer/VBoxContainer/PostText 
-@onready var post_image = $MarginContainer/VBoxContainer/Image 
-@onready var annotation_box = $MarginContainer/VBoxContainer/AnnotationBox 
+@onready var post_text = $MarginContainer/VBoxContainer/PostText
+@onready var post_image = $MarginContainer/VBoxContainer/Image
+@onready var annotation_box = $MarginContainer/VBoxContainer/AnnotationBox
 @onready var annotation_text = $MarginContainer/VBoxContainer/AnnotationBox/MarginContainer/AnnotationText
 
 var current_image_action: Dictionary = {}
@@ -25,6 +25,7 @@ func _ready() -> void:
 	post_image.mouse_filter = Control.MOUSE_FILTER_STOP
 	post_image.gui_input.connect(_on_post_image_gui_input)
 	post_image.mouse_exited.connect(_on_post_image_mouse_exited)
+
 
 # Setup post data from JSON
 func setup_post(data: Dictionary, characters_data: Dictionary = {}) -> void:
@@ -51,6 +52,7 @@ func setup_post(data: Dictionary, characters_data: Dictionary = {}) -> void:
 		if not clue_id in Global.unlocked_clues:
 			Global.unlocked_clues.append(clue_id)
 			Global.clue_discovered.emit(clue_id)
+
 
 func _load_texture(target_node: Node, path: String) -> void:
 	if target_node and path != "" and ResourceLoader.exists(path):
