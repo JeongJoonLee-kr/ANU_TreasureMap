@@ -7,10 +7,10 @@ const int SAMPLES = 24;
 
 void fragment() {
 	if (blur_amount < 0.01) {
-		// 如果模糊度很小，直接输出原图，不再使用 return
+		// If the blur is very small, output the original image directly without using return.
 		COLOR = texture(TEXTURE, UV);
 	} else {
-		// 否则执行模糊计算
+		// Otherwise, perform fuzzy calculation.
 		vec4 color = vec4(0.0);
 		float total = 0.0;
 

@@ -16,14 +16,20 @@ var current_state: String = "idle"
 var is_opened_from_phone: bool = true
 var is_first_time_setup: bool = false
 var active_tween: Tween
+var card_home: Vector2   # rest position from center anchors
+var shadow_home: Vector2
 
 
 func _ready():
 	modulate.a = 0.0
 	hide()
-	bg_mask.global_position = Vector2.ZERO
-	bg_mask.size = get_viewport_rect().size
+
+	# bg_mask uses PRESET_FULL_RECT in the .tscn and the root Control is
+	# also FULL_RECT, so the mask covers the entire viewport automatically.
+	# No manual size/position overrides — no anchor-conflict warnings.
 	bg_mask.color = Color(1, 1, 1, 1)
+	bg_mask.mouse_filter = Control.MOUSE_FILTER_STOP
+
 	if not bg_mask.material:
 		var mat = ShaderMaterial.new()
 		mat.shader = InsShader
@@ -32,6 +38,11 @@ func _ready():
 	bg_mask.modulate.a = 0.0
 	bg_mask.material.set_shader_parameter("lod", 0.0)
 	bg_mask.gui_input.connect(_on_bg_click)
+
+	# Record anchor-based rest positions for the card/shadow animations.
+	card_home = card_pivot.position
+	shadow_home = card_home + Vector2(12, 18)
+
 	left_zone.mouse_entered.connect(_on_hover_zone.bind("left"))
 	right_zone.mouse_entered.connect(_on_hover_zone.bind("right"))
 	left_zone.mouse_exited.connect(_on_unhover)
@@ -45,8 +56,8 @@ func drop_in():
 	show()
 	modulate.a = 1.0
 	var rand_start_rot = randf_range(start_rotation - 10, start_rotation + 10)
-	var card_start_pos = Vector2(1200, -400)
-	var shadow_start_pos = Vector2(600, 300)
+	var card_start_pos = card_home + Vector2(900, -700)
+	var shadow_start_pos = card_home + Vector2(300, 300)
 	card_pivot.scale = Vector2(start_scale, start_scale)
 	card_pivot.rotation_degrees = rand_start_rot
 	card_pivot.position = card_start_pos
@@ -88,7 +99,7 @@ func drop_in():
 	)
 	(
 		active_tween
-		. tween_property(card_pivot, "position", Vector2.ZERO, fall_duration)
+		. tween_property(card_pivot, "position", card_home, fall_duration)
 		. set_trans(Tween.TRANS_QUINT)
 		. set_ease(Tween.EASE_OUT)
 	)
@@ -117,7 +128,7 @@ func drop_in():
 	)
 	(
 		active_tween
-		. tween_property(shadow_pivot, "position", Vector2(12, 18), fall_duration)
+		. tween_property(shadow_pivot, "position", shadow_home, fall_duration)
 		. set_trans(Tween.TRANS_QUINT)
 		. set_ease(Tween.EASE_OUT)
 	)
@@ -183,7 +194,7 @@ func _on_unhover():
 	)
 	(
 		active_tween
-		. tween_property(card_pivot, "position:x", 0.0, 0.4)
+		. tween_property(card_pivot, "position:x", card_home.x, 0.4)
 		. set_trans(Tween.TRANS_BACK)
 		. set_ease(Tween.EASE_OUT)
 	)
@@ -202,7 +213,7 @@ func _on_unhover():
 	)
 	(
 		active_tween
-		. tween_property(shadow_pivot, "position:x", 12.0, 0.4)
+		. tween_property(shadow_pivot, "position:x", shadow_home.x, 0.4)
 		. set_trans(Tween.TRANS_BACK)
 		. set_ease(Tween.EASE_OUT)
 	)
@@ -246,7 +257,7 @@ func _execute_zoom(zone: String):
 	)
 	(
 		active_tween
-		. tween_property(card_pivot, "position", Vector2(target_x, 0), 0.5)
+		. tween_property(card_pivot, "position", Vector2(card_home.x + target_x, card_home.y), 0.5)
 		. set_trans(Tween.TRANS_QUART)
 		. set_ease(Tween.EASE_OUT)
 	)
@@ -264,7 +275,7 @@ func _execute_zoom(zone: String):
 	)
 	(
 		active_tween
-		. tween_property(shadow_pivot, "position", Vector2(target_x + 40, 60), 0.5)
+		. tween_property(shadow_pivot, "position", Vector2(card_home.x + target_x + 40, card_home.y + 60), 0.5)
 		. set_trans(Tween.TRANS_QUART)
 		. set_ease(Tween.EASE_OUT)
 	)
@@ -313,7 +324,7 @@ func exit_card():
 	)
 	(
 		active_tween
-		. tween_property(card_pivot, "position:y", 600, 0.5)
+		. tween_property(card_pivot, "position:y", card_home.y + 600, 0.5)
 		. set_trans(Tween.TRANS_BACK)
 		. set_ease(Tween.EASE_IN)
 	)
@@ -325,7 +336,7 @@ func exit_card():
 	)
 	(
 		active_tween
-		. tween_property(shadow_pivot, "position:y", 660, 0.5)
+		. tween_property(shadow_pivot, "position:y", card_home.y + 660, 0.5)
 		. set_trans(Tween.TRANS_BACK)
 		. set_ease(Tween.EASE_IN)
 	)

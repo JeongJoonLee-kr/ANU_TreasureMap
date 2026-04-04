@@ -50,27 +50,12 @@ func _ready() -> void:
 
 
 func load_posts() -> void:
-	# 1. load character
-	var characters_data: Dictionary = {}
-	var char_file = FileAccess.open("res://data/characters.json", FileAccess.READ)
-	if char_file:
-		var parsed = JSON.parse_string(char_file.get_as_text())
-		if typeof(parsed) == TYPE_DICTIONARY:
-			characters_data = parsed
-
-	# 2. load posts
-	var file = FileAccess.open("res://data/ins_posts.json", FileAccess.READ)
-	if file:
-		var json_string = file.get_as_text()
-		var json = JSON.new()
-		if json.parse(json_string) == OK:
-			var posts = json.data
-			for post_data in posts:
-				var post = POST_SCENE.instantiate()
-				feed_list.add_child(post)
-				if post.has_method("setup_post"):
-					# 注意这里：我们把角色数据(characters_data)也传给了 setup_post
-					post.setup_post(post_data, characters_data)
+	# Use cached data from Global (loaded once at startup)
+	for post_data in Global.posts_data:
+		var post = POST_SCENE.instantiate()
+		feed_list.add_child(post)
+		if post.has_method("setup_post"):
+			post.setup_post(post_data, Global.characters_data)
 
 
 # Exit animation and destruction

@@ -12,18 +12,11 @@ shader_parameter/tint_color = Color(0, 0, 0, 0)
 
 [node name="InvestigatorCard" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -450.0
-offset_top = -209.0
-offset_right = 450.0
-offset_bottom = 209.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(450, 209)
 script = ExtResource("1_2v3gs")
 
 [node name="BackgroundMask" type="ColorRect" parent="."]
@@ -37,9 +30,18 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
 [node name="ShadowPivot" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 900.0
-offset_bottom = 418.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -209.0
+offset_right = 450.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(450, 209)
 
 [node name="ShadowPanel" type="TextureRect" parent="ShadowPivot"]
@@ -61,9 +63,18 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CardPivot" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 900.0
-offset_bottom = 418.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -209.0
+offset_right = 450.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(450, 209)
 
 [node name="CardBody" type="TextureRect" parent="CardPivot"]
