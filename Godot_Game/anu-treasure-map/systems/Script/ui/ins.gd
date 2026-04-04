@@ -97,7 +97,7 @@ func close_phone() -> void:
 		func(value): bg_blur.material.set_shader_parameter("lod", value), 2.5, 0.0, duration
 	)
 
-	# 3. Reduce transparency so the node fully disappears.
+	# 3. At the same time, reduce transparency to ensure that the node eventually disappears completely.
 	tween.tween_property(bg_blur, "modulate:a", 0.0, duration)
 
 	tween.chain().tween_callback(queue_free)
