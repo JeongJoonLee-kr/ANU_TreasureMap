@@ -327,16 +327,15 @@ func _execute_zoom(zone: String):
 func _on_register_auth_completed():
 	print("Investigator Card received auth_completed signal. Exiting card...")
 	
+	# Allow input handlers to work again so exit_card can proceed
+	is_first_time_setup = false
+	
 	# Hide the register panel immediately before animating the card away
 	if register_panel:
 		register_panel.hide()
 		
 	# Call the exit_card function, which will handle the animation and then free the scene
 	exit_card()
-	
-	# Optional: If you want to force change scene here immediately AFTER the exit animation finishes:
-	# Note: exit_card() currently frees the node at the end. If you want it to change scenes instead,
-	# you will need to modify the final callback in exit_card() (see below).
 
 # ========== INPUT HANDLERS ==========
 func _on_bg_click(event: InputEvent):
@@ -399,15 +398,19 @@ func exit_card():
 	active_tween.tween_property(self, "modulate:a", 0.0, 0.3).set_delay(0.2)
 	active_tween.chain().tween_callback(
 		func():
-			# If you want the game to go straight to the map after a successful registration
-			# you can check the player data here:
-			if Global.player_data["major"] != "":
-				get_tree().change_scene_to_file("res://systems/Script/map/map.tscn")
+			# The card lives inside a CanvasLayer(100) which sits on top of everything.
+			# The Ins phone (another CanvasLayer) may also be beneath us.
+			# We just need to free our CanvasLayer wrapper; the map scene below
+			# will become visible and interactive automatically.
+			var card_canvas = get_parent()   # the CanvasLayer(100) from post_item.gd
+			
+			# Also close the Ins phone if it still exists
+			var ins_phone = get_tree().current_scene.find_child("Ins", true, false)
+			if ins_phone and ins_phone is CanvasLayer:
+				ins_phone.queue_free()
+			
+			if card_canvas is CanvasLayer:
+				card_canvas.queue_free()
 			else:
-				# Normal exit behavior (just close the card)
-				var parent = get_parent()
-				if parent is CanvasLayer:
-					parent.queue_free()
-				else:
-					queue_free()
+				queue_free()
 	)
