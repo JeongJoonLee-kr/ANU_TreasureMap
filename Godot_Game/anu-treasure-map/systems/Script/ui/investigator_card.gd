@@ -1,5 +1,7 @@
 extends Control
 const InsShader = preload("res://ins.gdshader")
+
+# ========== NODE REFERENCES ==========
 @onready var bg_mask = $BackgroundMask
 @onready var shadow_pivot = $ShadowPivot
 @onready var shadow_panel = $ShadowPivot/ShadowPanel
@@ -7,6 +9,15 @@ const InsShader = preload("res://ins.gdshader")
 @onready var card_body = $CardPivot/CardBody
 @onready var left_zone = $CardPivot/LeftZone
 @onready var right_zone = $CardPivot/RightZone
+
+# IMPORTANT: Make sure this path correctly points to the RegisterPanel you dragged into the LeftZone!
+@onready var register_panel: Control = $CardPivot/LeftZone/RegisterPanel 
+
+# (Optional) If you have a specific QR code button, reference it here. 
+# If the QR code is just the LeftZone itself, we will handle that in _on_click_zone.
+# @onready var qr_code_btn: BaseButton = $CardPivot/LeftZone/QRCodeButton 
+
+# ========== ANIMATION VARIABLES ==========
 var fall_duration: float = 0.8
 var start_scale: float = 3.0
 var start_rotation: float = -35.0
@@ -16,17 +27,18 @@ var current_state: String = "idle"
 var is_opened_from_phone: bool = true
 var is_first_time_setup: bool = false
 var active_tween: Tween
-var card_home: Vector2   # rest position from center anchors
-var shadow_home: Vector2
 
+# Rest position from center anchors
+var card_home: Vector2   
+var shadow_home: Vector2
 
 func _ready():
 	modulate.a = 0.0
 	hide()
 
+	# ========== BACKGROUND SETUP ==========
 	# bg_mask uses PRESET_FULL_RECT in the .tscn and the root Control is
 	# also FULL_RECT, so the mask covers the entire viewport automatically.
-	# No manual size/position overrides — no anchor-conflict warnings.
 	bg_mask.color = Color(1, 1, 1, 1)
 	bg_mask.mouse_filter = Control.MOUSE_FILTER_STOP
 
@@ -39,19 +51,28 @@ func _ready():
 	bg_mask.material.set_shader_parameter("lod", 0.0)
 	bg_mask.gui_input.connect(_on_bg_click)
 
-	# Record anchor-based rest positions for the card/shadow animations.
+	# ========== RECORD REST POSITIONS ==========
 	card_home = card_pivot.position
 	shadow_home = card_home + Vector2(12, 18)
 
+	# ========== CONNECT ZONE SIGNALS ==========
 	left_zone.mouse_entered.connect(_on_hover_zone.bind("left"))
 	right_zone.mouse_entered.connect(_on_hover_zone.bind("right"))
 	left_zone.mouse_exited.connect(_on_unhover)
 	right_zone.mouse_exited.connect(_on_unhover)
 	left_zone.gui_input.connect(_on_click_zone.bind("left"))
 	right_zone.gui_input.connect(_on_click_zone.bind("right"))
+	
+	# ========== CONNECT REGISTER PANEL SIGNAL ==========
+	# Listen for the signal from the register panel indicating registration is complete
+	if register_panel:
+		register_panel.auth_completed.connect(_on_register_auth_completed)
+		# Initially hide it until the left zone is clicked/zoomed
+		register_panel.hide()
+
 	get_tree().create_timer(0.2).timeout.connect(drop_in)
 
-
+# ========== ANIMATION: DROP IN ==========
 func drop_in():
 	show()
 	modulate.a = 1.0
@@ -68,9 +89,11 @@ func drop_in():
 	shadow_pivot.position = shadow_start_pos
 	shadow_panel.modulate.a = 0.0
 	base_rotation = randf_range(-3.0, 3.0)
+	
 	if active_tween and active_tween.is_valid():
 		active_tween.kill()
 	active_tween = create_tween().set_parallel(true)
+	
 	var target_lod = 1.5 if is_opened_from_phone else 3.0
 	if bg_mask.material:
 		(
@@ -140,7 +163,7 @@ func drop_in():
 				get_tree().create_timer(0.6).timeout.connect(func(): _execute_zoom("left"))
 	)
 
-
+# ========== INTERACTION: HOVER EFFECTS ==========
 func _on_hover_zone(zone: String):
 	if is_first_time_setup:
 		return
@@ -176,7 +199,6 @@ func _on_hover_zone(zone: String):
 		. set_trans(Tween.TRANS_BACK)
 		. set_ease(Tween.EASE_OUT)
 	)
-
 
 func _on_unhover():
 	if not is_active or current_state.begins_with("zoomed"):
@@ -224,14 +246,23 @@ func _on_unhover():
 		. set_ease(Tween.EASE_OUT)
 	)
 
-
+# ========== INTERACTION: CLICK ZONES ==========
 func _on_click_zone(event: InputEvent, zone: String):
 	if is_first_time_setup:
 		return
+		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		
+		# --- NEW: Check if clicking the Left Zone (QR Code) when already registered ---
+		if zone == "left" and Global.player_data["major"] != "":
+			print("Player has already registered. Cannot open registration panel again.")
+			# Optional: Play a "denied" sound effect here.
+			return
+			
+		# Proceed to zoom into the zone
 		_execute_zoom(zone)
 
-
+# ========== ANIMATION: ZOOM IN ==========
 func _execute_zoom(zone: String):
 	if not is_active or current_state.begins_with("zoomed"):
 		return
@@ -243,6 +274,7 @@ func _execute_zoom(zone: String):
 	var scale_val = 2.2
 	var target_scale = Vector2(scale_val, scale_val)
 	var target_x = (304.5 * scale_val) if zone == "left" else (-145.5 * scale_val)
+	
 	(
 		active_tween
 		. tween_property(card_pivot, "scale", target_scale, 0.5)
@@ -285,24 +317,48 @@ func _execute_zoom(zone: String):
 		. set_trans(Tween.TRANS_QUART)
 		. set_ease(Tween.EASE_OUT)
 	)
+	
+	# --- NEW: Show the Register Panel after zooming into the left zone ---
+	if zone == "left" and register_panel:
+		# Use chain() so the panel appears AFTER the zoom animation finishes
+		active_tween.chain().tween_callback(func(): register_panel.show())
 
+# ========== REGISTRATION COMPLETED HANDLER ==========
+func _on_register_auth_completed():
+	print("Investigator Card received auth_completed signal. Exiting card...")
+	
+	# Hide the register panel immediately before animating the card away
+	if register_panel:
+		register_panel.hide()
+		
+	# Call the exit_card function, which will handle the animation and then free the scene
+	exit_card()
+	
+	# Optional: If you want to force change scene here immediately AFTER the exit animation finishes:
+	# Note: exit_card() currently frees the node at the end. If you want it to change scenes instead,
+	# you will need to modify the final callback in exit_card() (see below).
 
+# ========== INPUT HANDLERS ==========
 func _on_bg_click(event: InputEvent):
 	if is_first_time_setup:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if is_active:
+			# Hide panel if clicking away
+			if register_panel and register_panel.visible:
+				register_panel.hide()
 			exit_card()
-
 
 func _input(event):
 	if is_first_time_setup:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		if is_active and visible:
+			if register_panel and register_panel.visible:
+				register_panel.hide()
 			exit_card()
 
-
+# ========== ANIMATION: EXIT CARD ==========
 func exit_card():
 	is_active = false
 	current_state = "exiting"
@@ -343,9 +399,15 @@ func exit_card():
 	active_tween.tween_property(self, "modulate:a", 0.0, 0.3).set_delay(0.2)
 	active_tween.chain().tween_callback(
 		func():
-			var parent = get_parent()
-			if parent is CanvasLayer:
-				parent.queue_free()
+			# If you want the game to go straight to the map after a successful registration
+			# you can check the player data here:
+			if Global.player_data["major"] != "":
+				get_tree().change_scene_to_file("res://systems/Script/map/map.tscn")
 			else:
-				queue_free()
+				# Normal exit behavior (just close the card)
+				var parent = get_parent()
+				if parent is CanvasLayer:
+					parent.queue_free()
+				else:
+					queue_free()
 	)
