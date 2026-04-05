@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://biyroqgl0ktah"]
+
+[ext_resource type="FontFile" uid="uid://h63222ofaftp" path="res://resources/font/AlegreyaSans-Bold.ttf" id="1_kbojo"]
+[ext_resource type="Script" uid="uid://cycmob7xp0snd" path="res://systems/Script/ui/register_panel.gd" id="1_qaf3w"]
+[ext_resource type="FontFile" uid="uid://g3eq45m8b1ri" path="res://resources/font/CourierPrime-Regular.ttf" id="3_qaf3w"]
+[ext_resource type="FontFile" uid="uid://dpdyiv2aqdwrk" path="res://resources/font/CourierPrime-Bold.ttf" id="4_8v5yy"]
+[ext_resource type="FontFile" uid="uid://bt8aoyxnp67jh" path="res://resources/font/CourierPrime-BoldItalic.ttf" id="5_bp4vq"]
+[ext_resource type="FontFile" uid="uid://cx36y8ekfwy86" path="res://resources/font/CourierPrime-Italic.ttf" id="6_nl4kd"]
+[ext_resource type="Texture2D" uid="uid://dlhdgkqpol6bp" path="res://resources/icon/enter button2048×2048px.png" id="7_8v5yy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nl4kd"]
+bg_color = Color(1, 1, 1, 0)
+
+[node name="RegisterPanel" type="Panel"]
+offset_right = 291.0
+offset_bottom = 418.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nl4kd")
+script = ExtResource("1_qaf3w")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_kbojo")
+text = "A.N.U. RELIC // DOSSIER"
+
+[node name="NameInput" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "ENTER CODENAME..."
+
+[node name="MajorLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "MAJOR:"
+
+[node name="MajorButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BtnComp" type="Button" parent="MarginContainer/VBoxContainer/MajorButtons"]
+layout_mode = 2
+text = "[ COMPUTING ]"
+
+[node name="BtnHist" type="Button" parent="MarginContainer/VBoxContainer/MajorButtons"]
+layout_mode = 2
+text = "HISTORY ]"
+
+[node name="BaseLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HOMEBASE:"
+
+[node name="BaseButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BtnCafe" type="Button" parent="MarginContainer/VBoxContainer/BaseButtons"]
+layout_mode = 2
+text = "[ LAB CAFE ]"
+
+[node name="BtnLake" type="Button" parent="MarginContainer/VBoxContainer/BaseButtons"]
+layout_mode = 2
+text = "[ LAKE ]"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MindTerminal" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_qaf3w")
+theme_override_fonts/bold_font = ExtResource("4_8v5yy")
+theme_override_fonts/bold_italics_font = ExtResource("5_bp4vq")
+theme_override_fonts/italics_font = ExtResource("6_nl4kd")
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+bbcode_enabled = true
+
+[node name="AuthButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+texture_normal = ExtResource("7_8v5yy")
+ignore_texture_size = true
+stretch_mode = 4
