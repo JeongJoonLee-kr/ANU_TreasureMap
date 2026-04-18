@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://systems/Script/map/location_marker.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
+bg_color = Color(0.12941177, 0.18431373, 0.2509804, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.92941177, 0.95686275, 0.98039216, 0.9)
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+shadow_color = Color(0, 0, 0, 0.18)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+bg_color = Color(0.3137255, 0.47843137, 0.65882355, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+shadow_color = Color(0, 0, 0, 0.22)
+shadow_size = 5
+
+[node name="LocationMarker" type="Control"]
+custom_minimum_size = Vector2(220, 90)
+offset_right = 220.0
+offset_bottom = 90.0
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_right = 220.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "Location"
+
+[node name="DotButton" type="Button" parent="."]
+offset_left = 100.0
+offset_top = 48.0
+offset_right = 120.0
+offset_bottom = 68.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hover")
+text = ""
