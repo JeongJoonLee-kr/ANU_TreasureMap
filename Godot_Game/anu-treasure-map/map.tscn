@@ -1,14 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=18 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
 [ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="3_gqbix"]
-[ext_resource type="Texture2D" uid="uid://dmotgwep7q3er" path="res://resources/Map/Lab_Cafe_Photo.png" id="4_oysan"]
-[ext_resource type="Texture2D" uid="uid://esoq62x5asc" path="res://resources/Map/Lab_Cafe_Photo_1.png" id="5_sb2pt"]
-[ext_resource type="Texture2D" uid="uid://cp7gpjjhajoub" path="res://resources/Map/Lake_Photo.png" id="6_0t07s"]
-[ext_resource type="Texture2D" uid="uid://sl2wlxpk2cl8" path="res://resources/Map/Lab_Cafe_Photo_2.png" id="6_05x41"]
-[ext_resource type="Texture2D" uid="uid://deuocrif52sul" path="res://resources/Map/Lake_Photo_1.png" id="7_6qsgm"]
-[ext_resource type="Texture2D" uid="uid://c0eupgspep761" path="res://resources/Map/Lake_Photo_2.png" id="9_gqbix"]
 [ext_resource type="Script" uid="uid://cfdocbimtb6kt" path="res://systems/Script/ui/ui_layer.gd" id="10_oysan"]
 [ext_resource type="Texture2D" uid="uid://bqjatt4asw58i" path="res://resources/icon/PAUSE-MENU_0000s_0001__Group_.png" id="11_wbpbn"]
 [ext_resource type="Texture2D" uid="uid://b285c1cedr0mh" path="res://resources/icon/PAUSE-MENU_0000s_0010_PAUSE.png" id="12_a6rn7"]
@@ -19,9 +13,24 @@
 [ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://resources/icon/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
 [ext_resource type="Texture2D" uid="uid://bbjmg32xqixy" path="res://resources/Location/Current_Location_Star.png" id="18_star"]
 [ext_resource type="Texture2D" uid="uid://b7wk6bm7hf8sg" path="res://resources/icon/iphone-removebg-preview.png" id="19_jk4ss"]
-[ext_resource type="Script" uid="uid://p0w1yktaynak" path="res://systems/Script/ui/ins_button.gd" id="20_r5om4"]
+[ext_resource type="Script" path="res://systems/Script/ui/ins_button.gd" id="20_r5om4"]
+[ext_resource type="PackedScene" path="res://location_marker.tscn" id="21_marker"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_preview"]
+bg_color = Color(0.96862745, 0.9764706, 0.9882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.13333334, 0.17254902, 0.22745098, 0.2)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.12)
+shadow_size = 6
 
 [node name="Map" type="Node2D"]
 
@@ -40,7 +49,7 @@ layout_mode = 0
 offset_left = 11.0000305
 offset_top = 1056.0
 offset_right = 511.00003
-offset_bottom = 1556.0
+offset_bottom = 1263.0
 scale = Vector2(0.997, 1)
 script = ExtResource("2_05x41")
 
@@ -71,10 +80,10 @@ text = "CLOSE"
 
 [node name="GoButton" type="Button" parent="MapControl/EventPanel"]
 layout_mode = 0
-offset_left = 384.15247
-offset_top = 436.0
-offset_right = 442.15247
-offset_bottom = 467.0
+offset_left = 390.1705
+offset_top = 143.0
+offset_right = 448.1705
+offset_bottom = 174.0
 scale = Vector2(1.9488021, 1.9488021)
 action_mode = 0
 shortcut = SubResource("Shortcut_7if1s")
@@ -82,10 +91,10 @@ text = "GO"
 
 [node name="TravelCostLabel" type="Label" parent="MapControl/EventPanel"]
 layout_mode = 0
-offset_left = 124.0
-offset_top = 438.0
-offset_right = 367.0
-offset_bottom = 464.0
+offset_left = 127.38212
+offset_top = 164.0
+offset_right = 370.38214
+offset_bottom = 192.0
 theme_override_font_sizes/font_size = 20
 text = "Travel Time: 0"
 horizontal_alignment = 2
@@ -99,32 +108,34 @@ scale = Vector2(1, 0.9960509)
 mouse_filter = 2
 texture = ExtResource("3_gqbix")
 
-[node name="CafeIcon" type="TextureButton" parent="MapControl"]
-layout_mode = 0
-offset_left = 876.00006
-offset_top = 489.0
-offset_right = 1900.0
-offset_bottom = 1513.0
-scale = Vector2(0.20062219, 0.20010982)
-keep_pressed_outside = true
-texture_normal = ExtResource("4_oysan")
-texture_pressed = ExtResource("5_sb2pt")
-texture_hover = ExtResource("6_05x41")
+[node name="MarkersLayer" type="Control" parent="MapControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="LakeIcon" type="TextureButton" parent="MapControl"]
-layout_mode = 0
-offset_left = 147.0
-offset_top = 243.0
-offset_right = 1171.0
-offset_bottom = 1267.0
-scale = Vector2(0.20062219, 0.20010982)
-keep_pressed_outside = true
-texture_normal = ExtResource("6_0t07s")
-texture_pressed = ExtResource("7_6qsgm")
-texture_hover = ExtResource("9_gqbix")
+[node name="LabCafeMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+anchors_preset = 0
+offset_left = 869.0
+offset_top = 547.0
+offset_right = 1089.0
+offset_bottom = 637.0
+location_id = "lab_cafe"
+display_name_override = "Lab Cafe"
+
+[node name="LakeMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+anchors_preset = 0
+offset_left = 140.0
+offset_top = 301.0
+offset_right = 360.0
+offset_bottom = 391.0
+location_id = "lake"
+display_name_override = "Griffin Lake"
 
 [node name="CurrentLocationMarker" type="TextureRect" parent="MapControl"]
-visible = false
 z_index = 2
 layout_mode = 0
 offset_right = 64.0
@@ -132,11 +143,26 @@ offset_bottom = 64.0
 mouse_filter = 2
 texture = ExtResource("18_star")
 
-[node name="TextureButton" type="TextureButton" parent="MapControl"]
+[node name="HoverPreview" type="Panel" parent="MapControl"]
+z_index = 3
+custom_minimum_size = Vector2(260, 180)
 layout_mode = 0
-offset_left = -1.0
-offset_right = 39.0
-offset_bottom = 40.0
+offset_left = 8.0
+offset_top = 1306.0
+offset_right = 268.0
+offset_bottom = 1486.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_preview")
+
+[node name="PreviewImage" type="TextureRect" parent="MapControl/HoverPreview"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 170.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -333,5 +359,3 @@ stretch_mode = 5
 script = ExtResource("20_r5om4")
 
 [connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]
-[connection signal="pressed" from="MapControl/CafeIcon" to="MapControl" method="_on_cafe_icon_pressed"]
-[connection signal="pressed" from="MapControl/LakeIcon" to="MapControl" method="_on_lake_icon_pressed"]

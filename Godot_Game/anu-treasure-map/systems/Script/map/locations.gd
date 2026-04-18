@@ -1,22 +1,18 @@
 extends Node2D
 
-# --- State Variables ---
 @export var map_scene_path: String = "res://map.tscn"
+
 var location_id: String = ""
 var location_data: Dictionary = {}
 var texts: Array[String] = []
 var text_index: int = 0
 var text_finished: bool = false
 
-# --- UI References ---
 @onready var background: TextureRect = $TextureRect
 @onready var title_label: Label = $TitleLabel
 @onready var description: Label = $Control/Description
 @onready var event_panel: Control = $Control/EventPanel
 @onready var back_button: Button = $Control/BackButton
-
-# add the options components
-# --- Custom Components ---
 @onready var options_component: OptionsComponent = $OptionsComponent
 @onready var options_container: VBoxContainer = $Control/EventPanel/OptionsContainer
 
@@ -32,27 +28,23 @@ func _ready() -> void:
 	show_location()
 
 
-## Fetches location metadata from the local JSON database
 func load_location_data() -> void:
 	var file: FileAccess = FileAccess.open("res://data/locations.json", FileAccess.READ)
 	if file == null:
 		push_error("Failed to open locations.json!")
 		return
 
-	if file:
-		var json_text: String = file.get_as_text()
-		var parsed: Variant = JSON.parse_string(json_text)
-
-		if parsed == null:
-			push_error("Failed to parse locations.json!")
-			return
-
-		location_data = parsed as Dictionary
-
+	var json_text: String = file.get_as_text()
 	file.close()
 
+	var parsed: Variant = JSON.parse_string(json_text)
+	if parsed == null:
+		push_error("Failed to parse locations.json!")
+		return
 
-## Updates the UI with background images, titles, and initiates dialogue
+	location_data = parsed as Dictionary
+
+
 func show_location() -> void:
 	if not location_data.has(location_id):
 		return
@@ -73,7 +65,6 @@ func show_location() -> void:
 		child.queue_free()
 
 	var config_file_path = "res://resources/Location/" + location_id + "_options.tres"
-
 	if ResourceLoader.exists(config_file_path):
 		var loaded_options = load(config_file_path)
 		options_component.base_options = loaded_options
@@ -88,7 +79,6 @@ func show_location() -> void:
 		show_interactive_options()
 
 
-# --- Navigation Logic ---
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file(map_scene_path)
 
@@ -111,7 +101,6 @@ func show_next_text() -> void:
 		show_interactive_options()
 
 
-# the core logic of options interactive
 func show_interactive_options() -> void:
 	event_panel.show()
 	options_container.show()
@@ -119,40 +108,38 @@ func show_interactive_options() -> void:
 	for child in options_container.get_children():
 		child.queue_free()
 
-	# 1. if the coffee price is setted
 	if options_component.has_option("coffee_cost"):
-		var btn = Button.new()
-		#btn.custom_minimum_size = Vector2(0, 40)
-		var cost = options_component.get_option("coffee_cost")
-		btn.text = "Buy Coffee (-" + str(cost) + " Gold)"
-		btn.pressed.connect(_on_buy_coffee.bind(cost))
-		options_container.add_child(btn)
+		var coffee_cost: int = int(options_component.get_option("coffee_cost"))
+		var coffee_button := Button.new()
+		coffee_button.text = "Buy Coffee (-%d Gold)" % coffee_cost
+		coffee_button.pressed.connect(_on_buy_coffee.bind(coffee_cost))
+		options_container.add_child(coffee_button)
 
-	# 2. if the meal price is setted
 	if options_component.has_option("meal_cost"):
-		var btn = Button.new()
-		btn.custom_minimum_size = Vector2(0, 40)  # 防止压扁
-		var cost = options_component.get_option("meal_cost")
-		btn.text = "Order Meal Combo (-" + str(cost) + " Gold)"
-		btn.pressed.connect(_on_buy_meal.bind(cost))
-		options_container.add_child(btn)
+		var meal_cost: int = int(options_component.get_option("meal_cost"))
+		var meal_button := Button.new()
+		meal_button.custom_minimum_size = Vector2(0, 40)
+		meal_button.text = "Order Meal Combo (-%d Gold)" % meal_cost
+		meal_button.pressed.connect(_on_buy_meal.bind(meal_cost))
+		options_container.add_child(meal_button)
 
-	# 3. default, just leave
 	if options_component.get_option("can_leave", true):
-		var btn = Button.new()
-		btn.custom_minimum_size = Vector2(0, 40)  # 防止压扁
-		btn.text = "Leave"
-		btn.pressed.connect(_on_back_button_pressed)
-		options_container.add_child(btn)
+		var leave_button := Button.new()
+		leave_button.custom_minimum_size = Vector2(0, 40)
+		leave_button.text = "Leave"
+		leave_button.pressed.connect(_on_back_button_pressed)
+		options_container.add_child(leave_button)
 
 
-# Events
 func _on_buy_coffee(cost: int) -> void:
-	# hide the option ubtton
-	options_container.hide()
+	if not try_spend_money(cost):
+		return
 
-	# dialogue system
-	texts = ["You spent " + str(cost) + " Gold and enjoyed a hot coffee!"]
+	options_container.hide()
+	texts = [
+		"You spent %d Gold and enjoyed a hot coffee!" % cost,
+		"You now have %d Gold left." % Global.money
+	]
 	text_index = 0
 	text_finished = false
 
@@ -161,11 +148,27 @@ func _on_buy_coffee(cost: int) -> void:
 
 
 func _on_buy_meal(cost: int) -> void:
-	options_container.hide()
+	if not try_spend_money(cost):
+		return
 
-	texts = ["You spent " + str(cost) + " Gold and had a hearty meal!"]
+	options_container.hide()
+	texts = [
+		"You spent %d Gold and had a hearty meal!" % cost,
+		"You now have %d Gold left." % Global.money
+	]
 	text_index = 0
 	text_finished = false
 
 	description.text = texts[text_index]
 	description.show()
+
+
+func try_spend_money(cost: int) -> bool:
+	if Global.money < cost:
+		description.text = "You need %d Gold, but only have %d." % [cost, Global.money]
+		description.show()
+		event_panel.show()
+		return false
+
+	Global.money -= cost
+	return true
