@@ -71,7 +71,12 @@ func bind_location_markers() -> void:
 			continue
 
 		if not location_data.has(marker.location_id):
-			push_warning("Location marker '%s' points to unknown location id: %s" % [marker.name, marker.location_id])
+			push_warning(
+				(
+					"Location marker '%s' points to unknown location id: %s"
+					% [marker.name, marker.location_id]
+				)
+			)
 			continue
 
 		var data: Dictionary = location_data[marker.location_id] as Dictionary
@@ -117,14 +122,7 @@ func open_location(location_id: String, anchor: Control) -> void:
 	var title := str(data.get("title", location_id))
 	var prompt := str(data.get("travel_prompt", "Travel to %s?" % title))
 
-	event_panel.open_popup(
-		title,
-		prompt,
-		anchor,
-		location_id,
-		travel_time,
-		can_travel
-	)
+	event_panel.open_popup(title, prompt, anchor, location_id, travel_time, can_travel)
 
 
 func try_move_to_location(target_location_id: String) -> void:
@@ -204,7 +202,9 @@ func to_parent_local_point(node: CanvasItem, global_point: Vector2) -> Vector2:
 	if parent_canvas == null:
 		return global_point
 
-	var parent_transform: Transform2D = parent_canvas.get_global_transform_with_canvas().affine_inverse()
+	var parent_transform: Transform2D = (
+		parent_canvas.get_global_transform_with_canvas().affine_inverse()
+	)
 	return parent_transform * global_point
 
 
@@ -238,7 +238,9 @@ func hide_location_preview() -> void:
 	hover_preview_image.texture = null
 
 
-func _on_location_preview_requested(_location_id: String, image_path: String, anchor: Control) -> void:
+func _on_location_preview_requested(
+	_location_id: String, image_path: String, anchor: Control
+) -> void:
 	show_location_preview(image_path, anchor)
 
 
