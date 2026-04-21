@@ -75,7 +75,8 @@ func save_game() -> void:
 	if file:
 		var save_data := {
 			"player_data": player_data,
-			"progress": {
+			"progress":
+			{
 				"current_location_id": current_location_id,
 				"selected_location_id": selected_location_id,
 				"player_location_id": player_location_id,

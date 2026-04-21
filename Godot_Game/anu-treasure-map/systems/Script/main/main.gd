@@ -162,7 +162,11 @@ func load_location_data() -> void:
 func get_current_location_title() -> String:
 	var location_id := Global.selected_location_id
 	if is_instance_valid(map_instance) and map_instance.visible:
-		location_id = Global.player_location_id if Global.player_location_id != "" else Global.current_location_id
+		location_id = (
+			Global.player_location_id
+			if Global.player_location_id != ""
+			else Global.current_location_id
+		)
 	elif location_id == "":
 		location_id = Global.current_location_id
 
