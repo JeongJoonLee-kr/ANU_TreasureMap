@@ -14,14 +14,6 @@ offset_bottom = 1280.0
 scale = Vector2(0.79963005, 0.79963005)
 metadata/_edit_use_anchors_ = true
 
-[node name="TitleLabel" type="Label" parent="."]
-z_index = 1
-offset_right = 119.0
-offset_bottom = 23.0
-scale = Vector2(2.4940512, 2.4940512)
-text = "TITLE"
-metadata/_edit_use_anchors_ = true
-
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0

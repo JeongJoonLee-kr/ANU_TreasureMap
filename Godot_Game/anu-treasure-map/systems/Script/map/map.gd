@@ -11,29 +11,20 @@ var location_markers: Dictionary = {}
 @onready var hover_preview: Panel = $HoverPreview
 @onready var hover_preview_image: TextureRect = $HoverPreview/PreviewImage
 
-@onready var time_label = $"../HUD/Topbar/TimeLabel"
-@onready var money_label = $"../HUD/Topbar/MoneyLabel"
-
 
 func _ready() -> void:
 	event_panel.hide()
 	hover_preview.hide()
 	load_location_data()
 	bind_location_markers()
-	update_resource_ui()
 	await get_tree().process_frame
 	update_current_location_marker()
-
-
-func update_resource_ui() -> void:
-	time_label.text = "Time: " + str(Global.time)
-	money_label.text = "Money: $" + str(Global.money)
 
 
 func test_change_resources() -> void:
 	Global.time += 1
 	Global.money += 20
-	update_resource_ui()
+	Global.notify_resources_changed()
 
 
 func _input(event: InputEvent) -> void:
@@ -138,13 +129,28 @@ func try_move_to_location(target_location_id: String) -> void:
 		event_panel.show_travel_status("Travel Time: %d (Not enough)" % travel_time, false)
 		return
 
-	Global.time -= travel_time
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("spend_time"):
+		if not current_scene.spend_time(travel_time):
+			event_panel.show_travel_status("Travel Time: %d (Not enough)" % travel_time, false)
+			return
+	else:
+		Global.time -= travel_time
+		if Global.time <= 0:
+			Global.current_week += 1
+			Global.refresh_week_tag()
+			Global.time = Global.max_time_per_week
+		Global.notify_resources_changed()
+
 	Global.current_location_id = target_location_id
 	Global.selected_location_id = target_location_id
 	Global.player_location_id = target_location_id
-	update_resource_ui()
 	update_current_location_marker()
-	get_tree().change_scene_to_file("res://locations.tscn")
+
+	if current_scene != null and current_scene.has_method("show_location"):
+		current_scene.show_location(target_location_id)
+	else:
+		get_tree().change_scene_to_file("res://locations.tscn")
 
 
 func can_travel_to_location(target_location_id: String) -> bool:
