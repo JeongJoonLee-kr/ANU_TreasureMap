@@ -2,6 +2,7 @@ extends Node2D
 
 const LOCATIONS_SCENE = preload("res://locations.tscn")
 const INS_SCENE = preload("res://ins.tscn")
+const INVESTIGATOR_CARD_SCENE = preload("res://investigator_card.tscn")
 
 @onready var map_instance: Node2D = $Map
 @onready var week_label: Label = $HUD/Topbar/WeekLabel
@@ -24,6 +25,7 @@ func _ready() -> void:
 	load_location_data()
 	show_map()
 	update_resource_ui()
+	call_deferred("_start_first_time_registration_if_needed")
 
 
 func show_map() -> void:
@@ -66,6 +68,26 @@ func open_ins() -> Node:
 		ins_instance.layer = 2
 	add_child(ins_instance)
 	return ins_instance
+
+
+func open_profile(force_first_time_setup: bool = false, opened_from_phone: bool = false) -> Node:
+	var existing_layer := get_node_or_null("ProfileCardLayer")
+	if existing_layer != null:
+		return existing_layer
+
+	var requires_registration := force_first_time_setup or not is_player_registered()
+	var top_canvas := CanvasLayer.new()
+	top_canvas.name = "ProfileCardLayer"
+	top_canvas.layer = 100
+
+	var card_instance = INVESTIGATOR_CARD_SCENE.instantiate()
+	card_instance.is_opened_from_phone = opened_from_phone
+	card_instance.is_first_time_setup = requires_registration
+	card_instance.open_read_only_panel = not requires_registration
+
+	top_canvas.add_child(card_instance)
+	add_child(top_canvas)
+	return top_canvas
 
 
 func update_resource_ui() -> void:
@@ -164,3 +186,18 @@ func _on_next_week_button_pressed() -> void:
 
 	advance_week()
 	Global.notify_resources_changed()
+
+
+func is_player_registered() -> bool:
+	return (
+		str(Global.player_data.get("major", "")) != ""
+		and str(Global.player_data.get("homebase", "")) != ""
+	)
+
+
+func _start_first_time_registration_if_needed() -> void:
+	if is_player_registered():
+		return
+
+	open_ins()
+	get_tree().create_timer(0.15).timeout.connect(func(): open_profile(true, true))

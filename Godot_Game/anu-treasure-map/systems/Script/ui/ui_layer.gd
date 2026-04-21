@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var continue_btn = %ResumeOption
 @onready var retry_btn = %RetryOption
 @onready var setting_btn = %SettingsOption
+@onready var profile_btn = %ProfileOption
 @onready var exit_btn = %ExitOption
 
 const CYAN_BRIGHT = Color("#5CE1E6")
@@ -26,6 +27,7 @@ func _ready() -> void:
 	setup_btn_interaction(continue_btn, _on_continue_pressed)
 	setup_btn_interaction(retry_btn, _on_home_pressed)
 	setup_btn_interaction(setting_btn, _on_settings_pressed)
+	setup_btn_interaction(profile_btn, _on_profile_pressed)
 	setup_btn_interaction(exit_btn, _on_quit_pressed)
 
 
@@ -103,6 +105,16 @@ func _on_home_pressed() -> void:
 # Settings
 func _on_settings_pressed() -> void:
 	print("TODO")
+
+
+# Profile
+func _on_profile_pressed() -> void:
+	pause_menu.hide()
+	get_tree().paused = false
+
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("open_profile"):
+		current_scene.open_profile()
 
 
 # Exit
