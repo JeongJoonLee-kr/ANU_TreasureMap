@@ -150,14 +150,21 @@ func highlight_current_selection() -> void:
 
 func build_profile_summary() -> String:
 	var codename := str(Global.player_data.get("name", "Unknown"))
-	var major_text := "Computing" if current_major == "comp" else ("History" if current_major == "hist" else "Unregistered")
-	var homebase_text := "Lab Cafe" if current_homebase == "lab_cafe" else ("Griffin Lake" if current_homebase == "griffin_lake" else "Unassigned")
+	var major_text := (
+		"Computing"
+		if current_major == "comp"
+		else ("History" if current_major == "hist" else "Unregistered")
+	)
+	var homebase_text := (
+		"Lab Cafe"
+		if current_homebase == "lab_cafe"
+		else ("Griffin Lake" if current_homebase == "griffin_lake" else "Unassigned")
+	)
 
-	return "[b]Codename:[/b] %s\n[b]Major:[/b] %s\n[b]Homebase:[/b] %s" % [
-		codename,
-		major_text,
-		homebase_text
-	]
+	return (
+		"[b]Codename:[/b] %s\n[b]Major:[/b] %s\n[b]Homebase:[/b] %s"
+		% [codename, major_text, homebase_text]
+	)
 
 
 # ========== MAJOR BUTTON HANDLERS ==========
