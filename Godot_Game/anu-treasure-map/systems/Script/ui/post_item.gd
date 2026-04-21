@@ -252,14 +252,24 @@ func _show_tooltip() -> void:
 
 
 func _open_investigator_card() -> void:
+	var current_scene := get_tree().current_scene
+	var needs_registration := (
+		str(Global.player_data.get("major", "")) == ""
+		or str(Global.player_data.get("homebase", "")) == ""
+	)
+
+	if current_scene != null and current_scene.has_method("open_profile"):
+		current_scene.open_profile(needs_registration, true)
+		return
+
 	var top_canvas = CanvasLayer.new()
+	top_canvas.name = "ProfileCardLayer"
 	top_canvas.layer = 100
 
 	var card_instance = InvestigatorCardScene.instantiate()
 	card_instance.is_opened_from_phone = true
-
-	# TODO: replace to the real status
-	card_instance.is_first_time_setup = true
+	card_instance.is_first_time_setup = needs_registration
+	card_instance.open_read_only_panel = not needs_registration
 
 	top_canvas.add_child(card_instance)
 	get_tree().current_scene.add_child(top_canvas)

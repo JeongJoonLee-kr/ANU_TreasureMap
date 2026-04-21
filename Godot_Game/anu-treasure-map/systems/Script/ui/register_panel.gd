@@ -4,6 +4,7 @@ signal auth_completed
 
 # ========== NODE REFERENCES ==========
 # Referencing the exact names from your Scene Tree
+@onready var name_input: LineEdit = $MarginContainer/VBoxContainer/NameInput
 @onready var comp_btn: Button = $MarginContainer/VBoxContainer/MajorButtons/BtnComp
 @onready var hist_btn: Button = $MarginContainer/VBoxContainer/MajorButtons/BtnHist
 @onready var griffin_lake_btn: Button = $MarginContainer/VBoxContainer/BaseButtons/BtnLake
@@ -14,6 +15,7 @@ signal auth_completed
 # ========== STATE VARIABLES ==========
 var current_major: String = ""
 var current_homebase: String = ""
+var profile_mode: bool = false
 
 # Track the current tween so we can kill it if the player clicks another button quickly
 var terminal_tween: Tween
@@ -33,6 +35,8 @@ const DESCRIPTIONS = {
 
 
 func _ready():
+	name_input.placeholder_text = "ENTER CODENAME..."
+
 	# 1. Initialize Auth Button (Disabled and grayed out)
 	auth_btn.disabled = true
 	auth_btn.modulate = Color(0.3, 0.3, 0.3, 1)
@@ -57,6 +61,11 @@ func _ready():
 	mind_terminal.text = ""
 	mind_terminal.bbcode_enabled = true
 
+	if profile_mode:
+		apply_profile_mode()
+	else:
+		prefill_from_player_data()
+
 
 # ========== HELPER FOR VISUAL FEEDBACK ==========
 func _reset_button_colors():
@@ -65,6 +74,90 @@ func _reset_button_colors():
 	hist_btn.modulate = Color(0.7, 0.7, 0.7, 1)
 	griffin_lake_btn.modulate = Color(0.7, 0.7, 0.7, 1)
 	lab_cafe_btn.modulate = Color(0.7, 0.7, 0.7, 1)
+
+
+func set_profile_mode(enabled: bool) -> void:
+	profile_mode = enabled
+	if is_node_ready():
+		if profile_mode:
+			apply_profile_mode()
+		else:
+			apply_registration_mode()
+
+
+func prefill_from_player_data() -> void:
+	var player_name := str(Global.player_data.get("name", ""))
+	if player_name != "" and player_name != "Unknown":
+		name_input.text = player_name
+	else:
+		name_input.text = ""
+
+
+func apply_registration_mode() -> void:
+	current_major = ""
+	current_homebase = ""
+
+	name_input.editable = true
+	prefill_from_player_data()
+
+	comp_btn.disabled = false
+	hist_btn.disabled = false
+	griffin_lake_btn.disabled = false
+	lab_cafe_btn.disabled = false
+	auth_btn.show()
+	auth_btn.disabled = true
+	auth_btn.modulate = Color(0.3, 0.3, 0.3, 1)
+
+	_reset_button_colors()
+	mind_terminal.text = ""
+	mind_terminal.visible_characters = 0
+
+
+func apply_profile_mode() -> void:
+	current_major = str(Global.player_data.get("major", ""))
+	current_homebase = str(Global.player_data.get("homebase", ""))
+
+	var player_name := str(Global.player_data.get("name", "Unknown"))
+	name_input.text = player_name
+	name_input.editable = false
+
+	comp_btn.disabled = true
+	hist_btn.disabled = true
+	griffin_lake_btn.disabled = true
+	lab_cafe_btn.disabled = true
+	auth_btn.hide()
+
+	_reset_button_colors()
+	highlight_current_selection()
+	update_mind_terminal(build_profile_summary())
+
+
+func highlight_current_selection() -> void:
+	if current_major == "comp":
+		comp_btn.modulate = Color(1.0, 1.0, 1.0, 1)
+		hist_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+	elif current_major == "hist":
+		hist_btn.modulate = Color(1.0, 1.0, 1.0, 1)
+		comp_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+
+	if current_homebase == "griffin_lake":
+		griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
+		lab_cafe_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+	elif current_homebase == "lab_cafe":
+		lab_cafe_btn.modulate = Color(1.0, 1.0, 1.0, 1)
+		griffin_lake_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+
+
+func build_profile_summary() -> String:
+	var codename := str(Global.player_data.get("name", "Unknown"))
+	var major_text := "Computing" if current_major == "comp" else ("History" if current_major == "hist" else "Unregistered")
+	var homebase_text := "Lab Cafe" if current_homebase == "lab_cafe" else ("Griffin Lake" if current_homebase == "griffin_lake" else "Unassigned")
+
+	return "[b]Codename:[/b] %s\n[b]Major:[/b] %s\n[b]Homebase:[/b] %s" % [
+		codename,
+		major_text,
+		homebase_text
+	]
 
 
 # ========== MAJOR BUTTON HANDLERS ==========
@@ -156,7 +249,12 @@ func _on_auth_button_up():
 
 
 func _on_auth_button_pressed():
+	var entered_name := name_input.text.strip_edges()
+	if entered_name == "":
+		entered_name = "Unknown"
+
 	# 1. save data
+	Global.player_data["name"] = entered_name
 	Global.player_data["major"] = current_major
 	Global.player_data["homebase"] = current_homebase
 

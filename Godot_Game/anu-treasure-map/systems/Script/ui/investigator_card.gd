@@ -32,6 +32,7 @@ var current_state: String = "idle"  # "idle", "hover_left", "hover_right", "zoom
 # Context flags for dynamic UX behavior
 var is_opened_from_phone: bool = true
 var is_first_time_setup: bool = false  # Triggers auto-zoom to the registration half
+var open_read_only_panel: bool = false
 
 # Global Tween reference to prevent animation conflicts (Tween fighting)
 var active_tween: Tween
@@ -84,6 +85,8 @@ func _ready():
 	# Listen for the signal from the register panel indicating registration is complete
 	if register_panel:
 		register_panel.auth_completed.connect(_on_register_auth_completed)
+		if register_panel.has_method("set_profile_mode"):
+			register_panel.set_profile_mode(open_read_only_panel)
 		# Initially hide it until the left zone is clicked/zoomed
 		register_panel.hide()
 
@@ -192,7 +195,7 @@ func drop_in():
 			is_active = true
 
 			# Auto-frame the left side if this is the player's first time setting up the ID
-			if is_first_time_setup:
+			if is_first_time_setup or open_read_only_panel:
 				get_tree().create_timer(0.6).timeout.connect(func(): _execute_zoom("left"))
 	)
 
@@ -471,7 +474,7 @@ func exit_card():
 
 			# Also close the Ins phone if it still exists
 			var ins_phone = get_tree().current_scene.find_child("Ins", true, false)
-			if ins_phone and ins_phone is CanvasLayer:
+			if is_opened_from_phone and ins_phone and ins_phone is CanvasLayer:
 				ins_phone.queue_free()
 
 			if card_canvas is CanvasLayer:
