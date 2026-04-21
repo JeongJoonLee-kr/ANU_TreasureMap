@@ -66,13 +66,13 @@ func _on_pressed() -> void:
 	if disabled:
 		return
 
-	#await get_tree().create_timer(0.15).timeout
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("open_ins"):
+		current_scene.open_ins()
+		return
 
 	var ins_scene = load("res://ins.tscn")
-
 	var ins_instance = ins_scene.instantiate()
-
-	# Add it directly to the root node of the game tree, so that it perfectly covers the Map.
 	get_tree().root.add_child(ins_instance)
 
 

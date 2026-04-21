@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=16 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
@@ -12,8 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://b0g04418bvb0o" path="res://resources/icon/PAUSE-MENU_0000s_0005_SETTING.png" id="16_r5om4"]
 [ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://resources/icon/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
 [ext_resource type="Texture2D" uid="uid://bbjmg32xqixy" path="res://resources/Location/Current_Location_Star.png" id="18_star"]
-[ext_resource type="Texture2D" uid="uid://b7wk6bm7hf8sg" path="res://resources/icon/iphone-removebg-preview.png" id="19_jk4ss"]
-[ext_resource type="Script" path="res://systems/Script/ui/ins_button.gd" id="20_r5om4"]
 [ext_resource type="PackedScene" path="res://location_marker.tscn" id="21_marker"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
@@ -164,11 +162,11 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="Menu" type="CanvasLayer" parent="."]
 process_mode = 3
 script = ExtResource("10_oysan")
 
-[node name="MenuButton" type="Button" parent="UILayer"]
+[node name="MenuButton" type="Button" parent="Menu"]
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 68.0
@@ -176,7 +174,7 @@ offset_bottom = 46.0
 theme_override_font_sizes/font_size = 32
 text = "Menu"
 
-[node name="PauseMenu" type="ColorRect" parent="UILayer"]
+[node name="PauseMenu" type="ColorRect" parent="Menu"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -184,7 +182,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
 
-[node name="MenuBox" type="NinePatchRect" parent="UILayer/PauseMenu"]
+[node name="MenuBox" type="NinePatchRect" parent="Menu/PauseMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -199,7 +197,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_wbpbn")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseMenu/MenuBox"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu/PauseMenu/MenuBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -213,32 +211,32 @@ offset_bottom = 154.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer"]
 layout_mode = 2
 
-[node name="PauseTitle" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="PauseTitle" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 texture = ExtResource("12_a6rn7")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Control" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 
-[node name="ResumeOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="ResumeOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ContinueButton" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
+[node name="ContinueButton" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 texture = ExtResource("13_4on3e")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ContinueLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
+[node name="ContinueLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
 custom_minimum_size = Vector2(143, 10)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -247,22 +245,22 @@ texture = ExtResource("14_bssq0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Control2" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="Control2" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="RetryOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="RetryOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="RetryText" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
+[node name="RetryText" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 texture = ExtResource("15_jk4ss")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RetryLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
+[node name="RetryLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
 custom_minimum_size = Vector2(143, 10)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -270,22 +268,22 @@ texture = ExtResource("14_bssq0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Control3" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="Control3" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="SettingsOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="SettingsOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SettingsText" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
+[node name="SettingsText" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 texture = ExtResource("16_r5om4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SettingsLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
+[node name="SettingsLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
 custom_minimum_size = Vector2(143, 10)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -293,69 +291,27 @@ texture = ExtResource("14_bssq0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Control4" type="Control" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="Control4" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="ExitOption" type="VBoxContainer" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="ExitOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ExitText" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
+[node name="ExitText" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 texture = ExtResource("17_a6rn7")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ExitLine" type="TextureRect" parent="UILayer/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
+[node name="ExitLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
 custom_minimum_size = Vector2(143, 10)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("14_bssq0")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="HUD" type="CanvasLayer" parent="."]
-
-[node name="Topbar" type="HBoxContainer" parent="HUD"]
-offset_left = 146.0
-offset_top = 24.0
-offset_right = 546.0
-offset_bottom = 64.0
-theme_override_constants/separation = 50
-
-[node name="TimeLabel" type="Label" parent="HUD/Topbar"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Time:"
-
-[node name="MoneyLabel" type="Label" parent="HUD/Topbar"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Money:"
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -90.0
-offset_top = -150.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="InsButton" type="TextureButton" parent="HUD/MarginContainer"]
-custom_minimum_size = Vector2(90, 150)
-layout_mode = 2
-texture_normal = ExtResource("19_jk4ss")
-ignore_texture_size = true
-stretch_mode = 5
-script = ExtResource("20_r5om4")
 
 [connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]

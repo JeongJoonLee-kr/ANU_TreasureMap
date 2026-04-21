@@ -9,7 +9,6 @@ var text_index: int = 0
 var text_finished: bool = false
 
 @onready var background: TextureRect = $TextureRect
-@onready var title_label: Label = $TitleLabel
 @onready var description: Label = $Control/Description
 @onready var event_panel: Control = $Control/EventPanel
 @onready var back_button: Button = $Control/BackButton
@@ -50,7 +49,6 @@ func show_location() -> void:
 		return
 
 	var data: Dictionary = location_data[location_id] as Dictionary
-	title_label.text = data.get("title", "Unknown Location")
 
 	var image_path: String = data.get("image_path", "") as String
 	if image_path != "":
@@ -80,7 +78,11 @@ func show_location() -> void:
 
 
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file(map_scene_path)
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("show_map"):
+		current_scene.show_map()
+	else:
+		get_tree().change_scene_to_file(map_scene_path)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -171,4 +173,5 @@ func try_spend_money(cost: int) -> bool:
 		return false
 
 	Global.money -= cost
+	Global.notify_resources_changed()
 	return true
