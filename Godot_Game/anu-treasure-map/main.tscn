@@ -21,21 +21,25 @@ theme_override_constants/separation = 50
 
 [node name="WeekLabel" type="Label" parent="HUD/Topbar"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
 text = "Week:"
 
 [node name="LocationLabel" type="Label" parent="HUD/Topbar"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
 text = "Location:"
 
 [node name="TimeLabel" type="Label" parent="HUD/Topbar"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
 text = "Time:"
 
 [node name="MoneyLabel" type="Label" parent="HUD/Topbar"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
 text = "Money:"
 
