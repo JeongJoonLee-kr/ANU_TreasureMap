@@ -36,8 +36,9 @@ func show_map() -> void:
 	map_instance.show()
 	ins_button.show()
 	next_week_button.show()
-	if map_instance.has_method("update_current_location_marker"):
-		map_instance.update_current_location_marker()
+	var map_controller := get_map_controller()
+	if map_controller != null and map_controller.has_method("update_current_location_marker"):
+		map_controller.update_current_location_marker()
 	update_resource_ui()
 
 
@@ -88,6 +89,19 @@ func open_profile(force_first_time_setup: bool = false, opened_from_phone: bool 
 	top_canvas.add_child(card_instance)
 	add_child(top_canvas)
 	return top_canvas
+
+
+func set_player_location(location_id: String) -> void:
+	var normalized_id := Global.normalize_location_id(location_id)
+	Global.current_location_id = normalized_id
+	Global.selected_location_id = normalized_id
+	Global.player_location_id = normalized_id
+
+	var map_controller := get_map_controller()
+	if map_controller != null and map_controller.has_method("update_current_location_marker"):
+		map_controller.update_current_location_marker()
+
+	update_resource_ui()
 
 
 func update_resource_ui() -> void:
@@ -177,6 +191,13 @@ func get_current_location_title() -> String:
 	if data is Dictionary:
 		return data.get("title", location_id)
 	return location_id
+
+
+func get_map_controller() -> Node:
+	if not is_instance_valid(map_instance):
+		return null
+
+	return map_instance.get_node_or_null("MapControl")
 
 
 func _on_next_week_button_pressed() -> void:

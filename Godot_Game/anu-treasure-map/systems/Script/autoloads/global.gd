@@ -4,9 +4,9 @@ extends Node
 # Store the currently selected location id.
 # This value is used to pass location information
 # from the map scene to the shared location scene.
-var current_location_id: String = "lab_cafe"
-var selected_location_id: String = "lab_cafe"
-var player_location_id: String = "lab_cafe"
+var current_location_id: String = "chifley_marie_reay"
+var selected_location_id: String = "chifley_marie_reay"
+var player_location_id: String = "chifley_marie_reay"
 
 var stamina: int = 100
 var current_week: int = 1
@@ -40,6 +40,7 @@ signal resources_changed(time_value: int, money_value: int)
 func _ready() -> void:
 	_load_characters()
 	_load_posts()
+	normalize_legacy_ids()
 
 
 func notify_resources_changed() -> void:
@@ -48,6 +49,25 @@ func notify_resources_changed() -> void:
 
 func refresh_week_tag() -> void:
 	current_week_tag = "week%d" % current_week
+
+
+func normalize_location_id(location_id: String) -> String:
+	match location_id:
+		"lab_cafe":
+			return "chifley_marie_reay"
+		"lake", "griffin_lake":
+			return "lodges"
+		_:
+			return location_id
+
+
+func normalize_legacy_ids() -> void:
+	current_location_id = normalize_location_id(current_location_id)
+	selected_location_id = normalize_location_id(selected_location_id)
+	player_location_id = normalize_location_id(player_location_id)
+
+	var homebase := str(player_data.get("homebase", ""))
+	player_data["homebase"] = normalize_location_id(homebase)
 
 
 # ========== DATA LOADING METHODS ==========
@@ -115,9 +135,15 @@ func load_game() -> void:
 
 			var progress = parsed_data.get("progress", {})
 			if progress is Dictionary:
-				current_location_id = progress.get("current_location_id", current_location_id)
-				selected_location_id = progress.get("selected_location_id", selected_location_id)
-				player_location_id = progress.get("player_location_id", player_location_id)
+				current_location_id = normalize_location_id(
+					str(progress.get("current_location_id", current_location_id))
+				)
+				selected_location_id = normalize_location_id(
+					str(progress.get("selected_location_id", selected_location_id))
+				)
+				player_location_id = normalize_location_id(
+					str(progress.get("player_location_id", player_location_id))
+				)
 				current_week = int(progress.get("current_week", current_week))
 				current_week_tag = str(progress.get("current_week_tag", current_week_tag))
 				max_time_per_week = int(progress.get("max_time_per_week", max_time_per_week))
@@ -127,6 +153,8 @@ func load_game() -> void:
 			elif parsed_data.has("name") or parsed_data.has("major") or parsed_data.has("homebase"):
 				# Backward compatibility with the old save structure.
 				player_data = parsed_data
+
+			normalize_legacy_ids()
 
 			if current_week_tag == "":
 				refresh_week_tag()

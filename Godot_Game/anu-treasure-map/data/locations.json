@@ -1,24 +1,273 @@
 {
-  "lab_cafe": {
-	"title": "Lab Cafe",
-	"description": "You go to Lab Cafe, something might happen here.",
-	"image_path": "res://resources/Location/Lab_Cafe.png",
+  "student_accommodation": {
+	"title": "Student Accommodation",
+	"map_label": "Student Accommodation",
+	"description": "You go to Student Accommodation, something might happen here.",
+	"image_path": "res://resources/Location/Student Accommodation.jpg",
 	"texts": [
-	  "This is Lab Cafe.",
+      "This is Student Accommodation."
+	],
+	"neighbors": [
+	  "wamburun_halls_ursula_hall",
+      "medical_physics_school"
+	]
+  },
+  "wamburun_halls_ursula_hall": {
+	"title": "Wamburun Halls & Ursula Hall",
+	"map_label": "Wamburun Halls & Ursula Hall",
+	"description": "You go to Wamburun Halls & Ursula Hall, something might happen here.",
+	"image_path": "res://resources/Location/Wamburun Halls & Ursula Hall.jpg",
+	"texts": [
+      "This is Wamburun Halls & Ursula Hall."
+	],
+	"neighbors": [
+	  "student_accommodation",
+	  "bruce_hall",
+	  "central_studying_area",
+      "south_oval"
+	]
+  },
+  "bruce_hall": {
+	"title": "Bruce Hall",
+	"map_label": "Bruce Hall",
+	"description": "You go to Bruce Hall, something might happen here.",
+	"image_path": "res://resources/Location/Bruce Hall.jpg",
+	"texts": [
+      "This is Bruce Hall."
+	],
+	"neighbors": [
+	  "wamburun_halls_ursula_hall",
+	  "central_studying_area",
+      "csit_engn_area"
+	]
+  },
+  "central_studying_area": {
+	"title": "Central Studying Area",
+	"map_label": "Central Studying Area",
+	"description": "You go to Central Studying Area, something might happen here.",
+	"image_path": "res://resources/Location/Central Studying Area.jpg",
+	"texts": [
+      "This is Central Studying Area."
+	],
+	"neighbors": [
+	  "wamburun_halls_ursula_hall",
+	  "bruce_hall",
+	  "csit_engn_area",
+      "fellows_oval"
+	]
+  },
+  "csit_engn_area": {
+	"title": "CSIT&ENGN Area",
+	"map_label": "CSIT&ENGN Area",
+	"description": "You go to CSIT&ENGN Area, something might happen here.",
+	"image_path": "res://resources/Location/CSIT&ENGN Area.jpg",
+	"texts": [
+      "This is CSIT&ENGN Area."
+	],
+	"neighbors": [
+	  "bruce_hall",
+	  "central_studying_area",
+      "anu_sports_north_oval"
+	]
+  },
+  "anu_sports_north_oval": {
+	"title": "ANU Sports North Oval",
+	"map_label": "ANU Sports North Oval",
+	"description": "You go to ANU Sports North Oval, something might happen here.",
+	"image_path": "res://resources/Location/ANU Sports North Oval.jpg",
+	"texts": [
+      "This is ANU Sports North Oval."
+	],
+	"neighbors": [
+	  "csit_engn_area",
+      "fenner_hall"
+	]
+  },
+  "medical_physics_school": {
+	"title": "Medical & Physics School",
+	"map_label": "Medical & Physics School",
+	"description": "You go to Medical & Physics School, something might happen here.",
+	"image_path": "res://resources/Location/Medical & Physics School.jpg",
+	"texts": [
+      "This is Medical & Physics School."
+	],
+	"neighbors": [
+	  "student_accommodation",
+	  "south_oval",
+      "blocks"
+	]
+  },
+  "south_oval": {
+	"title": "South Oval",
+	"map_label": "South Oval",
+	"description": "You go to South Oval, something might happen here.",
+	"image_path": "res://resources/Location/South Oval.jpg",
+	"texts": [
+      "This is South Oval."
+	],
+	"neighbors": [
+	  "wamburun_halls_ursula_hall",
+	  "medical_physics_school",
+	  "blocks",
+	  "central",
+      "fellows_oval"
+	]
+  },
+  "blocks": {
+	"title": "Blocks",
+	"map_label": "Blocks",
+	"description": "You go to Blocks, something might happen here.",
+	"image_path": "res://resources/Location/Blocks.png",
+	"texts": [
+      "This is Blocks."
+	],
+	"neighbors": [
+	  "medical_physics_school",
+	  "south_oval",
+      "houses"
+	]
+  },
+  "houses": {
+	"title": "Houses",
+	"map_label": "Houses",
+	"description": "You go to Houses, something might happen here.",
+	"image_path": "res://resources/Location/Houses.png",
+	"texts": [
+      "This is Houses."
+	],
+	"neighbors": [
+	  "blocks",
+	  "southwest",
+      "central"
+	]
+  },
+  "southwest": {
+	"title": "Southwest",
+	"map_label": "Southwest",
+	"description": "You go to Southwest, something might happen here.",
+	"image_path": "res://resources/Location/Southwest.jpg",
+	"texts": [
+      "This is Southwest."
+	],
+	"neighbors": [
+      "houses"
+	]
+  },
+  "central": {
+	"title": "Central",
+	"map_label": "Central",
+	"description": "You go to Central, something might happen here.",
+	"image_path": "res://resources/Location/Central.jpg",
+	"texts": [
+      "This is Central."
+	],
+	"neighbors": [
+	  "south_oval",
+	  "houses",
+      "art_and_music"
+	]
+  },
+  "fellows_oval": {
+	"title": "Fellows Oval",
+	"map_label": "Fellows Oval",
+	"description": "You go to Fellows Oval, something might happen here.",
+	"image_path": "res://resources/Location/Fellows Oval.jpg",
+	"texts": [
+      "This is Fellows Oval."
+	],
+	"neighbors": [
+	  "central_studying_area",
+	  "south_oval",
+      "chifley_marie_reay"
+	]
+  },
+  "chifley_marie_reay": {
+	"title": "Chifley & Marie Reay",
+	"map_label": "Chifley & Marie Reay",
+	"description": "You go to Chifley & Marie Reay, something might happen here.",
+	"image_path": "res://resources/Location/Chifley & Marie Reay.jpg",
+	"texts": [
+	  "This is Chifley & Marie Reay.",
 	  "It is a good place to take a break.",
       "Many students come here for coffee and food."
 	],
-	"neighbors": ["lake"]
+	"neighbors": [
+	  "fellows_oval",
+	  "fenner_hall",
+	  "art_and_music",
+	  "copland"
+	]
   },
-  "lake": {
-	"title": "Griffin Lake",
-	"description": "You go to Griffin Lake, something might happen here.",
-	"image_path": "res://resources/Location/Griffin_Lake.jpg",
+  "fenner_hall": {
+	"title": "Fenner Hall",
+	"map_label": "Fenner Hall",
+	"description": "You go to Fenner Hall, something might happen here.",
+	"image_path": "res://resources/Location/Fenner Hall.jpg",
 	"texts": [
-	  "This is Griffin Lake.",
-	  "The wind is strong and the water is quiet.",
-      "It feels like a peaceful place to stop for a while."
+      "This is Fenner Hall."
 	],
-	"neighbors": ["lab_cafe"]
+	"neighbors": [
+	  "anu_sports_north_oval",
+	  "chifley_marie_reay",
+	  "copland",
+      "lodges"
+	]
+  },
+  "copland": {
+	"title": "Copland",
+	"map_label": "Copland",
+	"description": "You go to Copland, something might happen here.",
+	"image_path": "res://resources/Location/Copland.jpg",
+	"texts": [
+      "This is Copland."
+	],
+	"neighbors": [
+	  "fenner_hall",
+	  "lodges",
+	  "chifley_marie_reay",
+	  "art_and_music"
+	]
+  },
+  "lodges": {
+	"title": "Lodges",
+	"map_label": "Lodges",
+	"description": "You go to Lodges, something might happen here.",
+	"image_path": "res://resources/Location/Lodges.jpg",
+	"texts": [
+	  "This is Lodges."
+	],
+	"neighbors": [
+	  "fenner_hall",
+	  "copland",
+	  "art_and_music",
+	  "city"
+	]
+  },
+  "city": {
+	"title": "City",
+	"map_label": "City",
+	"description": "You go to City, something might happen here.",
+	"image_path": "res://resources/Location/City.jpg",
+	"texts": [
+      "This is City."
+	],
+	"neighbors": [
+		"lodges"
+	]
+  },
+  "art_and_music": {
+	"title": "Art & Music",
+	"map_label": "Art & Music",
+	"description": "You go to Art & Music, something might happen here.",
+	"image_path": "res://resources/Location/Art & Music.jpg",
+	"texts": [
+      "This is Art & Music."
+	],
+	"neighbors": [
+	  "central",
+	  "chifley_marie_reay",
+	  "lodges",
+	  "copland"
+	]
   }
 }

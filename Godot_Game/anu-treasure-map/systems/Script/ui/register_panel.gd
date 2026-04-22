@@ -27,9 +27,7 @@ const DESCRIPTIONS = {
 	"Your academic background grants heightened intuition for digital artifacts and computation-based puzzles.\n[i]You perceive the world not as stone and glass, but as an intricate topology of nodes and edges waiting to be deciphered.[/i]",
 	"hist":
 	"Your focus provides deeper insights into archival relics, unlocking hidden narrative branches from historical anomalies.\n[i]The ghosts of the past whisper through the cracked concrete, eager to tell tales of what once was.[/i]",
-	"lab_cafe":
-	"This location serves as your initial deployment zone and primary rest area to recover morale between expeditions.\n[i]A solitary sanctuary amidst the campus chaos, where the exhausted mind unravels its gathered threads.[/i]",
-	"griffin_lake":
+	"lodges":
 	"Starting here grants a calm mindset, offering a slight edge in resisting psychological stress during your first encounters.\n[i]The gentle ripples of the water reflect a mind seeking clarity in the depths of reflection.[/i]"
 }
 
@@ -50,7 +48,6 @@ func _ready():
 
 	# 3. Connect HomeBase Buttons
 	griffin_lake_btn.pressed.connect(_on_griffin_lake_pressed)
-	lab_cafe_btn.pressed.connect(_on_lab_cafe_pressed)
 
 	# 4. Connect Auth Button
 	auth_btn.button_down.connect(_on_auth_button_down)
@@ -64,7 +61,7 @@ func _ready():
 	if profile_mode:
 		apply_profile_mode()
 	else:
-		prefill_from_player_data()
+		apply_registration_mode()
 
 
 # ========== HELPER FOR VISUAL FEEDBACK ==========
@@ -95,22 +92,22 @@ func prefill_from_player_data() -> void:
 
 func apply_registration_mode() -> void:
 	current_major = ""
-	current_homebase = ""
+	current_homebase = "lodges"
 
 	name_input.editable = true
 	prefill_from_player_data()
 
 	comp_btn.disabled = false
 	hist_btn.disabled = false
-	griffin_lake_btn.disabled = false
-	lab_cafe_btn.disabled = false
+	griffin_lake_btn.disabled = true
+	lab_cafe_btn.hide()
 	auth_btn.show()
 	auth_btn.disabled = true
 	auth_btn.modulate = Color(0.3, 0.3, 0.3, 1)
 
 	_reset_button_colors()
-	mind_terminal.text = ""
-	mind_terminal.visible_characters = 0
+	griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
+	update_mind_terminal(DESCRIPTIONS["lodges"])
 
 
 func apply_profile_mode() -> void:
@@ -125,6 +122,7 @@ func apply_profile_mode() -> void:
 	hist_btn.disabled = true
 	griffin_lake_btn.disabled = true
 	lab_cafe_btn.disabled = true
+	lab_cafe_btn.hide()
 	auth_btn.hide()
 
 	_reset_button_colors()
@@ -140,12 +138,9 @@ func highlight_current_selection() -> void:
 		hist_btn.modulate = Color(1.0, 1.0, 1.0, 1)
 		comp_btn.modulate = Color(0.4, 0.4, 0.4, 1)
 
-	if current_homebase == "griffin_lake":
+	if current_homebase == "lodges":
 		griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
 		lab_cafe_btn.modulate = Color(0.4, 0.4, 0.4, 1)
-	elif current_homebase == "lab_cafe":
-		lab_cafe_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-		griffin_lake_btn.modulate = Color(0.4, 0.4, 0.4, 1)
 
 
 func build_profile_summary() -> String:
@@ -156,9 +151,9 @@ func build_profile_summary() -> String:
 		else ("History" if current_major == "hist" else "Unregistered")
 	)
 	var homebase_text := (
-		"Lab Cafe"
-		if current_homebase == "lab_cafe"
-		else ("Griffin Lake" if current_homebase == "griffin_lake" else "Unassigned")
+		"Lodges"
+		if current_homebase == "lodges"
+		else ("Chifley & Marie Reay" if current_homebase == "chifley_marie_reay" else "Unassigned")
 	)
 
 	return (
@@ -190,22 +185,12 @@ func _on_hist_pressed():
 
 # ========== HOMEBASE BUTTON HANDLERS ==========
 func _on_griffin_lake_pressed():
-	current_homebase = "griffin_lake"
+	current_homebase = "lodges"
 	# Highlight selected, dim the other
 	griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
 	lab_cafe_btn.modulate = Color(0.4, 0.4, 0.4, 1)
 
-	update_mind_terminal(DESCRIPTIONS["griffin_lake"])
-	check_auth_status()
-
-
-func _on_lab_cafe_pressed():
-	current_homebase = "lab_cafe"
-	# Highlight selected, dim the other
-	lab_cafe_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-	griffin_lake_btn.modulate = Color(0.4, 0.4, 0.4, 1)
-
-	update_mind_terminal(DESCRIPTIONS["lab_cafe"])
+	update_mind_terminal(DESCRIPTIONS["lodges"])
 	check_auth_status()
 
 
@@ -260,10 +245,20 @@ func _on_auth_button_pressed():
 	if entered_name == "":
 		entered_name = "Unknown"
 
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("set_player_location"):
+		current_scene.set_player_location("lodges")
+	else:
+		Global.current_location_id = "lodges"
+		Global.selected_location_id = "lodges"
+		Global.player_location_id = "lodges"
+
 	# 1. save data
 	Global.player_data["name"] = entered_name
 	Global.player_data["major"] = current_major
 	Global.player_data["homebase"] = current_homebase
+
+	Global.notify_resources_changed()
 
 	# 2. Write JSON to local archive
 	Global.save_game()

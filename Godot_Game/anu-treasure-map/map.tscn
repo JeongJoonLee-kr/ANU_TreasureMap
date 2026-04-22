@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=17 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
@@ -12,7 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://b0g04418bvb0o" path="res://resources/icon/PAUSE-MENU_0000s_0005_SETTING.png" id="16_r5om4"]
 [ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://resources/icon/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
 [ext_resource type="Texture2D" uid="uid://bbjmg32xqixy" path="res://resources/Location/Current_Location_Star.png" id="18_star"]
-[ext_resource type="PackedScene" path="res://location_marker.tscn" id="21_marker"]
+[ext_resource type="Script" uid="uid://sgskvhp784a5" path="res://systems/Script/map/map_connections_layer.gd" id="19_connections"]
+[ext_resource type="PackedScene" uid="uid://dg0v62agyl0xd" path="res://location_marker.tscn" id="21_marker"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
 
@@ -115,23 +116,186 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="LabCafeMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
-anchors_preset = 0
-offset_left = 869.0
-offset_top = 547.0
-offset_right = 1089.0
-offset_bottom = 637.0
-location_id = "lab_cafe"
-display_name_override = "Lab Cafe"
+[node name="ConnectionsLayer" type="Control" parent="MapControl/MarkersLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("19_connections")
 
-[node name="LakeMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
-anchors_preset = 0
-offset_left = 140.0
-offset_top = 301.0
-offset_right = 360.0
-offset_bottom = 391.0
-location_id = "lake"
-display_name_override = "Griffin Lake"
+[node name="StudentAccommodationMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 375.0
+offset_top = 110.0
+offset_right = 595.0
+offset_bottom = 200.0
+location_id = "student_accommodation"
+display_name_override = "Student Accommodation"
+
+[node name="WamburunUrsulaMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 614.0
+offset_top = 139.0
+offset_right = 834.0
+offset_bottom = 229.0
+location_id = "wamburun_halls_ursula_hall"
+display_name_override = "Wamburun Halls & Ursula Hall"
+
+[node name="BruceHallMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 915.0
+offset_top = 114.0
+offset_right = 1135.0
+offset_bottom = 204.0
+location_id = "bruce_hall"
+display_name_override = "Bruce Hall"
+
+[node name="MedicalPhysicsSchoolMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 221.0
+offset_top = 295.0
+offset_right = 441.0
+offset_bottom = 385.0
+location_id = "medical_physics_school"
+display_name_override = "Medical & Physics School"
+
+[node name="CentralStudyingAreaMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 781.0
+offset_top = 258.0
+offset_right = 1001.0
+offset_bottom = 348.0
+location_id = "central_studying_area"
+display_name_override = "Central Studying Area"
+
+[node name="CsitEngnAreaMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 1089.0
+offset_top = 286.0
+offset_right = 1309.0
+offset_bottom = 376.0
+location_id = "csit_engn_area"
+display_name_override = "CSIT&ENGN Area"
+
+[node name="AnuSportsNorthOvalMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 1170.0
+offset_top = 413.0
+offset_right = 1390.0
+offset_bottom = 503.0
+location_id = "anu_sports_north_oval"
+display_name_override = "ANU Sports North Oval"
+
+[node name="SouthOvalMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 541.0
+offset_top = 371.0
+offset_right = 761.0
+offset_bottom = 461.0
+location_id = "south_oval"
+display_name_override = "South Oval"
+
+[node name="BlocksMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 311.0
+offset_top = 478.0
+offset_right = 531.0
+offset_bottom = 568.0
+location_id = "blocks"
+display_name_override = "Blocks"
+
+[node name="CentralMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 596.0
+offset_top = 533.0
+offset_right = 816.0
+offset_bottom = 623.0
+location_id = "central"
+display_name_override = "Central"
+
+[node name="FellowsOvalMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 445.0
+offset_right = 1010.0
+offset_bottom = 535.0
+location_id = "fellows_oval"
+display_name_override = "Fellows Oval"
+
+[node name="ChifleyMarieReayMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 876.0
+offset_top = 524.0
+offset_right = 1096.0
+offset_bottom = 614.0
+location_id = "chifley_marie_reay"
+display_name_override = "Chifley & Marie Reay"
+
+[node name="FennerHallMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 461.0
+offset_right = 1222.0
+offset_bottom = 551.0
+location_id = "fenner_hall"
+display_name_override = "Fenner Hall"
+
+[node name="CoplandMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 991.0
+offset_top = 569.0
+offset_right = 1211.0
+offset_bottom = 659.0
+location_id = "copland"
+display_name_override = "Copland"
+
+[node name="LodgesMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 1130.0
+offset_top = 652.0
+offset_right = 1350.0
+offset_bottom = 742.0
+location_id = "lodges"
+display_name_override = "Lodges"
+
+[node name="ArtAndMusicMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 786.0
+offset_top = 663.0
+offset_right = 1006.0
+offset_bottom = 753.0
+location_id = "art_and_music"
+display_name_override = "Art & Music"
+
+[node name="HousesMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 620.0
+offset_right = 484.0
+offset_bottom = 710.0
+location_id = "houses"
+display_name_override = "Houses"
+
+[node name="SouthwestMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 707.0
+offset_right = 298.0
+offset_bottom = 797.0
+location_id = "southwest"
+display_name_override = "Southwest"
+
+[node name="CityMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+layout_mode = 0
+offset_left = 1168.0
+offset_top = 769.0
+offset_right = 1388.0
+offset_bottom = 859.0
+location_id = "city"
+display_name_override = "City"
 
 [node name="CurrentLocationMarker" type="TextureRect" parent="MapControl"]
 z_index = 2

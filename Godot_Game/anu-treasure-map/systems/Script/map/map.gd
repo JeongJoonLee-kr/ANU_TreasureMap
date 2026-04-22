@@ -7,6 +7,7 @@ var location_markers: Dictionary = {}
 # References to the popup panel and editor-placed location markers.
 @onready var event_panel: Panel = $EventPanel
 @onready var markers_layer: Control = $MarkersLayer
+@onready var connections_layer: MapConnectionsLayer = $MarkersLayer/ConnectionsLayer
 @onready var current_location_marker: TextureRect = $CurrentLocationMarker
 @onready var hover_preview: Panel = $HoverPreview
 @onready var hover_preview_image: TextureRect = $HoverPreview/PreviewImage
@@ -18,6 +19,7 @@ func _ready() -> void:
 	load_location_data()
 	bind_location_markers()
 	await get_tree().process_frame
+	refresh_connection_lines()
 	update_current_location_marker()
 
 
@@ -76,6 +78,12 @@ func bind_location_markers() -> void:
 		marker.preview_hidden.connect(hide_location_preview)
 		marker.selected.connect(_on_location_marker_selected)
 		location_markers[marker.location_id] = marker
+
+
+func refresh_connection_lines() -> void:
+	if connections_layer == null:
+		return
+	connections_layer.refresh_connections(location_data, location_markers)
 
 
 func update_current_location_marker() -> void:
