@@ -26,6 +26,8 @@ func _draw() -> void:
 		var marker := location_markers.get(location_id) as LocationMarker
 		if marker == null:
 			continue
+		if not _is_location_active(location_id, marker):
+			continue
 
 		var data := location_data.get(location_id, {}) as Dictionary
 		var neighbors = data.get("neighbors", [])
@@ -41,6 +43,8 @@ func _draw() -> void:
 
 			var neighbor_marker := location_markers.get(neighbor_id) as LocationMarker
 			if neighbor_marker == null:
+				continue
+			if not _is_location_active(neighbor_id, neighbor_marker):
 				continue
 
 			draw_line(
@@ -68,3 +72,11 @@ func _make_edge_key(a: String, b: String) -> String:
 	if a < b:
 		return "%s|%s" % [a, b]
 	return "%s|%s" % [b, a]
+
+
+func _is_location_active(location_id: String, marker: LocationMarker) -> bool:
+	if marker != null and not marker.get_is_active():
+		return false
+
+	var data := location_data.get(location_id, {}) as Dictionary
+	return bool(data.get("active", true))
