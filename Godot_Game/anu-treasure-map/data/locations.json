@@ -2,6 +2,7 @@
   "student_accommodation": {
 	"title": "Student Accommodation",
 	"map_label": "Student Accommodation",
+	"active": true,
 	"description": "You go to Student Accommodation, something might happen here.",
 	"image_path": "res://resources/Location/Student Accommodation.jpg",
 	"texts": [
@@ -15,6 +16,7 @@
   "wamburun_halls_ursula_hall": {
 	"title": "Wamburun Halls & Ursula Hall",
 	"map_label": "Wamburun Halls & Ursula Hall",
+	"active": true,
 	"description": "You go to Wamburun Halls & Ursula Hall, something might happen here.",
 	"image_path": "res://resources/Location/Wamburun Halls & Ursula Hall.jpg",
 	"texts": [
@@ -30,6 +32,7 @@
   "bruce_hall": {
 	"title": "Bruce Hall",
 	"map_label": "Bruce Hall",
+	"active": true,
 	"description": "You go to Bruce Hall, something might happen here.",
 	"image_path": "res://resources/Location/Bruce Hall.jpg",
 	"texts": [
@@ -44,6 +47,7 @@
   "central_studying_area": {
 	"title": "Central Studying Area",
 	"map_label": "Central Studying Area",
+	"active": true,
 	"description": "You go to Central Studying Area, something might happen here.",
 	"image_path": "res://resources/Location/Central Studying Area.jpg",
 	"texts": [
@@ -59,6 +63,7 @@
   "csit_engn_area": {
 	"title": "CSIT&ENGN Area",
 	"map_label": "CSIT&ENGN Area",
+	"active": true,
 	"description": "You go to CSIT&ENGN Area, something might happen here.",
 	"image_path": "res://resources/Location/CSIT&ENGN Area.jpg",
 	"texts": [
@@ -73,6 +78,7 @@
   "anu_sports_north_oval": {
 	"title": "ANU Sports North Oval",
 	"map_label": "ANU Sports North Oval",
+	"active": true,
 	"description": "You go to ANU Sports North Oval, something might happen here.",
 	"image_path": "res://resources/Location/ANU Sports North Oval.jpg",
 	"texts": [
@@ -86,6 +92,7 @@
   "medical_physics_school": {
 	"title": "Medical & Physics School",
 	"map_label": "Medical & Physics School",
+	"active": true,
 	"description": "You go to Medical & Physics School, something might happen here.",
 	"image_path": "res://resources/Location/Medical & Physics School.jpg",
 	"texts": [
@@ -100,6 +107,7 @@
   "south_oval": {
 	"title": "South Oval",
 	"map_label": "South Oval",
+	"active": true,
 	"description": "You go to South Oval, something might happen here.",
 	"image_path": "res://resources/Location/South Oval.jpg",
 	"texts": [
@@ -116,6 +124,7 @@
   "blocks": {
 	"title": "Blocks",
 	"map_label": "Blocks",
+	"active": true,
 	"description": "You go to Blocks, something might happen here.",
 	"image_path": "res://resources/Location/Blocks.png",
 	"texts": [
@@ -130,6 +139,7 @@
   "houses": {
 	"title": "Houses",
 	"map_label": "Houses",
+	"active": true,
 	"description": "You go to Houses, something might happen here.",
 	"image_path": "res://resources/Location/Houses.png",
 	"texts": [
@@ -144,6 +154,7 @@
   "southwest": {
 	"title": "Southwest",
 	"map_label": "Southwest",
+	"active": true,
 	"description": "You go to Southwest, something might happen here.",
 	"image_path": "res://resources/Location/Southwest.jpg",
 	"texts": [
@@ -156,6 +167,7 @@
   "central": {
 	"title": "Central",
 	"map_label": "Central",
+	"active": true,
 	"description": "You go to Central, something might happen here.",
 	"image_path": "res://resources/Location/Central.jpg",
 	"texts": [
@@ -170,6 +182,7 @@
   "fellows_oval": {
 	"title": "Fellows Oval",
 	"map_label": "Fellows Oval",
+	"active": true,
 	"description": "You go to Fellows Oval, something might happen here.",
 	"image_path": "res://resources/Location/Fellows Oval.jpg",
 	"texts": [
@@ -184,6 +197,7 @@
   "chifley_marie_reay": {
 	"title": "Chifley & Marie Reay",
 	"map_label": "Chifley & Marie Reay",
+	"active": true,
 	"description": "You go to Chifley & Marie Reay, something might happen here.",
 	"image_path": "res://resources/Location/Chifley & Marie Reay.jpg",
 	"texts": [
@@ -201,6 +215,7 @@
   "fenner_hall": {
 	"title": "Fenner Hall",
 	"map_label": "Fenner Hall",
+	"active": true,
 	"description": "You go to Fenner Hall, something might happen here.",
 	"image_path": "res://resources/Location/Fenner Hall.jpg",
 	"texts": [
@@ -216,6 +231,7 @@
   "copland": {
 	"title": "Copland",
 	"map_label": "Copland",
+	"active": true,
 	"description": "You go to Copland, something might happen here.",
 	"image_path": "res://resources/Location/Copland.jpg",
 	"texts": [
@@ -231,6 +247,7 @@
   "lodges": {
 	"title": "Lodges",
 	"map_label": "Lodges",
+	"active": true,
 	"description": "You go to Lodges, something might happen here.",
 	"image_path": "res://resources/Location/Lodges.jpg",
 	"texts": [
@@ -246,6 +263,7 @@
   "city": {
 	"title": "City",
 	"map_label": "City",
+	"active": true,
 	"description": "You go to City, something might happen here.",
 	"image_path": "res://resources/Location/City.jpg",
 	"texts": [
@@ -258,6 +276,7 @@
   "art_and_music": {
 	"title": "Art & Music",
 	"map_label": "Art & Music",
+	"active": true,
 	"description": "You go to Art & Music, something might happen here.",
 	"image_path": "res://resources/Location/Art & Music.jpg",
 	"texts": [

@@ -115,6 +115,9 @@ func open_location(location_id: String, anchor: Control) -> void:
 		push_error("Unknown location id: " + location_id)
 		return
 
+	if not is_location_active(location_id):
+		return
+
 	var data: Dictionary = location_data[location_id] as Dictionary
 	var travel_time := get_travel_time(Global.player_location_id, location_id)
 	var can_travel := can_travel_to_location(location_id)
@@ -160,6 +163,8 @@ func try_move_to_location(target_location_id: String) -> void:
 
 
 func can_travel_to_location(target_location_id: String) -> bool:
+	if not is_location_active(target_location_id):
+		return false
 	var travel_time := get_travel_time(Global.player_location_id, target_location_id)
 	return travel_time >= 0 and Global.time >= travel_time
 
@@ -169,6 +174,9 @@ func get_travel_time(from_location_id: String, to_location_id: String) -> int:
 		return -1
 
 	if not location_data.has(from_location_id) or not location_data.has(to_location_id):
+		return -1
+
+	if not is_location_active(to_location_id):
 		return -1
 
 	if from_location_id == to_location_id:
@@ -205,10 +213,18 @@ func get_neighbors(location_id: String) -> Array[String]:
 	var result: Array[String] = []
 
 	for neighbor in neighbors:
-		if neighbor is String:
+		if neighbor is String and is_location_active(String(neighbor)):
 			result.append(neighbor)
 
 	return result
+
+
+func is_location_active(location_id: String) -> bool:
+	if not location_data.has(location_id):
+		return false
+
+	var data: Dictionary = location_data[location_id] as Dictionary
+	return bool(data.get("active", true))
 
 
 func to_parent_local_point(node: CanvasItem, global_point: Vector2) -> Vector2:
