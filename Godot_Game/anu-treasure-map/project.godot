@@ -26,6 +26,7 @@ config/icon="uid://cd4lwtgxx7odo"
 [autoload]
 
 Global="*res://systems/Script/autoloads/global.gd"
+EventManager="*res://systems/Script/autoloads/event_manager.gd"
 
 [display]
 

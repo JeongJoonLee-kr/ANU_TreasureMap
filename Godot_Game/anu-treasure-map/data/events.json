@@ -1,0 +1,190 @@
+{
+  "yuki": {
+    "id": "yuki",
+    "title": "Yuki the White Dog",
+    "location_id": "bruce_hall",
+    "require_afternoon": true,
+    "base_trigger_chance": 0.3,
+    "clue_id": "clue_yuki",
+    "enabled": true,
+    "treasure_image_path": "res://resources/treasure/treasure_yuki.png",
+    "narrative": [
+      "You're walking through the front grassland near the main gate.",
+      "The afternoon sun is soft, and a light breeze carries the smell of cut grass.",
+      "Then you hear it — a faint jingle… jingle… like a tiny bell bouncing with each step.",
+      "A small white dog bursts out from behind a hedge, pauses right in front of you, and tilts its head.",
+      "Its fur is fluffy and clean, with a little red collar around its neck.",
+      "The dog blinks at you with dark, curious eyes, then gives a single happy yip.",
+      "Before you can react, a young woman jogs around the corner, slightly out of breath. She's holding an empty leash.",
+      "\"Yuki! Oh my god — sorry! She saw a squirrel and just bolted.\"",
+      "She kneels down and clips the leash back onto the red collar, then looks up at you with an embarrassed smile.",
+      "\"She usually doesn't run up to strangers. I think she likes you.\"",
+      "Yuki wags her tail and sniffs your shoes. The woman stands up and adds, \"We live nearby. I take her here almost every afternoon. She loves this grassland — especially the flower patch over there.\"",
+      "She points to a small bed of yellow and white flowers near the library path."
+    ],
+    "choices": {
+      "A": {
+        "label": "\"She's really cute. Can I hang out with you two for a bit?\"",
+        "outcome_texts": [
+          "You kneel down and gently scratch behind Yuki's ear. Her tail wags like crazy.",
+          "The owner laughs. \"She really does like you. We actually pass through here almost every afternoon around this time.\""
+        ],
+        "treasure_found": true,
+        "treasure_name": "Yuki the White Dog",
+        "re_trigger": false
+      },
+      "B": {
+        "label": "\"No worries. I should get going anyway.\"",
+        "outcome_texts": [
+          "You spend a few more minutes playing fetch with a small stick. Yuki brings it back every time, tongue out, happy.",
+          "You nod politely and continue on your way. Behind you, you hear the jingling bell fade as the owner calls Yuki back.",
+          "Later, you realize you never asked when they usually come. Now you're not sure if you'll see that fluffy white dog again."
+        ],
+        "treasure_found": false,
+        "treasure_name": "",
+        "re_trigger": true
+      },
+      "C": {
+        "label": "\"Every afternoon? Maybe I'll come back sometime to say hi.\"",
+        "outcome_texts": [
+          "The owner smiles. \"Almost every afternoon, yeah. She loves this garden.\"",
+          "You say you'll come back sometime, but when you finally do, you don't see them. Maybe you missed the timing. No Yuki today."
+        ],
+        "treasure_found": false,
+        "treasure_name": "",
+        "re_trigger": true,
+        "boost_trigger_chance": true
+      }
+    }
+  },
+  "chess_board": {
+    "id": "chess_board",
+    "title": "The Giant Chess Board",
+    "location_id": "chifley_marie_reay",
+    "require_afternoon": false,
+    "base_trigger_chance": 0.3,
+    "clue_id": "clue_chess_board",
+    "enabled": true,
+    "treasure_image_path": "res://resources/treasure/treasure_chessboard.png",
+    "narrative": [
+      "While walking along the camphor tree lane, you hear a strange, rhythmic thump… thump… sound nearby.",
+      "It's heavy and irregular, like someone punching stone — or moving something very heavy.",
+      "A passing student notices you looking around and grins: \"Oh that? Probably someone playing with the giant chess set behind the library. Some say it's an old mechanism left by a professor years ago.\"",
+      "Another student waves from the side: \"Don't listen to him. That's just the club room moving shelves. Wanna come help us?\"",
+      "A third voice chimes in: \"Actually, I think the sound is coming from the basement — old pipes maybe. Kinda creepy though.\""
+    ],
+    "choices": {
+      "A": {
+        "label": "\"Check behind the library — I want to see that giant chess set.\"",
+        "outcome_texts": [
+          "You walk around the library, pass a low hedge, and step into a small stone-paved square.",
+          "Sunlight falls on a human-sized chess set standing there quietly — each piece about waist-high.",
+          "The thump sound came from a \"cannon\" piece swaying slightly in the wind, bumping into a nearby \"knight\".",
+          "No one else is around. Just you and these silent, giant pieces, like soldiers waiting for orders."
+        ],
+        "treasure_found": true,
+        "treasure_name": "The Giant Chess Board",
+        "re_trigger": false
+      },
+      "B": {
+        "label": "\"Go help move shelves at the club room.\"",
+        "outcome_texts": [
+          "You follow the student to the club room and spend half an hour moving heavy bookshelves.",
+          "You get a free soda, but the strange thump sound never comes back.",
+          "Later, you realize you might have missed something interesting."
+        ],
+        "treasure_found": false,
+        "treasure_name": "",
+        "re_trigger": true
+      },
+      "C": {
+        "label": "\"Check the basement — creepy pipes sound interesting.\"",
+        "outcome_texts": [
+          "You head down to the library basement. It's dark, dusty, and smells old.",
+          "The sound turns out to be a broken water pipe knocking against the wall.",
+          "Nothing else here. You leave with dirty shoes and no treasure."
+        ],
+        "treasure_found": false,
+        "treasure_name": "",
+        "re_trigger": true
+      }
+    }
+  },
+  "kangaroo": {
+    "id": "kangaroo",
+    "title": "The Kangaroo",
+    "location_id": "bruce_hall",
+    "require_afternoon": false,
+    "base_trigger_chance": 0.3,
+    "clue_id": "clue_kangaroo",
+    "enabled": true,
+    "treasure_image_path": "res://resources/treasure/treasure_kangaroo.png",
+    "narrative": [
+      "You're cutting across the edge of the sports field when a blur of brown suddenly dashes past the far fence.",
+      "It's fast — too fast for a dog. And it hops.",
+      "A groundskeeper drops his rake and stares. \"Was that… no. Can't be.\"",
+      "He looks at you.",
+      "\"Kid, tell me I'm not seeing things.\""
+    ],
+    "choices": {
+      "A": {
+        "label": "\"I saw it too. Let's check near the fence.\"",
+        "outcome_texts": [
+          "You walk along the fence line, pushing through tall grass.",
+          "About fifty meters down, you spot movement.",
+          "A medium-sized kangaroo stands perfectly still behind a bush, watching you. Its ears turn like radar dishes.",
+          "You freeze. It freezes. Then, with two slow hops, it turns and slips through a gap in the fence toward Black Mountain Park."
+        ],
+        "treasure_found": true,
+        "treasure_name": "The Kangaroo",
+        "re_trigger": false
+      },
+      "B": {
+        "label": "\"Probably just a big rabbit. I'm going to keep walking.\"",
+        "outcome_texts": [
+          "You shrug and keep walking.",
+          "The groundskeeper mutters something about needing new glasses.",
+          "Later, you hear other students talking about someone who saw a kangaroo near the east fence. You missed it."
+        ],
+        "treasure_found": false,
+        "treasure_name": "",
+        "re_trigger": true
+      },
+      "C": {
+        "label": "\"Let's run toward the park entrance — it might head back that way.\"",
+        "outcome_texts": [
+          "You run toward the park entrance, hoping to cut it off.",
+          "But the kangaroo is faster. By the time you get there, there's nothing but empty road and a few startled pigeons.",
+          "No treasure."
+        ],
+        "treasure_found": false,
+        "treasure_name": "",
+        "re_trigger": true
+      }
+    }
+  },
+  "lotus_lantern": {
+    "id": "lotus_lantern",
+    "title": "Lotus Lantern",
+    "location_id": "",
+    "require_afternoon": false,
+    "base_trigger_chance": 0.3,
+    "clue_id": "clue_lotus_lantern",
+    "enabled": false,
+    "treasure_image_path": "",
+    "narrative": [],
+    "choices": {}
+  },
+  "trophy": {
+    "id": "trophy",
+    "title": "Trophy",
+    "location_id": "",
+    "require_afternoon": false,
+    "base_trigger_chance": 0.3,
+    "clue_id": "clue_trophy",
+    "enabled": false,
+    "treasure_image_path": "",
+    "narrative": [],
+    "choices": {}
+  }
+}
