@@ -50,6 +50,7 @@ func setup(data: Dictionary) -> void:
 
 # ─── UI Construction ──────────────────────────────────
 
+
 func _build_ui() -> void:
 	# Get viewport size for absolute positioning
 	var vp_size: Vector2 = get_viewport_rect().size
@@ -233,7 +234,9 @@ func _build_ui() -> void:
 	vbox.add_child(continue_button)
 
 
-func _create_choice_button(key: String, normal_style: StyleBoxFlat, hover_style: StyleBoxFlat) -> Button:
+func _create_choice_button(
+	key: String, normal_style: StyleBoxFlat, hover_style: StyleBoxFlat
+) -> Button:
 	var btn := Button.new()
 	btn.name = "Choice%sButton" % key
 	btn.custom_minimum_size = Vector2(0, 45)
@@ -248,6 +251,7 @@ func _create_choice_button(key: String, normal_style: StyleBoxFlat, hover_style:
 
 # ─── Signal Connections ───────────────────────────────
 
+
 func _connect_signals() -> void:
 	choice_a_button.pressed.connect(_on_choice_pressed.bind("A"))
 	choice_b_button.pressed.connect(_on_choice_pressed.bind("B"))
@@ -256,6 +260,7 @@ func _connect_signals() -> void:
 
 
 # ─── Event Flow ───────────────────────────────────────
+
 
 func _start_event() -> void:
 	title_label.text = str(event_data.get("title", "Event"))
@@ -379,6 +384,7 @@ func _on_continue_pressed() -> void:
 # to reading raw PNG bytes via FileAccess (works even with invalid
 # .import files or unusual filesystem paths like OneDrive).
 
+
 func _load_texture(image_path: String) -> Texture2D:
 	if image_path == "":
 		return null
@@ -421,6 +427,7 @@ func _load_texture(image_path: String) -> Texture2D:
 # _input() runs before GUI processing, but we only consume the click
 # during narrative/outcome phases. When choices or continue button are
 # visible, none of the conditions match so clicks pass through to buttons.
+
 
 func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree():

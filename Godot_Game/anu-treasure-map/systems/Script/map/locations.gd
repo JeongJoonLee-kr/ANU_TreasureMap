@@ -154,10 +154,11 @@ func _show_exhaustion_toast() -> void:
 	ok_btn.text = "OK"
 	ok_btn.custom_minimum_size = Vector2(120, 36)
 	ok_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	ok_btn.pressed.connect(func():
-		if is_instance_valid(_exhaustion_toast):
-			_exhaustion_toast.queue_free()
-			_exhaustion_toast = null
+	ok_btn.pressed.connect(
+		func():
+			if is_instance_valid(_exhaustion_toast):
+				_exhaustion_toast.queue_free()
+				_exhaustion_toast = null
 	)
 	vbox.add_child(ok_btn)
 

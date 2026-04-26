@@ -37,6 +37,7 @@ func _ready() -> void:
 
 # ─── Virtual Clock ────────────────────────────────────
 
+
 ## Returns the current time-of-day phase based on remaining AP.
 func get_current_phase() -> TimePhase:
 	var ap := Global.time
@@ -73,6 +74,7 @@ func has_enough_ap() -> bool:
 
 # ─── Data Loading ─────────────────────────────────────
 
+
 func _load_events() -> void:
 	var file := FileAccess.open(EVENTS_PATH, FileAccess.READ)
 	if file == null:
@@ -89,6 +91,7 @@ func _load_events() -> void:
 
 
 # ─── Event Triggering ─────────────────────────────────
+
 
 ## Main entry point. Call when the player arrives at a location.
 ## Returns the event Dictionary if one triggers, or null for normal
@@ -172,6 +175,7 @@ func _is_event_completed(event_id: String) -> bool:
 
 # ─── Event Completion ─────────────────────────────────
 
+
 ## Call after the player makes a choice.
 ## Spends AP, records clues, and handles re-trigger flags.
 func complete_event(event_id: String, choice_key: String) -> void:
@@ -215,6 +219,7 @@ func complete_event(event_id: String, choice_key: String) -> void:
 
 
 # ─── Persistence ──────────────────────────────────────
+
 
 ## Returns a Dictionary that can be merged into the save file.
 func get_save_data() -> Dictionary:
