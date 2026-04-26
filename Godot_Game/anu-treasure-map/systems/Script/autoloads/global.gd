@@ -93,6 +93,12 @@ func save_game() -> void:
 	# Open the file in WRITE mode
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
+		var event_save := {}
+		if Engine.has_singleton("EventManager") or get_node_or_null("/root/EventManager") != null:
+			var em = get_node_or_null("/root/EventManager")
+			if em != null and em.has_method("get_save_data"):
+				event_save = em.get_save_data()
+
 		var save_data := {
 			"player_data": player_data,
 			"progress":
@@ -106,7 +112,9 @@ func save_game() -> void:
 				"max_week": max_week,
 				"time": time,
 				"money": money
-			}
+			},
+			"unlocked_clues": unlocked_clues,
+			"event_manager": event_save
 		}
 		# Convert the save data dictionary into a formatted JSON string (using tabs)
 		var json_string = JSON.stringify(save_data, "\t")
@@ -153,6 +161,21 @@ func load_game() -> void:
 			elif parsed_data.has("name") or parsed_data.has("major") or parsed_data.has("homebase"):
 				# Backward compatibility with the old save structure.
 				player_data = parsed_data
+
+			# Restore unlocked clues
+			var saved_clues = parsed_data.get("unlocked_clues", [])
+			if saved_clues is Array:
+				unlocked_clues.clear()
+				for c in saved_clues:
+					if c is String:
+						unlocked_clues.append(c)
+
+			# Restore EventManager state
+			var event_data = parsed_data.get("event_manager", {})
+			if event_data is Dictionary and not event_data.is_empty():
+				var em = get_node_or_null("/root/EventManager")
+				if em != null and em.has_method("load_save_data"):
+					em.load_save_data(event_data)
 
 			normalize_legacy_ids()
 
