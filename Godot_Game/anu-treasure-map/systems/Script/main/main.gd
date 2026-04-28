@@ -6,7 +6,8 @@ const INVESTIGATOR_CARD_SCENE = preload("res://investigator_card.tscn")
 
 @onready var map_instance: Node2D = $Map
 @onready var week_value_label: Label = $HUD/Topbar/WeekStatus/WeekTexts/WeekValueLabel
-@onready var location_value_label: Label = $HUD/Topbar/LocationStatus/LocationTexts/LocationValueLabel
+@onready
+var location_value_label: Label = $HUD/Topbar/LocationStatus/LocationTexts/LocationValueLabel
 @onready var time_value_label: Label = $HUD/Topbar/TimeStatus/TimeTexts/TimeValueLabel
 @onready var money_value_label: Label = $HUD/Topbar/MoneyStatus/MoneyTexts/MoneyValueLabel
 @onready var ins_button: TextureButton = $HUD/MarginContainer/InsButton
@@ -117,6 +118,7 @@ func set_player_location(location_id: String) -> void:
 
 const _HUD_NEXT_WEEK_ON: Color = Color(0.2588, 0.6471, 0.9608, 1.0)
 const _HUD_NEXT_WEEK_OFF: Color = Color(0.62, 0.62, 0.62, 1.0)
+
 
 func update_resource_ui() -> void:
 	week_value_label.text = Global.current_week_tag

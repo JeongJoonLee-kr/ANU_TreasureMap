@@ -10,11 +10,11 @@ extends CanvasLayer
 @onready var _pause_exit_btn: TextureButton = %PauseExit
 
 const _PAUSE_TEXT_NEUTRAL: Color = Color(0.3686, 0.4235, 0.5176, 1.0)
-const _RESUME_ACTIVE: Color = Color(0.2588, 0.6471, 0.9608, 1.0) # 42A5F5
-const _RETRY_ACTIVE: Color = Color(0.937, 0.325, 0.313, 1.0) # EF5350
-const _SETTINGS_ACTIVE: Color = Color(0.4, 0.7333, 0.4157, 1.0) # 66BB6A
-const _PROFILE_ACTIVE: Color = Color(1.0, 0.6549, 0.149, 1.0) # FFA726
-const _EXIT_ACTIVE: Color = Color(0.925, 0.302, 0.478, 1.0) # EC407A
+const _RESUME_ACTIVE: Color = Color(0.2588, 0.6471, 0.9608, 1.0)  # 42A5F5
+const _RETRY_ACTIVE: Color = Color(0.937, 0.325, 0.313, 1.0)  # EF5350
+const _SETTINGS_ACTIVE: Color = Color(0.4, 0.7333, 0.4157, 1.0)  # 66BB6A
+const _PROFILE_ACTIVE: Color = Color(1.0, 0.6549, 0.149, 1.0)  # FFA726
+const _EXIT_ACTIVE: Color = Color(0.925, 0.302, 0.478, 1.0)  # EC407A
 
 var _pause_held: Dictionary = {}
 
@@ -52,7 +52,7 @@ func _connect_pause_row(
 		return
 	btn.mouse_filter = Control.MOUSE_FILTER_STOP
 	_pause_held[btn] = false
-	var _upd := func ():
+	var _upd := func():
 		var o: bool = bool(_pause_held.get(btn, false))
 		var a: bool = o or btn.has_focus()
 		label.add_theme_color_override("font_color", active if a else _PAUSE_TEXT_NEUTRAL)

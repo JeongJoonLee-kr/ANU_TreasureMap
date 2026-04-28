@@ -4,7 +4,9 @@ extends Node2D
 
 const RANDOM_EVENT_PANEL_SCENE = preload("res://random_event_panel.tscn")
 const PROGRESS_DOT_TEX := preload("res://resources/ui/location_dialogue/progress_dot.svg")
-const PROGRESS_DOT_ACTIVE_TEX := preload("res://resources/ui/location_dialogue/progress_dot_active.svg")
+const PROGRESS_DOT_ACTIVE_TEX := preload(
+	"res://resources/ui/location_dialogue/progress_dot_active.svg"
+)
 const _OPTION_TEXT_COLOR := Color(0.2588, 0.6471, 0.9608, 1.0)
 const _OPTION_TEXT_PRESSED := Color(0.12, 0.45, 0.74, 1.0)
 
@@ -21,7 +23,8 @@ var _exhaustion_toast: Panel = null
 @onready var background: TextureRect = $TextureRect
 @onready var dialogue_panel: Control = $DialogueLayer/DialoguePanel
 @onready var dialogue_label: Label = $DialogueLayer/DialoguePanel/MainMargin/MainVBox/DialogueLabel
-@onready var progress_dots: HBoxContainer = $DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow/ProgressDots
+@onready
+var progress_dots: HBoxContainer = $DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow/ProgressDots
 @onready var event_panel: Control = $DialogueLayer/EventPanel
 @onready var options_component: OptionsComponent = $OptionsComponent
 @onready var options_container: VBoxContainer = $DialogueLayer/EventPanel/OptionsContainer
