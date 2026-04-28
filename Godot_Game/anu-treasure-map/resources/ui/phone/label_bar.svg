@@ -1,0 +1,22 @@
+<svg width="343" height="48" viewBox="0 0 343 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="labelBarFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#F3F8FF"/>
+      <stop offset="100%" stop-color="#E3EEFE"/>
+    </linearGradient>
+    <linearGradient id="labelBarEdge" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#93C5FD" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#42A5F5" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#93C5FD" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <!-- Soft outer rim -->
+  <rect x="0.75" y="0.75" width="341.5" height="46.5" rx="14" fill="#93C5FD" fill-opacity="0.18"/>
+  <!-- Main card -->
+  <rect x="1.5" y="1.5" width="340" height="45" rx="13" fill="url(#labelBarFill)" stroke="url(#labelBarEdge)" stroke-width="1.25"/>
+  <!-- Top gloss strip -->
+  <rect x="14" y="3.5" width="315" height="10" rx="6" fill="white" fill-opacity="0.55"/>
+  <!-- Bottom subtle depth -->
+  <rect x="14" y="36" width="315" height="6" rx="3" fill="#42A5F5" fill-opacity="0.06"/>
+</svg>

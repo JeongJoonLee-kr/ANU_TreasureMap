@@ -83,7 +83,11 @@ func open_ins() -> Node:
 	return ins_instance
 
 
-func open_profile(force_first_time_setup: bool = false, opened_from_phone: bool = false) -> Node:
+func open_profile(
+	force_first_time_setup: bool = false,
+	opened_from_phone: bool = false,
+	zoom_collection: bool = false,
+) -> Node:
 	var existing_layer := get_node_or_null("ProfileCardLayer")
 	if existing_layer != null:
 		return existing_layer
@@ -97,6 +101,7 @@ func open_profile(force_first_time_setup: bool = false, opened_from_phone: bool 
 	card_instance.is_opened_from_phone = opened_from_phone
 	card_instance.is_first_time_setup = requires_registration
 	card_instance.open_read_only_panel = not requires_registration
+	card_instance.zoom_target_on_open = "right" if zoom_collection else "left"
 
 	top_canvas.add_child(card_instance)
 	add_child(top_canvas)

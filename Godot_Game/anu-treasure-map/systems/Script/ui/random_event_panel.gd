@@ -398,28 +398,28 @@ func _load_texture(image_path: String) -> Texture2D:
 			texture = res
 
 	# Method 2: Read raw bytes and try all image formats
-	if texture == null:
-		var file := FileAccess.open(image_path, FileAccess.READ)
-		if file == null:
-			print("EventPanel: FileAccess.open failed: ", image_path)
-		else:
-			var bytes := file.get_buffer(file.get_length())
-			file.close()
+	var file := FileAccess.open(image_path, FileAccess.READ)
+	if file == null:
+		print("EventPanel: FileAccess.open failed: ", image_path)
+		return null
 
-			var img := Image.new()
-			var loaders: Array[Callable] = [
-				img.load_jpg_from_buffer,
-				img.load_png_from_buffer,
-				img.load_webp_from_buffer,
-			]
+	var bytes := file.get_buffer(file.get_length())
+	file.close()
 
-			for loader in loaders:
-				if loader.call(bytes) == OK:
-					texture = ImageTexture.create_from_image(img)
-					break
+	var decode_result := ERR_CANT_OPEN
+	var img := Image.new()
 
-			if texture == null:
-				print("EventPanel: All image decoders failed for: ", image_path)
+	# Try JPEG first (generated images are actually JPEG with .png extension),
+	# then fallback decoders.
+	decode_result = img.load_jpg_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_png_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_webp_from_buffer(bytes)
+	if decode_result == OK:
+		return ImageTexture.create_from_image(img)
 
 	return texture
 
