@@ -23,6 +23,7 @@ var _start_pointer_held: bool = false
 var _continue_pointer_held: bool = false
 var _settings_pointer_held: bool = false
 
+
 func _ready() -> void:
 	_update_start_label_color()
 	_update_continue_label_color()
@@ -63,7 +64,9 @@ func _update_start_label_color() -> void:
 	if _start_label == null:
 		return
 	var active := _start_pointer_held or _start_button.has_focus()
-	_start_label.add_theme_color_override("font_color", _START_TEXT_ACTIVE if active else _START_TEXT_NEUTRAL)
+	_start_label.add_theme_color_override(
+		"font_color", _START_TEXT_ACTIVE if active else _START_TEXT_NEUTRAL
+	)
 
 
 func _on_continue_button_button_down() -> void:
