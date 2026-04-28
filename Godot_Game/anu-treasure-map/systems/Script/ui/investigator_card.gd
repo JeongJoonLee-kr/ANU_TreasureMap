@@ -196,11 +196,7 @@ func drop_in():
 		func():
 			is_active = true
 
-			if (
-				is_first_time_setup
-				or open_read_only_panel
-				or zoom_target_on_open == "right"
-			):
+			if is_first_time_setup or open_read_only_panel or zoom_target_on_open == "right":
 				get_tree().create_timer(0.6).timeout.connect(_auto_zoom_after_drop_in)
 	)
 
