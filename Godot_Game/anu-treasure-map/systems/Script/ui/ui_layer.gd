@@ -10,11 +10,11 @@ extends CanvasLayer
 @onready var _pause_exit_btn: TextureButton = %PauseExit
 
 const _PAUSE_TEXT_NEUTRAL: Color = Color(0.3686, 0.4235, 0.5176, 1.0)
-const _RESUME_ACTIVE: Color = Color(0.2588, 0.6471, 0.9608, 1.0) # 42A5F5
-const _RETRY_ACTIVE: Color = Color(0.937, 0.325, 0.313, 1.0) # EF5350
-const _SETTINGS_ACTIVE: Color = Color(0.4, 0.7333, 0.4157, 1.0) # 66BB6A
-const _PROFILE_ACTIVE: Color = Color(1.0, 0.6549, 0.149, 1.0) # FFA726
-const _EXIT_ACTIVE: Color = Color(0.925, 0.302, 0.478, 1.0) # EC407A
+const _RESUME_ACTIVE: Color = Color(0.2588, 0.6471, 0.9608, 1.0)  # 42A5F5
+const _RETRY_ACTIVE: Color = Color(0.937, 0.325, 0.313, 1.0)  # EF5350
+const _SETTINGS_ACTIVE: Color = Color(0.4, 0.7333, 0.4157, 1.0)  # 66BB6A
+const _PROFILE_ACTIVE: Color = Color(1.0, 0.6549, 0.149, 1.0)  # FFA726
+const _EXIT_ACTIVE: Color = Color(0.925, 0.302, 0.478, 1.0)  # EC407A
 
 var _pause_held: Dictionary = {}
 

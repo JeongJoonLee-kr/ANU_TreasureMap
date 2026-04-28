@@ -389,11 +389,13 @@ func _load_texture(image_path: String) -> Texture2D:
 	if image_path == "":
 		return null
 
+	var texture: Texture2D = null
+
 	# Method 1: Godot import system
 	if ResourceLoader.exists(image_path):
 		var res: Variant = load(image_path)
 		if res is Texture2D:
-			return res
+			texture = res
 
 	# Method 2: Read raw bytes and try all image formats
 	var file := FileAccess.open(image_path, FileAccess.READ)
@@ -419,8 +421,7 @@ func _load_texture(image_path: String) -> Texture2D:
 	if decode_result == OK:
 		return ImageTexture.create_from_image(img)
 
-	print("EventPanel: All image decoders failed for: ", image_path)
-	return null
+	return texture
 
 
 # ─── Input Handling ───────────────────────────────────
