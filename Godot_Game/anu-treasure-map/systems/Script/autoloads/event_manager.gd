@@ -43,10 +43,9 @@ func get_current_phase() -> TimePhase:
 	var ap := Global.time
 	if ap >= 6:
 		return TimePhase.MORNING
-	elif ap == 5:
+	if ap == 5:
 		return TimePhase.MIDDAY
-	else:
-		return TimePhase.AFTERNOON
+	return TimePhase.AFTERNOON
 
 
 ## Returns a human-readable label for the current phase.

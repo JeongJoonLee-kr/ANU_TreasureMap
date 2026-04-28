@@ -404,18 +404,19 @@ func _load_texture(image_path: String) -> Texture2D:
 	var bytes := file.get_buffer(file.get_length())
 	file.close()
 
+	var decode_result := ERR_CANT_OPEN
 	var img := Image.new()
 
-	# Try JPEG first (generated images are actually JPEG with .png extension)
-	if img.load_jpg_from_buffer(bytes) == OK:
-		return ImageTexture.create_from_image(img)
-
-	# Try PNG
-	if img.load_png_from_buffer(bytes) == OK:
-		return ImageTexture.create_from_image(img)
-
-	# Try WebP
-	if img.load_webp_from_buffer(bytes) == OK:
+	# Try JPEG first (generated images are actually JPEG with .png extension),
+	# then fallback decoders.
+	decode_result = img.load_jpg_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_png_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_webp_from_buffer(bytes)
+	if decode_result == OK:
 		return ImageTexture.create_from_image(img)
 
 	print("EventPanel: All image decoders failed for: ", image_path)

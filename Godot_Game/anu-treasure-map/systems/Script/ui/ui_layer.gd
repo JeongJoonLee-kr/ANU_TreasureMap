@@ -52,23 +52,23 @@ func _connect_pause_row(
 		return
 	btn.mouse_filter = Control.MOUSE_FILTER_STOP
 	_pause_held[btn] = false
-	var _upd := func ():
+	var update_pause_state := func ():
 		var o: bool = bool(_pause_held.get(btn, false))
 		var a: bool = o or btn.has_focus()
 		label.add_theme_color_override("font_color", active if a else _PAUSE_TEXT_NEUTRAL)
-	_upd.call()
+	update_pause_state.call()
 	btn.button_down.connect(
 		func():
 			_pause_held[btn] = true
-			_upd.call()
+			update_pause_state.call()
 	)
 	btn.button_up.connect(
 		func():
 			_pause_held[btn] = false
-			_upd.call()
+			update_pause_state.call()
 	)
-	btn.focus_entered.connect(func(): _upd.call())
-	btn.focus_exited.connect(func(): _upd.call())
+	btn.focus_entered.connect(func(): update_pause_state.call())
+	btn.focus_exited.connect(func(): update_pause_state.call())
 	btn.pressed.connect(func(): callback.call())
 
 

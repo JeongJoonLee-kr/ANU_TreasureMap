@@ -33,6 +33,8 @@ var current_state: String = "idle"  # "idle", "hover_left", "hover_right", "zoom
 var is_opened_from_phone: bool = true
 var is_first_time_setup: bool = false  # Triggers auto-zoom to the registration half
 var open_read_only_panel: bool = false
+## After drop-in: "left" = dossier / registration, "right" = COLLECTION half of id card texture.
+var zoom_target_on_open: String = "left"
 
 # Global Tween reference to prevent animation conflicts (Tween fighting)
 var active_tween: Tween
@@ -194,10 +196,24 @@ func drop_in():
 		func():
 			is_active = true
 
-			# Auto-frame the left side if this is the player's first time setting up the ID
-			if is_first_time_setup or open_read_only_panel:
-				get_tree().create_timer(0.6).timeout.connect(func(): _execute_zoom("left"))
+			if (
+				is_first_time_setup
+				or open_read_only_panel
+				or zoom_target_on_open == "right"
+			):
+				get_tree().create_timer(0.6).timeout.connect(_auto_zoom_after_drop_in)
 	)
+
+
+func _auto_zoom_after_drop_in() -> void:
+	if is_first_time_setup:
+		_execute_zoom("left")
+		return
+	if zoom_target_on_open == "right":
+		_execute_zoom("right")
+		return
+	if open_read_only_panel:
+		_execute_zoom("left")
 
 
 # ========== INTERACTION: HOVER EFFECTS ==========
