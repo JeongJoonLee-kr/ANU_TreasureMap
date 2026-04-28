@@ -5,7 +5,7 @@ var location_data: Dictionary = {}
 var location_markers: Dictionary = {}
 
 # References to the popup panel and editor-placed location markers.
-@onready var event_panel: Panel = $EventPanel
+@onready var event_panel: Control = $EventPanel
 @onready var markers_layer: Control = $MarkersLayer
 @onready var connections_layer: MapConnectionsLayer = $MarkersLayer/ConnectionsLayer
 @onready var current_location_marker: TextureRect = $CurrentLocationMarker

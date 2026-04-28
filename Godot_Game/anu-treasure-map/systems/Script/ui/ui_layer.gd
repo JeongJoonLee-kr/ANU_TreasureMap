@@ -1,93 +1,83 @@
 extends CanvasLayer
 
-# 1. var
 @onready var pause_menu: Control = $PauseMenu
 @onready var menu_button: Button = $MenuButton
 
-@onready var continue_btn = %ResumeOption
-@onready var retry_btn = %RetryOption
-@onready var setting_btn = %SettingsOption
-@onready var profile_btn = %ProfileOption
-@onready var exit_btn = %ExitOption
+@onready var _pause_resume_btn: TextureButton = %PauseResume
+@onready var _pause_retry_btn: TextureButton = %PauseRetry
+@onready var _pause_settings_btn: TextureButton = %PauseSettings
+@onready var _pause_profile_btn: TextureButton = %PauseProfile
+@onready var _pause_exit_btn: TextureButton = %PauseExit
 
-const CYAN_BRIGHT = Color("#5CE1E6")
-const CYAN_DIM = Color("#5CE1E6", 0.4)
+const _PAUSE_TEXT_NEUTRAL: Color = Color(0.3686, 0.4235, 0.5176, 1.0)
+const _RESUME_ACTIVE: Color = Color(0.2588, 0.6471, 0.9608, 1.0)  # 42A5F5
+const _RETRY_ACTIVE: Color = Color(0.937, 0.325, 0.313, 1.0)  # EF5350
+const _SETTINGS_ACTIVE: Color = Color(0.4, 0.7333, 0.4157, 1.0)  # 66BB6A
+const _PROFILE_ACTIVE: Color = Color(1.0, 0.6549, 0.149, 1.0)  # FFA726
+const _EXIT_ACTIVE: Color = Color(0.925, 0.302, 0.478, 1.0)  # EC407A
+
+var _pause_held: Dictionary = {}
 
 
-# 2. Initialize
 func _ready() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	pause_menu.hide()
+	set_process_unhandled_input(true)
 
-	# 1. menu button
 	if menu_button:
 		menu_button.pressed.connect(_on_menu_button_pressed)
 
-	# 2. potions logic and interaction
-	setup_btn_interaction(continue_btn, _on_continue_pressed)
-	setup_btn_interaction(retry_btn, _on_home_pressed)
-	setup_btn_interaction(setting_btn, _on_settings_pressed)
-	setup_btn_interaction(profile_btn, _on_profile_pressed)
-	setup_btn_interaction(exit_btn, _on_quit_pressed)
+	_connect_pause_row(_pause_resume_btn, "ResumeLabel", _RESUME_ACTIVE, _on_continue_pressed)
+	_connect_pause_row(_pause_retry_btn, "RetryLabel", _RETRY_ACTIVE, _on_home_pressed)
+	_connect_pause_row(_pause_settings_btn, "SettingsLabel", _SETTINGS_ACTIVE, _on_settings_pressed)
+	_connect_pause_row(_pause_profile_btn, "ProfileLabel", _PROFILE_ACTIVE, _on_profile_pressed)
+	_connect_pause_row(_pause_exit_btn, "ExitLabel", _EXIT_ACTIVE, _on_quit_pressed)
 
 
-# 3. core logic
-func setup_btn_interaction(btn: Control, callback: Callable):
-	if btn == null:
+func _unhandled_input(event: InputEvent) -> void:
+	if not pause_menu.visible:
 		return
+	if event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_on_continue_pressed()
 
-	# Ensure that the pivot point remains centered when the nodes are resized
-	btn.item_rect_changed.connect(func(): btn.pivot_offset = btn.size / 2)
-	btn.pivot_offset = btn.size / 2
 
-	# Mouse Filter
+func _connect_pause_row(
+	btn: TextureButton, label_node: String, active: Color, callback: Callable
+) -> void:
+	if not is_instance_valid(btn):
+		return
+	var label: Label = btn.get_node(label_node) as Label
+	if not is_instance_valid(label):
+		return
 	btn.mouse_filter = Control.MOUSE_FILTER_STOP
-
-	# lines
-	var line = btn.find_child("*Line*", true, false)
-	if line:
-		line.self_modulate = CYAN_DIM
-
-	# A. interactions
-	btn.mouse_entered.connect(
+	_pause_held[btn] = false
+	var _upd := func():
+		var o: bool = bool(_pause_held.get(btn, false))
+		var a: bool = o or btn.has_focus()
+		label.add_theme_color_override("font_color", active if a else _PAUSE_TEXT_NEUTRAL)
+	_upd.call()
+	btn.button_down.connect(
 		func():
-			if line:
-				line.self_modulate = CYAN_BRIGHT
-			# Pivot Offset at centre
-			var tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-			tween.tween_property(btn, "scale", Vector2(1.05, 1.05), 0.2)
+			_pause_held[btn] = true
+			_upd.call()
 	)
-
-	btn.mouse_exited.connect(
+	btn.button_up.connect(
 		func():
-			if line:
-				line.self_modulate = CYAN_DIM
-			var tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-			tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.2)
+			_pause_held[btn] = false
+			_upd.call()
 	)
-
-	# C. click
-	if btn is BaseButton:
-		btn.pressed.connect(func(): callback.call())
-	else:
-		btn.gui_input.connect(
-			func(event):
-				if (
-					event is InputEventMouseButton
-					and event.pressed
-					and event.button_index == MOUSE_BUTTON_LEFT
-				):
-					callback.call()
-		)
-
-
-# 4. Logic Functions
+	btn.focus_entered.connect(func(): _upd.call())
+	btn.focus_exited.connect(func(): _upd.call())
+	btn.pressed.connect(func(): callback.call())
 
 
 # pause
 func _on_menu_button_pressed() -> void:
 	pause_menu.show()
 	get_tree().paused = true
+	if is_instance_valid(_pause_resume_btn):
+		_pause_resume_btn.call_deferred("grab_focus")
 
 
 # Resume

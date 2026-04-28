@@ -1,9 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://duf00c663dvr0"]
+[gd_scene load_steps=8 format=3 uid="uid://duf00c663dvr0"]
 
 [ext_resource type="Script" uid="uid://mj1pc6uleuqr" path="res://systems/Script/map/locations.gd" id="2_nc2o8"]
 [ext_resource type="Script" uid="uid://bjubudh236ger" path="res://systems/Script/options/options_component.gd" id="2_xmwjg"]
+[ext_resource type="Texture2D" path="res://resources/ui/location_dialogue/dialogue_background.svg" id="3_dlg_bg"]
+[ext_resource type="Texture2D" path="res://resources/ui/location_dialogue/button_continue.svg" id="4_btn_go"]
+[ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="5_font"]
 
-[sub_resource type="Shortcut" id="Shortcut_fi8n4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_options_panel"]
+bg_color = Color(0.98, 0.99, 1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.360784, 0.419608, 0.752941, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_options"]
 
 [node name="Locations" type="Node2D"]
 script = ExtResource("2_nc2o8")
@@ -14,61 +29,129 @@ offset_bottom = 1280.0
 scale = Vector2(0.79963005, 0.79963005)
 metadata/_edit_use_anchors_ = true
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_use_anchors_ = true
+[node name="DialogueLayer" type="CanvasLayer" parent="."]
+layer = 3
 
-[node name="EventPanel" type="Panel" parent="Control"]
-z_index = 1
-layout_mode = 0
-offset_left = -2.0
-offset_top = 737.99994
-offset_right = 1548.0
-offset_bottom = 1048.0
-metadata/_edit_use_anchors_ = true
-
-[node name="OptionsContainer" type="VBoxContainer" parent="Control/EventPanel"]
+[node name="DialoguePanel" type="Control" parent="DialogueLayer"]
+visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -125.0
-offset_right = 125.0
-offset_bottom = 125.0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -204.0
+offset_right = -40.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialogueBackground" type="TextureRect" parent="DialogueLayer/DialoguePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+mouse_filter = 2
+texture = ExtResource("3_dlg_bg")
+expand_mode = 1
+stretch_mode = 0
 
-[node name="Description" type="Label" parent="Control"]
-z_index = 2
-layout_mode = 0
-offset_left = 27.0
-offset_top = 765.0
-offset_right = 367.0
-offset_bottom = 985.0
-theme_override_font_sizes/font_size = 32
-metadata/_edit_use_anchors_ = true
+[node name="MainMargin" type="MarginContainer" parent="DialogueLayer/DialoguePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 124
+theme_override_constants/margin_top = 26
+theme_override_constants/margin_right = 52
+theme_override_constants/margin_bottom = 20
 
-[node name="BackButton" type="Button" parent="Control"]
+[node name="MainVBox" type="VBoxContainer" parent="DialogueLayer/DialoguePanel/MainMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="DialogueLabel" type="Label" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = " "
+autowrap_mode = 3
+vertical_alignment = 1
+
+[node name="BottomRow" type="HBoxContainer" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="LeftSpacer" type="Control" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProgressDots" type="HBoxContainer" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="RightSpacer" type="Control" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ContinueButton" type="TextureButton" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_btn_go")
+texture_pressed = ExtResource("4_btn_go")
+texture_hover = ExtResource("4_btn_go")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="EventPanel" type="Panel" parent="DialogueLayer"]
 z_index = 1
-layout_mode = 0
-offset_left = 1416.0
-offset_top = 6.0
-offset_right = 1474.0
-offset_bottom = 37.0
-scale = Vector2(1.9488021, 1.7988944)
-action_mode = 0
-shortcut = SubResource("Shortcut_fi8n4")
-text = "BACK"
+visible = false
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -260.0
+offset_right = -40.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_options_panel")
+metadata/_edit_use_anchors_ = true
+
+[node name="OptionsContainer" type="VBoxContainer" parent="DialogueLayer/EventPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+theme_override_styles/normal = SubResource("StyleBoxEmpty_options")
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsComponent" type="Node" parent="."]
 script = ExtResource("2_xmwjg")
 
-[connection signal="pressed" from="Control/BackButton" to="Control" method="_on_back_button_pressed"]
+[connection signal="pressed" from="DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow/ContinueButton" to="." method="_on_dialogue_continue_pressed"]

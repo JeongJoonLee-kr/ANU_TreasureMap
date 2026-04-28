@@ -1,13 +1,14 @@
-extends Panel
+extends Control
 
 # Store the selected location id
 # This id will be used when the player presses the Go button.
 var target_location_id: String = ""
-# Get references to the UI nodes inside the popup panel.
+
 @onready var location_title: Label = $LocationTitle
 @onready var description: Label = $Description
-@onready var close_button: Button = $CloseButton
-@onready var go_button: Button = $GoButton
+@onready var close_button: TextureButton = $CloseButton
+@onready var go_button: TextureButton = $GoButton
+@onready var go_label: Label = $GoButton/GoLabel
 @onready var travel_cost_label: Label = $TravelCostLabel
 
 
@@ -81,6 +82,24 @@ func open_popup(
 	if pos.y < 0:
 		pos.y = margin_y
 
+	# Keep the panel clear of the current-location star (player marker). When the
+	# popup overlaps it (often under/near the star), prefer placing above the star.
+	var star: Control = get_parent().get_node_or_null("CurrentLocationMarker") as Control
+	if star != null and star.visible:
+		var star_rect: Rect2 = star.get_global_rect()
+		var panel_rect := Rect2(pos, popup_size)
+		if panel_rect.intersects(star_rect):
+			const STAR_GAP := 16.0
+			var above_y: float = star_rect.position.y - popup_size.y - STAR_GAP
+			if above_y >= 0.0:
+				pos.y = above_y
+			else:
+				pos.y = star_rect.end.y + STAR_GAP
+			if pos.y + popup_size.y > window_size.y:
+				pos.y = window_size.y - popup_size.y
+			if pos.y < 0.0:
+				pos.y = 0.0
+
 	# Apply the final popup position.
 	global_position = pos
 
@@ -109,6 +128,9 @@ func show_travel_status(status_text: String, can_travel: bool) -> void:
 	travel_cost_label.text = status_text
 	travel_cost_label.modulate = Color(1, 1, 1, 1) if can_travel else Color(1, 0.4, 0.4, 1)
 	go_button.disabled = not can_travel
+	go_label.add_theme_color_override(
+		"font_color", Color(1, 1, 1, 1) if can_travel else Color(0.85, 0.85, 0.85, 1)
+	)
 
 
 func _build_travel_time_text(travel_time: int, can_travel: bool) -> String:
