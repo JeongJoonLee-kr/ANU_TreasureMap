@@ -389,37 +389,39 @@ func _load_texture(image_path: String) -> Texture2D:
 	if image_path == "":
 		return null
 
+	var texture: Texture2D = null
+
 	# Method 1: Godot import system
 	if ResourceLoader.exists(image_path):
 		var res: Variant = load(image_path)
 		if res is Texture2D:
-			return res
+			texture = res
 
 	# Method 2: Read raw bytes and try all image formats
-	var file := FileAccess.open(image_path, FileAccess.READ)
-	if file == null:
-		print("EventPanel: FileAccess.open failed: ", image_path)
-		return null
+	if texture == null:
+		var file := FileAccess.open(image_path, FileAccess.READ)
+		if file == null:
+			print("EventPanel: FileAccess.open failed: ", image_path)
+		else:
+			var bytes := file.get_buffer(file.get_length())
+			file.close()
 
-	var bytes := file.get_buffer(file.get_length())
-	file.close()
+			var img := Image.new()
+			var loaders: Array[Callable] = [
+				img.load_jpg_from_buffer,
+				img.load_png_from_buffer,
+				img.load_webp_from_buffer,
+			]
 
-	var img := Image.new()
+			for loader in loaders:
+				if loader.call(bytes) == OK:
+					texture = ImageTexture.create_from_image(img)
+					break
 
-	# Try JPEG first (generated images are actually JPEG with .png extension)
-	if img.load_jpg_from_buffer(bytes) == OK:
-		return ImageTexture.create_from_image(img)
+			if texture == null:
+				print("EventPanel: All image decoders failed for: ", image_path)
 
-	# Try PNG
-	if img.load_png_from_buffer(bytes) == OK:
-		return ImageTexture.create_from_image(img)
-
-	# Try WebP
-	if img.load_webp_from_buffer(bytes) == OK:
-		return ImageTexture.create_from_image(img)
-
-	print("EventPanel: All image decoders failed for: ", image_path)
-	return null
+	return texture
 
 
 # ─── Input Handling ───────────────────────────────────
