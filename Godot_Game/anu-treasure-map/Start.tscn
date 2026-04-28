@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://2wtnh4gdwks"]
+[gd_scene load_steps=13 format=3 uid="uid://2wtnh4gdwks"]
 
 [ext_resource type="Script" uid="uid://c44qcr4grsjxa" path="res://systems/Script/ui/control.gd" id="1_52bhu"]
 [ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="1_r305v"]
+[ext_resource type="Texture2D" path="res://resources/ui/start_button/start_normal.svg" id="2_sbtn"]
+[ext_resource type="Texture2D" path="res://resources/ui/start_button/start_hover.svg" id="3_sbtn"]
+[ext_resource type="Texture2D" path="res://resources/ui/start_button/start_selected.svg" id="4_sbtn"]
+[ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="5_sfont"]
+[ext_resource type="Texture2D" path="res://resources/ui/continue_button/continue_normal.svg" id="6_cbtn"]
+[ext_resource type="Texture2D" path="res://resources/ui/continue_button/continue_hover.svg" id="7_cbtn"]
+[ext_resource type="Texture2D" path="res://resources/ui/continue_button/continue_selected.svg" id="8_cbtn"]
+[ext_resource type="Texture2D" path="res://resources/ui/settings_button/settings_normal.svg" id="9_setb"]
+[ext_resource type="Texture2D" path="res://resources/ui/settings_button/settings_hover.svg" id="10_setb"]
+[ext_resource type="Texture2D" path="res://resources/ui/settings_button/settings_selected.svg" id="11_setb"]
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -37,13 +47,94 @@ offset_bottom = 253.0
 theme_override_font_sizes/font_size = 110
 text = "ANU Treasure Map"
 
-[node name="Button" type="Button" parent="Control"]
+[node name="Button" type="TextureButton" parent="Control"]
+custom_minimum_size = Vector2(400, 60)
 layout_mode = 0
-offset_left = 659.0
-offset_top = 825.0
-offset_right = 939.0
-offset_bottom = 905.0
-theme_override_font_sizes/font_size = 64
+offset_left = 599.0
+offset_top = 725.0
+offset_right = 999.0
+offset_bottom = 785.0
+focus_mode = 2
+texture_normal = ExtResource("2_sbtn")
+texture_pressed = ExtResource("4_sbtn")
+texture_hover = ExtResource("3_sbtn")
+texture_focused = ExtResource("4_sbtn")
+ignore_texture_size = true
+stretch_mode = 5
+focus_next = NodePath("../ContinueButton")
+
+[node name="StartLabel" type="Label" parent="Control/Button"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 220.0
+offset_bottom = 52.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("5_sfont")
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "Start"
+vertical_alignment = 1
+
+[node name="ContinueButton" type="TextureButton" parent="Control"]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 0
+offset_left = 599.0
+offset_top = 800.0
+offset_right = 999.0
+offset_bottom = 860.0
+focus_mode = 2
+focus_previous = NodePath("../Button")
+texture_normal = ExtResource("6_cbtn")
+texture_pressed = ExtResource("8_cbtn")
+texture_hover = ExtResource("7_cbtn")
+texture_focused = ExtResource("8_cbtn")
+ignore_texture_size = true
+stretch_mode = 5
+focus_next = NodePath("../SettingsButton")
+
+[node name="ContinueLabel" type="Label" parent="Control/ContinueButton"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 300.0
+offset_bottom = 52.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("5_sfont")
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "Continue"
+vertical_alignment = 1
+
+[node name="SettingsButton" type="TextureButton" parent="Control"]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 0
+offset_left = 599.0
+offset_top = 875.0
+offset_right = 999.0
+offset_bottom = 935.0
+focus_mode = 2
+focus_previous = NodePath("../ContinueButton")
+texture_normal = ExtResource("9_setb")
+texture_pressed = ExtResource("11_setb")
+texture_hover = ExtResource("10_setb")
+texture_focused = ExtResource("11_setb")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SettingsLabel" type="Label" parent="Control/SettingsButton"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 300.0
+offset_bottom = 52.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("5_sfont")
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "Settings"
+vertical_alignment = 1
 
 [connection signal="pressed" from="Control/Button" to="Control" method="_on_start_button_pressed"]
+[connection signal="pressed" from="Control/ContinueButton" to="Control" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Control/SettingsButton" to="Control" method="_on_settings_button_pressed"]
