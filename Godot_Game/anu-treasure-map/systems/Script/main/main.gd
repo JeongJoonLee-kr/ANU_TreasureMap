@@ -5,12 +5,15 @@ const INS_SCENE = preload("res://ins.tscn")
 const INVESTIGATOR_CARD_SCENE = preload("res://investigator_card.tscn")
 
 @onready var map_instance: Node2D = $Map
-@onready var week_label: Label = $HUD/Topbar/WeekLabel
-@onready var location_label: Label = $HUD/Topbar/LocationLabel
-@onready var time_label: Label = $HUD/Topbar/TimeLabel
-@onready var money_label: Label = $HUD/Topbar/MoneyLabel
+@onready var week_value_label: Label = $HUD/Topbar/WeekStatus/WeekTexts/WeekValueLabel
+@onready var location_value_label: Label = $HUD/Topbar/LocationStatus/LocationTexts/LocationValueLabel
+@onready var time_value_label: Label = $HUD/Topbar/TimeStatus/TimeTexts/TimeValueLabel
+@onready var money_value_label: Label = $HUD/Topbar/MoneyStatus/MoneyTexts/MoneyValueLabel
 @onready var ins_button: TextureButton = $HUD/MarginContainer/InsButton
-@onready var next_week_button: Button = $HUD/NextWeekButton
+@onready var menu_button: TextureButton = $HUD/Topbar/MenuButton
+@onready var next_week_button: TextureButton = $HUD/Topbar/NextWeekButton
+@onready var next_week_label: Label = $HUD/Topbar/NextWeekButton/NextWeekLabel
+@onready var back_button: TextureButton = $HUD/Topbar/BackButton
 
 var location_instance: Node = null
 var location_data: Dictionary = {}
@@ -21,6 +24,10 @@ func _ready() -> void:
 		Global.resources_changed.connect(_on_resources_changed)
 	if not next_week_button.pressed.is_connected(_on_next_week_button_pressed):
 		next_week_button.pressed.connect(_on_next_week_button_pressed)
+	if not menu_button.pressed.is_connected(_on_hud_menu_button_pressed):
+		menu_button.pressed.connect(_on_hud_menu_button_pressed)
+	if not back_button.pressed.is_connected(_on_hud_back_button_pressed):
+		back_button.pressed.connect(_on_hud_back_button_pressed)
 	initialize_progress_state()
 	load_location_data()
 	show_map()
@@ -35,6 +42,8 @@ func show_map() -> void:
 
 	map_instance.show()
 	ins_button.show()
+	menu_button.show()
+	back_button.hide()
 	next_week_button.show()
 	var map_controller := get_map_controller()
 	if map_controller != null and map_controller.has_method("update_current_location_marker"):
@@ -55,7 +64,9 @@ func show_location(location_id: String = "") -> void:
 	location_instance = LOCATIONS_SCENE.instantiate()
 	add_child(location_instance)
 	ins_button.hide()
+	menu_button.hide()
 	next_week_button.hide()
+	back_button.show()
 	update_resource_ui()
 
 
@@ -104,13 +115,20 @@ func set_player_location(location_id: String) -> void:
 	update_resource_ui()
 
 
+const _HUD_NEXT_WEEK_ON: Color = Color(0.2588, 0.6471, 0.9608, 1.0)
+const _HUD_NEXT_WEEK_OFF: Color = Color(0.62, 0.62, 0.62, 1.0)
+
 func update_resource_ui() -> void:
-	week_label.text = "Week: " + Global.current_week_tag
-	location_label.text = "Location: " + get_current_location_title()
-	time_label.text = "Time: " + str(Global.time)
-	money_label.text = "Money: $" + str(Global.money)
-	next_week_button.disabled = Global.current_week >= Global.max_week
-	next_week_button.text = "Max Week" if next_week_button.disabled else "Next Week"
+	week_value_label.text = Global.current_week_tag
+	location_value_label.text = get_current_location_title()
+	time_value_label.text = str(Global.time)
+	money_value_label.text = "$" + str(Global.money)
+	var at_max: bool = Global.current_week >= Global.max_week
+	next_week_button.disabled = at_max
+	next_week_label.text = "Max Week" if at_max else "Next Week"
+	next_week_label.add_theme_color_override(
+		"font_color", _HUD_NEXT_WEEK_OFF if at_max else _HUD_NEXT_WEEK_ON
+	)
 
 
 func _on_resources_changed(_time_value: int, _money_value: int) -> void:
@@ -198,6 +216,16 @@ func get_map_controller() -> Node:
 		return null
 
 	return map_instance.get_node_or_null("MapControl")
+
+
+func _on_hud_menu_button_pressed() -> void:
+	var m := map_instance.get_node_or_null("Menu/MenuButton")
+	if m is BaseButton:
+		(m as BaseButton).pressed.emit()
+
+
+func _on_hud_back_button_pressed() -> void:
+	show_map()
 
 
 func _on_next_week_button_pressed() -> void:

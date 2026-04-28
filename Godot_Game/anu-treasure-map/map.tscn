@@ -1,19 +1,35 @@
-[gd_scene load_steps=17 format=3 uid="uid://0sowkn4nyat2"]
+[gd_scene load_steps=33 format=3 uid="uid://0sowkn4nyat2"]
 
 [ext_resource type="Script" uid="uid://dx053jmp2go7g" path="res://systems/Script/map/map.gd" id="1_71pa8"]
 [ext_resource type="Script" uid="uid://slegp5xpfax1" path="res://systems/Script/map/map_event_panel.gd" id="2_05x41"]
 [ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="3_gqbix"]
 [ext_resource type="Script" uid="uid://cfdocbimtb6kt" path="res://systems/Script/ui/ui_layer.gd" id="10_oysan"]
-[ext_resource type="Texture2D" uid="uid://bqjatt4asw58i" path="res://resources/icon/PAUSE-MENU_0000s_0001__Group_.png" id="11_wbpbn"]
-[ext_resource type="Texture2D" uid="uid://b285c1cedr0mh" path="res://resources/icon/PAUSE-MENU_0000s_0010_PAUSE.png" id="12_a6rn7"]
-[ext_resource type="Texture2D" uid="uid://dysqqpftgb41n" path="res://resources/icon/PAUSE-MENU_0000s_0009_RESUME.png" id="13_4on3e"]
-[ext_resource type="Texture2D" uid="uid://6lbeev4n0flc" path="res://resources/icon/PAUSE-MENU_0000s_0008_Layer-1.png" id="14_bssq0"]
-[ext_resource type="Texture2D" uid="uid://bjrb4hlrefmsj" path="res://resources/icon/PAUSE-MENU_0000s_0007_RETRY.png" id="15_jk4ss"]
-[ext_resource type="Texture2D" uid="uid://b0g04418bvb0o" path="res://resources/icon/PAUSE-MENU_0000s_0005_SETTING.png" id="16_r5om4"]
-[ext_resource type="Texture2D" uid="uid://lo571y7bmh7g" path="res://resources/icon/PAUSE-MENU_0000s_0003_EXIT.png" id="17_a6rn7"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/menu_background.svg" id="11_pmbg"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_resume_normal.svg" id="12_prn"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_resume_hover.svg" id="13_prh"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_resume_selected.svg" id="14_prs"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_retry_normal.svg" id="15_ryn"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_retry_hover.svg" id="16_ryh"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_retry_selected.svg" id="17_rys"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_settings_normal.svg" id="18_sen"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_settings_hover.svg" id="19_seh"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_settings_selected.svg" id="20_ses"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_profile_normal.svg" id="21_pfn"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_profile_hover.svg" id="22_pfh"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_profile_selected.svg" id="23_pfs"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_exit_normal.svg" id="24_exn"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_exit_hover.svg" id="25_exh"]
+[ext_resource type="Texture2D" path="res://resources/ui/pause_menu/pause_exit_selected.svg" id="26_exs"]
+[ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="27_pausefont"]
 [ext_resource type="Texture2D" uid="uid://bbjmg32xqixy" path="res://resources/Location/Current_Location_Star.png" id="18_star"]
 [ext_resource type="Script" uid="uid://sgskvhp784a5" path="res://systems/Script/map/map_connections_layer.gd" id="19_connections"]
 [ext_resource type="PackedScene" uid="uid://dg0v62agyl0xd" path="res://location_marker.tscn" id="21_marker"]
+[ext_resource type="Texture2D" path="res://resources/ui/map_event/panel_background.svg" id="28_evbg"]
+[ext_resource type="Texture2D" path="res://resources/ui/map_event/button_close.svg" id="29_evx"]
+[ext_resource type="Texture2D" path="res://resources/ui/map_event/button_go_normal.svg" id="30_ego"]
+[ext_resource type="Texture2D" path="res://resources/ui/map_event/button_go_hover.svg" id="31_egh"]
+[ext_resource type="Texture2D" path="res://resources/ui/map_event/button_go_pressed.svg" id="32_egp"]
+[ext_resource type="Texture2D" path="res://resources/ui/map_event/button_go_disabled.svg" id="33_egd"]
 
 [sub_resource type="Shortcut" id="Shortcut_7if1s"]
 
@@ -42,61 +58,114 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_71pa8")
 
-[node name="EventPanel" type="Panel" parent="MapControl"]
-z_index = 1
+[node name="EventPanel" type="Control" parent="MapControl"]
+visible = false
+z_index = 10
 layout_mode = 0
-offset_left = 11.0000305
-offset_top = 1056.0
-offset_right = 511.00003
-offset_bottom = 1263.0
-scale = Vector2(0.997, 1)
+offset_right = 480.0
+offset_bottom = 320.0
+mouse_filter = 0
 script = ExtResource("2_05x41")
+
+[node name="Background" type="TextureRect" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 320.0
+mouse_filter = 2
+texture = ExtResource("28_evbg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LocationSubtitle" type="Label" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 12.0
+offset_right = 140.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
+text = "Location"
 
 [node name="LocationTitle" type="Label" parent="MapControl/EventPanel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-scale = Vector2(2.3229768, 2.252979)
+offset_left = 68.0
+offset_top = 26.0
+offset_right = 408.0
+offset_bottom = 62.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "Title"
+autowrap_mode = 3
 
 [node name="Description" type="Label" parent="MapControl/EventPanel"]
 layout_mode = 0
-offset_left = 11.0331
-offset_top = 90.0
-offset_right = 496.25052
-offset_bottom = 369.0
-scale = Vector2(0.98141456, 1.1649898)
-
-[node name="CloseButton" type="Button" parent="MapControl/EventPanel"]
-layout_mode = 0
-offset_left = 384.15247
-offset_top = 3.0
-offset_right = 442.15247
-offset_bottom = 34.0
-scale = Vector2(1.9488021, 1.9488021)
-action_mode = 0
-shortcut = SubResource("Shortcut_7if1s")
-text = "CLOSE"
-
-[node name="GoButton" type="Button" parent="MapControl/EventPanel"]
-layout_mode = 0
-offset_left = 390.1705
-offset_top = 143.0
-offset_right = 448.1705
-offset_bottom = 174.0
-scale = Vector2(1.9488021, 1.9488021)
-action_mode = 0
-shortcut = SubResource("Shortcut_7if1s")
-text = "GO"
+offset_left = 24.0
+offset_top = 82.0
+offset_right = 456.0
+offset_bottom = 232.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+autowrap_mode = 3
 
 [node name="TravelCostLabel" type="Label" parent="MapControl/EventPanel"]
 layout_mode = 0
-offset_left = 127.38212
-offset_top = 164.0
-offset_right = 370.38214
+offset_left = 80.0
+offset_top = 148.0
+offset_right = 448.0
 offset_bottom = 192.0
-theme_override_font_sizes/font_size = 20
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "Travel Time: 0"
-horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CloseButton" type="TextureButton" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_left = 424.0
+offset_top = 16.0
+offset_right = 464.0
+offset_bottom = 56.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("29_evx")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="GoButton" type="TextureButton" parent="MapControl/EventPanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 252.0
+offset_right = 456.0
+offset_bottom = 308.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("30_ego")
+texture_pressed = ExtResource("32_egp")
+texture_hover = ExtResource("31_egh")
+texture_disabled = ExtResource("33_egd")
+texture_focused = ExtResource("32_egp")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="GoLabel" type="Label" parent="MapControl/EventPanel/GoButton"]
+layout_mode = 0
+offset_right = 432.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "GO  →"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MapBackground" type="TextureRect" parent="MapControl"]
 modulate = Color(0.86553645, 0.8655369, 0.86553687, 1)
@@ -331,6 +400,7 @@ process_mode = 3
 script = ExtResource("10_oysan")
 
 [node name="MenuButton" type="Button" parent="Menu"]
+visible = false
 offset_left = 15.0
 offset_top = 15.0
 offset_right = 68.0
@@ -346,160 +416,236 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5019608)
 
-[node name="MenuBox" type="NinePatchRect" parent="Menu/PauseMenu"]
+[node name="MenuBox" type="CenterContainer" parent="Menu/PauseMenu"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -189.5625
-offset_top = -305.0
-offset_right = 189.5625
-offset_bottom = 305.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("11_wbpbn")
+mouse_filter = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/PauseMenu/MenuBox"]
+[node name="MenuPanel" type="Control" parent="Menu/PauseMenu/MenuBox"]
+custom_minimum_size = Vector2(400, 560)
+layout_mode = 2
+mouse_filter = 0
+
+[node name="Background" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MenuPanel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -124.0
-offset_top = -190.0
-offset_right = 124.0
-offset_bottom = 190.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer"]
-layout_mode = 2
-
-[node name="PauseTitle" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-texture = ExtResource("12_a6rn7")
+mouse_filter = 2
+texture = ExtResource("11_pmbg")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Control" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 55)
-layout_mode = 2
+[node name="Content" type="MarginContainer" parent="Menu/PauseMenu/MenuBox/MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+mouse_filter = 0
 
-[node name="ResumeOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="VBox" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content"]
 layout_mode = 2
+theme_override_constants/separation = 0
+mouse_filter = 0
 
-[node name="ContinueButton" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
-custom_minimum_size = Vector2(50, 30)
+[node name="TitleSpacer" type="Control" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox"]
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
-texture = ExtResource("13_4on3e")
-expand_mode = 1
-stretch_mode = 5
+mouse_filter = 2
 
-[node name="ContinueLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ResumeOption"]
-custom_minimum_size = Vector2(143, 10)
+[node name="PauseTitle" type="Label" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-texture = ExtResource("14_bssq0")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Control2" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 15)
-layout_mode = 2
-
-[node name="RetryOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="RetryText" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-texture = ExtResource("15_jk4ss")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="RetryLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/RetryOption"]
-custom_minimum_size = Vector2(143, 10)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("14_bssq0")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Control3" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 15)
-layout_mode = 2
-
-[node name="SettingsOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="SettingsText" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-texture = ExtResource("16_r5om4")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="SettingsLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/SettingsOption"]
-custom_minimum_size = Vector2(143, 10)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("14_bssq0")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Control4" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 15)
-layout_mode = 2
-
-[node name="ProfileOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="ProfileText" type="Label" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ProfileOption"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 28
-text = "PROFILE"
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "PAUSE"
 horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
 
-[node name="ProfileLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ProfileOption"]
-custom_minimum_size = Vector2(143, 10)
+[node name="ButtonGap" type="Control" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox"]
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("14_bssq0")
-expand_mode = 1
-stretch_mode = 5
+mouse_filter = 2
 
-[node name="Control5" type="Control" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 15)
+[node name="ButtonColumnMargin" type="MarginContainer" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_horizontal = 1
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 0
+mouse_filter = 0
 
-[node name="ExitOption" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer"]
+[node name="ButtonColumn" type="VBoxContainer" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+alignment = 0
+mouse_filter = 0
+
+[node name="PauseResume" type="TextureButton" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(304, 56)
 layout_mode = 2
+focus_mode = 2
+texture_normal = ExtResource("12_prn")
+texture_pressed = ExtResource("14_prs")
+texture_hover = ExtResource("13_prh")
+texture_focused = ExtResource("14_prs")
+ignore_texture_size = true
+stretch_mode = 4
+focus_next = NodePath("../PauseRetry")
 
-[node name="ExitText" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
-custom_minimum_size = Vector2(50, 30)
-layout_mode = 2
-texture = ExtResource("17_a6rn7")
-expand_mode = 1
-stretch_mode = 5
+[node name="ResumeLabel" type="Label" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn/PauseResume"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "RESUME"
+vertical_alignment = 1
 
-[node name="ExitLine" type="TextureRect" parent="Menu/PauseMenu/MenuBox/MarginContainer/VBoxContainer/ExitOption"]
-custom_minimum_size = Vector2(143, 10)
+[node name="PauseRetry" type="TextureButton" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(304, 56)
 layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("14_bssq0")
-expand_mode = 1
-stretch_mode = 5
+focus_mode = 2
+texture_normal = ExtResource("15_ryn")
+texture_pressed = ExtResource("17_rys")
+texture_hover = ExtResource("16_ryh")
+texture_focused = ExtResource("17_rys")
+ignore_texture_size = true
+stretch_mode = 4
+focus_next = NodePath("../PauseSettings")
+focus_previous = NodePath("../PauseResume")
+
+[node name="RetryLabel" type="Label" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn/PauseRetry"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "RETRY"
+vertical_alignment = 1
+
+[node name="PauseSettings" type="TextureButton" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(304, 56)
+layout_mode = 2
+focus_mode = 2
+texture_normal = ExtResource("18_sen")
+texture_pressed = ExtResource("20_ses")
+texture_hover = ExtResource("19_seh")
+texture_focused = ExtResource("20_ses")
+ignore_texture_size = true
+stretch_mode = 4
+focus_next = NodePath("../PauseProfile")
+focus_previous = NodePath("../PauseRetry")
+
+[node name="SettingsLabel" type="Label" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn/PauseSettings"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "SETTING"
+vertical_alignment = 1
+
+[node name="PauseProfile" type="TextureButton" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(304, 56)
+layout_mode = 2
+focus_mode = 2
+texture_normal = ExtResource("21_pfn")
+texture_pressed = ExtResource("23_pfs")
+texture_hover = ExtResource("22_pfh")
+texture_focused = ExtResource("23_pfs")
+ignore_texture_size = true
+stretch_mode = 4
+focus_next = NodePath("../PauseExit")
+focus_previous = NodePath("../PauseSettings")
+
+[node name="ProfileLabel" type="Label" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn/PauseProfile"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "PROFILE"
+vertical_alignment = 1
+
+[node name="PauseExit" type="TextureButton" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(304, 56)
+layout_mode = 2
+focus_mode = 2
+texture_normal = ExtResource("24_exn")
+texture_pressed = ExtResource("26_exs")
+texture_hover = ExtResource("25_exh")
+texture_focused = ExtResource("26_exs")
+ignore_texture_size = true
+stretch_mode = 4
+focus_previous = NodePath("../PauseProfile")
+
+[node name="ExitLabel" type="Label" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox/ButtonColumnMargin/ButtonColumn/PauseExit"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
+text = "EXIT"
+vertical_alignment = 1
+
+[node name="FooterSpacer" type="Control" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox"]
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="FooterHint" type="Label" parent="Menu/PauseMenu/MenuBox/MenuPanel/Content/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("27_pausefont")
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
+text = "Press ESC to close"
+horizontal_alignment = 1
+vertical_alignment = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="MapControl/EventPanel/CloseButton" to="MapControl/EventPanel" method="_on_close_button_pressed"]

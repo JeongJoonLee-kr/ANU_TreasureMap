@@ -3,6 +3,10 @@ extends Node2D
 @export var map_scene_path: String = "res://map.tscn"
 
 const RANDOM_EVENT_PANEL_SCENE = preload("res://random_event_panel.tscn")
+const PROGRESS_DOT_TEX := preload("res://resources/ui/location_dialogue/progress_dot.svg")
+const PROGRESS_DOT_ACTIVE_TEX := preload("res://resources/ui/location_dialogue/progress_dot_active.svg")
+const _OPTION_TEXT_COLOR := Color(0.2588, 0.6471, 0.9608, 1.0)
+const _OPTION_TEXT_PRESSED := Color(0.12, 0.45, 0.74, 1.0)
 
 var location_id: String = ""
 var location_data: Dictionary = {}
@@ -15,11 +19,12 @@ var _event_canvas_layer: CanvasLayer = null
 var _exhaustion_toast: Panel = null
 
 @onready var background: TextureRect = $TextureRect
-@onready var description: Label = $Control/Description
-@onready var event_panel: Control = $Control/EventPanel
-@onready var back_button: Button = $Control/BackButton
+@onready var dialogue_panel: Control = $DialogueLayer/DialoguePanel
+@onready var dialogue_label: Label = $DialogueLayer/DialoguePanel/MainMargin/MainVBox/DialogueLabel
+@onready var progress_dots: HBoxContainer = $DialogueLayer/DialoguePanel/MainMargin/MainVBox/BottomRow/ProgressDots
+@onready var event_panel: Control = $DialogueLayer/EventPanel
 @onready var options_component: OptionsComponent = $OptionsComponent
-@onready var options_container: VBoxContainer = $Control/EventPanel/OptionsContainer
+@onready var options_container: VBoxContainer = $DialogueLayer/EventPanel/OptionsContainer
 
 
 func _ready() -> void:
@@ -28,7 +33,6 @@ func _ready() -> void:
 		if Global.selected_location_id != ""
 		else Global.current_location_id
 	)
-	back_button.pressed.connect(_on_back_button_pressed)
 	load_location_data()
 
 	# Connect EventManager's not_enough_ap signal for exhaustion toast
@@ -56,6 +60,22 @@ func load_location_data() -> void:
 	location_data = parsed as Dictionary
 
 
+func _refresh_dialogue_progress() -> void:
+	for c in progress_dots.get_children():
+		c.queue_free()
+	var n := texts.size()
+	if n <= 0:
+		return
+	for i in n:
+		var tr := TextureRect.new()
+		tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		tr.texture = PROGRESS_DOT_ACTIVE_TEX if i == text_index else PROGRESS_DOT_TEX
+		tr.custom_minimum_size = Vector2(24, 8) if i == text_index else Vector2(8, 8)
+		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		progress_dots.add_child(tr)
+
+
 func _try_random_event() -> void:
 	var triggered_event: Variant = EventManager.try_trigger_event(location_id)
 	if triggered_event != null and triggered_event is Dictionary:
@@ -73,7 +93,7 @@ func _show_random_event(ev: Dictionary) -> void:
 			background.texture = load(image_path)
 
 	# Hide normal location UI
-	description.hide()
+	dialogue_panel.hide()
 	event_panel.hide()
 
 	# Create a CanvasLayer so the Panel overlay gets a proper Control context
@@ -190,11 +210,12 @@ func show_location() -> void:
 		options_component._ready()
 
 	if texts.size() > 0:
-		description.text = texts[text_index]
-		description.show()
-		event_panel.show()
+		dialogue_label.text = texts[text_index]
+		dialogue_panel.show()
+		_refresh_dialogue_progress()
+		event_panel.hide()
 	else:
-		description.hide()
+		dialogue_panel.hide()
 		show_interactive_options()
 
 
@@ -206,7 +227,13 @@ func _on_back_button_pressed() -> void:
 		get_tree().change_scene_to_file(map_scene_path)
 
 
+func _on_dialogue_continue_pressed() -> void:
+	show_next_text()
+
+
 func _unhandled_input(event: InputEvent) -> void:
+	if not dialogue_panel.visible or text_finished:
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		show_next_text()
 
@@ -217,14 +244,16 @@ func show_next_text() -> void:
 
 	if text_index < texts.size() - 1:
 		text_index += 1
-		description.text = texts[text_index]
+		dialogue_label.text = texts[text_index]
+		_refresh_dialogue_progress()
 	else:
 		text_finished = true
-		description.hide()
+		dialogue_panel.hide()
 		show_interactive_options()
 
 
 func show_interactive_options() -> void:
+	dialogue_panel.hide()
 	event_panel.show()
 	options_container.show()
 
@@ -234,6 +263,7 @@ func show_interactive_options() -> void:
 	if options_component.has_option("coffee_cost"):
 		var coffee_cost: int = int(options_component.get_option("coffee_cost"))
 		var coffee_button := Button.new()
+		_style_option_button(coffee_button)
 		coffee_button.text = "Buy Coffee (-%d Gold)" % coffee_cost
 		coffee_button.pressed.connect(_on_buy_coffee.bind(coffee_cost))
 		options_container.add_child(coffee_button)
@@ -241,17 +271,55 @@ func show_interactive_options() -> void:
 	if options_component.has_option("meal_cost"):
 		var meal_cost: int = int(options_component.get_option("meal_cost"))
 		var meal_button := Button.new()
-		meal_button.custom_minimum_size = Vector2(0, 40)
+		_style_option_button(meal_button)
 		meal_button.text = "Order Meal Combo (-%d Gold)" % meal_cost
 		meal_button.pressed.connect(_on_buy_meal.bind(meal_cost))
 		options_container.add_child(meal_button)
 
 	if options_component.get_option("can_leave", true):
 		var leave_button := Button.new()
-		leave_button.custom_minimum_size = Vector2(0, 40)
+		_style_option_button(leave_button)
 		leave_button.text = "Leave"
 		leave_button.pressed.connect(_on_back_button_pressed)
 		options_container.add_child(leave_button)
+
+
+func _style_option_button(btn: Button) -> void:
+	btn.custom_minimum_size = Vector2(0, 52)
+	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	btn.add_theme_font_override("font", load("res://resources/font/AlegreyaSans-Regular.ttf"))
+	btn.add_theme_font_size_override("font_size", 20)
+	btn.add_theme_color_override("font_color", _OPTION_TEXT_COLOR)
+	btn.add_theme_color_override("font_hover_color", _OPTION_TEXT_COLOR)
+	btn.add_theme_color_override("font_pressed_color", _OPTION_TEXT_PRESSED)
+
+	var normal := StyleBoxFlat.new()
+	normal.bg_color = Color(0.95, 0.98, 1.0, 1.0)
+	normal.border_color = Color(0.35, 0.53, 0.94, 0.55)
+	normal.border_width_left = 2
+	normal.border_width_top = 2
+	normal.border_width_right = 2
+	normal.border_width_bottom = 2
+	normal.corner_radius_top_left = 8
+	normal.corner_radius_top_right = 8
+	normal.corner_radius_bottom_left = 8
+	normal.corner_radius_bottom_right = 8
+	btn.add_theme_stylebox_override("normal", normal)
+
+	var hover := normal.duplicate() as StyleBoxFlat
+	hover.bg_color = Color(0.9, 0.96, 1.0, 1.0)
+	hover.border_color = Color(0.26, 0.56, 0.94, 0.9)
+	btn.add_theme_stylebox_override("hover", hover)
+
+	var pressed := normal.duplicate() as StyleBoxFlat
+	pressed.bg_color = Color(0.85, 0.93, 1.0, 1.0)
+	pressed.border_color = Color(0.2, 0.5, 0.88, 1.0)
+	btn.add_theme_stylebox_override("pressed", pressed)
+
+	var focus := normal.duplicate() as StyleBoxFlat
+	focus.bg_color = Color(0.9, 0.96, 1.0, 1.0)
+	focus.border_color = Color(0.2, 0.5, 0.88, 1.0)
+	btn.add_theme_stylebox_override("focus", focus)
 
 
 func _on_buy_coffee(cost: int) -> void:
@@ -266,8 +334,9 @@ func _on_buy_coffee(cost: int) -> void:
 	text_index = 0
 	text_finished = false
 
-	description.text = texts[text_index]
-	description.show()
+	dialogue_label.text = texts[text_index]
+	dialogue_panel.show()
+	_refresh_dialogue_progress()
 
 
 func _on_buy_meal(cost: int) -> void:
@@ -282,15 +351,17 @@ func _on_buy_meal(cost: int) -> void:
 	text_index = 0
 	text_finished = false
 
-	description.text = texts[text_index]
-	description.show()
+	dialogue_label.text = texts[text_index]
+	dialogue_panel.show()
+	_refresh_dialogue_progress()
 
 
 func try_spend_money(cost: int) -> bool:
 	if Global.money < cost:
-		description.text = "You need %d Gold, but only have %d." % [cost, Global.money]
-		description.show()
-		event_panel.show()
+		dialogue_label.text = "You need %d Gold, but only have %d." % [cost, Global.money]
+		dialogue_panel.show()
+		event_panel.hide()
+		_refresh_dialogue_progress()
 		return false
 
 	Global.money -= cost
