@@ -19,6 +19,12 @@ const _APP_ICON_TEXTURES := {
 		"pressed": preload("res://resources/icon/menu1.png"),
 	},
 }
+const _APP_NAMES := {
+	"AppProfileButton": "Profile",
+	"AppCollectionButton": "Collection Book",
+	"AppInsButton": "ANU Ins",
+	"AppMenuButton": "Menu",
+}
 
 const _APP_BTN_PATH := "PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
 
@@ -26,6 +32,7 @@ const _APP_BTN_PATH := "PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/Apps
 @onready var phone_screen = $PhoneScreen
 @onready var phone_frame = $PhoneFrame
 @onready var home_screen: Control = $PhoneScreen/MainMargin/MainVBox/HomeScreen
+@onready var phone_title_label: Label = $PhoneScreen/MainMargin/MainVBox/HomeScreen/LabelBarSlot/TitleCenter/TitleStrip/PhoneTitleLabel
 @onready var ins_app_screen: Control = $PhoneScreen/MainMargin/MainVBox/InsAppScreen
 @onready var feed_scroll: ScrollContainer = $PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer
 @onready var feed_list = $PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer/ContentVBox/FeedList
@@ -88,6 +95,10 @@ func _wire_app_icon_feedback() -> void:
 			btn.button_down.connect(_on_app_btn_down.bind(btn))
 		if not btn.button_up.is_connected(_on_app_btn_up.bind(btn)):
 			btn.button_up.connect(_on_app_btn_up.bind(btn))
+		if not btn.mouse_entered.is_connected(_on_app_btn_hovered.bind(btn)):
+			btn.mouse_entered.connect(_on_app_btn_hovered.bind(btn))
+		if not btn.mouse_exited.is_connected(_reset_phone_title):
+			btn.mouse_exited.connect(_reset_phone_title)
 	call_deferred("_refresh_app_button_pivots")
 
 
@@ -127,6 +138,15 @@ func _on_app_btn_up(btn: BaseButton) -> void:
 		icon_rect.texture = _APP_ICON_TEXTURES[btn.name]["normal"]
 
 
+func _on_app_btn_hovered(btn: BaseButton) -> void:
+	if _APP_NAMES.has(btn.name):
+		phone_title_label.text = _APP_NAMES[btn.name]
+
+
+func _reset_phone_title() -> void:
+	phone_title_label.text = "Phone"
+
+
 func load_posts() -> void:
 	# Use cached data from Global (loaded once at startup)
 	for post_data in Global.posts_data:
@@ -140,7 +160,7 @@ func _on_app_profile_pressed() -> void:
 	var main_node := get_tree().current_scene
 	close_phone()
 	if main_node != null and main_node.has_method("open_profile"):
-		main_node.call_deferred("open_profile", false, true, true)
+		main_node.call_deferred("open_profile", false, true, false)
 
 
 func _on_app_collection_pressed() -> void:
@@ -163,11 +183,12 @@ func _on_ins_back_pressed() -> void:
 		return
 	ins_app_screen.hide()
 	home_screen.show()
+	_reset_phone_title()
 
 
 func _on_app_menu_pressed() -> void:
 	var main_node := get_tree().current_scene
-	close_phone()
+	queue_free()
 	if main_node != null and main_node.has_method("_on_hud_menu_button_pressed"):
 		main_node.call_deferred("_on_hud_menu_button_pressed")
 
