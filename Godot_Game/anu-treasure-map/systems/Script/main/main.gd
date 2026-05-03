@@ -43,7 +43,7 @@ func show_map() -> void:
 
 	map_instance.show()
 	ins_button.show()
-	menu_button.show()
+	menu_button.hide()
 	back_button.hide()
 	next_week_button.show()
 	var map_controller := get_map_controller()
@@ -226,9 +226,9 @@ func get_map_controller() -> Node:
 
 
 func _on_hud_menu_button_pressed() -> void:
-	var m := map_instance.get_node_or_null("Menu/MenuButton")
-	if m is BaseButton:
-		(m as BaseButton).pressed.emit()
+	var menu_layer := map_instance.get_node_or_null("Menu")
+	if menu_layer != null and menu_layer.has_method("open_pause_menu"):
+		menu_layer.call("open_pause_menu")
 
 
 func _on_hud_back_button_pressed() -> void:

@@ -1,7 +1,6 @@
 extends CanvasLayer
 
 @onready var pause_menu: Control = $PauseMenu
-@onready var menu_button: Button = $MenuButton
 
 @onready var _pause_resume_btn: TextureButton = %PauseResume
 @onready var _pause_retry_btn: TextureButton = %PauseRetry
@@ -23,9 +22,6 @@ func _ready() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	pause_menu.hide()
 	set_process_unhandled_input(true)
-
-	if menu_button:
-		menu_button.pressed.connect(_on_menu_button_pressed)
 
 	_connect_pause_row(_pause_resume_btn, "ResumeLabel", _RESUME_ACTIVE, _on_continue_pressed)
 	_connect_pause_row(_pause_retry_btn, "RetryLabel", _RETRY_ACTIVE, _on_home_pressed)
@@ -72,8 +68,7 @@ func _connect_pause_row(
 	btn.pressed.connect(func(): callback.call())
 
 
-# pause
-func _on_menu_button_pressed() -> void:
+func open_pause_menu() -> void:
 	pause_menu.show()
 	get_tree().paused = true
 	if is_instance_valid(_pause_resume_btn):
