@@ -2,19 +2,23 @@ extends CanvasLayer
 
 const POST_SCENE = preload("res://post_item.tscn")
 const _APP_ICON_TEXTURES := {
-	"AppProfileButton": {
+	"AppProfileButton":
+	{
 		"normal": preload("res://resources/icon/profile.png"),
 		"pressed": preload("res://resources/icon/profile1.png"),
 	},
-	"AppCollectionButton": {
+	"AppCollectionButton":
+	{
 		"normal": preload("res://resources/icon/collection.png"),
 		"pressed": preload("res://resources/icon/collection1.png"),
 	},
-	"AppInsButton": {
+	"AppInsButton":
+	{
 		"normal": preload("res://resources/icon/ins.png"),
 		"pressed": preload("res://resources/icon/ins1.png"),
 	},
-	"AppMenuButton": {
+	"AppMenuButton":
+	{
 		"normal": preload("res://resources/icon/menu.png"),
 		"pressed": preload("res://resources/icon/menu1.png"),
 	},
@@ -32,10 +36,13 @@ const _APP_BTN_PATH := "PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/Apps
 @onready var phone_screen = $PhoneScreen
 @onready var phone_frame = $PhoneFrame
 @onready var home_screen: Control = $PhoneScreen/MainMargin/MainVBox/HomeScreen
-@onready var phone_title_label: Label = $PhoneScreen/MainMargin/MainVBox/HomeScreen/LabelBarSlot/TitleCenter/TitleStrip/PhoneTitleLabel
+@onready
+var phone_title_label: Label = $PhoneScreen/MainMargin/MainVBox/HomeScreen/LabelBarSlot/TitleCenter/TitleStrip/PhoneTitleLabel
 @onready var ins_app_screen: Control = $PhoneScreen/MainMargin/MainVBox/InsAppScreen
-@onready var feed_scroll: ScrollContainer = $PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer
-@onready var feed_list = $PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer/ContentVBox/FeedList
+@onready
+var feed_scroll: ScrollContainer = $PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer
+@onready
+var feed_list = $PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer/ContentVBox/FeedList
 
 # Record scene rest positions for the phone + bezel (unchanged from editor layout).
 @onready var target_screen_pos = phone_screen.position

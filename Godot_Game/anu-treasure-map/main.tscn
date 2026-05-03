@@ -5,30 +5,30 @@
 [ext_resource type="Script" uid="uid://p0w1yktaynak" path="res://systems/Script/ui/ins_button.gd" id="3_ins_button"]
 [ext_resource type="PackedScene" uid="uid://0sowkn4nyat2" path="res://map.tscn" id="4_map"]
 [ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="5_hudfont"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_menu_normal.svg" id="6_mn"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_menu_hover.svg" id="7_mh"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_menu_selected.svg" id="8_ms"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_next_week_normal.svg" id="9_nn"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_next_week_hover.svg" id="10_nh"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_next_week_selected.svg" id="11_ns"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_next_week_disabled.svg" id="12_nd"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_separator.svg" id="13_sep"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_icon_week.svg" id="14_ikw"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_icon_location.svg" id="15_ikloc"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_icon_time.svg" id="16_ikt"]
-[ext_resource type="Texture2D" path="res://resources/ui/hud/hud_icon_money.svg" id="17_ikm"]
+[ext_resource type="Texture2D" uid="uid://bjvuf50emk4p5" path="res://resources/ui/hud/hud_menu_normal.svg" id="6_mn"]
+[ext_resource type="Texture2D" uid="uid://cxybjihnla4my" path="res://resources/ui/hud/hud_menu_hover.svg" id="7_mh"]
+[ext_resource type="Texture2D" uid="uid://c5nxhtoe0364o" path="res://resources/ui/hud/hud_menu_selected.svg" id="8_ms"]
+[ext_resource type="Texture2D" uid="uid://cx3jwwgiyk6ep" path="res://resources/ui/hud/hud_next_week_normal.svg" id="9_nn"]
+[ext_resource type="Texture2D" uid="uid://drclqdva1nnek" path="res://resources/ui/hud/hud_next_week_hover.svg" id="10_nh"]
+[ext_resource type="Texture2D" uid="uid://b4ajlmn40p64u" path="res://resources/ui/hud/hud_next_week_selected.svg" id="11_ns"]
+[ext_resource type="Texture2D" uid="uid://2v8abx7yqxur" path="res://resources/ui/hud/hud_next_week_disabled.svg" id="12_nd"]
+[ext_resource type="Texture2D" uid="uid://bawyfwu2xlcno" path="res://resources/ui/hud/hud_separator.svg" id="13_sep"]
+[ext_resource type="Texture2D" uid="uid://cjvnyt5evmbsf" path="res://resources/ui/hud/hud_icon_week.svg" id="14_ikw"]
+[ext_resource type="Texture2D" uid="uid://dusb072xrx3e2" path="res://resources/ui/hud/hud_icon_location.svg" id="15_ikloc"]
+[ext_resource type="Texture2D" uid="uid://c5bpqlkim63q6" path="res://resources/ui/hud/hud_icon_time.svg" id="16_ikt"]
+[ext_resource type="Texture2D" uid="uid://ds2bvtk4rs5s6" path="res://resources/ui/hud/hud_icon_money.svg" id="17_ikm"]
 
 [sub_resource type="StyleBoxFlat" id="TopBar_bg"]
 bg_color = Color(0.98, 0.99, 1, 0.94)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.36, 0.41, 0.55, 0.35)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 shadow_color = Color(0, 0, 0, 0.14)
 shadow_size = 8
 shadow_offset = Vector2(0, 2)
@@ -39,13 +39,9 @@ script = ExtResource("1_main")
 [node name="Map" parent="." instance=ExtResource("4_map")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
-layer = 1
 
 [node name="TopBarBackground" type="Panel" parent="HUD"]
-layout_mode = 1
 anchors_preset = 10
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 offset_left = 20.0
 offset_top = 14.0
@@ -57,21 +53,19 @@ theme_override_styles/panel = SubResource("TopBar_bg")
 
 [node name="Topbar" type="HBoxContainer" parent="HUD"]
 custom_minimum_size = Vector2(0, 48)
-layout_mode = 1
 anchors_preset = 10
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 offset_left = 32.0
 offset_top = 20.0
 offset_right = -32.0
 offset_bottom = 68.0
 grow_horizontal = 2
+mouse_filter = 0
 theme_override_constants/separation = 8
 alignment = 1
-mouse_filter = 0
 
 [node name="MenuButton" type="TextureButton" parent="HUD/Topbar"]
+visible = false
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 focus_mode = 0
@@ -89,10 +83,9 @@ offset_left = 40.0
 offset_top = 8.0
 offset_right = 115.0
 offset_bottom = 36.0
-mouse_filter = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "Menu"
 vertical_alignment = 1
 
@@ -123,26 +116,26 @@ stretch_mode = 4
 
 [node name="WeekTexts" type="VBoxContainer" parent="HUD/Topbar/WeekStatus"]
 layout_mode = 2
-size_flags_vertical = 4
 size_flags_horizontal = 3
+size_flags_vertical = 4
 theme_override_constants/separation = 0
 
 [node name="WeekNameLabel" type="Label" parent="HUD/Topbar/WeekStatus/WeekTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 text = "Week:"
 
 [node name="WeekValueLabel" type="Label" parent="HUD/Topbar/WeekStatus/WeekTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "week1"
 
 [node name="LocationStatus" type="HBoxContainer" parent="HUD/Topbar"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 4
@@ -159,24 +152,23 @@ stretch_mode = 4
 
 [node name="LocationTexts" type="VBoxContainer" parent="HUD/Topbar/LocationStatus"]
 layout_mode = 2
-size_flags_vertical = 4
 size_flags_horizontal = 3
+size_flags_vertical = 4
 theme_override_constants/separation = 0
 
 [node name="LocationNameLabel" type="Label" parent="HUD/Topbar/LocationStatus/LocationTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 text = "Location:"
 
 [node name="LocationValueLabel" type="Label" parent="HUD/Topbar/LocationStatus/LocationTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "-"
-autowrap_mode = 1
 
 [node name="TimeStatus" type="HBoxContainer" parent="HUD/Topbar"]
 custom_minimum_size = Vector2(100, 0)
@@ -196,22 +188,22 @@ stretch_mode = 4
 
 [node name="TimeTexts" type="VBoxContainer" parent="HUD/Topbar/TimeStatus"]
 layout_mode = 2
-size_flags_vertical = 4
 size_flags_horizontal = 3
+size_flags_vertical = 4
 theme_override_constants/separation = 0
 
 [node name="TimeNameLabel" type="Label" parent="HUD/Topbar/TimeStatus/TimeTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 text = "Time:"
 
 [node name="TimeValueLabel" type="Label" parent="HUD/Topbar/TimeStatus/TimeTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "8"
 
 [node name="MoneyStatus" type="HBoxContainer" parent="HUD/Topbar"]
@@ -232,22 +224,22 @@ stretch_mode = 4
 
 [node name="MoneyTexts" type="VBoxContainer" parent="HUD/Topbar/MoneyStatus"]
 layout_mode = 2
-size_flags_vertical = 4
 size_flags_horizontal = 3
+size_flags_vertical = 4
 theme_override_constants/separation = 0
 
 [node name="MoneyNameLabel" type="Label" parent="HUD/Topbar/MoneyStatus/MoneyTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 text = "Money:"
 
 [node name="MoneyValueLabel" type="Label" parent="HUD/Topbar/MoneyStatus/MoneyTexts"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "$0"
 
 [node name="TopbarSpacer" type="Control" parent="HUD/Topbar"]
@@ -272,10 +264,9 @@ offset_left = 10.0
 offset_top = 8.0
 offset_right = 128.0
 offset_bottom = 36.0
-mouse_filter = 2
+theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 text = "Next Week"
 vertical_alignment = 1
 
@@ -298,10 +289,9 @@ offset_left = 10.0
 offset_top = 8.0
 offset_right = 128.0
 offset_bottom = 36.0
-mouse_filter = 2
+theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 text = "Back"
 vertical_alignment = 1
 
