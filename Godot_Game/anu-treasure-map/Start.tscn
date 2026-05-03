@@ -31,29 +31,37 @@ grow_vertical = 2
 script = ExtResource("1_52bhu")
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_r305v")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Label" type="Label" parent="Control"]
 modulate = Color(1, 1, 0, 1)
 self_modulate = Color(1, 0.4745098, 1, 1)
 layout_mode = 0
-offset_left = 278.0
-offset_top = 230.0
-offset_right = 424.0
-offset_bottom = 253.0
+offset_left = 96.0
+offset_top = 270.0
+offset_right = 1824.0
+offset_bottom = 420.0
 theme_override_font_sizes/font_size = 110
 text = "ANU Treasure Map"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="TextureButton" parent="Control"]
 custom_minimum_size = Vector2(400, 60)
 layout_mode = 0
-offset_left = 599.0
-offset_top = 725.0
-offset_right = 999.0
-offset_bottom = 785.0
+offset_left = 760.0
+offset_top = 734.0
+offset_right = 1160.0
+offset_bottom = 794.0
 focus_mode = 2
 texture_normal = ExtResource("2_sbtn")
 texture_pressed = ExtResource("4_sbtn")
@@ -79,10 +87,10 @@ vertical_alignment = 1
 [node name="ContinueButton" type="TextureButton" parent="Control"]
 custom_minimum_size = Vector2(400, 60)
 layout_mode = 0
-offset_left = 599.0
-offset_top = 800.0
-offset_right = 999.0
-offset_bottom = 860.0
+offset_left = 760.0
+offset_top = 809.0
+offset_right = 1160.0
+offset_bottom = 869.0
 focus_mode = 2
 focus_previous = NodePath("../Button")
 texture_normal = ExtResource("6_cbtn")
@@ -109,10 +117,10 @@ vertical_alignment = 1
 [node name="SettingsButton" type="TextureButton" parent="Control"]
 custom_minimum_size = Vector2(400, 60)
 layout_mode = 0
-offset_left = 599.0
-offset_top = 875.0
-offset_right = 999.0
-offset_bottom = 935.0
+offset_left = 760.0
+offset_top = 884.0
+offset_right = 1160.0
+offset_bottom = 944.0
 focus_mode = 2
 focus_previous = NodePath("../ContinueButton")
 texture_normal = ExtResource("9_setb")

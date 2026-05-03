@@ -1,10 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://duf00c663dvr0"]
+[gd_scene load_steps=10 format=3 uid="uid://duf00c663dvr0"]
 
 [ext_resource type="Script" uid="uid://mj1pc6uleuqr" path="res://systems/Script/map/locations.gd" id="2_nc2o8"]
 [ext_resource type="Script" uid="uid://bjubudh236ger" path="res://systems/Script/options/options_component.gd" id="2_xmwjg"]
-[ext_resource type="Texture2D" path="res://resources/ui/location_dialogue/dialogue_background.svg" id="3_dlg_bg"]
 [ext_resource type="Texture2D" path="res://resources/ui/location_dialogue/button_continue.svg" id="4_btn_go"]
 [ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="5_font"]
+[ext_resource type="Texture2D" path="res://resources/ui/location_dialogue/message_icon.svg" id="6_msg_icon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue_panel"]
+bg_color = Color(1, 1, 1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.360784, 0.419608, 0.752941, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_options_panel"]
 bg_color = Color(0.98, 0.99, 1, 0.98)
@@ -46,7 +58,7 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="DialogueBackground" type="TextureRect" parent="DialogueLayer/DialoguePanel"]
+[node name="DialogueBackground" type="Panel" parent="DialogueLayer/DialoguePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,9 +66,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("3_dlg_bg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dialogue_panel")
+
+[node name="MessageIcon" type="TextureRect" parent="DialogueLayer/DialoguePanel"]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 112.0
+offset_bottom = 104.0
+mouse_filter = 2
+texture = ExtResource("6_msg_icon")
 expand_mode = 1
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="MainMargin" type="MarginContainer" parent="DialogueLayer/DialoguePanel"]
 layout_mode = 1
@@ -66,7 +87,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 124
+theme_override_constants/margin_left = 144
 theme_override_constants/margin_top = 26
 theme_override_constants/margin_right = 52
 theme_override_constants/margin_bottom = 20
