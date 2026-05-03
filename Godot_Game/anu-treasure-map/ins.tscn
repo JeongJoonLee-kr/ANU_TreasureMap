@@ -1,17 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://chd561h0y5nf7"]
+[gd_scene load_steps=25 format=3 uid="uid://chd561h0y5nf7"]
 
 [ext_resource type="Script" uid="uid://cu5k5noqqwjru" path="res://systems/Script/ui/ins.gd" id="1_l7vja"]
 [ext_resource type="Shader" uid="uid://crklf122s33yx" path="res://ins.gdshader" id="1_w64nd"]
 [ext_resource type="Texture2D" uid="uid://bslpl1suy60k5" path="res://resources/interface/interface 1.png" id="2_w64nd"]
-[ext_resource type="Texture2D" path="res://resources/ui/phone/phone_background.svg" id="3_phone_bg"]
-[ext_resource type="Texture2D" path="res://resources/ui/phone/label_bar.svg" id="4_label_bar"]
-[ext_resource type="Texture2D" path="res://resources/ui/phone/notification_card.svg" id="5_notify_bg"]
+[ext_resource type="Texture2D" uid="uid://0epyw4nd7jbk" path="res://resources/ui/phone/phone_background.svg" id="3_phone_bg"]
+[ext_resource type="Texture2D" uid="uid://c3wbvaw16mdic" path="res://resources/ui/phone/label_bar.svg" id="4_label_bar"]
+[ext_resource type="Texture2D" uid="uid://b37lpem4wwc4g" path="res://resources/ui/phone/notification_card.svg" id="5_notify_bg"]
 [ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="7_font"]
-[ext_resource type="Texture2D" path="res://resources/ui/phone/phone_title_icon.svg" id="8_phone_icon"]
-[ext_resource type="Texture2D" path="res://resources/icon/profile.png" id="9_prof_n"]
-[ext_resource type="Texture2D" path="res://resources/icon/collection.png" id="11_coll_n"]
-[ext_resource type="Texture2D" path="res://resources/icon/ins.png" id="13_ins_n"]
-[ext_resource type="Texture2D" path="res://resources/icon/menu.png" id="15_menu_n"]
+[ext_resource type="Texture2D" uid="uid://y13jsc55m6m8" path="res://resources/ui/phone/phone_title_icon.svg" id="8_phone_icon"]
+[ext_resource type="Texture2D" uid="uid://6ttpto4fv4w6" path="res://resources/icon/profile.png" id="9_prof_n"]
+[ext_resource type="Texture2D" uid="uid://b18yi2i56e4rr" path="res://resources/icon/collection.png" id="11_coll_n"]
+[ext_resource type="Texture2D" uid="uid://cf6b5tgne0e4q" path="res://resources/icon/ins.png" id="13_ins_n"]
+[ext_resource type="Texture2D" uid="uid://cn5f7g7kalf28" path="res://resources/icon/menu.png" id="15_menu_n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l7vja"]
 shader = ExtResource("1_w64nd")
@@ -31,10 +31,6 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.22)
 shadow_size = 4
 shadow_offset = Vector2(0, 3)
@@ -45,10 +41,6 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.18)
 shadow_size = 2
 shadow_offset = Vector2(0, 2)
@@ -59,10 +51,6 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.22)
 shadow_size = 4
 shadow_offset = Vector2(0, 3)
@@ -73,10 +61,6 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.18)
 shadow_size = 2
 shadow_offset = Vector2(0, 2)
@@ -87,10 +71,6 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.22)
 shadow_size = 4
 shadow_offset = Vector2(0, 3)
@@ -101,10 +81,6 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.18)
 shadow_size = 2
 shadow_offset = Vector2(0, 2)
@@ -115,10 +91,6 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.22)
 shadow_size = 4
 shadow_offset = Vector2(0, 3)
@@ -129,37 +101,33 @@ corner_radius_top_left = 34
 corner_radius_top_right = 34
 corner_radius_bottom_right = 34
 corner_radius_bottom_left = 34
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 shadow_color = Color(0.28, 0.38, 0.48, 0.18)
 shadow_size = 2
 shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="sb_back_n"]
 bg_color = Color(1, 1, 1, 0.55)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-border_color = Color(0.2588, 0.6471, 0.9608, 0.35)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+border_color = Color(0.2588, 0.6471, 0.9608, 0.35)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="sb_back_p"]
 bg_color = Color(0.85, 0.93, 1, 0.9)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-border_color = Color(0.2588, 0.6471, 0.9608, 0.6)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+border_color = Color(0.2588, 0.6471, 0.9608, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [node name="Ins" type="CanvasLayer"]
 script = ExtResource("1_l7vja")
@@ -198,7 +166,6 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_phone_bg")
 expand_mode = 1
-stretch_mode = 0
 
 [node name="MainMargin" type="MarginContainer" parent="PhoneScreen"]
 layout_mode = 1
@@ -255,9 +222,9 @@ theme_override_constants/separation = 8
 
 [node name="TimeLabel" type="Label" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/StatusBarSlot/StatusBarMargin/StatusBarRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.2863, 0.3882, 0.5255, 0.95)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.2863, 0.3882, 0.5255, 0.95)
 text = "9:41"
 
 [node name="StatusSpacer" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/StatusBarSlot/StatusBarMargin/StatusBarRow"]
@@ -266,34 +233,30 @@ size_flags_horizontal = 3
 
 [node name="SignalLabel" type="Label" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/StatusBarSlot/StatusBarMargin/StatusBarRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 text = "▂▄▆█"
 vertical_alignment = 1
 
 [node name="WifiLabel" type="Label" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/StatusBarSlot/StatusBarMargin/StatusBarRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 text = "⌒))"
 vertical_alignment = 1
 
 [node name="BatteryLabel" type="Label" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/StatusBarSlot/StatusBarMargin/StatusBarRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 text = "[▮▮▮▯]"
 vertical_alignment = 1
 
 [node name="LabelBarSlot" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen"]
 custom_minimum_size = Vector2(0, 72)
-layout_mode = 2
-
-[node name="NotificationTopGap" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen"]
-custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="LabelBarBg" type="TextureRect" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/LabelBarSlot"]
@@ -306,7 +269,6 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_label_bar")
 expand_mode = 1
-stretch_mode = 0
 
 [node name="TitleCenter" type="CenterContainer" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/LabelBarSlot"]
 layout_mode = 1
@@ -332,12 +294,15 @@ stretch_mode = 5
 
 [node name="PhoneTitleLabel" type="Label" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/LabelBarSlot/TitleCenter/TitleStrip"]
 layout_mode = 2
-mouse_filter = 2
+theme_override_colors/font_color = Color(0.2314, 0.3373, 0.4824, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.2314, 0.3373, 0.4824, 1)
 text = "Phone"
 vertical_alignment = 1
+
+[node name="NotificationTopGap" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="NotificationSlot" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen"]
 custom_minimum_size = Vector2(0, 56)
@@ -353,13 +318,14 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_notify_bg")
 expand_mode = 1
-stretch_mode = 0
 
 [node name="NotificationTexts" type="MarginContainer" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/NotificationSlot"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 6
@@ -372,16 +338,16 @@ theme_override_constants/separation = 2
 
 [node name="NotificationTitle" type="Label" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/NotificationSlot/NotificationTexts/NotificationVBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 text = "Notification"
 
 [node name="NotificationBody" type="Label" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/NotificationSlot/NotificationTexts/NotificationVBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "You have new messages"
 autowrap_mode = 3
 
@@ -397,27 +363,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BottomSpacer" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen"]
-custom_minimum_size = Vector2(0, 56)
-layout_mode = 2
-size_flags_vertical = 1
-
 [node name="AppGrid" type="GridContainer" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter"]
 layout_mode = 2
-theme_override_constants/h_separation = 22
-theme_override_constants/v_separation = 22
-columns = 2
+theme_override_constants/h_separation = 28
+theme_override_constants/v_separation = 28
+columns = 3
 
 [node name="AppProfileButton" type="Button" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
-custom_minimum_size = Vector2(148, 148)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-flat = false
-text = ""
 theme_override_styles/normal = SubResource("sb_prof_n")
-theme_override_styles/hover = SubResource("sb_prof_n")
 theme_override_styles/pressed = SubResource("sb_prof_p")
+theme_override_styles/hover = SubResource("sb_prof_n")
 theme_override_styles/disabled = SubResource("sb_prof_n")
 theme_override_styles/focus = SubResource("sb_prof_n")
 
@@ -428,10 +387,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -440,15 +399,13 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="AppCollectionButton" type="Button" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
-custom_minimum_size = Vector2(148, 148)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-flat = false
-text = ""
 theme_override_styles/normal = SubResource("sb_coll_n")
-theme_override_styles/hover = SubResource("sb_coll_n")
 theme_override_styles/pressed = SubResource("sb_coll_p")
+theme_override_styles/hover = SubResource("sb_coll_n")
 theme_override_styles/disabled = SubResource("sb_coll_n")
 theme_override_styles/focus = SubResource("sb_coll_n")
 
@@ -459,10 +416,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -471,15 +428,13 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="AppInsButton" type="Button" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
-custom_minimum_size = Vector2(148, 148)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-flat = false
-text = ""
 theme_override_styles/normal = SubResource("sb_ins_n")
-theme_override_styles/hover = SubResource("sb_ins_n")
 theme_override_styles/pressed = SubResource("sb_ins_p")
+theme_override_styles/hover = SubResource("sb_ins_n")
 theme_override_styles/disabled = SubResource("sb_ins_n")
 theme_override_styles/focus = SubResource("sb_ins_n")
 
@@ -490,10 +445,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -502,15 +457,13 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="AppMenuButton" type="Button" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
-custom_minimum_size = Vector2(148, 148)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-flat = false
-text = ""
 theme_override_styles/normal = SubResource("sb_menu_n")
-theme_override_styles/hover = SubResource("sb_menu_n")
 theme_override_styles/pressed = SubResource("sb_menu_p")
+theme_override_styles/hover = SubResource("sb_menu_n")
 theme_override_styles/disabled = SubResource("sb_menu_n")
 theme_override_styles/focus = SubResource("sb_menu_n")
 
@@ -521,16 +474,45 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("15_menu_n")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="EmptyAppSlot1" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EmptyAppSlot2" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EmptyAppSlot3" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EmptyAppSlot4" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EmptyAppSlot5" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BottomSpacer" type="Control" parent="PhoneScreen/MainMargin/MainVBox/HomeScreen"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
 
 [node name="InsAppScreen" type="VBoxContainer" parent="PhoneScreen/MainMargin/MainVBox"]
 visible = false
@@ -552,7 +534,6 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_label_bar")
 expand_mode = 1
-stretch_mode = 0
 
 [node name="InsHeaderOverlay" type="Control" parent="PhoneScreen/MainMargin/MainVBox/InsAppScreen/InsHeaderSlot"]
 layout_mode = 1
@@ -571,12 +552,12 @@ offset_right = 84.0
 offset_bottom = 41.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_styles/normal = SubResource("sb_back_n")
-theme_override_styles/hover = SubResource("sb_back_n")
 theme_override_styles/pressed = SubResource("sb_back_p")
+theme_override_styles/hover = SubResource("sb_back_n")
 theme_override_styles/focus = SubResource("sb_back_n")
 text = "← Back"
 
@@ -603,9 +584,9 @@ stretch_mode = 5
 
 [node name="InsTitleLabel" type="Label" parent="PhoneScreen/MainMargin/MainVBox/InsAppScreen/InsHeaderSlot/InsHeaderOverlay/InsTitleCenter/InsTitleStrip"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.2314, 0.3373, 0.4824, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.2314, 0.3373, 0.4824, 1)
 text = "INS"
 vertical_alignment = 1
 
@@ -621,9 +602,9 @@ theme_override_constants/separation = 16
 
 [node name="FeedHeader" type="Label" parent="PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer/ContentVBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("7_font")
 theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = "Feed"
 
 [node name="FeedList" type="VBoxContainer" parent="PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer/ContentVBox"]
@@ -632,6 +613,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
 [node name="PhoneFrame" type="TextureRect" parent="."]
+visible = false
 clip_contents = true
 anchors_preset = 8
 anchor_left = 0.5
