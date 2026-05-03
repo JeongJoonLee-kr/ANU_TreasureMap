@@ -1,11 +1,19 @@
 extends Control
 
+@onready var _background: TextureRect = $TextureRect
+@onready var _title_label: Label = $Label
 @onready var _start_button: TextureButton = $Button
 @onready var _start_label: Label = $Button/StartLabel
 @onready var _continue_button: TextureButton = $ContinueButton
 @onready var _continue_label: Label = $ContinueButton/ContinueLabel
 @onready var _settings_button: TextureButton = $SettingsButton
 @onready var _settings_label: Label = $SettingsButton/SettingsLabel
+
+const _TITLE_HEIGHT: float = 150.0
+const _TITLE_TOP_RATIO: float = 0.25
+const _BUTTON_SIZE: Vector2 = Vector2(400.0, 60.0)
+const _BUTTON_GAP: float = 15.0
+const _BUTTON_GROUP_TOP_RATIO: float = 0.68
 
 ## Matches Figma normal/hover label (#5E6C84) and selected/pressed text (#EF5350).
 const _START_TEXT_NEUTRAL: Color = Color(0.3686, 0.4235, 0.5176, 1.0)
@@ -25,6 +33,7 @@ var _settings_pointer_held: bool = false
 
 
 func _ready() -> void:
+	_layout_start_screen()
 	_update_start_label_color()
 	_update_continue_label_color()
 	_update_settings_label_color()
@@ -40,6 +49,50 @@ func _ready() -> void:
 	_settings_button.button_up.connect(_on_settings_button_button_up)
 	_settings_button.focus_entered.connect(_on_settings_button_focus_in)
 	_settings_button.focus_exited.connect(_on_settings_button_focus_out)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_RESIZED and is_node_ready():
+		_layout_start_screen()
+
+
+func _layout_start_screen() -> void:
+	var viewport_size: Vector2 = get_viewport_rect().size
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		return
+
+	_background.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_background.offset_left = 0.0
+	_background.offset_top = 0.0
+	_background.offset_right = 0.0
+	_background.offset_bottom = 0.0
+	_background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+
+	var title_width: float = viewport_size.x * 0.9
+	_title_label.position = Vector2(
+		(viewport_size.x - title_width) * 0.5, viewport_size.y * _TITLE_TOP_RATIO
+	)
+	_title_label.size = Vector2(title_width, _TITLE_HEIGHT)
+	_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_title_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+
+	var button_x: float = (viewport_size.x - _BUTTON_SIZE.x) * 0.5
+	var button_group_height: float = _BUTTON_SIZE.y * 3.0 + _BUTTON_GAP * 2.0
+	var button_y: float = min(
+		viewport_size.y * _BUTTON_GROUP_TOP_RATIO, viewport_size.y - button_group_height - 48.0
+	)
+	_position_button(_start_button, Vector2(button_x, button_y))
+	_position_button(_continue_button, Vector2(button_x, button_y + _BUTTON_SIZE.y + _BUTTON_GAP))
+	_position_button(
+		_settings_button, Vector2(button_x, button_y + (_BUTTON_SIZE.y + _BUTTON_GAP) * 2.0)
+	)
+
+
+func _position_button(button: TextureButton, position: Vector2) -> void:
+	button.position = position
+	button.size = _BUTTON_SIZE
+	button.custom_minimum_size = _BUTTON_SIZE
 
 
 func _on_start_button_button_down() -> void:
