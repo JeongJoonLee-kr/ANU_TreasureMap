@@ -1,42 +1,76 @@
 # ANU TreasureMap
 
-ANU TreasureMap is a Godot-based proof-of-concept game about discovering hidden campus treasures through location-based exploration, branching narrative events, and future-player hints.
+ANU TreasureMap is a Godot prototype game about exploring the Australian National University campus, discovering location-based events, and deciding how to use the treasures and hints found along the way.
 
-## Sprint 6 Focus
+The project presents ANU as a playable campus map rather than a static guide. Players move through recognisable campus regions, trigger narrative encounters, collect clues or treasures, and make small choices that shape how the exploration story unfolds.
 
-Sprint 6 narrowed the project into an evidence-backed playable vertical slice. The team treated the sprint as a recovery-and-quality sprint after Sprint 5 feedback by protecting a smaller Week 1 experience and making planning, execution, testing, and handover evidence visible.
+## Game Concept
 
-The protected Sprint 6 outputs are:
+ANU TreasureMap is designed around three linked ideas:
 
-- Start page and onboarding path for the Week 1 slice
-- Campus map with active/inactive location markers
-- Week 1 playable exploration loop
-- Yuki branching event and treasure outcome
-- UI readability and contrast improvements from client feedback
-- External proof-of-concept testing plan and evidence capture
-- GitHub/Jira documentation for Sprint 6 review and future handover
+- **Campus exploration:** the map is divided into ANU location areas with active and inactive markers.
+- **Narrative discovery:** locations can trigger short story events, including character encounters such as Yuki.
+- **Future-player hints:** players can choose whether to keep value for themselves or leave useful information for later players.
 
-## Repository Map
+The current prototype focuses on a contained Week 1 experience so the core loop can be understood, tested, and extended by future contributors.
 
-- `Godot_Game/anu-treasure-map/` contains the Godot project.
-- `Godot_Game/anu-treasure-map/data/events.json` stores branching event content such as Yuki, chess board, and kangaroo events.
-- `Godot_Game/anu-treasure-map/data/locations.json` stores campus location data.
-- `.github/workflows/godot-ci.yml` defines lint, formatting, location validation, Godot import, and smoke-test checks.
-- `item/meeting/meeting_2026_sems1/` contains weekly team and stakeholder meeting evidence.
-- `docs/` contains Sprint 6 evidence and handover documentation.
+## Core Gameplay Loop
 
-## Sprint 6 Evidence Docs
+1. Start the game and follow the onboarding flow.
+2. Explore the ANU campus map.
+3. Select available location markers.
+4. Trigger a narrative event or discovery.
+5. Make a choice, such as collecting treasure or leaving a hint.
+6. Continue exploring with updated context and progress.
 
-- [Sprint 6 Review Evidence](docs/sprint6-review-evidence.md)
-- [Sprint 6 Handover](docs/sprint6-handover.md)
-- [Testing and Demo Evidence](docs/testing-and-demo-evidence.md)
+## Current Prototype Features
 
-## Quality Workflow
+- Godot 4.5 project with a playable main scene.
+- ANU campus map and location marker system.
+- Active/inactive region selection for the prototype slice.
+- Branching event data stored in JSON.
+- Yuki event and treasure artwork.
+- Phone-style interface elements and UI assets.
+- UI readability, font-size, and layout adjustments from client feedback.
+- GitHub Actions workflow for Godot linting, formatting, data validation, import, and smoke testing.
 
-The repository uses GitHub pull requests and GitHub Actions as execution evidence. The CI workflow checks Godot scripts with `gdlint`, formatting with `gdformat --check`, location-data validity through `scripts/ci/validate_locations.py`, and a headless Godot smoke test.
+## Project Structure
 
-Pull requests should link the relevant Jira issue, state the evidence added, and include screenshots or video frames for UI/gameplay changes.
+- `Godot_Game/anu-treasure-map/` - Godot project root.
+- `Godot_Game/anu-treasure-map/project.godot` - Godot project configuration.
+- `Godot_Game/anu-treasure-map/main.tscn` - main scene entry point.
+- `Godot_Game/anu-treasure-map/data/events.json` - branching event content.
+- `Godot_Game/anu-treasure-map/data/locations.json` - campus location data.
+- `Godot_Game/anu-treasure-map/systems/Script/` - gameplay, UI, map, and autoload scripts.
+- `Godot_Game/anu-treasure-map/resources/` - map, location, UI, icon, font, and treasure assets.
+- `Godot_Game/anu-treasure-map/tests/ci/` - CI smoke test scripts.
+- `scripts/ci/` - repository-level CI helper scripts.
+- `item/meeting/meeting_2026_sems1/` - team and stakeholder meeting records.
+- `docs/` - project handover and sprint-review evidence documents.
 
-## Sprint 6 Review Status
+## Running the Game Locally
 
-This documentation was added so Sprint 6 can be assessed from the repository and final DOCX report without relying only on meeting memory. Jira remains the task-management source of truth, while GitHub provides version-control, implementation, CI, and handover evidence.
+1. Install Godot 4.5 or a compatible Godot 4.x version.
+2. Open Godot and import the project at `Godot_Game/anu-treasure-map/project.godot`.
+3. Run the configured main scene.
+
+The project configuration currently names the project `ANU_Treasure_Map` and points the run configuration at the main scene registered in `project.godot`.
+
+## Development Workflow
+
+Use pull requests for gameplay, UI, content, data, and documentation changes. For changes that affect the playable experience, include screenshots, video frames, or concise test notes so reviewers can understand the impact without running the project immediately.
+
+The CI workflow checks:
+
+- GDScript linting with `gdlint`.
+- Formatting with `gdformat --check`.
+- Location-data validation through `scripts/ci/validate_locations.py`.
+- Headless Godot import and smoke testing.
+
+## Project Documentation
+
+- [Sprint 6 Review Evidence](docs/sprint6-review-evidence.md) records the assessment evidence trail.
+- [Sprint 6 Handover](docs/sprint6-handover.md) summarises current scope and next-team guidance.
+- [Testing and Demo Evidence](docs/testing-and-demo-evidence.md) lists the demo and testing material expected for final review.
+
+These documents support review and handover. The README itself is intended as the game-facing entry point for the repository.
