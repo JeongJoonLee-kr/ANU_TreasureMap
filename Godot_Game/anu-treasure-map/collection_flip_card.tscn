@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4m8y2k1n7q3p"]
+
+[ext_resource type="Script" path="res://systems/Script/ui/collection_flip_card.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cvems3g16acd6" path="res://resources/ui/collection_book/card_back.svg" id="2_back"]
+[ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="3_font"]
+
+[node name="CollectionFlipCard" type="Control"]
+custom_minimum_size = Vector2(112, 142)
+layout_mode = 2
+mouse_filter = 0
+script = ExtResource("1_script")
+
+[node name="FlipPivot" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FrontFace" type="Control" parent="FlipPivot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+clip_contents = true
+
+[node name="CardAspect" type="AspectRatioContainer" parent="FlipPivot/FrontFace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 0.7887324
+alignment_horizontal = 1
+alignment_vertical = 1
+
+[node name="CardArt" type="Control" parent="FlipPivot/FrontFace/CardAspect"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Border" type="TextureRect" parent="FlipPivot/FrontFace/CardAspect/CardArt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture_filter = 2
+
+[node name="ItemImage" type="TextureRect" parent="FlipPivot/FrontFace/CardAspect/CardArt"]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.19642857
+anchor_top = 0.28169015
+anchor_right = 0.78571427
+anchor_bottom = 0.74647886
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TreasureName" type="Label" parent="FlipPivot/FrontFace/CardAspect/CardArt"]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.36607143
+anchor_top = 0.8028169
+anchor_right = 0.6160714
+anchor_bottom = 0.80985916
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.42, 0.3, 0.1, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="BackFace" type="Control" parent="FlipPivot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BorderBack" type="TextureRect" parent="FlipPivot/BackFace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_back")
+expand_mode = 1
+stretch_mode = 5
+texture_filter = 2

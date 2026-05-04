@@ -1,10 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4ldfgbbfth34"]
+[gd_scene load_steps=13 format=3 uid="uid://c4ldfgbbfth34"]
 
 [ext_resource type="Script" uid="uid://cmh4m5xwwwggw" path="res://systems/Script/ui/investigator_card.gd" id="1_2v3gs"]
 [ext_resource type="Texture2D" uid="uid://d2kyjojlcfx0n" path="res://resources/interface/idcard_shadow.png" id="2_d5ew5"]
 [ext_resource type="Shader" uid="uid://crklf122s33yx" path="res://ins.gdshader" id="2_k78ha"]
 [ext_resource type="Texture2D" uid="uid://cmcrxt2723b72" path="res://resources/interface/idcard.png" id="3_k78ha"]
 [ext_resource type="PackedScene" uid="uid://biyroqgl0ktah" path="res://register_panel.tscn" id="5_1jjm2"]
+[ext_resource type="Texture2D" uid="uid://cal4wrsc5c5bp" path="res://resources/ui/collection_book/card_front_beige.svg" id="6_coll_beige"]
+[ext_resource type="Texture2D" uid="uid://b7rjwvpj0q0kw" path="res://resources/ui/collection_book/card_front_blue.svg" id="7_coll_blue"]
+[ext_resource type="Texture2D" uid="uid://dcjhaytkddx0a" path="res://resources/ui/collection_book/card_front_pink.svg" id="8_coll_pink"]
+[ext_resource type="PackedScene" uid="uid://d4m8y2k1n7q3p" path="res://collection_flip_card.tscn" id="9_flip_card"]
+[ext_resource type="Texture2D" uid="uid://b18yi2i56e4rr" path="res://resources/icon/collection.png" id="10_icon_coll"]
+[ext_resource type="Texture2D" uid="uid://6ttpto4fv4w6" path="res://resources/icon/profile.png" id="11_icon_prof"]
+[ext_resource type="Texture2D" uid="uid://cf6b5tgne0e4q" path="res://resources/icon/ins.png" id="12_icon_ins"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1jjm2"]
 shader = ExtResource("2_k78ha")
@@ -109,3 +116,39 @@ anchors_preset = 0
 offset_left = 291.0
 offset_right = 900.0
 offset_bottom = 418.0
+
+[node name="CollectionSlots" type="MarginContainer" parent="CardPivot/RightZone"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 72
+theme_override_constants/margin_top = 52
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
+
+[node name="Row" type="HBoxContainer" parent="CardPivot/RightZone/CollectionSlots"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="SlotBeige" parent="CardPivot/RightZone/CollectionSlots/Row" instance=ExtResource("9_flip_card")]
+layout_mode = 2
+front_border_texture = ExtResource("6_coll_beige")
+item_texture = ExtResource("10_icon_coll")
+treasure_name = "Treasure 1"
+
+[node name="SlotBlue" parent="CardPivot/RightZone/CollectionSlots/Row" instance=ExtResource("9_flip_card")]
+layout_mode = 2
+front_border_texture = ExtResource("7_coll_blue")
+item_texture = ExtResource("11_icon_prof")
+treasure_name = "Treasure 2"
+
+[node name="SlotPink" parent="CardPivot/RightZone/CollectionSlots/Row" instance=ExtResource("9_flip_card")]
+layout_mode = 2
+front_border_texture = ExtResource("8_coll_pink")
+item_texture = ExtResource("12_icon_ins")
+treasure_name = "Treasure 3"
