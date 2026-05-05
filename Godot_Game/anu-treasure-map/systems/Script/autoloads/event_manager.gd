@@ -8,10 +8,7 @@ const EVENTS_PATH := "res://data/events.json"
 const EVENT_AP_COST := 2
 const TRIGGER_CHANCE_BOOST := 0.15
 const EXHAUSTED_MESSAGE := "It's getting late and you're exhausted. You should head back and rest. Try exploring again tomorrow."
-const EVENT_TYPE_LABELS := {
-	"clue": "Clue Event",
-	"normal": "Normal Event"
-}
+const EVENT_TYPE_LABELS := {"clue": "Clue Event", "normal": "Normal Event"}
 
 # ─── Virtual Clock Phases ──────────────────────────────
 # Maps AP remaining → time-of-day phase.
@@ -198,7 +195,9 @@ func _is_event_completed(event_id: String) -> bool:
 
 ## Call after the player makes a choice.
 ## Spends AP, records clues, and handles re-trigger flags.
-func complete_event(event_id: String, choice_key: String, treasure_action: String = "collect") -> void:
+func complete_event(
+	event_id: String, choice_key: String, treasure_action: String = "collect"
+) -> void:
 	# Spend AP
 	Global.time -= EVENT_AP_COST
 	if Global.time <= 0:

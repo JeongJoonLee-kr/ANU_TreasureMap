@@ -8,21 +8,24 @@ const TREASURE_COLLECTION := {
 		"name": "Yuki the White Dog",
 		"image_path": "res://resources/treasure/treasure_yuki.png",
 		"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
-		"description": "A gentle white dog whose small bell became the first sign of a hidden campus relic."
+		"description":
+		"A gentle white dog whose small bell became the first sign of a hidden campus relic."
 	},
 	"chess_board":
 	{
 		"name": "The Giant Chess Board",
 		"image_path": "res://resources/treasure/treasure_chessboard.png",
 		"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
-		"description": "A human-sized chess set waiting behind the library, quiet as an old campus secret."
+		"description":
+		"A human-sized chess set waiting behind the library, quiet as an old campus secret."
 	},
 	"kangaroo":
 	{
 		"name": "The Kangaroo",
 		"image_path": "res://resources/treasure/treasure_kangaroo.png",
 		"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
-		"description": "A fleeting brown shape near the sports field, fast enough to become a story."
+		"description":
+		"A fleeting brown shape near the sports field, fast enough to become a story."
 	}
 }
 
@@ -38,8 +41,7 @@ const TREASURE_COLLECTION := {
 
 # IMPORTANT: Make sure this path correctly points to the RegisterPanel you dragged into the LeftZone!
 @onready var register_panel: Control = $CardPivot/LeftZone/RegisterPanel
-@onready
-var collection_cards: Array[Control] = [
+@onready var collection_cards: Array[Control] = [
 	$CardPivot/RightZone/CollectionSlots/Grid/Slot1,
 	$CardPivot/RightZone/CollectionSlots/Grid/Slot2,
 	$CardPivot/RightZone/CollectionSlots/Grid/Slot3,
@@ -155,10 +157,7 @@ func _refresh_collection_slots() -> void:
 		var card := collection_cards[slot_index]
 		if card.has_method("set_entry"):
 			card.set_entry(
-				frame,
-				image,
-				str(entry.get("name", treasure_id)),
-				str(entry.get("description", ""))
+				frame, image, str(entry.get("name", treasure_id)), str(entry.get("description", ""))
 			)
 		card.show()
 		slot_index += 1

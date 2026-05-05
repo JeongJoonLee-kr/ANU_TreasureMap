@@ -138,7 +138,9 @@ func show_toast(title: String, detail: String = "") -> void:
 	_toast_tween = create_tween()
 	_toast_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	_toast_tween.tween_property(_toast_panel, "modulate:a", 1.0, 0.16)
-	_toast_tween.parallel().tween_property(_toast_panel, "position:x", _toast_panel.position.x - 18.0, 0.16)
+	_toast_tween.parallel().tween_property(
+		_toast_panel, "position:x", _toast_panel.position.x - 18.0, 0.16
+	)
 	_toast_tween.tween_interval(TOAST_HOLD_SECONDS)
 	_toast_tween.set_ease(Tween.EASE_IN)
 	_toast_tween.tween_property(_toast_panel, "modulate:a", 0.0, 0.22)
@@ -323,7 +325,9 @@ func _has_shared_treasure_post(treasure_id: String) -> bool:
 		if not (record is Dictionary):
 			continue
 		var record_dict := record as Dictionary
-		var record_treasure_id := str(record_dict.get("treasure_id", record_dict.get("shared_treasure_id", "")))
+		var record_treasure_id := str(
+			record_dict.get("treasure_id", record_dict.get("shared_treasure_id", ""))
+		)
 		if record_treasure_id == treasure_id:
 			return true
 	return false

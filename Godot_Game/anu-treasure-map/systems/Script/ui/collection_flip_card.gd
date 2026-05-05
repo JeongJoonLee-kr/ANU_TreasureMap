@@ -124,10 +124,7 @@ func _ensure_back_description_label() -> void:
 
 ## Call when binding data at runtime (resets to front side).
 func set_entry(
-	frame: Texture2D,
-	icon: Texture2D,
-	entry_name: String = "",
-	description: String = ""
+	frame: Texture2D, icon: Texture2D, entry_name: String = "", description: String = ""
 ) -> void:
 	front_border_texture = frame
 	item_texture = icon
