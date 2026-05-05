@@ -17,7 +17,7 @@ ANU TreasureMap is now framed as a playable proof of concept rather than a compl
 - `Godot_Game/anu-treasure-map/data/events.json` contains enabled branching events, including Yuki the White Dog.
 - `Godot_Game/anu-treasure-map/systems/Script/autoloads/event_manager.gd` handles event eligibility, time phases, AP cost, clues, re-trigger flags, and completion.
 - `Godot_Game/anu-treasure-map/data/locations.json` keeps location metadata and image references.
-- `.github/workflows/godot-ci.yml` defines automated lint, formatting, location validation, Godot import, and smoke-test checks.
+- `.github/workflows/godot-ci.yml` defines automated lint, formatting, location validation, Godot import, and smoke-test checks for relevant code/data/workflow paths.
 
 ## Design Decisions From Client Meetings
 
@@ -41,7 +41,7 @@ These are handover items, not Sprint 6 failures:
 
 ## Recommended Next Steps
 
-- Merge the Sprint 6 documentation PR after review.
+- Keep the game README, Sprint 6 evidence notes, and report materials easy to find in the project documentation set.
 - Add final demo screenshots or video frames to the Sprint 6 report evidence pack.
 - Attach Week 9 testing findings to Jira and the final DOCX.
 - Use the event data format in `events.json` as the template for new treasures.
