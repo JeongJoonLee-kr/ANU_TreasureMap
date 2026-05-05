@@ -17,9 +17,10 @@ Describe the change in one or two sentences.
 ## Test Plan
 
 - [ ] Local check completed where possible
-- [ ] GitHub Actions expected to run
+- [ ] GitHub Actions expected to run for this PR's changed paths
 - [ ] Manual gameplay path checked where relevant
+- [ ] Documentation reviewed where CI is not triggered
 
 ## Sprint Review Notes
 
-Explain how this PR supports Sprint 6 planning, execution, stakeholder feedback, testing, or reflection evidence.
+Explain how this PR supports planning, execution, stakeholder feedback, testing, handover, or reflection evidence.
