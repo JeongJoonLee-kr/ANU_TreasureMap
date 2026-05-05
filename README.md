@@ -32,7 +32,7 @@ The current prototype focuses on a contained Week 1 experience so the core loop 
 - Yuki event and treasure artwork.
 - Phone-style interface elements and UI assets.
 - UI readability, font-size, and layout adjustments from client feedback.
-- GitHub Actions workflow for Godot linting, formatting, data validation, import, and smoke testing.
+- GitHub Actions workflow for Godot linting, formatting, data validation, import, and smoke testing on relevant code/data/workflow paths.
 
 ## Project Structure
 
@@ -58,12 +58,12 @@ The project configuration currently names the project `ANU_Treasure_Map` and poi
 
 ## Development Workflow
 
-Use pull requests for gameplay, UI, content, data, and documentation changes. For changes that affect the playable experience, include screenshots, video frames, or concise test notes so reviewers can understand the impact without running the project immediately.
+Use pull requests for gameplay, UI, content, data, and documentation changes. Pull requests should link the relevant Jira issue and state the evidence added. UI/gameplay changes should include screenshots, video frames, or concise test notes so reviewers can understand the impact without running the project immediately. Documentation-only changes should be reviewed through the pull request discussion because they may not trigger the current path-filtered CI workflow.
 
-The CI workflow checks:
+The CI workflow checks relevant Godot/code/data paths with:
 
-- GDScript linting with `gdlint`.
-- Formatting with `gdformat --check`.
+- GDScript linting through `gdlint`.
+- Formatting through `gdformat --check`.
 - Location-data validation through `scripts/ci/validate_locations.py`.
 - Headless Godot import and smoke testing.
 
