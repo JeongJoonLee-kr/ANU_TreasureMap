@@ -163,6 +163,487 @@
 	  }
 	}
   },
+  "student_accommodation_basketball_court": {
+	"id": "student_accommodation_basketball_court",
+	"title": "The Fourth Player",
+	"location_id": "student_accommodation",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_student_accommodation_basketball_court",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_basketball_court.png",
+	"narrative": [
+	  "As you pass the Student Accommodation area, a basketball strikes the rim and bounces across the half court.",
+	  "Three students stand beside the hoop. One holds the ball, another checks the time, and the third scans the path for help.",
+	  "\"We only need one more for three-on-three,\" the student with the ball says.",
+	  "They spot you and wave before the invitation has time to become awkward.",
+	  "\"Could you play for a few minutes? You do not have to be good. We only met each other tonight.\"",
+	  "On the ground, someone has chalked two tiny team names. The letters are uneven in a very first-week way.",
+	  "Four water bottles and a half-open orientation sheet sit on the bench.",
+	  "One student laughs softly. \"Tonight's goal is not winning. It is remembering names.\"",
+	  "The ball rolls toward your shoes and stops there, waiting.",
+	  "A court that looked like a facility a minute ago now feels like a doorway.",
+	  "You pick up the ball.",
+	  "Everyone waits for your first pass."
+	],
+	"choices": {
+	  "A": {
+		"label": "Join the game and ask everyone to learn your name first.",
+		"outcome_texts": [
+		  "Your first pass is clumsy, and the whole court laughs with relief instead of judgment.",
+		  "The game begins to move by names instead of points: \"Mia, right side!\" \"Jay, take the shot!\"",
+		  "When the last basket drops, four people who were strangers a few minutes ago meet in an easy high five.",
+		  "You found Basketball Court. The treasure is not the painted line under your feet, but the moment awkwardness turns into a team."
+		],
+		"treasure_found": true,
+		"treasure_name": "Basketball Court",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Wave politely and keep walking.",
+		"outcome_texts": [
+		  "You smile, decline, and continue along the path.",
+		  "Behind you, the sound of the bouncing ball and the students' laughter grows smaller.",
+		  "It was not a wrong choice. Tonight's court simply made its first little team without you."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Offer to keep score from the bench this time.",
+		"outcome_texts": [
+		  "You sit on the bench and keep score in your phone while the students play.",
+		  "They thank you and insist that next time you should take a turn on court.",
+		  "You have not found the treasure yet, but you now have a reason to come back without feeling like a stranger."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "wamburun_ursula_free_food": {
+	"id": "wamburun_ursula_free_food",
+	"title": "Food That Finds People",
+	"location_id": "wamburun_halls_ursula_hall",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_wamburun_ursula_free_food",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_free_food.png",
+	"narrative": [
+	  "Between Wamburun Hall and Ursula Hall, two students hurry past with a bundle of small food support flyers.",
+	  "The top page mentions BKSS free breakfast, Student Bites, food recovery, food vouchers, and reusable containers.",
+	  "One student slows down and catches their breath when they see you.",
+	  "\"Do you know the way to Brian Kenyon Student Space? We are trying to put these notices somewhere useful.\"",
+	  "The other student adds, more carefully, \"If we only say free food, people might misunderstand. This is about help reaching the students who need it.\"",
+	  "Warm kitchen light glows from one residence window. From the other side, the smell of dinner lingers in the air.",
+	  "The flyers list ANUSA food vouchers, Community Connect Food Relief, Student Bites pickups, and residence food recovery.",
+	  "They are not trying to sneak food around. They are trying to point surplus food and student support toward the right place.",
+	  "On the back of one flyer, someone has written: plan ahead, bring a container, do not be embarrassed.",
+	  "You look at the flyers, the campus map, and the serious faces of the two students.",
+	  "This rumour is not really about chasing a free meal. It is about how a campus notices hunger before it becomes loneliness."
+	],
+	"choices": {
+	  "A": {
+		"label": "Walk with them to BKSS and help make the flyer clearer.",
+		"outcome_texts": [
+		  "You cross out the vague question marks and write a clearer heading: food support available today.",
+		  "Under it, you help separate free breakfast, Student Bites, food recovery, food vouchers, and Community Connect Food Relief into simple little sections.",
+		  "When the notice goes up, a passing student smiles shyly and says, \"I brought a container today.\"",
+		  "You found Free Food. The treasure is not just a meal, but the quiet permission to accept help."
+		],
+		"treasure_found": true,
+		"treasure_name": "Free Food",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Rush ahead because free food sounds urgent.",
+		"outcome_texts": [
+		  "You walk quickly, then stop when you realize you do not know which support option is happening where.",
+		  "Behind you, the two students slow down to check BKSS, Student Bites timing, and the correct notice locations.",
+		  "Hunger makes sense. But this treasure waits for clear information and care for the people who need it most."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Share the information, even if you cannot guide them there yet.",
+		"outcome_texts": [
+		  "You take a photo of the flyer and send it to a friend who has been worrying about groceries.",
+		  "The students thank you and remind you to bring a reusable container next time.",
+		  "You have not found the treasure yet, but you have left a marker on the path toward it."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "bruce_hall_lemon_tree": {
+	"id": "bruce_hall_lemon_tree",
+	"title": "The Lemon Tree Rumour",
+	"location_id": "bruce_hall",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_bruce_hall_lemon_tree",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_lemon_tree.png",
+	"narrative": [
+	  "Outside Bruce Hall, a student stands near the entrance holding a yellow sticky note.",
+	  "The note says: find the lemon tree and today will be all right.",
+	  "The student gives an embarrassed smile. \"An older resident left this for me. I have no idea what it means.\"",
+	  "They heard Bruce Hall has a roof-top garden, but nobody has promised there is an actual lemon tree.",
+	  "Maybe it is a real plant. Maybe it is only a small residence rumour that survived because people needed it.",
+	  "You check the entrance signs, the quiet noticeboard, and the sticky note in the student's hand.",
+	  "On the back, in tiny writing, another line appears: do not look alone.",
+	  "The student shrugs. \"Maybe the real treasure is not the name of the plant.\"",
+	  "Footsteps echo softly from the stairs above.",
+	  "Bruce Hall feels like a place where old traditions and new rooms stand shoulder to shoulder.",
+	  "You could laugh this off, or you could help make someone else's day a little lighter."
+	],
+	"choices": {
+	  "A": {
+		"label": "Go together and look for what the note is really pointing to.",
+		"outcome_texts": [
+		  "In the roof-top garden, you find a tiny yellow marker tucked among the plants.",
+		  "It reads: on hard days, bring someone with you to where the sunlight reaches.",
+		  "There is no official plaque declaring a lemon tree, but the meaning of the rumour becomes clear.",
+		  "You found Lemon Tree. The treasure is the promise not to let someone search for hope alone."
+		],
+		"treasure_found": true,
+		"treasure_name": "Lemon Tree",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Tell them it is probably just a joke.",
+		"outcome_texts": [
+		  "The student nods and folds the sticky note into a smaller square.",
+		  "You keep walking, but the yellow paper stays in your mind longer than you expected.",
+		  "It may be a joke. Some jokes are also signals, if someone is willing to read them gently."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Sit for a moment and help them find a better day, even without the tree.",
+		"outcome_texts": [
+		  "You both sit near the entrance and breathe for a minute before the next class rush begins.",
+		  "The student keeps the note and tucks it inside their laptop.",
+		  "You have not solved the rumour yet, but now it has a reason to be followed later."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "central_studying_area_board_games_society": {
+	"id": "central_studying_area_board_games_society",
+	"title": "One More Turn",
+	"location_id": "central_studying_area",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_central_studying_area_board_games_society",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_board_games_society.png",
+	"narrative": [
+	  "On a desk in the Central Studying Area, you notice a small invitation card left between a laptop and a coffee cup.",
+	  "It says Friday game night, with a tiny drawing of dice in the corner.",
+	  "The student beside it has both hands in their hair and looks up when you notice the card.",
+	  "\"Do you know where this happens? Assignments have made me forget how to meet people.\"",
+	  "A smaller line on the invitation says newcomers welcome, rules explained.",
+	  "The desk is a battlefield of unfinished essay notes, coffee rings, and a to-do list that keeps growing.",
+	  "The student picks up the invitation, then puts it down again. \"What if everyone there already knows each other?\"",
+	  "From somewhere beyond the study tables, you think you hear cards being shuffled and someone laughing.",
+	  "In the pressure of a quiet study space, the invitation looks like a secret passage out.",
+	  "You read the place, the time, and the student's hesitation together.",
+	  "Maybe the first rule of the game begins before anyone touches the board."
+	],
+	"choices": {
+	  "A": {
+		"label": "Go together. You can learn the rules at the table.",
+		"outcome_texts": [
+		  "You and the student sit carefully at the end of a game table.",
+		  "A society member opens a box and says, \"First time? Perfect. We will start with this one.\"",
+		  "A few turns later, the student is waiting for their move instead of crushing the invitation in their hand.",
+		  "You found Board Games Society. The treasure is not the rulebook, but the welcome that turns strangers into teammates within a single turn."
+		],
+		"treasure_found": true,
+		"treasure_name": "Board Games Society",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Suggest finishing the assignment first.",
+		"outcome_texts": [
+		  "The student slips the invitation between notebook pages and turns back to the laptop.",
+		  "The essay moves forward a little, but the air around the desk still feels heavy.",
+		  "It is not the wrong choice. Tonight's dice simply rolled in someone else's hand."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Help them save the next Friday game night instead.",
+		"outcome_texts": [
+		  "You help copy the event details into the student's calendar.",
+		  "They relax and say, \"Next week, I am actually going.\"",
+		  "You have not reached the table yet, but the first die has already rolled somewhere inside them."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "csit_engn_escape_room": {
+	"id": "csit_engn_escape_room",
+	"title": "The Sixty-Minute Room",
+	"location_id": "csit_engn_area",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_csit_engn_escape_room",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_escape_room.png",
+	"narrative": [
+	  "Inside the CSIT and Engineering area, a monitor beside a classroom door blinks with a sixty-minute timer.",
+	  "A tutor is explaining rules to a group of students gathered around old keyboards, circuit boards, clue cards, and a UV torch.",
+	  "\"Five computing puzzles,\" the tutor says. \"The important part is the process, not just the answer.\"",
+	  "One student sees you and lowers their voice. \"Our fourth person could not make it. Can you help?\"",
+	  "The first station looks like a cipher. The second is covered in test cases. The third has diagram pieces spread across a whiteboard.",
+	  "The timer is already falling, but everyone is staring at the same clue.",
+	  "Nothing is moving because every mind is trying to be the whole machine.",
+	  "The tutor turns a small hourglass without offering another hint.",
+	  "This is not a room built for panic. It is a lab for turning solitary thinking into teamwork.",
+	  "Your choice can make the group freeze into one knot, or split into useful roles.",
+	  "The timer keeps counting."
+	],
+	"choices": {
+	  "A": {
+		"label": "Divide the roles. Take the test cases while others handle the cipher and diagrams.",
+		"outcome_texts": [
+		  "For the first time, the team studies different clues at the same time.",
+		  "The cipher points to a test result, the test result points to a diagram, and the diagram reveals the order of the final lock.",
+		  "With a little time left, the door opens and the tutor applauds.",
+		  "You found Escape Room. The treasure is not escape itself, but the moment separate thoughts click into one answer."
+		],
+		"treasure_found": true,
+		"treasure_name": "Escape Room",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Try to solve the hardest puzzle alone as fast as possible.",
+		"outcome_texts": [
+		  "You focus on the puzzle that looks most important, but it refuses to connect without the other clues.",
+		  "The team waits, then slowly drifts back into confusion.",
+		  "It was a useful experiment, not a disaster. This room rewards a coordinated team more than the fastest single solver."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Pause and ask everyone to explain where they are stuck.",
+		"outcome_texts": [
+		  "Each student describes the clue they were holding too tightly.",
+		  "There is not enough time left today, but the group finally understands what should be shared first next time.",
+		  "The door does not open, but the conversation does."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "anu_sport_north_oval_anu_sport": {
+	"id": "anu_sport_north_oval_anu_sport",
+	"title": "Three Ways Onto the Field",
+	"location_id": "anu_sports_north_oval",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_anu_sport_north_oval_anu_sport",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_anu_sport.png",
+	"narrative": [
+	  "At the edge of North Oval, three small cards flutter on an ANU Sport sign-up table.",
+	  "One points toward UniSport Nationals, one toward Social Sport, and one toward Interhall Sport.",
+	  "An ANU Sport staff member catches the cards before the wind scatters them and smiles at you.",
+	  "\"Could you help for a moment? New students keep arriving, seeing all the options, and quietly walking away.\"",
+	  "On the clipboard, the notes are not names yet. They say high-level athlete, casual kick, just want to have fun.",
+	  "Across the grass, one group warms up with serious focus while another laughs through a very imperfect pass.",
+	  "\"ANU Sport is not for only one kind of person,\" the staff member says. \"There are paths for competition, for casual play, and for residence communities.\"",
+	  "They show you an online sign-up page and tap the three pathways again.",
+	  "\"The question is not how good you are today. It is how you want to join in.\"",
+	  "The oval, the building, and the three cards become a small crossroads.",
+	  "Today's problem is not winning. It is choosing the door that lets your body begin."
+	],
+	"choices": {
+	  "A": {
+		"label": "Stand by Social Sport and start with a casual kick.",
+		"outcome_texts": [
+		  "When you stand beside the Social Sport card, two uncertain students quietly join you.",
+		  "The staff member helps everyone with the sign-up steps, and the first session begins with very little pressure.",
+		  "The passes are messy, the laughter is accurate, and nobody has to prove they belong.",
+		  "You found ANU Sport. The treasure is not a perfect athletic body, but the right doorway into movement."
+		],
+		"treasure_found": true,
+		"treasure_name": "ANU Sport",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Watch from the edge because choosing still feels hard.",
+		"outcome_texts": [
+		  "You stay near the sideline and watch the casual players, the hall teams, and the more serious training group.",
+		  "Some people are preparing for competition. Some are simply making their day feel lighter.",
+		  "Watching is still information. Next time, one of the cards may feel less far away."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Ask the staff member to explain the three pathways first.",
+		"outcome_texts": [
+		  "They explain UniSport Nationals as a competition pathway, Social Sport as a relaxed way to play, and Interhall Sport as a residence community path.",
+		  "You do not step onto the field today, but you know where you would begin online.",
+		  "The treasure is still on the grass, but the three doors into ANU Sport are now in your hand."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "chifley_marie_reay_chifley_library": {
+	"id": "chifley_marie_reay_chifley_library",
+	"title": "The Notebook Map",
+	"location_id": "chifley_marie_reay",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_chifley_marie_reay_chifley_library",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_chifley_library.png",
+	"narrative": [
+	  "Near Chifley and Marie Reay, a thin research notebook lies beside the library steps.",
+	  "On the cover, someone has written: SS&H sources, do not lose.",
+	  "As soon as you pick it up, a student rushes over, searching the ground with anxious eyes.",
+	  "\"Is that mine? I was trying to find presentation sources and completely lost my way.\"",
+	  "Inside the notebook are call-number-like marks, a group study room booking time, and one puzzled note: The Deck?",
+	  "The student admits they do not know Chifley Library well yet. Too many shelves, too many floors, too many places to begin.",
+	  "Inside, page turns, keyboard taps, and low voices settle into layers of quiet motion.",
+	  "The library is silent, but it is not still.",
+	  "Someone is finding a book, someone is connecting a screen, and someone is gathering scattered thoughts into a room.",
+	  "If you follow the notebook's three clues, you may find more than one student's presentation.",
+	  "You may find the map hidden inside the library itself."
+	],
+	"choices": {
+	  "A": {
+		"label": "Follow the notebook clues in order: sources, room, then The Deck.",
+		"outcome_texts": [
+		  "You start with the source marks and help the student find the books they actually need.",
+		  "Then you check the group study room time and lead them to the place where their team can meet.",
+		  "The final question mark points toward The Deck, and the presentation suddenly has a clearer shape.",
+		  "You found Chifley Library. The treasure is not a shelf of books, but the way a question learns where to go."
+		],
+		"treasure_found": true,
+		"treasure_name": "Chifley Library",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Return the notebook and suggest the information desk.",
+		"outcome_texts": [
+		  "The student thanks you and holds the notebook close.",
+		  "Your advice is sensible, but you do not see how the clues connect to each other.",
+		  "The library remains open and quiet, waiting for the next person with a better question."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Make sure they reach the group study room before the booking time passes.",
+		"outcome_texts": [
+		  "You guide the student to the correct room just before their team begins to worry.",
+		  "Everyone is relieved, but the notebook still holds other clues.",
+		  "Today you found the room. Next time, the whole library may come into view."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "copland_subway": {
+	"id": "copland_subway",
+	"title": "The Lunch Route",
+	"location_id": "copland",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_copland_subway",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_subway.png",
+	"narrative": [
+	  "Around Copland, lunchtime suddenly becomes impossible to ignore.",
+	  "Three students stand outside, each pointing in a different direction.",
+	  "One says, \"We have twenty-five minutes before class. We need food and we need to get back.\"",
+	  "Another checks a phone map. \"Subway is supposed to be near Union Court, but which path is fastest from here?\"",
+	  "The third student laughs and presses a hand to their stomach. \"The important part is not losing each other on the way.\"",
+	  "It is a familiar campus lunch problem.",
+	  "Everyone is busy, everyone is hungry, and nobody quite wants to be the first to say, let's go together.",
+	  "The Copland steps, the walking paths, and the flow toward Union Court line up like a short quest route.",
+	  "This treasure is not really a menu item.",
+	  "It may be the skill of making a shared meal happen on a crowded day.",
+	  "The students wait for your call."
+	],
+	"choices": {
+	  "A": {
+		"label": "Lead the group together and choose orders while walking.",
+		"outcome_texts": [
+		  "You start toward Union Court as a group, and everyone decides what they want before reaching the queue.",
+		  "By the last crossing, the rush has turned into a conversation.",
+		  "When you arrive, the three students are no longer scattered dots on a map. They are a lunch party.",
+		  "You found Subway. The treasure is not only the sandwich, but the courage to ask someone to eat with you."
+		],
+		"treasure_found": true,
+		"treasure_name": "Subway",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Tell everyone to choose their own lunch path.",
+		"outcome_texts": [
+		  "The students look at one another, then split in three different directions.",
+		  "They probably all find lunch, but the chance to share it disappears.",
+		  "A campus offers many options. Sometimes the treasure is choosing one direction together."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Confirm the exact Subway location for next time.",
+		"outcome_texts": [
+		  "You help them mark 20 Union Court on the map.",
+		  "They decide to eat somewhere closer today, but set the next lunch meeting point before leaving.",
+		  "You have not found the treasure yet, but the coordinates for a future shared meal are clear."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
   "lotus_lantern": {
 	"id": "lotus_lantern",
 	"title": "Lotus Lantern",
