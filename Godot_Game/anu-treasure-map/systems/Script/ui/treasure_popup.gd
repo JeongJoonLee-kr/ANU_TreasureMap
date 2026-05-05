@@ -2,6 +2,7 @@ class_name TreasurePopup
 extends Control
 
 signal closed
+signal choice_made(action: String)
 
 const FONT_PATH := "res://resources/font/AlegreyaSans-Regular.ttf"
 
@@ -12,6 +13,8 @@ var _background: ColorRect
 var _content_panel: Panel
 var _image: TextureRect
 var _title_label: Label
+var _share_button: Button
+var _collect_button: Button
 var _font: FontFile
 
 
@@ -77,30 +80,47 @@ func _build_ui() -> void:
 		_title_label.add_theme_font_override("font", _font)
 	title_margin.add_child(_title_label)
 
-	var close_button := Button.new()
-	close_button.name = "ContinueButton"
-	close_button.text = "Continue"
-	close_button.custom_minimum_size = Vector2(170, 46)
-	close_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	close_button.add_theme_font_size_override("font_size", 18)
-	close_button.add_theme_stylebox_override(
+	_share_button = Button.new()
+	_share_button.name = "ShareButton"
+	_share_button.text = "Share"
+	_share_button.custom_minimum_size = Vector2(170, 46)
+	_share_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_share_button.add_theme_font_size_override("font_size", 18)
+	_share_button.add_theme_stylebox_override(
+		"normal", _make_button_style(Color(0.2, 0.42, 0.65, 0.92))
+	)
+	_share_button.add_theme_stylebox_override(
+		"hover", _make_button_style(Color(0.28, 0.52, 0.78, 0.96))
+	)
+	_share_button.add_theme_stylebox_override(
+		"pressed", _make_button_style(Color(0.16, 0.34, 0.55, 0.96))
+	)
+	_share_button.pressed.connect(_on_share_pressed)
+	_content_panel.add_child(_share_button)
+
+	_collect_button = Button.new()
+	_collect_button.name = "CollectButton"
+	_collect_button.text = "Collect"
+	_collect_button.custom_minimum_size = Vector2(170, 46)
+	_collect_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_collect_button.add_theme_font_size_override("font_size", 18)
+	_collect_button.add_theme_stylebox_override(
 		"normal", _make_button_style(Color(0.25, 0.5, 0.35, 0.92))
 	)
-	close_button.add_theme_stylebox_override(
+	_collect_button.add_theme_stylebox_override(
 		"hover", _make_button_style(Color(0.32, 0.62, 0.43, 0.96))
 	)
-	close_button.add_theme_stylebox_override(
+	_collect_button.add_theme_stylebox_override(
 		"pressed", _make_button_style(Color(0.19, 0.4, 0.28, 0.96))
 	)
-	close_button.pressed.connect(_on_continue_pressed)
-	_content_panel.add_child(close_button)
+	_collect_button.pressed.connect(_on_collect_pressed)
+	_content_panel.add_child(_collect_button)
 
 	_update_layout()
 
 
 func _update_layout() -> void:
 	var viewport_size := get_viewport_rect().size
-	size = viewport_size
 	_background.position = Vector2.ZERO
 	_background.size = viewport_size
 
@@ -119,9 +139,10 @@ func _update_layout() -> void:
 	title_bar.position = Vector2(2.0, card_size.y - 112.0)
 	title_bar.size = Vector2(card_size.x - 4.0, 110.0)
 
-	var close_button: Button = _content_panel.get_node("ContinueButton")
-	close_button.position = Vector2(card_size.x - 198.0, card_size.y - 72.0)
-	close_button.size = Vector2(170.0, 46.0)
+	_share_button.position = Vector2(28.0, card_size.y - 72.0)
+	_share_button.size = Vector2(170.0, 46.0)
+	_collect_button.position = Vector2(card_size.x - 198.0, card_size.y - 72.0)
+	_collect_button.size = Vector2(170.0, 46.0)
 
 
 func _apply_data() -> void:
@@ -131,8 +152,13 @@ func _apply_data() -> void:
 		_image.texture = _load_texture(treasure_image_path)
 
 
-func _on_continue_pressed() -> void:
+func _on_share_pressed() -> void:
+	choice_made.emit("share")
+
+
+func _on_collect_pressed() -> void:
 	closed.emit()
+	choice_made.emit("collect")
 
 
 func _make_card_style() -> StyleBoxFlat:
@@ -178,15 +204,9 @@ func _load_texture(image_path: String) -> Texture2D:
 	if image_path == "":
 		return null
 
-	var texture: Texture2D = null
-	if ResourceLoader.exists(image_path):
-		var res: Variant = load(image_path)
-		if res is Texture2D:
-			texture = res
-
 	var file := FileAccess.open(image_path, FileAccess.READ)
 	if file == null:
-		return texture
+		return null
 
 	var bytes := file.get_buffer(file.get_length())
 	file.close()
@@ -202,4 +222,4 @@ func _load_texture(image_path: String) -> Texture2D:
 	if decode_result == OK:
 		return ImageTexture.create_from_image(img)
 
-	return texture
+	return null

@@ -89,13 +89,13 @@ func _ready() -> void:
 
 
 func _wire_app_icon_feedback() -> void:
-	for name in [
+	for button_name in [
 		"AppProfileButton",
 		"AppCollectionButton",
 		"AppInsButton",
 		"AppMenuButton",
 	]:
-		var btn := get_node_or_null(_APP_BTN_PATH + name) as BaseButton
+		var btn := get_node_or_null(_APP_BTN_PATH + button_name) as BaseButton
 		if btn == null:
 			continue
 		if not btn.button_down.is_connected(_on_app_btn_down.bind(btn)):
@@ -110,13 +110,13 @@ func _wire_app_icon_feedback() -> void:
 
 
 func _refresh_app_button_pivots() -> void:
-	for name in [
+	for button_name in [
 		"AppProfileButton",
 		"AppCollectionButton",
 		"AppInsButton",
 		"AppMenuButton",
 	]:
-		var btn := get_node_or_null(_APP_BTN_PATH + name) as BaseButton
+		var btn := get_node_or_null(_APP_BTN_PATH + button_name) as BaseButton
 		if btn == null:
 			continue
 		btn.pivot_offset = btn.size * 0.5

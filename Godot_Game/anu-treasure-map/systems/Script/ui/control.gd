@@ -89,8 +89,8 @@ func _layout_start_screen() -> void:
 	)
 
 
-func _position_button(button: TextureButton, position: Vector2) -> void:
-	button.position = position
+func _position_button(button: TextureButton, target_position: Vector2) -> void:
+	button.position = target_position
 	button.size = _BUTTON_SIZE
 	button.custom_minimum_size = _BUTTON_SIZE
 

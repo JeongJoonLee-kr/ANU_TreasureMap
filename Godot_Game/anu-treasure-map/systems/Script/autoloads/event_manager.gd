@@ -8,6 +8,7 @@ const EVENTS_PATH := "res://data/events.json"
 const EVENT_AP_COST := 2
 const TRIGGER_CHANCE_BOOST := 0.15
 const EXHAUSTED_MESSAGE := "It's getting late and you're exhausted. You should head back and rest. Try exploring again tomorrow."
+const EVENT_TYPE_LABELS := {"clue": "Clue Event", "normal": "Normal Event"}
 
 # ─── Virtual Clock Phases ──────────────────────────────
 # Maps AP remaining → time-of-day phase.
@@ -132,6 +133,12 @@ func try_trigger_event(location_id: String) -> Variant:
 		else:
 			non_clue_events.append(ev)
 
+	if not clue_events.is_empty():
+		var clue_event: Dictionary = clue_events[randi() % clue_events.size()]
+		event_triggered.emit(clue_event)
+		_show_event_toast(clue_event, "clue")
+		return clue_event
+
 	# If player holds clues for some events but not all, prioritise unclued ones
 	if not non_clue_events.is_empty():
 		# Roll trigger chance for each non-clue event
@@ -139,17 +146,24 @@ func try_trigger_event(location_id: String) -> Variant:
 		if triggered_event != null:
 			var rolled_event: Dictionary = triggered_event as Dictionary
 			event_triggered.emit(rolled_event)
+			_show_event_toast(rolled_event, "normal")
 			return rolled_event
 		# Nothing triggered — no event this visit
 		return null
 
 	# All eligible events are clue-owned → randomly pick one (guaranteed trigger)
-	if not clue_events.is_empty():
-		var guaranteed_event: Dictionary = clue_events[randi() % clue_events.size()]
-		event_triggered.emit(guaranteed_event)
-		return guaranteed_event
-
 	return null
+
+
+func _show_event_toast(ev: Dictionary, fallback_type: String) -> void:
+	var type_key := str(ev.get("event_type", fallback_type)).strip_edges()
+	if type_key == "":
+		type_key = fallback_type
+
+	var normalized_key := type_key.to_lower()
+	var type_label := str(EVENT_TYPE_LABELS.get(normalized_key, type_key))
+	var event_title := str(ev.get("title", "Event"))
+	Global.show_toast(type_label, event_title)
 
 
 ## Roll the trigger chance for a list of candidate events.
@@ -181,7 +195,9 @@ func _is_event_completed(event_id: String) -> bool:
 
 ## Call after the player makes a choice.
 ## Spends AP, records clues, and handles re-trigger flags.
-func complete_event(event_id: String, choice_key: String) -> void:
+func complete_event(
+	event_id: String, choice_key: String, treasure_action: String = "collect"
+) -> void:
 	# Spend AP
 	Global.time -= EVENT_AP_COST
 	if Global.time <= 0:
@@ -206,10 +222,14 @@ func complete_event(event_id: String, choice_key: String) -> void:
 
 	# Record treasure / clue
 	if choice.get("treasure_found", false):
-		var clue_id := str(ev.get("clue_id", ""))
-		if clue_id != "" and not Global.unlocked_clues.has(clue_id):
-			Global.unlocked_clues.append(clue_id)
-			Global.clue_discovered.emit(clue_id)
+		var treasure_id := str(ev.get("id", event_id))
+		var treasure_name := str(choice.get("treasure_name", ev.get("title", treasure_id)))
+		if treasure_action == "share":
+			var image_path := str(ev.get("treasure_image_path", ""))
+			Global.share_treasure_post(treasure_id, treasure_name, image_path)
+		else:
+			Global.unlock_treasure(treasure_id, treasure_name)
+		completed_events[event_id] = true
 
 	# Handle re-trigger flag
 	if not choice.get("re_trigger", true):
@@ -219,6 +239,8 @@ func complete_event(event_id: String, choice_key: String) -> void:
 	if choice.get("boost_trigger_chance", false):
 		var current_boost: float = trigger_chance_boosts.get(event_id, 0.0)
 		trigger_chance_boosts[event_id] = current_boost + TRIGGER_CHANCE_BOOST
+
+	Global.save_game()
 
 
 # ─── Persistence ──────────────────────────────────────
