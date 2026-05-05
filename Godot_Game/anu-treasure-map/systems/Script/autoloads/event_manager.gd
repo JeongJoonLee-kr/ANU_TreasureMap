@@ -84,7 +84,7 @@ func _load_events() -> void:
 	file.close()
 
 	if parsed is Dictionary:
-		events_data = parsed
+		events_data = parsed as Dictionary
 	else:
 		push_error("EventManager: Failed to parse %s" % EVENTS_PATH)
 
@@ -137,13 +137,17 @@ func try_trigger_event(location_id: String) -> Variant:
 		# Roll trigger chance for each non-clue event
 		var triggered_event: Variant = _roll_trigger(non_clue_events)
 		if triggered_event != null:
-			return triggered_event
+			var rolled_event: Dictionary = triggered_event as Dictionary
+			event_triggered.emit(rolled_event)
+			return rolled_event
 		# Nothing triggered — no event this visit
 		return null
 
 	# All eligible events are clue-owned → randomly pick one (guaranteed trigger)
 	if not clue_events.is_empty():
-		return clue_events[randi() % clue_events.size()]
+		var guaranteed_event: Dictionary = clue_events[randi() % clue_events.size()]
+		event_triggered.emit(guaranteed_event)
+		return guaranteed_event
 
 	return null
 
