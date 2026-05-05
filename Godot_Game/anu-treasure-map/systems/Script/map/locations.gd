@@ -79,13 +79,13 @@ func _refresh_dialogue_progress() -> void:
 		return
 
 	for i in n:
-		var tr := TextureRect.new()
-		tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		tr.texture = PROGRESS_DOT_ACTIVE_TEX if i == text_index else PROGRESS_DOT_TEX
-		tr.custom_minimum_size = Vector2(24, 8) if i == text_index else Vector2(8, 8)
-		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		progress_dots.add_child(tr)
+		var dot_rect := TextureRect.new()
+		dot_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		dot_rect.texture = PROGRESS_DOT_ACTIVE_TEX if i == text_index else PROGRESS_DOT_TEX
+		dot_rect.custom_minimum_size = Vector2(24, 8) if i == text_index else Vector2(8, 8)
+		dot_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		dot_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		progress_dots.add_child(dot_rect)
 
 
 func _try_random_event() -> void:
@@ -149,18 +149,18 @@ func _show_treasure_popup() -> void:
 
 	_treasure_popup_instance = TREASURE_POPUP_SCENE.instantiate()
 	_treasure_popup_instance.setup(treasure_name, image_path)
-	_treasure_popup_instance.closed.connect(_on_treasure_popup_closed)
+	_treasure_popup_instance.choice_made.connect(_on_treasure_popup_choice_made)
 	_treasure_canvas_layer.add_child(_treasure_popup_instance)
 
 
-func _on_treasure_popup_closed() -> void:
+func _on_treasure_popup_choice_made(action: String) -> void:
 	_hide_treasure_popup()
-	_complete_current_event_and_show_location()
+	_complete_current_event_and_show_location(action)
 
 
-func _complete_current_event_and_show_location() -> void:
+func _complete_current_event_and_show_location(treasure_action: String = "collect") -> void:
 	var event_id := str(_active_event.get("id", ""))
-	EventManager.complete_event(event_id, _selected_event_choice_key)
+	EventManager.complete_event(event_id, _selected_event_choice_key, treasure_action)
 	_active_event = {}
 	_selected_event_choice_key = ""
 	_selected_event_choice = {}

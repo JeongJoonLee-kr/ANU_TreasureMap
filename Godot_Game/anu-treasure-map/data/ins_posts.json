@@ -9,7 +9,11 @@
 		"tooltip": "🔗 Scan to initiate Investigator Protocol."
 	},
 	"annotations": {
-	  "market_day": "Where various clubs share information with us student body."
+	  "market_day": {
+		"text": "Where various clubs share information with us student body.",
+		"clue_id": "clue_yuki",
+		"clue_name": "Market Day"
+	  }
 	}
   }
 ]
