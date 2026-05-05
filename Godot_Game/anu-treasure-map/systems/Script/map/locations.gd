@@ -2,7 +2,8 @@ extends Node2D
 
 @export var map_scene_path: String = "res://map.tscn"
 
-const RANDOM_EVENT_PANEL_SCENE = preload("res://random_event_panel.tscn")
+const CHOICE_PANEL_SCENE = preload("res://choice_panel.tscn")
+const TREASURE_POPUP_SCENE = preload("res://treasure_popup.tscn")
 const PROGRESS_DOT_TEX := preload("res://resources/ui/location_dialogue/progress_dot.svg")
 const PROGRESS_DOT_ACTIVE_TEX := preload(
 	"res://resources/ui/location_dialogue/progress_dot_active.svg"
@@ -10,14 +11,22 @@ const PROGRESS_DOT_ACTIVE_TEX := preload(
 const _OPTION_TEXT_COLOR := Color(0.2588, 0.6471, 0.9608, 1.0)
 const _OPTION_TEXT_PRESSED := Color(0.12, 0.45, 0.74, 1.0)
 
+enum TextFlow { NONE, EVENT_NARRATIVE, EVENT_OUTCOME, LOCATION_TEXT, LOCATION_FEEDBACK }
+
 var location_id: String = ""
 var location_data: Dictionary = {}
 var texts: Array[String] = []
 var text_index: int = 0
 var text_finished: bool = false
 
-var _event_panel_instance: Panel = null
-var _event_canvas_layer: CanvasLayer = null
+var _active_text_flow: int = TextFlow.NONE
+var _active_event: Dictionary = {}
+var _selected_event_choice_key: String = ""
+var _selected_event_choice: Dictionary = {}
+var _choice_canvas_layer: CanvasLayer = null
+var _choice_panel_instance: Control = null
+var _treasure_canvas_layer: CanvasLayer = null
+var _treasure_popup_instance: Control = null
 var _exhaustion_toast: Panel = null
 
 @onready var background: TextureRect = $TextureRect
@@ -38,11 +47,9 @@ func _ready() -> void:
 	)
 	load_location_data()
 
-	# Connect EventManager's not_enough_ap signal for exhaustion toast
 	if not EventManager.not_enough_ap.is_connected(_on_not_enough_ap):
 		EventManager.not_enough_ap.connect(_on_not_enough_ap)
 
-	# Try to trigger a random event before showing normal location content
 	_try_random_event()
 
 
@@ -66,9 +73,11 @@ func load_location_data() -> void:
 func _refresh_dialogue_progress() -> void:
 	for c in progress_dots.get_children():
 		c.queue_free()
+
 	var n := texts.size()
 	if n <= 0:
 		return
+
 	for i in n:
 		var tr := TextureRect.new()
 		tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -80,48 +89,81 @@ func _refresh_dialogue_progress() -> void:
 
 
 func _try_random_event() -> void:
+	_apply_location_background()
+
 	var triggered_event: Variant = EventManager.try_trigger_event(location_id)
 	if triggered_event != null and triggered_event is Dictionary:
-		_show_random_event(triggered_event)
+		_start_random_event(triggered_event as Dictionary)
 	else:
 		show_location()
 
 
-func _show_random_event(ev: Dictionary) -> void:
-	# Show the location background behind the event overlay
-	if location_data.has(location_id):
-		var data: Dictionary = location_data[location_id] as Dictionary
-		var image_path: String = data.get("image_path", "") as String
-		if image_path != "":
-			background.texture = load(image_path)
+func _start_random_event(ev: Dictionary) -> void:
+	_active_event = ev
+	_selected_event_choice_key = ""
+	_selected_event_choice = {}
+	_hide_choice_panel()
+	_hide_legacy_options_panel()
 
-	# Hide normal location UI
-	dialogue_panel.hide()
-	event_panel.hide()
-
-	# Create a CanvasLayer so the Panel overlay gets a proper Control context
-	_event_canvas_layer = CanvasLayer.new()
-	_event_canvas_layer.name = "EventCanvasLayer"
-	_event_canvas_layer.layer = 10
-	add_child(_event_canvas_layer)
-
-	# Instantiate the event dialogue panel inside the CanvasLayer
-	_event_panel_instance = RANDOM_EVENT_PANEL_SCENE.instantiate()
-	_event_panel_instance.setup(ev)
-	_event_panel_instance.event_completed.connect(_on_random_event_completed)
-	_event_canvas_layer.add_child(_event_panel_instance)
+	var narrative := _to_string_array(ev.get("narrative", []))
+	_show_text_sequence(narrative, TextFlow.EVENT_NARRATIVE)
 
 
-func _on_random_event_completed(event_id: String, choice_key: String) -> void:
-	EventManager.complete_event(event_id, choice_key)
+func _show_event_choices() -> void:
+	var choices: Dictionary = _active_event.get("choices", {})
+	if choices.is_empty():
+		_complete_current_event_and_show_location()
+		return
 
-	# Remove the CanvasLayer (which also frees the panel)
-	if is_instance_valid(_event_canvas_layer):
-		_event_canvas_layer.queue_free()
-		_event_canvas_layer = null
-		_event_panel_instance = null
+	_show_choice_panel(_normalize_event_choices(choices), _on_event_choice_selected)
 
-	# Now show the normal location content
+
+func _on_event_choice_selected(choice_key: String) -> void:
+	_hide_choice_panel()
+	_selected_event_choice_key = choice_key
+
+	var choices: Dictionary = _active_event.get("choices", {})
+	_selected_event_choice = choices.get(choice_key, {})
+
+	var outcome_texts := _to_string_array(_selected_event_choice.get("outcome_texts", []))
+	_show_text_sequence(outcome_texts, TextFlow.EVENT_OUTCOME)
+
+
+func _finish_event_outcome() -> void:
+	if _selected_event_choice.get("treasure_found", false):
+		_show_treasure_popup()
+	else:
+		_complete_current_event_and_show_location()
+
+
+func _show_treasure_popup() -> void:
+	_hide_treasure_popup()
+
+	var treasure_name := str(_selected_event_choice.get("treasure_name", "Unknown Treasure"))
+	var image_path := str(_active_event.get("treasure_image_path", ""))
+
+	_treasure_canvas_layer = CanvasLayer.new()
+	_treasure_canvas_layer.name = "TreasureCanvasLayer"
+	_treasure_canvas_layer.layer = 10
+	add_child(_treasure_canvas_layer)
+
+	_treasure_popup_instance = TREASURE_POPUP_SCENE.instantiate()
+	_treasure_popup_instance.setup(treasure_name, image_path)
+	_treasure_popup_instance.closed.connect(_on_treasure_popup_closed)
+	_treasure_canvas_layer.add_child(_treasure_popup_instance)
+
+
+func _on_treasure_popup_closed() -> void:
+	_hide_treasure_popup()
+	_complete_current_event_and_show_location()
+
+
+func _complete_current_event_and_show_location() -> void:
+	var event_id := str(_active_event.get("id", ""))
+	EventManager.complete_event(event_id, _selected_event_choice_key)
+	_active_event = {}
+	_selected_event_choice_key = ""
+	_selected_event_choice = {}
 	show_location()
 
 
@@ -192,34 +234,71 @@ func show_location() -> void:
 	if not location_data.has(location_id):
 		return
 
-	var data: Dictionary = location_data[location_id] as Dictionary
+	_hide_choice_panel()
+	_hide_legacy_options_panel()
+	_apply_location_background()
+	_load_location_options_config()
 
+	var data: Dictionary = location_data[location_id] as Dictionary
+	var location_texts := _to_string_array(data.get("texts", []))
+	_show_text_sequence(location_texts, TextFlow.LOCATION_TEXT)
+
+
+func _apply_location_background() -> void:
+	if not location_data.has(location_id):
+		return
+	var data: Dictionary = location_data[location_id] as Dictionary
 	var image_path: String = data.get("image_path", "") as String
 	if image_path != "":
 		background.texture = load(image_path)
 
-	texts = Array(data.get("texts", []), TYPE_STRING, "", null)
-	text_index = 0
-	text_finished = false
 
-	options_container.hide()
-	for child in options_container.get_children():
-		child.queue_free()
-
+func _load_location_options_config() -> void:
 	var config_file_path = "res://resources/Location/" + location_id + "_options.tres"
 	if ResourceLoader.exists(config_file_path):
-		var loaded_options = load(config_file_path)
+		var loaded_options: GameOptionsData = load(config_file_path)
 		options_component.base_options = loaded_options
-		options_component._ready()
-
-	if texts.size() > 0:
-		dialogue_label.text = texts[text_index]
-		dialogue_panel.show()
-		_refresh_dialogue_progress()
-		event_panel.hide()
+		options_component.load_from_dict(loaded_options.duplicate_data())
 	else:
-		dialogue_panel.hide()
-		show_interactive_options()
+		options_component.base_options = null
+		options_component.load_from_dict({})
+
+
+func _show_text_sequence(next_texts: Array[String], flow: int) -> void:
+	_hide_choice_panel()
+	_hide_legacy_options_panel()
+
+	texts = next_texts
+	text_index = 0
+	text_finished = false
+	_active_text_flow = flow
+
+	if texts.is_empty():
+		_finish_text_sequence()
+		return
+
+	dialogue_label.text = texts[text_index]
+	dialogue_panel.show()
+	_refresh_dialogue_progress()
+
+
+func _finish_text_sequence() -> void:
+	text_finished = true
+	dialogue_panel.hide()
+
+	match _active_text_flow:
+		TextFlow.EVENT_NARRATIVE:
+			_show_event_choices()
+		TextFlow.EVENT_OUTCOME:
+			_finish_event_outcome()
+		TextFlow.LOCATION_TEXT:
+			show_interactive_options()
+		TextFlow.LOCATION_FEEDBACK:
+			show_interactive_options()
+		_:
+			pass
+
+	_active_text_flow = TextFlow.NONE
 
 
 func _on_back_button_pressed() -> void:
@@ -250,41 +329,109 @@ func show_next_text() -> void:
 		dialogue_label.text = texts[text_index]
 		_refresh_dialogue_progress()
 	else:
-		text_finished = true
-		dialogue_panel.hide()
-		show_interactive_options()
+		_finish_text_sequence()
 
 
 func show_interactive_options() -> void:
 	dialogue_panel.hide()
-	event_panel.show()
-	options_container.show()
+	_hide_legacy_options_panel()
 
-	for child in options_container.get_children():
-		child.queue_free()
+	var choices: Dictionary = {}
+	var order := 0
 
 	if options_component.has_option("coffee_cost"):
 		var coffee_cost: int = int(options_component.get_option("coffee_cost"))
-		var coffee_button := Button.new()
-		_style_option_button(coffee_button)
-		coffee_button.text = "Buy Coffee (-%d Gold)" % coffee_cost
-		coffee_button.pressed.connect(_on_buy_coffee.bind(coffee_cost))
-		options_container.add_child(coffee_button)
+		choices["coffee"] = {
+			"label": "Buy Coffee (-%d Gold)" % coffee_cost,
+			"display_key": "",
+			"_order": order
+		}
+		order += 1
 
 	if options_component.has_option("meal_cost"):
 		var meal_cost: int = int(options_component.get_option("meal_cost"))
-		var meal_button := Button.new()
-		_style_option_button(meal_button)
-		meal_button.text = "Order Meal Combo (-%d Gold)" % meal_cost
-		meal_button.pressed.connect(_on_buy_meal.bind(meal_cost))
-		options_container.add_child(meal_button)
+		choices["meal"] = {
+			"label": "Order Meal Combo (-%d Gold)" % meal_cost,
+			"display_key": "",
+			"_order": order
+		}
+		order += 1
 
 	if options_component.get_option("can_leave", true):
-		var leave_button := Button.new()
-		_style_option_button(leave_button)
-		leave_button.text = "Leave"
-		leave_button.pressed.connect(_on_back_button_pressed)
-		options_container.add_child(leave_button)
+		choices["leave"] = {"label": "Leave", "display_key": "", "_order": order}
+
+	if choices.is_empty():
+		return
+
+	_show_choice_panel(choices, _on_location_choice_selected)
+
+
+func _on_location_choice_selected(choice_key: String) -> void:
+	_hide_choice_panel()
+
+	match choice_key:
+		"coffee":
+			var coffee_cost: int = int(options_component.get_option("coffee_cost"))
+			_on_buy_coffee(coffee_cost)
+		"meal":
+			var meal_cost: int = int(options_component.get_option("meal_cost"))
+			_on_buy_meal(meal_cost)
+		"leave":
+			_on_back_button_pressed()
+
+
+func _show_choice_panel(choices: Dictionary, handler: Callable) -> void:
+	_hide_choice_panel()
+
+	_choice_canvas_layer = CanvasLayer.new()
+	_choice_canvas_layer.name = "ChoiceCanvasLayer"
+	_choice_canvas_layer.layer = 8
+	add_child(_choice_canvas_layer)
+
+	_choice_panel_instance = CHOICE_PANEL_SCENE.instantiate()
+	_choice_panel_instance.setup(choices)
+	_choice_panel_instance.choice_selected.connect(handler)
+	_choice_canvas_layer.add_child(_choice_panel_instance)
+
+
+func _hide_choice_panel() -> void:
+	if is_instance_valid(_choice_canvas_layer):
+		_choice_canvas_layer.queue_free()
+	_choice_canvas_layer = null
+	_choice_panel_instance = null
+
+
+func _hide_treasure_popup() -> void:
+	if is_instance_valid(_treasure_canvas_layer):
+		_treasure_canvas_layer.queue_free()
+	_treasure_canvas_layer = null
+	_treasure_popup_instance = null
+
+
+func _hide_legacy_options_panel() -> void:
+	event_panel.hide()
+	options_container.hide()
+	for child in options_container.get_children():
+		child.queue_free()
+
+
+func _normalize_event_choices(choices: Dictionary) -> Dictionary:
+	var normalized: Dictionary = {}
+	var keys := choices.keys()
+	keys.sort()
+
+	var order := 0
+	for raw_key in keys:
+		var key := str(raw_key)
+		var choice_data: Dictionary = choices.get(raw_key, {})
+		normalized[key] = {
+			"label": str(choice_data.get("label", "...")),
+			"display_key": key,
+			"_order": order
+		}
+		order += 1
+
+	return normalized
 
 
 func _style_option_button(btn: Button) -> void:
@@ -329,44 +476,46 @@ func _on_buy_coffee(cost: int) -> void:
 	if not try_spend_money(cost):
 		return
 
-	options_container.hide()
-	texts = [
-		"You spent %d Gold and enjoyed a hot coffee!" % cost,
-		"You now have %d Gold left." % Global.money
-	]
-	text_index = 0
-	text_finished = false
-
-	dialogue_label.text = texts[text_index]
-	dialogue_panel.show()
-	_refresh_dialogue_progress()
+	_show_text_sequence(
+		[
+			"You spent %d Gold and enjoyed a hot coffee!" % cost,
+			"You now have %d Gold left." % Global.money
+		],
+		TextFlow.LOCATION_FEEDBACK
+	)
 
 
 func _on_buy_meal(cost: int) -> void:
 	if not try_spend_money(cost):
 		return
 
-	options_container.hide()
-	texts = [
-		"You spent %d Gold and had a hearty meal!" % cost,
-		"You now have %d Gold left." % Global.money
-	]
-	text_index = 0
-	text_finished = false
-
-	dialogue_label.text = texts[text_index]
-	dialogue_panel.show()
-	_refresh_dialogue_progress()
+	_show_text_sequence(
+		[
+			"You spent %d Gold and had a hearty meal!" % cost,
+			"You now have %d Gold left." % Global.money
+		],
+		TextFlow.LOCATION_FEEDBACK
+	)
 
 
 func try_spend_money(cost: int) -> bool:
 	if Global.money < cost:
-		dialogue_label.text = "You need %d Gold, but only have %d." % [cost, Global.money]
-		dialogue_panel.show()
-		event_panel.hide()
-		_refresh_dialogue_progress()
+		_show_text_sequence(
+			["You need %d Gold, but only have %d." % [cost, Global.money]],
+			TextFlow.LOCATION_FEEDBACK
+		)
 		return false
 
 	Global.money -= cost
 	Global.notify_resources_changed()
 	return true
+
+
+func _to_string_array(value: Variant) -> Array[String]:
+	var result: Array[String] = []
+	if value is Array:
+		for item in value:
+			result.append(str(item))
+	elif value != null:
+		result.append(str(value))
+	return result
