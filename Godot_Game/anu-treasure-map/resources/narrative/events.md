@@ -41,6 +41,12 @@ All events cost **2 AP**. If `current_ap < 2`, the event cannot trigger and the 
 
 ## Events
 
+### Korean ANU Event Dialogue Drafts
+- **Status**: Draft content for future conversion into `data/events.json`
+- **File**: `res://resources/narrative/anu_event_dialogue_drafts_ko.md`
+- **Assets**: Includes staged 16:9 event image sequences for `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event` and 1:1 treasure prompts for `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure`.
+- **Coverage**: Student Accommodation basketball court, Chifley/Marie Reay ANUSA free food at BKSS, Bruce Hall lemon tree rumour, Board Games Society, CSIT escape room, ANU Sport/North Oval, Chifley Library, and Copland-to-Subway campus lunch route.
+
 ### Yuki the White Dog
 - **Location**: `bruce_hall`
 - **Time Requirement**: Afternoon only
