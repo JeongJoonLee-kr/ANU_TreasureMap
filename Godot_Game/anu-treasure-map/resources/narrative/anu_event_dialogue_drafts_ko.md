@@ -90,12 +90,12 @@ choice, and positive resolution.
   2. 학생들은 당신에게 다음 경기에는 꼭 뛰어 보라고 말한다.
   3. 당신은 이 코트에 다시 와도 어색하지 않을 이유를 얻었다.
 
-## Wamburun Hall & Ursula Hall -- Free Food
+## Chifley & Marie Reay -- Free Food
 
 - **ID draft**: `wamburun_ursula_free_food`
-- **Location ID**: `wamburun_halls_ursula_hall`
+- **Location ID**: `chifley_marie_reay`
 - **Treasure**: Free Food
-- **Evidence note**: ANU's free food guide describes ANUSA free breakfasts at BKSS, food vouchers, Student Bites with OzHarvest pickups, residence food recovery to BKSS, Community Connect Food Relief, and the habit of planning ahead and bringing reusable containers. This event avoids restricted access and frames free food as approved student support.
+- **Evidence note**: ANU's free food guide describes ANUSA free breakfasts at the Brian Kenyon Student Space (BKSS), food vouchers, Student Bites with OzHarvest pickups on Friday afternoons at BKSS, residence food recovery to BKSS, Community Connect Food Relief, and the habit of planning ahead, bringing reusable containers, and staying connected with ANUSA updates. This event is located at Chifley & Marie Reay so the player can discover BKSS/ANUSA food support through a central campus student route.
 
 ### Image Assets
 
@@ -104,63 +104,63 @@ choice, and positive resolution.
 - **Event image sequence**
   - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_free_food_intro.png`
     - **Show during**: Narrative 1-4.
-    - **Prompt**: 16:9 cozy pixel-art scene between Wamburun Hall and Ursula Hall, two students hurrying along a campus path with food support flyers and reusable containers, warm residence windows, trees and soft evening light, caring community mood, no UI, no readable text.
+    - **Prompt**: 16:9 warm pixel-art scene near Chifley Library and Marie Reay, ANUSA food support flyer on a noticeboard, two student volunteers with reusable containers and a campus map pointing toward BKSS, busy but caring central campus mood, no UI, no readable text.
   - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_free_food_investigation.png`
     - **Show during**: Narrative 5-11 and choice display.
-    - **Prompt**: 16:9 pixel-art close view of organized food support materials on a bench, reusable containers, fruit, toast, warm drink, simple icon-like notes for breakfast, food recovery, vouchers, and student support, residence kitchens glowing behind, no official logos, no UI.
+    - **Prompt**: 16:9 pixel-art close view of organized ANUSA food support materials near a campus noticeboard: reusable containers, fruit, toast, warm drink, simple icon-like notes for free breakfast, Student Bites, grocery vouchers, food recovery, and Community Connect support, Chifley and Marie Reay campus backdrop, no official logos, no UI.
   - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_free_food_choice_a_success.png`
     - **Show during**: Choice A outcome before treasure image.
     - **Prompt**: 16:9 pixel-art BKSS-style student space entrance atmosphere, students gently placing clear food support flyers, another student arriving with a reusable container, warm safe community support mood, no readable large text, no UI.
   - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_free_food_choice_b_miss.png`
     - **Show during**: Choice B outcome.
-    - **Prompt**: 16:9 pixel-art campus path where the player has walked ahead and stopped, two students behind carefully checking food support flyers and a map, gentle reminder mood, soft residence background, no UI.
+    - **Prompt**: 16:9 pixel-art central campus path near Chifley and Marie Reay where the player has walked ahead and stopped, two ANUSA volunteers behind carefully checking food support flyers, BKSS direction, and program timing, gentle reminder mood, no UI.
   - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_free_food_choice_c_hint.png`
     - **Show during**: Choice C outcome.
-    - **Prompt**: 16:9 pixel-art student sharing a food support flyer photo on a phone while two students smile with reusable containers, campus residence path, hopeful next-time feeling, no UI, no readable text.
+    - **Prompt**: 16:9 pixel-art student saving ANUSA food support reminders on a phone near Chifley and Marie Reay while two volunteers smile with reusable containers, hopeful next-time feeling, no UI, no readable text.
 
 ### Narrative
 
-1. Wamburun Hall과 Ursula Hall 사이를 걷는데, 두 학생이 작은 안내 묶음을 들고 뛰어간다.
-2. 맨 위 종이에는 "BKSS free breakfast, Student Bites, food recovery"라고 적혀 있고, 옆에는 재사용 용기 그림이 그려져 있다.
-3. 한 학생이 당신에게 다가와 숨을 고른다.
-4. "혹시 Brian Kenyon Student Space가 어느 쪽인지 알아? 아침 무료 식사랑 금요일 오후 Student Bites 안내를 같이 붙여야 하는데, 처음 와서 길을 헷갈렸어."
-5. 다른 학생은 조심스럽게 덧붙인다. "공짜 음식이라고만 말하면 이상하게 들릴까 봐. 사실은 필요한 사람에게 제대로 닿게 하는 일이거든."
-6. Wamburun 쪽 창문 너머로 큰 공용 주방의 불빛이 보이고, Ursula 쪽에서는 저녁 식사 시간이 지나간 뒤의 따뜻한 냄새가 남아 있다.
-7. 안내 묶음에는 ANUSA food vouchers, Community Connect Food Relief, 그리고 residence food recovery라는 단어가 차분히 정리되어 있다.
-8. 두 사람은 남은 음식을 함부로 나누는 것이 아니라, surplus food가 BKSS를 통해 필요한 학생에게 안전하게 닿도록 안내하려고 한다.
-9. 종이 표지판 뒷면에는 "계획하기, 용기 챙기기, 부끄러워하지 않기"라는 작은 문장이 적혀 있다.
-10. 당신은 표지판, 지도, 그리고 두 학생의 진지한 얼굴을 번갈아 본다.
-11. 이 소문은 먹을 것을 찾는 이야기가 아니라, 학생들이 서로의 빈칸을 알아보는 방법에 관한 이야기일지도 모른다.
+1. Chifley와 Marie Reay 근처를 지나는데, 한 학생이 ANUSA food support 안내지를 게시판에 붙이고 있다.
+2. 맨 위에는 Brian Kenyon Student Space, 즉 BKSS에서 진행되는 free breakfast 시간이 적혀 있고, 아래에는 Student Bites와 food vouchers 안내가 이어진다.
+3. 다른 학생은 재사용 용기를 든 채 휴대폰 캘린더를 확인한다.
+4. "BKSS가 시작점이라는 걸 더 잘 보이게 만들고 싶어. 아침 식사, 금요일 오후 Student Bites, food recovery가 다 같은 방향으로 연결되거든."
+5. 안내지에는 경제적 어려움을 겪는 학생이 학기마다 grocery voucher를 신청할 수 있다는 내용도 조심스럽게 적혀 있다.
+6. 또 다른 줄은 food insecurity를 겪는 학생을 위한 Community Connect Food Relief와 캠퍼스 지원 서비스로 이어진다.
+7. residence food recovery 설명에는 surplus catered food가 조심스럽게 portioning되어 BKSS를 통해 필요한 학생에게 다시 닿는다고 적혀 있다.
+8. 재사용 용기를 든 학생은 말한다. "이건 그냥 공짜 음식을 찾는 이야기가 아니야. 한 끼를 건너뛰기 전에 도움을 발견하는 이야기야."
+9. 안내지 아래에는 "계획하기, 용기 챙기기, ANUSA 업데이트 확인하기"라는 세 문장이 작게 정리되어 있다.
+10. 도서관, Marie Reay, student space 사이로 사람들이 각자의 보이지 않는 시간표를 들고 지나간다.
+11. 이 소문은 먹을 것을 찾는 이야기가 아니라, 캠퍼스가 돌봄의 방향표를 세우는 방법에 관한 이야기일지도 모른다.
 
 ### Choices
 
-#### A. "같이 BKSS까지 가자. 표지판 문구도 조금 다듬어 보자."
+#### A. "ANUSA 안내가 더 잘 보이게 정리하고, BKSS 방향도 함께 확인하자."
 
 - **Treasure found**: true
 - **Outcome**
-  1. 당신은 표지판의 물음표를 지우고, "Food support available today"라고 더 분명하게 고쳐 쓴다.
-  2. 그 아래에는 free breakfast, Student Bites, residence food recovery, food vouchers, Community Connect Food Relief를 작은 아이콘처럼 나눠 적는다.
-  3. BKSS 앞에 안내가 붙자, 지나가던 학생 하나가 "나 오늘 용기 가져왔는데"라며 조심스럽게 웃는다.
-  4. 당신은 Free Food를 발견했다. 오늘의 보물은 한 끼보다 더 오래 남는 안도감, 그리고 도움을 받아도 된다는 허락이다.
+  1. 당신은 안내를 free breakfast, Student Bites, grocery vouchers, residence food recovery, Community Connect Food Relief로 나누어 정리한다.
+  2. 학생들은 그 아래에 계획하기, 재사용 용기 챙기기, ANUSA 업데이트 확인하기를 덧붙인다.
+  3. 지나가던 학생 하나가 안내지를 사진으로 찍으며 "식비 걱정하는 게 나뿐인 줄 알았어"라고 말한다.
+  4. 당신은 Free Food를 발견했다. 오늘의 보물은 한 끼보다 더 오래 남는 안도감, 그리고 이미 준비된 도움을 이용해도 된다는 허락이다.
 
-#### B. "공짜면 일단 빨리 가서 받아야지."
+#### B. "공짜 음식이면 일단 BKSS로 빨리 가야지."
 
 - **Treasure found**: false
 - **Re-trigger**: true
 - **Outcome**
-  1. 당신은 앞서 걸어가지만, 어디로 가야 하는지 정확히 알지 못해 금세 멈춰 선다.
-  2. 뒤돌아보니 두 학생은 BKSS 위치와 Student Bites 시간을 다시 확인하며 천천히 움직이고 있다.
-  3. 배고픔은 이해받을 수 있다. 하지만 이 보물은 서두르는 손보다 정확한 안내와 필요한 사람을 먼저 생각하는 마음을 기다린다.
+  1. 당신은 서둘러 걸어가지만, free breakfast, Student Bites, voucher, food recovery, Community Connect의 차이가 머릿속에서 흐려진다.
+  2. 뒤돌아보니 두 학생은 BKSS 위치와 각 프로그램의 시간, 신청 방법을 다시 확인하고 있다.
+  3. 배고픔은 이해받을 수 있다. 하지만 이 보물은 빠른 발보다 정확한 안내를 기다린다.
 
-#### C. "나는 길은 모르지만, 이 안내를 다른 사람에게도 알려 줄게."
+#### C. "안내를 공유하고, food program 시간을 캘린더에 표시해 둘게."
 
 - **Treasure found**: false
 - **Re-trigger**: true
 - **Boost trigger chance**: true
 - **Outcome**
-  1. 당신은 안내 문구를 사진으로 남기고 친구들에게 공유한다.
-  2. 두 학생은 "다음엔 reusable container도 같이 챙기자"며 고맙다고 말한다.
-  3. 아직 보물을 발견한 것은 아니지만, BKSS와 free food resources로 향하는 길에 작은 표식을 남겼다.
+  1. 당신은 안내지를 사진으로 남기고, free breakfast 시간과 금요일 오후 Student Bites를 캘린더에 표시한다.
+  2. ANUSA volunteer들은 staying connected가 이 지원을 놓치지 않는 방법이라고 말한다.
+  3. 아직 보물을 발견한 것은 아니지만, BKSS와 food support로 향하는 첫 좌표를 손에 넣었다.
 
 ## Bruce Hall -- Lemon Tree
 
@@ -595,9 +595,7 @@ choice, and positive resolution.
 ## Source Notes
 
 - Yukeembruk residence page: half basketball court and student accommodation context.
-- ANU free food guide: ANUSA free breakfasts at BKSS, food vouchers, Student Bites with OzHarvest pickups on Friday afternoons, residence food recovery to BKSS, Community Connect Food Relief, planning ahead, and reusable containers.
-- Wamburun Hall page: shared kitchens, dining spaces, common rooms, and residential community.
-- Ursula Hall Main Wing page: catered dining and residential community.
+- ANU free food guide: ANUSA free breakfasts at BKSS, food vouchers, Student Bites with OzHarvest pickups on Friday afternoons at BKSS, residence food recovery to BKSS, Community Connect Food Relief, planning ahead, reusable containers, and staying connected with ANUSA updates.
 - Bruce Hall Main Wing page: roof-top garden and Bruce Hall community context.
 - ANU Board Games Society and ANU student bulletin: Friday game nights and board game community context.
 - ANU School of Computing Escape Room article: 60-minute educational escape room with five computing puzzles in the CSIT building.

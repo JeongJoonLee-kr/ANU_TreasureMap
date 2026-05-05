@@ -227,55 +227,55 @@
   "wamburun_ursula_free_food": {
 	"id": "wamburun_ursula_free_food",
 	"title": "Food That Finds People",
-	"location_id": "wamburun_halls_ursula_hall",
+	"location_id": "chifley_marie_reay",
 	"require_afternoon": false,
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_wamburun_ursula_free_food",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_free_food.png",
 	"narrative": [
-	  "Between Wamburun Hall and Ursula Hall, two students hurry past with a bundle of small food support flyers.",
-	  "The top page mentions BKSS free breakfast, Student Bites, food recovery, food vouchers, and reusable containers.",
-	  "One student slows down and catches their breath when they see you.",
-	  "\"Do you know the way to Brian Kenyon Student Space? We are trying to put these notices somewhere useful.\"",
-	  "The other student adds, more carefully, \"If we only say free food, people might misunderstand. This is about help reaching the students who need it.\"",
-	  "Warm kitchen light glows from one residence window. From the other side, the smell of dinner lingers in the air.",
-	  "The flyers list ANUSA food vouchers, Community Connect Food Relief, Student Bites pickups, and residence food recovery.",
-	  "They are not trying to sneak food around. They are trying to point surplus food and student support toward the right place.",
-	  "On the back of one flyer, someone has written: plan ahead, bring a container, do not be embarrassed.",
-	  "You look at the flyers, the campus map, and the serious faces of the two students.",
-	  "This rumour is not really about chasing a free meal. It is about how a campus notices hunger before it becomes loneliness."
+	  "Near Chifley and Marie Reay, a student is pinning a small ANUSA food support flyer to a noticeboard.",
+	  "The top line mentions free breakfasts at the Brian Kenyon Student Space from 8:30 to 10:30, with Student Bites and food vouchers listed underneath.",
+	  "A second student arrives carrying reusable containers and a phone full of calendar reminders.",
+	  "\"We are trying to make sure people know BKSS is the place to start,\" they say. \"Free breakfast, Student Bites, and food recovery all need clear directions.\"",
+	  "The flyer also mentions that students experiencing financial hardship can apply for a grocery voucher once per semester.",
+	  "Another note points to Community Connect Food Relief for students dealing with food insecurity, and to broader support services on campus.",
+	  "A line about residence food recovery explains that surplus catered food is carefully portioned and redistributed through BKSS so it does not go to waste.",
+	  "The student with the containers says, \"It is not just about free food. It is about knowing help exists before you skip another meal.\"",
+	  "At the bottom of the flyer are three simple reminders: plan ahead, bring reusable containers, and stay connected with ANUSA updates.",
+	  "People pass between the library, Marie Reay, and the student spaces, each carrying their own invisible timetable.",
+	  "This rumour is not really about chasing a free meal. It is about a campus learning how to point care toward the people who need it."
 	],
 	"choices": {
 	  "A": {
-		"label": "Walk with them to BKSS and help make the flyer clearer.",
+		"label": "Help them make the ANUSA food support notice clearer before heading toward BKSS.",
 		"outcome_texts": [
-		  "You cross out the vague question marks and write a clearer heading: food support available today.",
-		  "Under it, you help separate free breakfast, Student Bites, food recovery, food vouchers, and Community Connect Food Relief into simple little sections.",
-		  "When the notice goes up, a passing student smiles shyly and says, \"I brought a container today.\"",
-		  "You found Free Food. The treasure is not just a meal, but the quiet permission to accept help."
+		  "You help separate the notice into simple paths: free breakfast at BKSS, Student Bites, grocery vouchers, food recovery, and Community Connect Food Relief.",
+		  "The students add a small reminder to plan ahead and bring reusable containers.",
+		  "A passing student pauses, takes a photo of the flyer, and says, \"I thought I was the only one worrying about groceries.\"",
+		  "You found Free Food. The treasure is not just a meal, but the quiet permission to use the support that is already waiting."
 		],
 		"treasure_found": true,
 		"treasure_name": "Free Food",
 		"re_trigger": false
 	  },
 	  "B": {
-		"label": "Rush ahead because free food sounds urgent.",
+		"label": "Rush toward BKSS because free food sounds urgent.",
 		"outcome_texts": [
-		  "You walk quickly, then stop when you realize you do not know which support option is happening where.",
-		  "Behind you, the two students slow down to check BKSS, Student Bites timing, and the correct notice locations.",
-		  "Hunger makes sense. But this treasure waits for clear information and care for the people who need it most."
+		  "You hurry away, then stop when the support options blur together in your head.",
+		  "Free breakfast, Student Bites, vouchers, food recovery, and Community Connect each have their own route and timing.",
+		  "Hunger makes sense. But this treasure waits for clear information, not just fast feet."
 		],
 		"treasure_found": false,
 		"treasure_name": "",
 		"re_trigger": true
 	  },
 	  "C": {
-		"label": "Share the information, even if you cannot guide them there yet.",
+		"label": "Share the flyer and mark the food programs in your calendar.",
 		"outcome_texts": [
-		  "You take a photo of the flyer and send it to a friend who has been worrying about groceries.",
-		  "The students thank you and remind you to bring a reusable container next time.",
-		  "You have not found the treasure yet, but you have left a marker on the path toward it."
+		  "You take a photo of the flyer, save the breakfast window, and mark Friday afternoon Student Bites as a reminder.",
+		  "The ANUSA volunteers thank you and tell you that staying connected is part of making the support work.",
+		  "You have not found the treasure yet, but you now know where the first step begins."
 		],
 		"treasure_found": false,
 		"treasure_name": "",
