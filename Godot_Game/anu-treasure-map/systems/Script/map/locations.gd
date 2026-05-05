@@ -596,7 +596,7 @@ func _setup_portraits(event: Dictionary) -> void:
 func _update_portraits(speaker_id: String) -> void:
 	for char_id in _portrait_nodes:
 		var portrait := _portrait_nodes[char_id] as TextureRect
-		var active: bool = (char_id == speaker_id)
+		var active: bool = char_id == speaker_id
 		var target_x: float = _portrait_active_x[char_id] if active else _portrait_home_x[char_id]
 		var target_color: Color = _PORTRAIT_COLOR_ACTIVE if active else _PORTRAIT_COLOR_INACTIVE
 		var tw := portrait.create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(
