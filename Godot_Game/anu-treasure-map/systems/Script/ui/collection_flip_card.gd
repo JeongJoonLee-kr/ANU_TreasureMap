@@ -63,12 +63,18 @@ func _gui_input(event: InputEvent) -> void:
 func _flip() -> void:
 	_flipping = true
 	var tw := create_tween()
-	tw.tween_property(flip_pivot, "scale:x", 0.0, flip_half_duration).set_trans(Tween.TRANS_SINE).set_ease(
-		Tween.EASE_IN
+	(
+		tw
+		. tween_property(flip_pivot, "scale:x", 0.0, flip_half_duration)
+		. set_trans(Tween.TRANS_SINE)
+		. set_ease(Tween.EASE_IN)
 	)
 	tw.tween_callback(_swap_faces)
-	tw.tween_property(flip_pivot, "scale:x", 1.0, flip_half_duration).set_trans(Tween.TRANS_SINE).set_ease(
-		Tween.EASE_OUT
+	(
+		tw
+		. tween_property(flip_pivot, "scale:x", 1.0, flip_half_duration)
+		. set_trans(Tween.TRANS_SINE)
+		. set_ease(Tween.EASE_OUT)
 	)
 	tw.tween_callback(func(): _flipping = false)
 

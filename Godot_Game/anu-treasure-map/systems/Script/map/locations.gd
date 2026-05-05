@@ -342,18 +342,14 @@ func show_interactive_options() -> void:
 	if options_component.has_option("coffee_cost"):
 		var coffee_cost: int = int(options_component.get_option("coffee_cost"))
 		choices["coffee"] = {
-			"label": "Buy Coffee (-%d Gold)" % coffee_cost,
-			"display_key": "",
-			"_order": order
+			"label": "Buy Coffee (-%d Gold)" % coffee_cost, "display_key": "", "_order": order
 		}
 		order += 1
 
 	if options_component.has_option("meal_cost"):
 		var meal_cost: int = int(options_component.get_option("meal_cost"))
 		choices["meal"] = {
-			"label": "Order Meal Combo (-%d Gold)" % meal_cost,
-			"display_key": "",
-			"_order": order
+			"label": "Order Meal Combo (-%d Gold)" % meal_cost, "display_key": "", "_order": order
 		}
 		order += 1
 
@@ -425,9 +421,7 @@ func _normalize_event_choices(choices: Dictionary) -> Dictionary:
 		var key := str(raw_key)
 		var choice_data: Dictionary = choices.get(raw_key, {})
 		normalized[key] = {
-			"label": str(choice_data.get("label", "...")),
-			"display_key": key,
-			"_order": order
+			"label": str(choice_data.get("label", "...")), "display_key": key, "_order": order
 		}
 		order += 1
 

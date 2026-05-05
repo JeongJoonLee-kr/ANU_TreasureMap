@@ -83,9 +83,15 @@ func _build_ui() -> void:
 	close_button.custom_minimum_size = Vector2(170, 46)
 	close_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	close_button.add_theme_font_size_override("font_size", 18)
-	close_button.add_theme_stylebox_override("normal", _make_button_style(Color(0.25, 0.5, 0.35, 0.92)))
-	close_button.add_theme_stylebox_override("hover", _make_button_style(Color(0.32, 0.62, 0.43, 0.96)))
-	close_button.add_theme_stylebox_override("pressed", _make_button_style(Color(0.19, 0.4, 0.28, 0.96)))
+	close_button.add_theme_stylebox_override(
+		"normal", _make_button_style(Color(0.25, 0.5, 0.35, 0.92))
+	)
+	close_button.add_theme_stylebox_override(
+		"hover", _make_button_style(Color(0.32, 0.62, 0.43, 0.96))
+	)
+	close_button.add_theme_stylebox_override(
+		"pressed", _make_button_style(Color(0.19, 0.4, 0.28, 0.96))
+	)
 	close_button.pressed.connect(_on_continue_pressed)
 	_content_panel.add_child(close_button)
 
@@ -98,7 +104,9 @@ func _update_layout() -> void:
 	_background.position = Vector2.ZERO
 	_background.size = viewport_size
 
-	var card_size := Vector2(minf(viewport_size.x * 0.62, 900.0), minf(viewport_size.y * 0.62, 620.0))
+	var card_size := Vector2(
+		minf(viewport_size.x * 0.62, 900.0), minf(viewport_size.y * 0.62, 620.0)
+	)
 	card_size.x = maxf(card_size.x, 620.0)
 	card_size.y = maxf(card_size.y, 420.0)
 	_content_panel.position = (viewport_size - card_size) / 2.0

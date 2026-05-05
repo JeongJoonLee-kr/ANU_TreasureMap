@@ -118,10 +118,18 @@ func _create_choice_button(text: String) -> Button:
 	button.add_theme_color_override("font_color", Color(0.24, 0.31, 0.43, 1.0))
 	button.add_theme_color_override("font_hover_color", Color(0.12, 0.42, 0.72, 1.0))
 	button.add_theme_color_override("font_pressed_color", Color(0.08, 0.32, 0.58, 1.0))
-	button.add_theme_stylebox_override("normal", _make_button_style(Color(0.98, 0.99, 1.0, 0.98), Color(0.36, 0.42, 0.75, 0.8)))
-	button.add_theme_stylebox_override("hover", _make_button_style(Color(0.91, 0.96, 1.0, 1.0), Color(0.26, 0.56, 0.94, 1.0)))
-	button.add_theme_stylebox_override("pressed", _make_button_style(Color(0.84, 0.93, 1.0, 1.0), Color(0.18, 0.48, 0.86, 1.0)))
-	button.add_theme_stylebox_override("focus", _make_button_style(Color(0.91, 0.96, 1.0, 1.0), Color(0.18, 0.48, 0.86, 1.0)))
+	button.add_theme_stylebox_override(
+		"normal", _make_button_style(Color(0.98, 0.99, 1.0, 0.98), Color(0.36, 0.42, 0.75, 0.8))
+	)
+	button.add_theme_stylebox_override(
+		"hover", _make_button_style(Color(0.91, 0.96, 1.0, 1.0), Color(0.26, 0.56, 0.94, 1.0))
+	)
+	button.add_theme_stylebox_override(
+		"pressed", _make_button_style(Color(0.84, 0.93, 1.0, 1.0), Color(0.18, 0.48, 0.86, 1.0))
+	)
+	button.add_theme_stylebox_override(
+		"focus", _make_button_style(Color(0.91, 0.96, 1.0, 1.0), Color(0.18, 0.48, 0.86, 1.0))
+	)
 
 	var label_margin := MarginContainer.new()
 	label_margin.set_anchors_preset(Control.PRESET_FULL_RECT)
