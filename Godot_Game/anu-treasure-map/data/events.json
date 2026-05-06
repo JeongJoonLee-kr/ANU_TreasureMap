@@ -684,6 +684,13 @@
 	"clue_id": "clue_southwest_aboriginal_land_management",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_aboriginal_land_management.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_southwest_aboriginal_land_management_intro.png",
+	  "investigation": "res://resources/event/event_southwest_aboriginal_land_management_investigation.png",
+	  "choice_a_success": "res://resources/event/event_southwest_aboriginal_land_management_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_southwest_aboriginal_land_management_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_southwest_aboriginal_land_management_choice_c_hint.png"
+	},
 	"narrative": [
 	  "The Southwest path grows quiet enough to feel like the edge of woodland rather than the middle of campus.",
 	  "Sunlight breaks through tall eucalyptus branches, and a dark interpretive sign stands among low shrubs and dry leaves.",
@@ -745,6 +752,13 @@
 	"clue_id": "clue_houses_canberra_traditional_bus_stop",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_canberra_traditional_bus_stop.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_houses_canberra_traditional_bus_stop_intro.png",
+	  "investigation": "res://resources/event/event_houses_canberra_traditional_bus_stop_investigation.png",
+	  "choice_a_success": "res://resources/event/event_houses_canberra_traditional_bus_stop_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_houses_canberra_traditional_bus_stop_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_houses_canberra_traditional_bus_stop_choice_c_hint.png"
+	},
 	"narrative": [
 	  "Near Houses, a low concrete shelter with round openings sits beside the road like a small piece of Canberra history.",
 	  "At first it looks like a bunker, then a bus stop, then something the city has been carrying in plain sight for decades.",
@@ -805,6 +819,13 @@
 	"clue_id": "clue_houses_spiral_floor_tile",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_spiral_floor_tile.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_houses_spiral_floor_tile_intro.png",
+	  "investigation": "res://resources/event/event_houses_spiral_floor_tile_investigation.png",
+	  "choice_a_success": "res://resources/event/event_houses_spiral_floor_tile_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_houses_spiral_floor_tile_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_houses_spiral_floor_tile_choice_c_hint.png"
+	},
 	"narrative": [
 	  "In a small courtyard near Houses, the pavement suddenly opens into a circular mosaic.",
 	  "Blue and ochre tiles curl into a spiral, carrying plants, animals, and sea-like shapes around one another.",
@@ -865,6 +886,13 @@
 	"clue_id": "clue_blocks_metal_frames_sculpture_six_fixed",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_metal_frames_sculpture.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_blocks_metal_frames_sculpture_six_fixed_intro.png",
+	  "investigation": "res://resources/event/event_blocks_metal_frames_sculpture_six_fixed_investigation.png",
+	  "choice_a_success": "res://resources/event/event_blocks_metal_frames_sculpture_six_fixed_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_blocks_metal_frames_sculpture_six_fixed_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_blocks_metal_frames_sculpture_six_fixed_choice_c_hint.png"
+	},
 	"narrative": [
 	  "On the grass near Blocks, a set of painted steel frames leans under the eucalyptus trees.",
 	  "The rectangles look orderly from one angle and almost impossible from another.",
@@ -925,6 +953,13 @@
 	"clue_id": "clue_southwest_winged_harvest",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_winged_harvest.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_southwest_winged_harvest_intro.png",
+	  "investigation": "res://resources/event/event_southwest_winged_harvest_investigation.png",
+	  "choice_a_success": "res://resources/event/event_southwest_winged_harvest_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_southwest_winged_harvest_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_southwest_winged_harvest_choice_c_hint.png"
+	},
 	"narrative": [
 	  "In a Southwest courtyard, seven pale poles stand near a tree and low plantings.",
 	  "They do not shout for attention. They ask you to notice the space between them.",
@@ -985,6 +1020,13 @@
 	"clue_id": "clue_central_dragon_art_installation",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_dragon_art_installation.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_central_dragon_art_installation_intro.png",
+	  "investigation": "res://resources/event/event_central_dragon_art_installation_investigation.png",
+	  "choice_a_success": "res://resources/event/event_central_dragon_art_installation_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_central_dragon_art_installation_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_central_dragon_art_installation_choice_c_hint.png"
+	},
 	"narrative": [
 	  "Inside Central, you are halfway up the stairs when a flash of yellow and green curves above the railing.",
 	  "A suspended dragon twists through the atrium, bright enough to make people glance up from their phones.",
@@ -1045,6 +1087,13 @@
 	"clue_id": "clue_fellows_oval_game_on",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_game_on.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_fellows_oval_game_on_intro.png",
+	  "investigation": "res://resources/event/event_fellows_oval_game_on_investigation.png",
+	  "choice_a_success": "res://resources/event/event_fellows_oval_game_on_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_fellows_oval_game_on_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_fellows_oval_game_on_choice_c_hint.png"
+	},
 	"narrative": [
 	  "After a kickabout near Fellows Oval, a student drops onto the grass and loosens their shoelaces.",
 	  "\"We used our legs,\" they say. \"Now what about a game that only needs hands?\"",
@@ -1105,6 +1154,13 @@
 	"clue_id": "clue_art_and_music_cafe_on_4th_floor",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_cafe_on_4th_floor.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_art_and_music_cafe_on_4th_floor_intro.png",
+	  "investigation": "res://resources/event/event_art_and_music_cafe_on_4th_floor_investigation.png",
+	  "choice_a_success": "res://resources/event/event_art_and_music_cafe_on_4th_floor_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_art_and_music_cafe_on_4th_floor_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_art_and_music_cafe_on_4th_floor_choice_c_hint.png"
+	},
 	"narrative": [
 	  "Inside Art and Music, the smell of coffee arrives before the landing does.",
 	  "Long windows, warm tube lights, posters, and small tables turn the upper floor into a soft pause above campus.",
@@ -1165,6 +1221,13 @@
 	"clue_id": "clue_copland_event_notice_board",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_event_notice_board.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_copland_event_notice_board_intro.png",
+	  "investigation": "res://resources/event/event_copland_event_notice_board_investigation.png",
+	  "choice_a_success": "res://resources/event/event_copland_event_notice_board_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_copland_event_notice_board_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_copland_event_notice_board_choice_c_hint.png"
+	},
 	"narrative": [
 	  "Outside Copland, the notice boards look like layers of campus weather.",
 	  "Flyers for talks, clubs, music, support, elections, markets, and workshops overlap across the brown boards.",

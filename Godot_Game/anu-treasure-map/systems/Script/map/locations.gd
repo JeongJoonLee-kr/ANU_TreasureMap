@@ -10,6 +10,11 @@ const PROGRESS_DOT_ACTIVE_TEX := preload(
 )
 const _OPTION_TEXT_COLOR := Color(0.2588, 0.6471, 0.9608, 1.0)
 const _OPTION_TEXT_PRESSED := Color(0.12, 0.45, 0.74, 1.0)
+const _EVENT_IMAGE_CHOICE_STAGES := {
+	"A": "choice_a_success",
+	"B": "choice_b_miss",
+	"C": "choice_c_hint",
+}
 
 enum TextFlow { NONE, EVENT_NARRATIVE, EVENT_OUTCOME, LOCATION_TEXT, LOCATION_FEEDBACK }
 
@@ -28,6 +33,7 @@ var _choice_panel_instance: Control = null
 var _treasure_canvas_layer: CanvasLayer = null
 var _treasure_popup_instance: Control = null
 var _exhaustion_toast: Panel = null
+var _event_scene_stage: String = ""
 
 const _PORTRAIT_W := 280.0
 const _PORTRAIT_H := 650.0
@@ -132,6 +138,7 @@ func _show_event_choices() -> void:
 		return
 
 	_update_portraits("narrator")
+	_set_event_scene_stage("investigation")
 	_show_choice_panel(_normalize_event_choices(choices), _on_event_choice_selected)
 
 
@@ -141,6 +148,7 @@ func _on_event_choice_selected(choice_key: String) -> void:
 
 	var choices: Dictionary = _active_event.get("choices", {})
 	_selected_event_choice = choices.get(choice_key, {})
+	_set_event_scene_stage(str(_EVENT_IMAGE_CHOICE_STAGES.get(choice_key, "")))
 
 	_speakers = _to_string_array(_selected_event_choice.get("outcome_speakers", []))
 
@@ -178,6 +186,54 @@ func _on_treasure_popup_choice_made(action: String) -> void:
 	_complete_current_event_and_show_location(action)
 
 
+func _update_event_scene_for_text() -> void:
+	match _active_text_flow:
+		TextFlow.EVENT_NARRATIVE:
+			var pivot := int(ceil(float(texts.size()) * 0.5))
+			if pivot < 1:
+				pivot = 1
+			_set_event_scene_stage("intro" if text_index < pivot else "investigation")
+		TextFlow.EVENT_OUTCOME:
+			_set_event_scene_stage(
+				str(_EVENT_IMAGE_CHOICE_STAGES.get(_selected_event_choice_key, ""))
+			)
+		_:
+			_clear_event_scene_stage()
+
+
+func _set_event_scene_stage(stage: String) -> void:
+	if stage == "":
+		_clear_event_scene_stage()
+		return
+
+	if _event_scene_stage == stage:
+		return
+
+	var image_path := _get_event_scene_image_path(stage)
+	if image_path == "":
+		_clear_event_scene_stage()
+		return
+
+	var texture := _load_texture(image_path)
+	if texture == null:
+		_clear_event_scene_stage()
+		return
+
+	_event_scene_stage = stage
+	background.texture = texture
+
+
+func _get_event_scene_image_path(stage: String) -> String:
+	var paths: Dictionary = _active_event.get("event_image_paths", {})
+	if paths.is_empty():
+		return ""
+	return str(paths.get(stage, ""))
+
+
+func _clear_event_scene_stage() -> void:
+	_event_scene_stage = ""
+
+
 func _complete_current_event_and_show_location(treasure_action: String = "collect") -> void:
 	var event_id := str(_active_event.get("id", ""))
 	EventManager.complete_event(event_id, _selected_event_choice_key, treasure_action)
@@ -185,6 +241,7 @@ func _complete_current_event_and_show_location(treasure_action: String = "collec
 	_selected_event_choice_key = ""
 	_selected_event_choice = {}
 	_clear_portraits()
+	_clear_event_scene_stage()
 	show_location()
 
 
@@ -257,6 +314,7 @@ func show_location() -> void:
 
 	_hide_choice_panel()
 	_hide_legacy_options_panel()
+	_clear_event_scene_stage()
 	_apply_location_background()
 	_load_location_options_config()
 
@@ -302,6 +360,7 @@ func _show_text_sequence(next_texts: Array[String], flow: int) -> void:
 	dialogue_panel.show()
 	_refresh_dialogue_progress()
 	_update_portraits_for_index(0)
+	_update_event_scene_for_text()
 
 
 func _finish_text_sequence() -> void:
@@ -351,6 +410,7 @@ func show_next_text() -> void:
 		dialogue_label.text = texts[text_index]
 		_refresh_dialogue_progress()
 		_update_portraits_for_index(text_index)
+		_update_event_scene_for_text()
 	else:
 		_finish_text_sequence()
 
@@ -526,6 +586,36 @@ func try_spend_money(cost: int) -> bool:
 	Global.money -= cost
 	Global.notify_resources_changed()
 	return true
+
+
+func _load_texture(image_path: String) -> Texture2D:
+	if image_path == "":
+		return null
+
+	if ResourceLoader.exists(image_path):
+		var resource: Variant = load(image_path)
+		if resource is Texture2D:
+			return resource as Texture2D
+
+	var file := FileAccess.open(image_path, FileAccess.READ)
+	if file == null:
+		return null
+
+	var bytes := file.get_buffer(file.get_length())
+	file.close()
+
+	var img := Image.new()
+	var decode_result := img.load_jpg_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_png_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_webp_from_buffer(bytes)
+	if decode_result == OK:
+		return ImageTexture.create_from_image(img)
+
+	return null
 
 
 func _to_string_array(value: Variant) -> Array[String]:
