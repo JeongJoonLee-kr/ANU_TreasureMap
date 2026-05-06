@@ -15,7 +15,7 @@ choice, and positive resolution.
 - **Treasure image path pattern**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_<id>.png`.
 - **Treasure display timing**: show only after the success choice confirms treasure collection, usually after `choice_a_success`.
 - **Treasure style**: square pixel-art vignette with one clear collectible focus in the center, gentle campus background, bright readable shape, no watermark, no photorealism.
-- **Generation owner**: Codex generates these event and treasure images before the events are integrated into the playable build.
+- **Generation owner**: Dialogue drafts include prompts only; image generation is handled in a separate asset pass before playable integration.
 
 ## Student Accommodation -- Basketball Court
 
@@ -592,6 +592,800 @@ choice, and positive resolution.
   2. 학생들은 오늘은 가까운 곳에서 먹기로 하지만, 다음 점심 약속 장소를 정한다.
   3. 아직 보물을 발견한 것은 아니지만, 다음 한 끼의 좌표는 분명해졌다.
 
+## Medical & Physics School -- Anatomical Model
+
+- **ID draft**: `medical_physics_school_anatomical_model`
+- **Location ID**: `medical_physics_school`
+- **Treasure**: Anatomical Model
+- **Evidence note**: ANU's School of Medicine and Psychology explains that anatomy teaching and research access is regulated, that human remains must be treated with dignity and respect, and that access to the Medical Science & Anatomy Facility is limited to authorised people. ANU's Anatomy and Physiology 1 course also describes practical sessions where students examine histology, prosected human cadaveric specimens, and models of the human body. The player-provided photo shows an anatomical torso/skull teaching display in an ANU medical-school context; this event treats the visible anatomical model as a respectful public-facing learning clue, not as access to restricted specimens or facilities.
+
+### Image Generation Manifest
+
+- **Batch group**: `medical_physics_school_anatomical_model`
+- **Reference image**: user-provided anatomical model photo; use only as visual inspiration for the torso model, skull poster, medical noticeboard, trophy/display-shelf atmosphere, and respectful teaching tone.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no gore, no blood, no horror mood, no cadaver depiction, no readable text, no real student faces, no official logos, no watermark, no UI overlay, no speech bubbles.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_anatomical_model.png`
+- **Treasure image prompt**: 1:1 pixel-art collectible image of a respectful anatomical teaching torso model on a small white base, with simplified visible organs and a small skull-study card beside it, warm medical-school display shelf background, gentle educational mood, centered object, bright readable shape, no gore, no blood, no readable text, no official logo.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art ANU Medical & Physics School corridor display inspired by the provided photo, anatomical torso model on a shelf, skull anatomy poster shapes, trophy silhouettes, dark noticeboard and timber wall tones, a student guide holding a clipboard, respectful curious mood, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_investigation.png`
+    - **Show during**: Narrative 5-11 and choice display.
+    - **Prompt**: 16:9 pixel-art close view of a medical teaching display: anatomical torso model, simplified skull diagram poster, small ethics/access reminder card, student notebook with three icon-like clues for model, terminology, and respect, clean educational atmosphere, no gore, no readable text, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene of two students respectfully studying the anatomical torso model from outside the display, one pointing to a simplified organ shape while the other writes careful notes, warm medical-school hallway, learning and respect theme, no gore, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art scene near a closed authorised-access door beyond the display area, a student hesitates while another gently points back toward the public teaching model and noticeboard, calm boundary-respecting mood, no warning text, no gore, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art scene of a student guide helping the player write down proper anatomy terminology beside the anatomical model display, icons for study, ethics, and asking permission, hopeful next-time learning mood, no readable text, no UI.
+
+### Narrative
+
+1. Medical & Physics School의 복도를 지나가는데, 어두운 게시판 앞 진열대에서 인체 모형 하나가 조용히 서 있다.
+2. 모형의 한쪽은 얼굴과 몸의 표면을, 다른 한쪽은 장기와 혈관의 색을 보여 준다.
+3. 옆에는 skull anatomy poster처럼 보이는 큰 해부학 도표와 오래된 트로피들이 함께 놓여 있다.
+4. 클립보드를 든 학생 가이드가 당신을 보고 안도의 숨을 쉰다.
+5. "신입생 투어를 돕고 있는데, 이 모형 앞에서 어디까지 설명해도 되는지 헷갈려."
+6. 그는 ANU에서 anatomy learning이 단순한 암기가 아니라 terminology, observation, 그리고 respect를 함께 배우는 일이라고 들었다고 한다.
+7. 안내 카드 한 장에는 human remains와 anatomy facility 접근이 허가된 사람에게만 열리며, dignity and respect가 가장 먼저라는 내용이 정리되어 있다.
+8. 다른 카드에는 anatomy and physiology practical에서 histology, anatomical specimens, and models of the human body를 다룬다는 문장이 보인다.
+9. 하지만 지금 당신 앞에 있는 것은 restricted specimen이 아니라, 모두가 볼 수 있는 teaching model이다.
+10. 학생 가이드는 조심스럽게 말한다. "이걸 보물처럼 만들려면, 신기함보다 먼저 태도를 보여 줘야 할 것 같아."
+11. 모형은 말이 없지만, 몸 안쪽의 질서와 배움의 예의를 동시에 가리키고 있다.
+
+### Choices
+
+#### A. "보이는 모형만 관찰하고, 존중과 접근 규칙부터 설명하자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 모형의 장기를 하나씩 맞히려 하기보다, 먼저 이 전시가 왜 조심스럽게 다뤄져야 하는지 설명한다.
+  2. 학생 가이드는 terminology, observation, respect를 세 단어로 정리해 투어 노트 맨 위에 적는다.
+  3. 지나가던 학생이 멈춰 서서 "그래서 anatomy가 외우는 과목만은 아니구나"라고 말한다.
+  4. 당신은 Anatomical Model을 발견했다. 오늘의 보물은 몸의 구조를 보는 눈과, 배움 앞에서 몸을 낮추는 태도다.
+
+#### B. "진짜 자료가 있는 안쪽 시설을 찾아보자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 복도 안쪽의 제한 구역 표지 쪽으로 걸음을 옮기지만, 곧 멈춰 선다.
+  2. 학생 가이드는 고개를 저으며 말한다. "거기는 authorised access가 필요한 곳이야. 오늘 우리가 볼 수 있는 건 이 teaching model까지야."
+  3. 호기심은 좋은 시작이지만, 이 보물은 허락된 경계 안에서 더 선명해진다.
+
+#### C. "먼저 정확한 용어와 설명 순서를 같이 정리하자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 당신은 학생 가이드와 함께 skull, torso, organ, model, respect 같은 기본 단어를 노트에 정리한다.
+  2. 그는 다음 투어 때는 모형을 더 차분히 설명할 수 있겠다며 웃는다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음에 이 모형을 볼 때 무엇을 먼저 말해야 하는지는 알게 되었다.
+
+## Southwest -- Aboriginal Land Management
+
+- **ID draft**: `southwest_aboriginal_land_management`
+- **Location ID**: `southwest`
+- **Treasure**: Aboriginal Land Management
+- **Evidence note**: ANU's Aboriginal and Torres Strait Islander Heritage Trail explores the historical significance of Acton campus and continuing culture and connection to Country. ANU says the trail was developed by ANU Heritage in partnership with Canberra region Representative Aboriginal Organisations and funded by ACT Heritage. The official trail page explains that Aboriginal people used creeks and rivers to navigate the landscape, and that a clearing near today's South Oval was maintained through periodic burning to promote new growth and attract kangaroos. The user-provided photos show an Aboriginal Land Management sign and nearby eucalyptus woodland; this event treats the sign and surrounding Country as a respectful learning encounter, not as a claim that the player can perform cultural land management.
+
+### Image Generation Manifest
+
+- **Batch group**: `southwest_aboriginal_land_management`
+- **Reference images**: user-provided sign and woodland photos; use only as visual inspiration for the angled interpretive sign, eucalyptus trees, dry grass, shrubs, bark textures, blue sky, and quiet trail atmosphere.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no sacred-site depiction, no ceremonial imagery, no invented Aboriginal symbols, no readable text, no logos, no tokenistic motifs, no UI overlay, no speech bubbles, no wildfire danger, no people performing cultural practices without context.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_aboriginal_land_management.png`
+- **Treasure image prompt**: 1:1 pixel-art collectible image of a respectful campus heritage trail marker beside eucalyptus leaves, dry grass, small stones, and a curled strip of bark, warm Australian woodland palette, gentle educational mood, centered readable object, no readable text, no logos, no invented Aboriginal motifs.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_aboriginal_land_management_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art ANU Southwest woodland path inspired by the provided photos, angled black interpretive sign in the foreground, dense green shrubs, eucalyptus trees, dry leaf litter, bright blue sky, two students pausing respectfully at the sign, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_aboriginal_land_management_investigation.png`
+    - **Show during**: Narrative 5-12 and choice display.
+    - **Prompt**: 16:9 pixel-art close study of a heritage trail sign and surrounding Country: eucalyptus bark, grass clearing, creek-path clue represented by a small map line, careful student notes with icon-like marks for water, fire, grass, and respect, no readable text, no logos, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_aboriginal_land_management_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene of students standing on the path and reading the Aboriginal land management sign carefully without stepping off trail, eucalyptus woodland opening around them, quiet learning and respect for Country, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_aboriginal_land_management_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art view of a student walking past the sign too quickly toward a shortcut, the woodland still beautiful but the interpretive sign left behind, gentle missed-learning mood, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_aboriginal_land_management_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art scene of students sitting near the path, not on sensitive ground, saving the ANU heritage trail route on a phone and sketching eucalyptus leaves and creek lines in a notebook, hopeful next-time learning mood, no readable text, no UI.
+
+### Narrative
+
+1. Southwest 쪽 길은 캠퍼스라기보다 잠깐 숲의 가장자리에 들어선 것처럼 조용하다.
+2. 키 큰 eucalyptus 사이로 햇빛이 잘게 부서지고, 낮은 관목 사이에 검은색 안내판 하나가 서 있다.
+3. 안내판의 제목은 Aboriginal Land Management다.
+4. 옆에서 사진을 찍던 학생이 휴대폰을 내리고 말한다. "처음엔 그냥 산책로인 줄 알았는데, 여기는 읽는 방법이 필요한 것 같아."
+5. 안내판은 이 풍경이 비어 있던 자연이 아니라, 오래 전부터 사람의 지식과 돌봄이 깃든 Country였음을 말해 준다.
+6. ANU Heritage Trail 설명에는 Acton campus가 Aboriginal and Torres Strait Islander history, continuing culture, and connection to Country를 품고 있다고 적혀 있다.
+7. 또 Sullivans Creek과 Molonglo로 이어지는 물길이 이동과 자원의 길이었고, 물은 사람과 동물을 함께 불러 모았다고 한다.
+8. 학생은 작은 노트에 water, grass, fire, kangaroo, respect를 적는다.
+9. South Oval 근처의 clearing이 periodic burning을 통해 새 풀을 돋게 하고 kangaroo를 끌어들이는 방식으로 관리되었다는 이야기도 이어진다.
+10. 하지만 이 지식은 플레이어가 따라 해 볼 기술이 아니라, 먼저 듣고, 인정하고, 조심히 걸어야 하는 안내다.
+11. 당신은 표지판, 나무껍질, 낮은 풀, 그리고 길의 방향을 함께 본다.
+12. 숲은 조용하지만, 아무 말도 하지 않는 것은 아니다.
+
+### Choices
+
+#### A. "표지판을 끝까지 읽고, 길 위에서 풍경의 단서를 같이 정리하자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 함께 안내판의 단서를 물길, 풀, 불, 동물, 존중이라는 순서로 정리한다.
+  2. 길 밖으로 들어가지 않고도, 풍경은 조금씩 다른 문장으로 읽히기 시작한다.
+  3. 학생은 "이제 여기가 그냥 숲처럼만 보이지 않아"라고 조용히 말한다.
+  4. 당신은 Aboriginal Land Management를 발견했다. 오늘의 보물은 땅을 소유하는 지식이 아니라, Country를 돌봄의 관계로 읽는 태도다.
+
+#### B. "사진은 찍었으니 이제 지름길로 가자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 안내판을 빠르게 지나쳐 더 짧아 보이는 길을 찾는다.
+  2. 나무와 바람은 여전히 아름답지만, 표지판이 열어 주려던 이야기의 순서는 뒤에 남는다.
+  3. 사진은 남았지만, 오늘의 장소가 왜 여기서 멈춰 서라고 했는지는 아직 읽지 못했다.
+
+#### C. "오늘은 여기까지만 읽고, ANU Heritage Trail을 다음 산책으로 저장하자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 당신은 학생과 함께 ANU Walks의 Heritage Trail 경로를 찾아 다음에 걸을 지점들을 표시한다.
+  2. 노트에는 creek, clearing, burning, Country라는 단어가 남는다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음번에는 이 길이 산책로가 아니라 질문으로 시작될 것이다.
+
+## Houses -- Canberra Traditional Bus Stop
+
+- **ID draft**: `houses_canberra_traditional_bus_stop`
+- **Location ID**: `houses`
+- **Treasure**: Canberra Traditional Bus Stop
+- **Evidence note**: ACT Government heritage material describes Canberra's pre-cast concrete bus shelters as distinctive objects of architectural, historical, and cultural significance across the ACT. The statement attributes the design to architect Clement Cummings, selected by the National Capital Development Commission in 1975, and notes their brutalist simplicity, modular construction, relocatable purpose, and strong Canberra identity. Transport Canberra's official bus guidance also tells passengers to find the stop ID, check timetables, arrive early, check the bus number, and signal the driver safely by raising an arm. The user-provided photo shows a concrete shelter with circular cut-outs, a Transport Canberra stop sign, and a bicycle-lane sign near the Houses node; this event treats the shelter as an everyday piece of Canberra design and public-transport literacy.
+
+### Image Generation Manifest
+
+- **Batch group**: `houses_canberra_traditional_bus_stop`
+- **Reference image**: user-provided concrete bus stop photo; use only as visual inspiration for the beige concrete shelter, round window/door shapes, roadside bus stop pole, bicycle-lane sign silhouette, spring trees, and residential campus edge.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no readable route numbers, no real ACT logo, no legible graffiti, no cars hitting road users, no unsafe road crossing, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_canberra_traditional_bus_stop.png`
+- **Treasure image prompt**: 1:1 pixel-art collectible image of a small Canberra-style pre-cast concrete bus shelter with rounded circular cut-outs, a tiny bus stop pole, a folded timetable card without readable text, green grass and spring trees behind, warm everyday-city mood, centered readable silhouette, no logos, no readable numbers.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_canberra_traditional_bus_stop_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art scene near ANU Houses, beige Canberra concrete bus shelter with round window cut-outs inspired by the provided photo, bus stop pole and bike-lane sign silhouette beside a quiet road, spring trees and residential buildings, two students noticing the shelter, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_canberra_traditional_bus_stop_investigation.png`
+    - **Show during**: Narrative 5-11 and choice display.
+    - **Prompt**: 16:9 pixel-art close study of the concrete bus shelter: rounded openings, weathered concrete texture, tiny timetable panel, stop ID plate shown as non-readable blocks, student notebook with icon clues for shelter design, stop ID, timetable, signal arm, safe kerb distance, no readable text, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_canberra_traditional_bus_stop_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene of two students waiting safely at a Canberra concrete bus shelter, one checking a phone timetable and the other raising an arm from a safe distance as a bus approaches in the background, calm public-transport confidence, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_canberra_traditional_bus_stop_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art scene of a student walking past the concrete shelter without checking the stop sign while a bus is already leaving in the distance, gentle missed-timing mood, safe footpath, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_canberra_traditional_bus_stop_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art scene of students sitting inside a Canberra concrete bus shelter, saving the stop ID and timetable on a phone, sketching the round shelter shape in a notebook, hopeful next-trip mood, soft spring light, no readable text, no UI.
+
+### Narrative
+
+1. Houses 근처의 조용한 길가에서, 둥근 구멍이 난 낮은 콘크리트 구조물이 햇빛을 받고 있다.
+2. 처음 보면 작은 벙커 같고, 두 번째로 보면 버스정류장이고, 세 번째로 보면 Canberra가 오래 들고 다닌 도시의 습관처럼 보인다.
+3. 정류장 기둥 옆에는 버스 표지와 timetable panel, 그리고 bike lane 표지가 함께 서 있다.
+4. 한 학생이 shelter 안쪽의 둥근 벽을 바라보다가 말한다. "이게 Canberra traditional bus stop이라는 거야?"
+5. 그는 막 이사 온 학생에게 버스 타는 법을 알려줘야 하는데, stop ID와 timetable을 어디서부터 설명해야 할지 모르겠다고 한다.
+6. ACT heritage 자료는 Canberra의 pre-cast concrete bus shelters가 ACT 전역에 남아 있는 독특한 도시 물건이며, Clement Cummings의 설계와 1975년 NCDC 선택을 통해 퍼졌다고 설명한다.
+7. 단순한 콘크리트, 둥근 opening, 옮겨 설치할 수 있는 modular form은 기능을 위해 만들어졌지만, 시간이 지나 Canberra의 얼굴이 되었다.
+8. Transport Canberra 안내는 stop ID를 찾고, timetable을 확인하고, 출발 5분 전쯤 도착하고, 접근하는 버스의 번호를 확인하라고 말한다.
+9. 버스가 오면 kerb에서 안전한 거리를 두고 팔을 들어 driver에게 signal해야 한다.
+10. 학생은 오래된 shelter와 새 phone timetable을 번갈아 본다. "건물은 옛날인데, 쓰는 법은 아직 살아 있네."
+11. 이 보물은 버스를 기다리는 기술이자, 도시가 매일 반복해서 자신을 가르치는 방식일지도 모른다.
+
+### Choices
+
+#### A. "stop ID, timetable, bus number, signal 순서로 같이 연습하자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 먼저 stop ID를 확인하고, 학생과 함께 phone timetable에서 다음 버스를 찾는다.
+  2. 버스가 가까워지자 둘은 번호를 확인하고, kerb에서 떨어진 자리에서 팔을 들어 signal한다.
+  3. shelter의 둥근 그림자가 발밑에 머무는 동안, 오래된 콘크리트 구조물은 아주 현재적인 사용법을 되찾는다.
+  4. 당신은 Canberra Traditional Bus Stop을 발견했다. 오늘의 보물은 정류장 자체가 아니라, 도시의 오래된 모양을 오늘의 이동으로 읽는 감각이다.
+
+#### B. "버스는 오면 그냥 타면 되지. 먼저 걸어가 보자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 stop ID도 timetable도 확인하지 않고 길을 따라 걷기 시작한다.
+  2. 뒤에서 버스가 잠깐 멈췄다가, 아무도 signal하지 않자 조용히 떠난다.
+  3. 길을 잃은 것은 아니지만, 이 도시의 작은 예절 하나는 다음 정류장으로 넘어갔다.
+
+#### C. "오늘은 타지 말고, 이 shelter 모양과 stop 정보를 기록해 두자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 phone에 stop ID와 timetable 확인법을 저장하고, 노트에는 둥근 opening이 있는 shelter 모양을 그린다.
+  2. 그는 "다음엔 버스가 오기 전에 이미 준비돼 있겠다"며 웃는다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음번에는 기다림이 막연하지 않을 것이다.
+
+## Houses -- Spiral Floor Tile (Chantale Delrue)
+
+- **ID draft**: `houses_spiral_floor_tile`
+- **Location ID**: `houses`
+- **Treasure**: Spiral Floor Tile
+- **Evidence note**: ANU Sculpture Walk material identifies Chantale Delrue's `Involution/evolution` as a 2002 unglazed ceramic tile mosaic, commissioned in 2002 on the grounds of the Centre for European Studies. The same source says Delrue was born in Belgium in 1951, arrived in Australia in 1974, trained in Belgium and Launceston, and works with public art and site-specific commissions. It describes the pavement mosaic as a strong focal point at the meeting area of three buildings, where a blue coil of sea bringing European creatures and plants folds into a native ochre circle representing Australia; the spiral's cyclical movement embodies continuity, energy, and change. This draft maps the encounter to the Houses node as a game location assignment, while keeping the official artwork facts tied to the ANU Sculpture Walk source and the user-provided photo.
+
+### Image Generation Manifest
+
+- **Batch group**: `houses_spiral_floor_tile`
+- **Reference image**: user-provided spiral tile mosaic photo; use only as visual inspiration for a circular pavement mosaic, spiral movement, ochre and blue tile fields, stylized animals and plants, brick rim, timber/deck edge, and sunny campus courtyard setting.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no exact reproduction of Chantale Delrue's mosaic, no artist-name text, no readable labels, no official logos, no photorealism, no people standing on delicate artwork, no vandalism, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_spiral_floor_tile.png`
+- **Treasure image prompt**: 1:1 original pixel-art collectible inspired by a circular ceramic floor mosaic, a clear spiral of blue and ochre tiles with simplified native leaves, sea-creature silhouettes, and tiny animal shapes arranged around a warm brick rim, centered readable object, sunny campus-courtyard mood, no exact copy of the real artwork, no readable text, no logos.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_spiral_floor_tile_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art ANU Houses courtyard scene inspired by the provided photo, circular spiral floor mosaic set into paving, blue and ochre tile fields, leafy garden edge, low campus buildings, one student noticing the artwork from the path, bright midday light, no exact reproduction, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_spiral_floor_tile_investigation.png`
+    - **Show during**: Narrative 5-11 and choice display.
+    - **Prompt**: 16:9 pixel-art close study of an original spiral pavement mosaic: blue coil, ochre circle, stylized plants, European sea-creature hints, Australian animal silhouettes, small non-readable sculpture-walk card, notebook icons for title, artist, meeting place, continuity, energy, change, respectful viewing from the edge, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_spiral_floor_tile_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene of two students tracing the spiral mosaic with their eyes from the edge of the pavement, not stepping on the artwork, sunlight revealing blue and ochre tile movement, campus buildings meeting around the courtyard, calm discovery mood, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_spiral_floor_tile_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art scene of a student hurrying across a courtyard path while the circular spiral mosaic remains partly cropped behind them, beautiful artwork overlooked, gentle missed-clue mood, safe campus walkway, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_houses_spiral_floor_tile_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art scene of students sitting near the circular mosaic edge, comparing a phone sculpture-walk map with a sketch of a spiral and animal/plant tile shapes in a notebook, hopeful next-visit mood, warm courtyard light, no readable text, no UI.
+
+### Narrative
+
+1. Houses 근처의 작은 courtyard를 지나가는데, 바닥이 갑자기 그림처럼 열려 있다.
+2. 둥근 tile mosaic 안에서 파란 선은 물결처럼 말려 들어가고, ochre 색의 원은 햇빛을 오래 품은 땅처럼 퍼져 있다.
+3. 잎, 동물, 바다 생물 같은 작은 형태들이 spiral을 따라 서로의 자리로 흘러간다.
+4. 한 학생이 가장자리에서 발을 멈추고 말한다. "이거 그냥 장식 타일이 아니지?"
+5. 그는 Sculpture Walk 자료를 들고 있지만, 작품 설명의 순서를 잃어버렸다.
+6. 카드에는 Chantale Delrue의 `Involution/evolution`, 2002, unglazed ceramic tile mosaic이라고 적혀 있다.
+7. 안내는 이 pavement mosaic이 세 건물이 만나는 지점의 focal point가 되도록 만들어졌다고 설명한다.
+8. blue coil of sea는 European creatures and plants를 데려오고, 그것이 native ochre circle, 즉 Australia의 원 안으로 접혀 들어간다.
+9. spiral의 cyclical movement는 continuity를 뜻하지만, 동시에 energy와 change가 지나는 통로이기도 하다.
+10. 학생은 mosaic을 내려다보며 말한다. "그러니까 이건 한 방향으로만 걷는 길이 아니라, 서로 다른 것들이 계속 돌아와 만나는 지도네."
+11. 바닥은 움직이지 않지만, 그 안의 선들은 캠퍼스의 발걸음보다 오래된 리듬으로 계속 돌고 있다.
+
+### Choices
+
+#### A. "가장자리에서 spiral을 따라 읽고, blue coil과 ochre circle의 만남을 정리하자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 함께 바닥을 밟지 않고 가장자리에서 spiral의 흐름을 눈으로 따라간다.
+  2. blue coil, European plants and creatures, native ochre circle, continuity, energy, change가 하나의 문장처럼 이어진다.
+  3. 학생은 "이제 이 바닥이 지나가는 길이 아니라, 만나는 장소로 보여"라고 말한다.
+  4. 당신은 Spiral Floor Tile을 발견했다. 오늘의 보물은 발밑의 장식이 아니라, 서로 다른 세계가 한 원 안에서 계속 움직이는 감각이다.
+
+#### B. "예쁜 타일이네. 지름길로 가면서 대충 보자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 mosaic을 한눈에 보고 길을 재촉한다.
+  2. 파란 선과 ochre 원은 잠깐 반짝였지만, 작품이 열어 주려던 연결의 순서는 뒤에 남는다.
+  3. 아무것도 망친 것은 아니지만, 오늘의 spiral은 아직 당신에게 돌아오지 않았다.
+
+#### C. "작품명과 artist name을 저장하고, 다음엔 Sculpture Walk 순서대로 찾아보자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 `Involution/evolution`, Chantale Delrue, 2002를 phone note에 저장한다.
+  2. 노트 한쪽에는 blue coil, ochre circle, continuity, change라는 단어가 작게 남는다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음번에는 바닥의 spiral이 어디서 시작되는지 알 수 있을 것이다.
+
+## Blocks -- Metal Frames Sculpture (Six fixed)
+
+- **ID draft**: `blocks_metal_frames_sculpture_six_fixed`
+- **Location ID**: `blocks`
+- **Treasure**: Metal Frames Sculpture
+- **Evidence note**: ANU Sculpture Walk material identifies Angela Dufty's `Six fixed` as a 2004 painted steel sculpture, commissioned in 2003 for the Chemistry Building grounds on Science Road. The same source says Dufty is a graduate of the ANU School of Art and was Artist in Residence at the Sculpture Workshop in 2003. It describes her sculptures as inspired by geometric forms in architecture and other built structures; their linearity and openness can feel like drawings in space, while regular intervals, right angles, and shifting light and shadow make the work read like a playful optical illusion. This draft maps the encounter to the Blocks node as a game location assignment, while keeping official artwork facts tied to the ANU Sculpture Walk source and the user-provided photo.
+
+### Image Generation Manifest
+
+- **Batch group**: `blocks_metal_frames_sculpture_six_fixed`
+- **Reference image**: user-provided metal frame sculpture photo; use only as visual inspiration for tilted painted-steel rectangular frames, open linear geometry, eucalypt backdrop, rock bed, grass, blue sky, and shifting shadows.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no exact reproduction of Angela Dufty's sculpture, no readable labels, no official logos, no climbing, no touching the artwork, no unsafe interaction, no photorealism, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_metal_frames_sculpture.png`
+- **Treasure image prompt**: 1:1 original pixel-art collectible inspired by a painted-steel public sculpture made of six tilted rectangular metal frames, open right-angle geometry, small rocks and grass at the base, eucalyptus leaves behind, strong light-and-shadow pattern, centered readable silhouette, no exact copy, no readable text, no logos.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_blocks_metal_frames_sculpture_six_fixed_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art ANU Blocks green space inspired by the provided photo, tilted painted-steel rectangular frame sculpture near eucalyptus trees, grass and small rock bed, blue sky with soft clouds, one student stopping at a strange angle, no exact reproduction, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_blocks_metal_frames_sculpture_six_fixed_investigation.png`
+    - **Show during**: Narrative 5-11 and choice display.
+    - **Prompt**: 16:9 pixel-art close study of an original open metal-frame sculpture, six nested rectangular frames, right angles, repeated intervals, shadows falling across grass and rocks, student notebook icons for artist, painted steel, architecture, drawing in space, optical illusion, respectful distance, no readable text, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_blocks_metal_frames_sculpture_six_fixed_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene of two students viewing an open metal-frame sculpture from a respectful distance, moving around the path to align the frames with tree branches and shadows, playful optical illusion feeling, warm campus light, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_blocks_metal_frames_sculpture_six_fixed_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art scene of a student walking straight past the tilted metal frames while the shadows form a hidden geometric pattern behind them, gentle missed-clue mood, safe grass path, eucalyptus backdrop, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_blocks_metal_frames_sculpture_six_fixed_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art scene of students sketching six rectangular frames and shadow lines in a notebook beside a campus path, phone sculpture-walk map shown as non-readable blocks, metal sculpture in background, hopeful next-visit mood, no readable text, no UI.
+
+### Narrative
+
+1. Blocks 근처 잔디밭에서, 금속으로 된 직사각형들이 한쪽으로 기울어진 채 나무 사이에 걸려 있다.
+2. 처음에는 무너진 울타리처럼 보이지만, 가까이서 보면 선들이 너무 정확해서 오히려 공중에 그린 도면 같다.
+3. 햇빛이 바뀔 때마다 steel bars의 그림자는 잔디와 돌 위에 또 다른 frame을 만든다.
+4. 한 학생이 조형물 앞에서 눈을 가늘게 뜬다. "이건 어디서 봐야 제대로 보이는 거야?"
+5. 그는 Sculpture Walk 자료에서 Angela Dufty의 `Six fixed`를 찾았지만, 설명의 핵심을 아직 붙잡지 못했다.
+6. 자료에는 이 작품이 2004년 painted steel sculpture이고, 2003년에 Chemistry Building grounds, Science Road를 위해 commissioned되었다고 적혀 있다.
+7. Dufty는 ANU School of Art graduate이며, 2003년에 Sculpture Workshop의 Artist in Residence였다.
+8. 설명은 그녀의 sculpture가 built environment의 architectural geometry에서 영감을 받았다고 말한다.
+9. open lines와 right angles는 공중에 그린 drawing처럼 보이고, regular intervals는 질서를 만든다.
+10. 그런데 빛과 그림자가 bars 위에서 엇갈리면, 그 질서는 장난스러운 optical illusion처럼 흔들린다.
+11. 학생은 한 발 뒤로 물러서며 말한다. "정답 위치가 있는 게 아니라, 움직일수록 작품이 새로 고정되는 거네."
+
+### Choices
+
+#### A. "조형물은 건드리지 말고, 가장자리에서 각도와 그림자를 같이 맞춰 보자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 함께 path 위에서 천천히 위치를 바꾸며 six frames가 겹치는 순간을 찾는다.
+  2. bars, right angles, tree branches, shadows가 한 장의 공중 drawing처럼 맞물린다.
+  3. 학생은 "fixed라는 말이 이상하네. 움직이는 건 우리인데, 작품이 계속 새로 고정돼"라고 웃는다.
+  4. 당신은 Metal Frames Sculpture를 발견했다. 오늘의 보물은 철의 무게가 아니라, 빛이 선을 흔들 때 공간이 살아나는 순간이다.
+
+#### B. "그냥 철제 구조물이네. 가까이 가서 만져 보면 알겠지."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 조형물 쪽으로 너무 가까이 다가가려다, 학생의 손짓에 멈춘다.
+  2. 공공 조형물은 만지는 물건이 아니라, 거리와 각도를 두고 읽는 물건일 때가 있다.
+  3. 오늘의 frame은 아직 열리지 않았지만, 다음에는 그림자부터 보면 될 것 같다.
+
+#### C. "작품명과 artist note를 저장하고, 다른 시간대의 그림자를 다시 보자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 `Six fixed`, Angela Dufty, painted steel, optical illusion을 phone note에 저장한다.
+  2. 노트 한쪽에는 여섯 개의 frame과 오후 그림자 방향이 간단한 선으로 남는다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음번에는 빛이 바뀌는 순간을 기다릴 이유가 생겼다.
+
+## Southwest -- Winged harvest
+
+- **ID draft**: `southwest_winged_harvest`
+- **Location ID**: `southwest`
+- **Treasure**: Winged harvest
+- **Evidence note**: ANU Sculpture Walk material identifies Fiona Foley's `Winged harvest` as a 2001 work made from wood, aluminium, ochre, and stainless steel, commissioned in 2000 for the WEH Stanner Building courtyard. The same source says Foley studied at Sydney College of the Arts, East Sydney Technical College, and in London, won the Lloyd Rees Award for Outstanding Urban Design in 1995, and has work in major Australian collections. For this work, the source says Foley chose materials and imagery meaningful for the Indigenous inhabitants of the ACT: the poles contain historical recordings of Bogong moth collection and ceremony or ochre pit sites around Canberra; the seven wooden poles use traditional pigments, Bogong moth decoration, and notching to recall climbing techniques; the surrounding plantings are part of the installation. This draft maps the encounter to the Southwest node as a game location assignment, while keeping official artwork facts tied to the ANU Sculpture Walk source and avoiding invented cultural detail.
+
+### Image Generation Manifest
+
+- **Batch group**: `southwest_winged_harvest`
+- **Reference image**: user-provided ANU Sculpture Walk page for `Winged harvest`; use only as visual inspiration for seven tall vertical poles in a courtyard, pale wood forms, ochre accents, stainless/aluminium details, eucalyptus tree canopy, surrounding plantings, and respectful campus-art atmosphere.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no exact reproduction of Fiona Foley's artwork, no sacred or ceremonial reenactment, no invented Indigenous symbols, no people touching or climbing poles, no readable labels, no official logos, no photorealism, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_winged_harvest.png`
+- **Treasure image prompt**: 1:1 original pixel-art collectible inspired by a respectful public artwork of seven upright wooden poles with subtle ochre bands, tiny abstract Bogong moth wing shapes, aluminium and stainless steel glints, eucalyptus leaves and low plantings behind, centered readable silhouette, no exact copy, no sacred motifs, no readable text, no logos.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_winged_harvest_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art Southwest campus courtyard inspired by the ANU Sculpture Walk page, seven tall pale wooden poles around a eucalyptus tree, low surrounding plantings, ochre accents, evening-gold windows in the background, two students pausing at the edge of the installation, respectful quiet mood, no exact reproduction, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_winged_harvest_investigation.png`
+    - **Show during**: Narrative 5-12 and choice display.
+    - **Prompt**: 16:9 pixel-art close study of an original seven-pole courtyard installation, wood grain, ochre bands, abstract moth-wing marks, notched pole surfaces, plantings at the base, student notebook icons for seven poles, Bogong moth, ochre, plantings, respect, and historical recording, no readable text, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_winged_harvest_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene of two students standing respectfully outside a seven-pole installation, reading from a sculpture-walk note and observing plantings without touching, moth-wing silhouettes suggested by light between poles, eucalyptus courtyard, calm learning mood, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_winged_harvest_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art scene of a student about to step too close to a public artwork of seven poles, another student gently indicating the viewing edge, installation remains dignified in background, missed-reading mood without danger, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_southwest_winged_harvest_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art scene of students sitting nearby with a phone sculpture-walk map and notebook, sketching seven vertical lines, moth-wing shapes, ochre color swatches, and plantings as non-readable icons, WEH Stanner courtyard mood, hopeful next-visit feeling, no readable text, no UI.
+
+### Narrative
+
+1. Southwest 쪽 courtyard에 들어서자, 나무 사이로 일곱 개의 긴 poles가 조용히 서 있다.
+2. 어떤 것은 창백한 줄기처럼 보이고, 어떤 것은 ochre 빛을 품은 표식처럼 보인다.
+3. 주변 plantings는 장식처럼 바닥을 채우는 것이 아니라, 작품의 바깥 문장처럼 poles를 감싸고 있다.
+4. Sculpture Walk 안내를 들고 있던 학생이 낮게 말한다. "이건 그냥 설치물이 아니라, 조심히 읽어야 하는 기록 같아."
+5. 그는 Fiona Foley의 `Winged harvest` 페이지를 펼치지만, 어느 단서부터 말해야 할지 망설인다.
+6. 안내에는 이 작품이 2001년에 완성된 wood, aluminium, ochre and stainless steel work이며, 2000년에 WEH Stanner Building courtyard를 위해 commissioned되었다고 적혀 있다.
+7. Foley는 이 작품에서 ACT의 Indigenous inhabitants에게 의미 있는 materials and imagery를 선택했다.
+8. poles는 Canberra 주변의 Bogong moth collection, ceremony sites, ochre pit sites에 관한 historical recordings를 품고 있다고 설명된다.
+9. 일곱 wooden poles에는 traditional pigments, Bogong moth decoration, 그리고 climbing techniques를 떠올리게 하는 notching이 포함되어 있다.
+10. 학생은 손을 뻗으려다 멈춘다. "만져서 아는 게 아니라, 남겨진 방식 그대로 봐야 하는 거지?"
+11. 바람이 eucalyptus 잎을 흔들자, poles 사이의 빛이 잠깐 날개처럼 갈라진다.
+12. 작품은 크게 말하지 않는다. 대신, harvest라는 단어가 땅과 기억과 이동의 무게를 천천히 드러낸다.
+
+### Choices
+
+#### A. "작품을 만지지 말고, 일곱 poles와 plantings를 차례로 읽어 보자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 함께 가장자리에서 일곱 poles, ochre, moth imagery, notching, surrounding plantings를 순서대로 확인한다.
+  2. 작품은 조형물 하나가 아니라, material, memory, place가 함께 세운 courtyard의 기록으로 보이기 시작한다.
+  3. 학생은 "이제 harvest가 가져가는 말이 아니라, 기억을 다시 모으는 말처럼 들려"라고 조용히 말한다.
+  4. 당신은 Winged harvest를 발견했다. 오늘의 보물은 보는 사람이 중심이 되는 순간이 아니라, 작품이 가리키는 Country와 history 앞에서 한 걸음 물러서는 태도다.
+
+#### B. "가까이 가서 notch와 장식을 직접 만져 보면 더 잘 알 수 있겠지."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신이 한 발 가까이 다가가자, 학생이 조심스럽게 고개를 젓는다.
+  2. 이 작품의 단서는 손끝보다 거리, 설명, 그리고 존중 안에서 더 분명해진다.
+  3. 오늘의 poles는 아직 열리지 않았지만, 다음에는 먼저 가장자리에서 읽어야 한다는 것을 알게 되었다.
+
+#### C. "작품명과 단어들을 저장하고, 다음엔 Sculpture Walk route로 다시 오자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 `Winged harvest`, Fiona Foley, Bogong moth, ochre, seven poles, surrounding plantings를 phone note에 저장한다.
+  2. 노트에는 손대지 않기, 흉내 내지 않기, 설명을 끝까지 읽기라는 세 문장이 함께 남는다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음번에는 이 courtyard가 더 천천히 말을 걸 것이다.
+
+## Central -- Dragon Art Installation
+
+- **ID draft**: `central_dragon_art_installation`
+- **Location ID**: `central`
+- **Treasure**: Dragon Art Installation
+- **Evidence note**: The user-provided photo shows a suspended dragon art installation inside an ANU-like atrium with stairs, railings, doors, wall lights, and a hanging sculptural form. No official ANU source confirming the installation's title, artist, or permanent location was found in this pass, so this draft does not state those as official facts. For cultural context, ANU College of Asia & the Pacific material explains that Lunar New Year is widely celebrated across Asian cultures, that 2024 was the Year of the Wood Dragon, that the Chinese dragon is the only mythical creature in the 12 zodiac signs, and that it is associated with water, clouds, rain-making power, prosperity, auspiciousness, and change rather than Western fire-breathing danger. ANU Orientation also lists an ANUSA Lunar New Year Celebration at the Kambri Amphitheatre with a traditional dragon dance and student performances. The Australian Centre on China in the World is an ANU hub for Chinese studies; this event uses that broader ANU learning context without claiming the pictured dragon belongs to CIW.
+
+### Image Generation Manifest
+
+- **Batch group**: `central_dragon_art_installation`
+- **Reference image**: user-provided indoor dragon installation photo; use only as visual inspiration for a suspended paper/fabric dragon, yellow body, green mane, red nose, white horns, atrium stairs, dark railings, warm wall lights, and a central-campus interior.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no exact reproduction of the photo, no readable emergency signs, no real logos, no fire-breathing Western dragon, no horror mood, no cultural caricature, no people climbing railings, no unsafe interaction, no photorealism, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_dragon_art_installation.png`
+- **Treasure image prompt**: 1:1 original pixel-art collectible inspired by a suspended festive dragon art installation, yellow paper/fabric body, green mane, white horns, red nose, tiny hanging strings, warm atrium lights and staircase shapes behind, centered readable silhouette, auspicious and welcoming mood, no exact copy, no readable text, no logos.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_central_dragon_art_installation_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art Central campus atrium inspired by the provided photo, suspended yellow and green dragon art installation above stairs and dark railings, soft wall lights, modern doors, a student pausing below and looking upward, festive but calm atmosphere, no exact reproduction, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_central_dragon_art_installation_investigation.png`
+    - **Show during**: Narrative 5-12 and choice display.
+    - **Prompt**: 16:9 pixel-art close study of an original suspended dragon installation: paper/fabric scales, green mane, red nose, white horns, hanging cords, student notebook icons for Lunar New Year, water, clouds, rain, prosperity, dragon dance, and central campus, respectful viewing from the stair landing, no readable text, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_central_dragon_art_installation_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene of students standing safely on an atrium landing, looking up at a suspended festive dragon while one student explains water, clouds, rain-making, prosperity, and Lunar New Year connection with small non-readable icon notes, warm welcoming campus light, no exact copy, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_central_dragon_art_installation_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art scene of a student hurrying down central atrium stairs while the suspended dragon remains above, partly cropped by the frame, warm lights and rails, gentle missed-clue mood, no unsafe behavior, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_central_dragon_art_installation_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art scene of students near a central atrium noticeboard saving Lunar New Year and ANUSA event notes on a phone, sketching a small dragon silhouette with cloud and water icons in a notebook, suspended dragon visible softly above stairs, hopeful next-event mood, no readable text, no UI.
+
+### Narrative
+
+1. Central의 실내 계단을 올라가려는 순간, 천장 쪽에서 노란 몸체가 부드럽게 휘어져 내려온다.
+2. 초록 갈기와 흰 뿔, 빨간 코를 가진 dragon installation이 공중에 매달려 있다.
+3. 벽 조명은 비늘처럼 작은 점들을 반짝이게 만들고, 검은 railings는 dragon의 그림자를 계단 위에 얇게 나눈다.
+4. 한 학생이 고개를 들고 말한다. "무서운 용이라기보다, 뭔가 축제의 길잡이 같아."
+5. 그는 Lunar New Year 행사를 찾고 있었지만, dragon이 왜 이렇게 자주 등장하는지 설명할 자신이 없다고 한다.
+6. ANU College of Asia & the Pacific 자료는 Lunar New Year가 여러 Asian cultures에서 기념되는 festival이며, Chinese lunisolar calendar와 zodiac animals의 흐름 속에 있다고 설명한다.
+7. 그 자료에서 Chinese dragon은 12 zodiac signs 중 유일한 mythical creature로 소개된다.
+8. ANU experts는 Chinese dragon이 Western legends의 fire-breathing danger와 달리 water bodies, clouds, rain-making power와 연결되고, prosperity와 auspiciousness의 상징으로 여겨진다고 설명한다.
+9. ANU Orientation에는 Kambri Amphitheatre의 ANUSA Lunar New Year Celebration이 traditional dragon dance와 student performances를 포함한다고 안내되어 있다.
+10. 학생은 installation을 올려다본다. "그러면 이 dragon은 겁주는 괴물이 아니라, 사람들이 새해와 변화를 함께 바라보게 하는 모양이네."
+11. 사진으로만 남기면 색이 먼저 보이지만, 설명을 붙이면 물, 구름, 춤, 축제, 행운이 한 줄로 이어진다.
+12. 공중의 dragon은 계단을 막지 않는다. 오히려 Central을 지나가는 사람들에게 잠깐 위를 보라고 말하는 것 같다.
+
+### Choices
+
+#### A. "설치물은 건드리지 말고, dragon의 문화적 단서를 함께 정리하자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 함께 dragon, Lunar New Year, water, clouds, rain-making, prosperity, student performances를 차례로 정리한다.
+  2. dragon은 갑자기 낯선 장식이 아니라, 사람들이 같은 계단 아래에서 계절과 변화를 나누는 상징처럼 보인다.
+  3. 학생은 "위에 매달린 게 아니라, 캠퍼스 분위기를 살짝 들어 올리고 있었네"라고 웃는다.
+  4. 당신은 Dragon Art Installation을 발견했다. 오늘의 보물은 화려한 색이 아니라, 다른 문화의 상징을 질문하고 배워 보려는 밝은 시선이다.
+
+#### B. "멋있다. 사진만 찍고 바로 내려가자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 빠르게 사진을 찍고 계단을 내려간다.
+  2. dragon의 노란 몸체와 초록 갈기는 사진 속에 남았지만, 물과 구름과 축제의 단서는 공중에 그대로 매달려 있다.
+  3. 나쁜 선택은 아니지만, 오늘의 dragon은 아직 장식 이상의 이름을 얻지 못했다.
+
+#### C. "Lunar New Year event와 CIW/Chinese studies 자료를 저장해 두자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 phone note에 ANUSA Lunar New Year Celebration, dragon dance, Chinese dragon, water, prosperity를 저장한다.
+  2. 그는 다음번에는 공연이나 전시 안내까지 같이 확인해 보겠다고 말한다.
+  3. 아직 보물을 발견한 것은 아니지만, Central을 지날 때 위를 올려다볼 이유가 생겼다.
+
+## Fellows Oval -- Game On
+
+- **ID draft**: `fellows_oval_game_on`
+- **Location ID**: `fellows_oval`
+- **Treasure**: Game On
+- **Evidence note**: Kambri at ANU describes Game On as a free games arcade in Joplin Lane, Shop 156-B6, featuring pinball and arcade machines, air hockey, ping pong, and more. The page says it is free for ANU students, staff, and visitors, presented by Kambri at ANU, and surrounded by specially commissioned large-scale artworks by current and former ANU School of Art & Design students. ANU's self-guided campus tour also lists Joplin Lane businesses and services, including Game On as a free games arcade. The user-provided photo shows the Game On window and Joplin Lane frontage; this draft maps the encounter to Fellows Oval as a post-oval student route toward Joplin Lane, not as a claim that Game On is physically on Fellows Oval.
+
+### Image Generation Manifest
+
+- **Batch group**: `fellows_oval_game_on`
+- **Reference image**: user-provided Game On storefront photo; use only as visual inspiration for a Joplin Lane wooden facade, large window glow, lightning-sign shape, open doorway, posters inside, and arcade/social hangout mood.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no exact storefront reproduction, no readable signs or route numbers, no real logos, no gambling/casino imagery, no aggressive competition, no unsafe street behavior, no photorealism, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_game_on.png`
+- **Treasure image prompt**: 1:1 original pixel-art collectible inspired by a free campus arcade hangout, tiny pinball machine, air hockey puck, ping pong paddle, arcade joystick, and lightning-shaped window glow, warm Joplin Lane wood tones, centered playful object cluster, no readable text, no logos, no exact copy.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_fellows_oval_game_on_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art route from Fellows Oval toward Joplin Lane, sweaty students carrying sports gear, wooden storefront with glowing arcade window in the distance, lightning-like sign shape without readable text, open doorway, relaxed after-game mood, no exact reproduction, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_fellows_oval_game_on_investigation.png`
+    - **Show during**: Narrative 5-11 and choice display.
+    - **Prompt**: 16:9 pixel-art close view inside a free campus arcade hangout: pinball, arcade cabinet silhouettes, air hockey table, ping pong table, large student-made wall art, notebook icons for free entry, Joplin Lane, SOAD art, share turns, and relax, no readable text, no logos, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_fellows_oval_game_on_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art students from Fellows Oval sharing turns at arcade machines and air hockey, one student admiring large wall art, friendly low-stakes competition, warm indoor glow, Joplin Lane doorway behind, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_fellows_oval_game_on_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art student focused only on a high-score arcade screen while friends drift toward ping pong and wall art, gentle missed-social-clue mood, no readable numbers, no logos, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_fellows_oval_game_on_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art students outside a Joplin Lane arcade storefront saving opening hours and location on a phone, sports bag on the ground, arcade glow through the window, hopeful return-later mood, no readable text, no UI.
+
+### Narrative
+
+1. Fellows Oval에서 공을 차고 난 뒤, 한 학생이 신발 끈을 풀며 말한다. "오늘은 몸으로 뛰었으니까, 이제 손가락으로 뛰는 게임 어때?"
+2. 누군가 Joplin Lane 쪽을 가리킨다. 창문 너머로 번개 모양의 빛과 어두운 arcade silhouette가 보인다.
+3. 문 안쪽에는 pinball, arcade machines, air hockey, ping pong 같은 것들이 낮은 전기음처럼 서로 다른 리듬을 낸다.
+4. 운동장에서 같은 팀이던 학생이 멋쩍게 웃는다. "근데 여기서도 이기려고만 하면 재미없겠지?"
+5. Kambri at ANU 안내는 Game On을 Joplin Lane, Shop 156-B6의 free games arcade라고 소개한다.
+6. ANU students, staff, and visitors가 무료로 들어와 게임하고, 쉬고, socialise할 수 있는 공간이라고 되어 있다.
+7. 벽에는 ANU School of Art & Design 학생들의 large-scale artworks가 공간의 분위기를 더 밝게 만든다.
+8. arcade cabinet의 불빛은 운동장의 scoreboard와 다르다. 여기서는 점수가 아니라 누구와 웃었는지가 더 오래 남는다.
+9. 학생은 air hockey table과 wall art를 번갈아 보며 말한다. "이건 경기장이 아니라, 경기 후에 팀이 풀리는 장소네."
+10. 당신은 아직 손에 땀이 남은 채 joystick 앞에 선다.
+11. Game On이라는 말은 승부의 시작이 아니라, 하루의 긴장을 낮추는 신호처럼 들린다.
+
+### Choices
+
+#### A. "한 판씩 돌아가면서 하고, artwork도 같이 둘러보자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 air hockey를 한 판 하고, 다음 사람에게 자리를 넘긴다.
+  2. 누군가는 pinball을 하고, 누군가는 SOAD artwork 앞에서 좋아하는 색을 고른다.
+  3. 운동장에서 이어진 팀의 박자는 경쟁보다 가벼운 웃음으로 바뀐다.
+  4. 당신은 Game On을 발견했다. 오늘의 보물은 이기는 화면이 아니라, 같이 놀아도 된다는 캠퍼스의 허락이다.
+
+#### B. "좋아, 최고 점수부터 깨고 올게."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 한 기계 앞에서 점수만 보고 집중한다.
+  2. 친구들은 ping pong table과 artwork 쪽으로 흩어지고, 공간의 절반은 조용히 지나간다.
+  3. 실력이 나쁜 것은 아니지만, 오늘의 Game On은 점수판보다 사람 사이에 숨어 있었다.
+
+#### C. "오늘은 시간이 애매하니, Joplin Lane 위치와 opening hours를 저장하자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 phone에 Joplin Lane과 Game On 위치를 저장한다.
+  2. 그는 다음 운동 끝나고는 바로 여기서 팀을 풀자고 말한다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음번에는 경기 뒤의 웃음이 갈 곳을 알고 있다.
+
+## Art & Music -- Cafe on 4th Floor
+
+- **ID draft**: `art_and_music_cafe_on_4th_floor`
+- **Location ID**: `art_and_music`
+- **Treasure**: Cafe on 4th Floor
+- **Evidence note**: The user-provided photo shows an upper-floor cafe/lounge environment in an ANU music-building context, with tables, windows, posters, beverage fridges, a milk bar cabinet, and students studying or talking. Official ANU School of Music visitor information says the School of Music Main Building houses a cafe on the 5th floor and has lift access to floors 4, 5, and 6. Because official material names the cafe as 5th-floor rather than 4th-floor, this draft treats "Cafe on 4th Floor" as the game treasure label/nickname from the supplied prompt while describing the setting as an upper-floor School of Music cafe without asserting the floor number as an official fact.
+
+### Image Generation Manifest
+
+- **Batch group**: `art_and_music_cafe_on_4th_floor`
+- **Reference image**: user-provided cafe photo; use only as visual inspiration for an upper-level music-school cafe, long windows, concrete ceiling, exposed dark ducting, warm tube lights, posters, small round tables, milk bar cabinet, beverage fridge, and students with laptops.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no readable poster text, no real logos, no exact cafe reproduction, no identifiable real faces, no messy food waste, no alcohol focus, no photorealism, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_cafe_on_4th_floor.png`
+- **Treasure image prompt**: 1:1 original pixel-art collectible of an upper-floor music-school cafe table with a coffee cup, small pastry, folded concert program, tiny treble-clef doodle, window light, and poster-covered wall shapes behind, warm study-break mood, centered object, no readable text, no logos.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_art_and_music_cafe_on_4th_floor_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art upper-floor ANU music-school cafe inspired by the provided photo, long windows, concrete ceiling, dark duct, tube lights, small tables, poster wall, students with laptops, quiet creative break mood, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_art_and_music_cafe_on_4th_floor_investigation.png`
+    - **Show during**: Narrative 5-11 and choice display.
+    - **Prompt**: 16:9 pixel-art close view of a music-school cafe study table with coffee, notebook, concert calendar icons, lift/floor icon blocks, practice-room key shape, milk bar cabinet in background, students quietly planning a lunchtime concert, no readable text, no logos, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_art_and_music_cafe_on_4th_floor_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art students sharing a cafe table after rehearsal, one quietly marking a concert calendar, another resting beside an instrument case, warm window light and poster wall, respectful music-school cafe atmosphere, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_art_and_music_cafe_on_4th_floor_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art student rushing past a calm upper-floor cafe toward stairs while coffee steam and poster lights remain behind, gentle missed-break mood, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_art_and_music_cafe_on_4th_floor_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art students near an upper-floor cafe window saving the School of Music cafe and concert calendar on a phone, notebook with music-note icons, instrument case beside table, hopeful return-later mood, no readable text, no UI.
+
+### Narrative
+
+1. Art & Music 건물 안쪽에서 계단을 오르자, 커피 냄새와 포스터의 색이 먼저 올라온다.
+2. 긴 창가에는 노트북을 펴 둔 학생들이 앉아 있고, 천장의 tube lights는 악보의 긴 마디처럼 이어진다.
+3. 누군가는 이곳을 4th floor cafe라고 부르지만, School of Music 안내는 main building의 cafe와 upper floors access를 함께 알려 준다.
+4. 악기 케이스를 든 학생이 테이블 사이에서 멈춰 선다. "연습실과 공연장 사이에 숨 쉴 곳을 찾고 있었어."
+5. School of Music 자료는 main building이 Llewellyn Hall, Larry Sitsky Recital Room, recording studio, teaching studios, practice rooms, 그리고 cafe를 품고 있다고 설명한다.
+6. 또 lift access가 floors 4, 5, and 6까지 이어진다고 되어 있다.
+7. 벽의 포스터들은 이 공간이 rehearsal, lecture, performance 사이를 오가는 학생들의 중간 기착지임을 보여 준다.
+8. 학생은 포스터와 창밖을 번갈아 본다. "여긴 밥 먹는 곳이라기보다, rehearsal과 performance 사이의 쉼표 같아."
+9. 주변 테이블에서는 누군가 악보를 접고, 누군가는 다음 concert 시간을 조용히 캘린더에 옮긴다.
+10. 카페는 큰 무대가 아니지만, 무대로 가기 전 마음을 조율하는 작은 대기실처럼 느껴진다.
+11. 당신은 빈 테이블 하나와 벽의 event poster, 그리고 막 식어 가는 커피 향 사이에서 선택해야 한다.
+
+### Choices
+
+#### A. "조용히 앉아서 concert calendar를 확인하고, 같이 쉬어 가자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 창가 테이블에 앉아 다음 lunchtime concert와 practice break 시간을 맞춰 본다.
+  2. 악기 케이스는 의자 옆에 놓이고, 커피 한 모금 사이로 긴장이 조금 풀린다.
+  3. 학생은 "무대 밖에도 음악이 이어지는 곳이 있었네"라고 말한다.
+  4. 당신은 Cafe on 4th Floor를 발견했다. 오늘의 보물은 커피가 아니라, 연습과 공연 사이에 숨을 고르는 자리다.
+
+#### B. "카페니까 크게 떠들어도 괜찮겠지."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신이 목소리를 높이려 하자, 옆 테이블의 학생이 악보 위에 손을 얹고 잠깐 고개를 든다.
+  2. 이곳은 쉬는 공간이지만, 동시에 누군가의 rehearsal 전 집중이 머무는 곳이다.
+  3. 오늘의 카페는 놓쳤지만, 다음번에는 이 조용한 박자를 먼저 들으면 된다.
+
+#### C. "오늘은 위치와 concert dates만 저장하고, 리허설 끝나고 오자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 School of Music cafe와 concerts calendar를 phone에 저장한다.
+  2. 그는 rehearsal이 끝난 뒤 여기서 다시 만나자고 말한다.
+  3. 아직 보물을 발견한 것은 아니지만, 다음번에는 숨을 고를 테이블을 알고 있다.
+
+## Copland -- Event Notice Board
+
+- **ID draft**: `copland_event_notice_board`
+- **Location ID**: `copland`
+- **Treasure**: Event Notice Board
+- **Evidence note**: ANU Maps identifies Copland Building at 24 Kingsley Place and lists teaching, research, accessibility, and room locations inside the building. ANU's Poster Policy says posters and notices should be displayed in appropriate designated locations, with internal noticeboards available for approved poster placement; it frames noticeboards as supporting communication and engagement within the ANU community. The Functions on Campus page says functions include staff, student, or external organised social, cultural, fundraising, or sporting events, and that the process also covers placement of posters and promotional material around campus. The user-provided photo shows crowded Copland noticeboards; this draft treats the board as a campus-information encounter and does not endorse or reproduce any specific poster content.
+
+### Image Generation Manifest
+
+- **Batch group**: `copland_event_notice_board`
+- **Reference image**: user-provided notice board photo; use only as visual inspiration for dense layered posters on brown boards against brick walls, torn paper corners, QR-like blocks without readable codes, event colors, and campus corridor texture.
+- **Generation order**: generate all prompts in this event group independently; save final outputs to the listed paths before JSON integration.
+- **Shared negative prompt**: no readable political slogans, no real QR codes, no real people names, no logos, no hateful or explicit content, no tearing down posters, no vandalism emphasis, no photorealism, no UI overlay, no speech bubbles, no watermark.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_event_notice_board.png`
+- **Treasure image prompt**: 1:1 original pixel-art collectible of a campus event notice board with colorful layered flyers, small calendar pins, tape corners, and non-readable QR-like squares, brick wall background, lively student-community mood, centered board silhouette, no readable text, no logos.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_copland_event_notice_board_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art Copland corridor exterior with brick wall and crowded brown notice boards full of colorful non-readable posters, two students stopping in front of the board, afternoon campus light, lively but organized information mood, no readable text, no UI.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_copland_event_notice_board_investigation.png`
+    - **Show during**: Narrative 5-12 and choice display.
+    - **Prompt**: 16:9 pixel-art close study of a campus notice board: layered flyers, tape, calendar icons, room-number icon blocks, category marks for talks, clubs, music, volunteering, support, student elections, student notebook sorting dates and locations, no readable text, no real QR codes, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_copland_event_notice_board_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art students respectfully reading a crowded Copland notice board, pointing to date and location icons without touching posters, one saving a verified event to a phone calendar, bright campus-community feeling, no readable text, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_copland_event_notice_board_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art student overwhelmed by too many colorful flyers and walking away from Copland notice boards, posters still layered behind, gentle missed-opportunity mood, no readable text, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_copland_event_notice_board_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art students photographing a crowded notice board from a respectful distance and making a phone reminder to check event details later, brick wall, colorful flyer blocks, hopeful planning mood, no readable text, no real QR codes, no UI.
+
+### Narrative
+
+1. Copland 앞 벽에는 notice board가 거의 종이의 지층처럼 쌓여 있다.
+2. lecture, club, music, support, election, market, protest, workshop 같은 색들이 서로 겹쳐 작은 도시를 만든다.
+3. 한 학생이 게시판 앞에서 멈춰 선다. "여기서 오늘 갈 만한 걸 찾으려면, 먼저 길을 잃어야 하는 것 같아."
+4. 그는 친구와 함께 갈 event를 찾고 있지만, 너무 많은 flyer 때문에 날짜와 장소를 놓치고 있었다.
+5. ANU Maps는 Copland Building을 24 Kingsley Place에 있는 캠퍼스 건물로 안내한다.
+6. ANU Poster Policy는 posters and notices가 designated noticeboards 같은 appropriate locations에 붙어야 하며, noticeboards가 ANU community의 communication and engagement를 돕는다고 설명한다.
+7. Functions on Campus 안내는 staff, student, external organised social, cultural, fundraising, sporting events와 promotional material placement까지 다룬다.
+8. 게시판은 단순히 종이가 붙은 벽이 아니라, 캠퍼스가 자기 목소리를 서로에게 건네는 오래된 인터페이스다.
+9. 학생은 말한다. "그럼 아무거나 고르는 게 아니라, 날짜, 장소, 주최, 내가 갈 수 있는 이유를 읽어야겠네."
+10. 찢긴 모서리와 새 포스터 사이에서, 어떤 정보는 지나갔고 어떤 정보는 오늘 밤까지 살아 있다.
+11. 당신은 손을 대지 않고 눈으로 board를 정리한다.
+12. Copland의 벽은 조용하지만, 오늘의 캠퍼스가 무슨 말을 하고 싶은지는 꽤 시끄럽게 적혀 있다.
+
+### Choices
+
+#### A. "포스터를 건드리지 말고, 날짜와 장소가 분명한 event를 같이 골라 보자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 함께 flyer들을 club, talk, performance, support, volunteering으로 나누어 읽는다.
+  2. 날짜와 장소가 분명한 event 하나를 골라 phone calendar에 저장하고, 친구에게 같이 가자고 보낸다.
+  3. 학생은 "게시판이 그냥 소음이 아니라, 캠퍼스의 초대장이었네"라고 말한다.
+  4. 당신은 Event Notice Board를 발견했다. 오늘의 보물은 종이 더미가 아니라, 낯선 하루에 들어갈 작은 문을 찾는 능력이다.
+
+#### B. "너무 많다. 제일 눈에 띄는 것 하나만 보고 가자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 가장 큰 색만 보고 돌아서지만, 날짜와 장소를 확인하지 못했다.
+  2. 뒤돌아보니 학생은 아직 board 앞에서 주최와 시간을 맞춰 보고 있다.
+  3. 눈에 띄는 것은 시작일 뿐이다. 오늘의 보물은 정보를 끝까지 읽는 사람에게 남아 있었다.
+
+#### C. "오늘은 board를 사진으로 남기고, 나중에 event details를 확인하자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 poster를 건드리지 않고 board 전체를 사진으로 남긴다.
+  2. 그는 나중에 공식 event page나 organizer 정보를 확인한 뒤 고르겠다고 말한다.
+  3. 아직 보물을 발견한 것은 아니지만, Copland notice board가 다음 약속의 출발점이 될 수 있다는 것을 알게 되었다.
+
 ## Source Notes
 
 - Yukeembruk residence page: half basketball court and student accommodation context.
@@ -602,3 +1396,22 @@ choice, and positive resolution.
 - ANU Sport Sport page: high-level athlete and casual player pathways, year-round opportunities, online sign-up, UniSport Nationals, Social Sport, Interhall Sport, and sport for ANU students plus the general public.
 - Chifley Library page: SS&H collections, study spaces, group study rooms, The Deck, lockers, and library facilities.
 - ANU map Subway entry: Subway location at 20 Union Court.
+- ANU School of Medicine and Psychology Laboratory Health and Safety page: anatomy facility access is authorised and human remains must be treated with dignity and respect.
+- ANU Anatomy and Physiology 1 course page: practical sessions include histology, prosected human cadaveric specimens, and models of the human body, with ethical and respectful behaviour expectations.
+- ANU Aboriginal and Torres Strait Islander Heritage Trail page: Acton campus historical significance, continuing culture and connection to Country, Representative Aboriginal Organisations partnership, Sullivans Creek navigation, and Aboriginal land management through periodic burning near today's South Oval.
+- ANU First Aboriginal Resource Garden article: campus cultural garden context, caring for Country as learning and growth, and encouragement to use the ANU Walks Aboriginal & Torres Strait Islander Heritage Trail.
+- ACT Heritage/legislation heritage statement for Canberra's pre-cast concrete bus shelters: architectural, historical, cultural and community significance, Clement Cummings design, NCDC selection in 1975, relocatable modular construction, and Canberra identity.
+- Transport Canberra bus guidance: find the stop ID, check timetables, arrive ahead of time, check the bus number, and signal the driver safely by raising an arm.
+- ACT City Services solar lighting project page: Canberra's concrete shelters are treated as iconic concrete shelters whose design affects interior lighting and user experience.
+- ANU Sculpture Walk brochure: Chantale Delrue's `Involution/evolution` is a 2002 unglazed ceramic tile mosaic commissioned in 2002 on the grounds of the Centre for European Studies; the brochure describes its blue coil, native ochre circle, meeting-area focal point, and themes of continuity, energy, and change.
+- ANU Sculpture Walk brochure: Angela Dufty's `Six fixed` is a 2004 painted steel sculpture commissioned in 2003 for the Chemistry Building grounds on Science Road; the brochure describes Dufty as an ANU School of Art graduate and connects the work to architectural geometry, drawings in space, regular intervals, right angles, and playful light-and-shadow optical effects.
+- ANU Sculpture Walk brochure: Fiona Foley's `Winged harvest` is a 2001 work in wood, aluminium, ochre, and stainless steel, commissioned in 2000 for the WEH Stanner Building courtyard; the brochure links the work to materials and imagery meaningful for the Indigenous inhabitants of the ACT, Bogong moth collection, ceremony or ochre pit sites around Canberra, seven wooden poles, traditional pigments, notching recalling climbing techniques, and surrounding plantings as part of the installation.
+- ANU College of Asia & the Pacific Lunar New Year dragon article: Chinese dragon context, Chinese lunisolar calendar, Year of the Wood Dragon, dragon as the only mythical zodiac creature, water/cloud/rain-making associations, prosperity, auspiciousness, and change.
+- ANU Orientation Lunar New Year Celebration page: ANUSA event at the Kambri Amphitheatre with traditional dragon dance and student performances.
+- Australian Centre on China in the World About page: CIW is ANU's university-wide focal point for Chinese studies, research, education, and public outreach on China and the Chinese world.
+- Kambri at ANU Game On page: free games arcade in Joplin Lane, Shop 156-B6, with pinball, arcade machines, air hockey, ping pong, free access for ANU students, staff, and visitors, and large-scale artworks by ANU School of Art & Design students.
+- ANU self-guided campus tour: Joplin Lane businesses and services include Game On as a free games arcade.
+- ANU School of Music facilities and visitor information: the main building includes performance venues, recording and teaching spaces, practice rooms, a cafe on the 5th floor, and lift access to floors 4, 5, and 6.
+- ANU Maps Copland Building entry: Copland Building is located at 24 Kingsley Place and contains listed rooms, centres, accessibility information, and facilities.
+- ANU Poster Policy: posters and notices should be placed in designated noticeboards and appropriate locations, supporting communication and engagement within the ANU community.
+- ANU Functions on Campus page: campus functions include organised social, cultural, fundraising, and sporting events, and the process includes poster and promotional material placement around campus.
