@@ -31,5 +31,104 @@
 		"clue_name": "Sports Field Fence"
 	  }
 	}
+  },
+  "southwest_aboriginal_land_management": {
+	"text": "I stopped at [color=#F6416C][url=southwest_country_sign]a Southwest heritage sign[/url][/color] and learned to read the path more slowly. Water, grass, fire, animals, and respect turned a quiet woodland edge into a story about Country and care.",
+	"image_path": "res://resources/treasure/treasure_aboriginal_land_management.png",
+	"annotations": {
+	  "southwest_country_sign": {
+		"text": "A Southwest interpretive sign can turn a woodland path into a respectful lesson about Aboriginal land management.",
+		"clue_id": "clue_southwest_aboriginal_land_management",
+		"clue_name": "Southwest Heritage Sign"
+	  }
+	}
+  },
+  "houses_canberra_traditional_bus_stop": {
+	"text": "The concrete shelter near [color=#F6416C][url=houses_bus_stop]Houses[/url][/color] is more than a place to wait. Once you know the stop ID, timetable, bus number, and signal, the old Canberra shape becomes a very current map.",
+	"image_path": "res://resources/treasure/treasure_canberra_traditional_bus_stop.png",
+	"annotations": {
+	  "houses_bus_stop": {
+		"text": "A Canberra-style concrete bus shelter near Houses can teach the small rituals of catching a bus safely.",
+		"clue_id": "clue_houses_canberra_traditional_bus_stop",
+		"clue_name": "Concrete Bus Shelter"
+	  }
+	}
+  },
+  "houses_spiral_floor_tile": {
+	"text": "I found a spiral underfoot near [color=#F6416C][url=houses_spiral_tile]Houses[/url][/color]. The blue and ochre tiles made the courtyard feel less like a shortcut and more like a meeting place with memory.",
+	"image_path": "res://resources/treasure/treasure_spiral_floor_tile.png",
+	"annotations": {
+	  "houses_spiral_tile": {
+		"text": "A circular spiral floor mosaic near Houses rewards anyone who slows down and reads the pavement from the edge.",
+		"clue_id": "clue_houses_spiral_floor_tile",
+		"clue_name": "Spiral Floor Tile"
+	  }
+	}
+  },
+  "blocks_metal_frames_sculpture_six_fixed": {
+	"text": "The steel frames near [color=#F6416C][url=blocks_metal_frames]Blocks[/url][/color] changed every time I moved. From the right angle, the sculpture became a drawing made from air, shadow, and patience.",
+	"image_path": "res://resources/treasure/treasure_metal_frames_sculpture.png",
+	"annotations": {
+	  "blocks_metal_frames": {
+		"text": "A tilted metal frame sculpture near Blocks reveals itself by changing with each viewing angle.",
+		"clue_id": "clue_blocks_metal_frames_sculpture_six_fixed",
+		"clue_name": "Metal Frames Sculpture"
+	  }
+	}
+  },
+  "southwest_winged_harvest": {
+	"text": "At [color=#F6416C][url=southwest_winged_harvest]a quiet Southwest courtyard[/url][/color], seven poles and the surrounding plantings asked for a slower kind of attention. Winged Harvest felt like a treasure made from pause, place, and respect.",
+	"image_path": "res://resources/treasure/treasure_winged_harvest.png",
+	"annotations": {
+	  "southwest_winged_harvest": {
+		"text": "Winged Harvest is a Southwest sculpture encounter that rewards careful, respectful viewing.",
+		"clue_id": "clue_southwest_winged_harvest",
+		"clue_name": "Winged Harvest Courtyard"
+	  }
+	}
+  },
+  "central_dragon_art_installation": {
+	"text": "I looked up in [color=#F6416C][url=central_dragon]Central[/url][/color] and found the suspended dragon above the stairs. It turns a useful building into a small moment of play.",
+	"image_path": "res://resources/treasure/treasure_dragon_art_installation.png",
+	"annotations": {
+	  "central_dragon": {
+		"text": "A suspended dragon installation in Central rewards players who look above the usual path.",
+		"clue_id": "clue_central_dragon_art_installation",
+		"clue_name": "Central Dragon"
+	  }
+	}
+  },
+  "fellows_oval_game_on": {
+	"text": "After Fellows Oval, [color=#F6416C][url=fellows_game_on_route]Game On[/url][/color] turned the team energy into air hockey, arcade lights, wall art, and low-stakes laughter. The best score was taking turns.",
+	"image_path": "res://resources/treasure/treasure_game_on.png",
+	"annotations": {
+	  "fellows_game_on_route": {
+		"text": "A post-oval route toward Game On can turn sport energy into a shared arcade break.",
+		"clue_id": "clue_fellows_oval_game_on",
+		"clue_name": "Game On Route"
+	  }
+	}
+  },
+  "art_and_music_cafe_on_4th_floor": {
+	"text": "The upper-floor cafe in [color=#F6416C][url=art_music_cafe]Art and Music[/url][/color] felt like a comma between rehearsal and performance. Coffee, posters, and quiet focus made the whole building breathe.",
+	"image_path": "res://resources/treasure/treasure_cafe_on_4th_floor.png",
+	"annotations": {
+	  "art_music_cafe": {
+		"text": "An upper-floor Art and Music cafe can become a calm pause between practice, performance, and study.",
+		"clue_id": "clue_art_and_music_cafe_on_4th_floor",
+		"clue_name": "Art and Music Cafe"
+	  }
+	}
+  },
+  "copland_event_notice_board": {
+	"text": "The notice board at [color=#F6416C][url=copland_notice_board]Copland[/url][/color] looked chaotic until I read it for date, place, host, and purpose. A crowded wall became a set of little campus doors.",
+	"image_path": "res://resources/treasure/treasure_event_notice_board.png",
+	"annotations": {
+	  "copland_notice_board": {
+		"text": "A crowded Copland notice board can become a campus invitation if you read the event details carefully.",
+		"clue_id": "clue_copland_event_notice_board",
+		"clue_name": "Copland Notice Board"
+	  }
+	}
   }
 }
