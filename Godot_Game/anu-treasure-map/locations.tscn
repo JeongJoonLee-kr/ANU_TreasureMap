@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://duf00c663dvr0"]
+[gd_scene load_steps=8 format=3 uid="uid://duf00c663dvr0"]
 
 [ext_resource type="Script" uid="uid://mj1pc6uleuqr" path="res://systems/Script/map/locations.gd" id="2_nc2o8"]
 [ext_resource type="Script" uid="uid://bjubudh236ger" path="res://systems/Script/options/options_component.gd" id="2_xmwjg"]
-[ext_resource type="Texture2D" path="res://resources/ui/location_dialogue/button_continue.svg" id="4_btn_go"]
+[ext_resource type="Texture2D" uid="uid://cf2ars066ltck" path="res://resources/ui/location_dialogue/button_continue.svg" id="4_btn_go"]
 [ext_resource type="FontFile" uid="uid://dfl7ql556sg8w" path="res://resources/font/AlegreyaSans-Regular.ttf" id="5_font"]
-[ext_resource type="Texture2D" path="res://resources/ui/location_dialogue/message_icon.svg" id="6_msg_icon"]
+[ext_resource type="Texture2D" uid="uid://cbgyuv8lle4ev" path="res://resources/ui/location_dialogue/message_icon.svg" id="6_msg_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue_panel"]
 bg_color = Color(1, 1, 1, 0.98)
@@ -30,8 +30,6 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_options"]
-
 [node name="Locations" type="Node2D"]
 script = ExtResource("2_nc2o8")
 
@@ -45,9 +43,8 @@ metadata/_edit_use_anchors_ = true
 layer = 3
 
 [node name="DialoguePanel" type="Control" parent="DialogueLayer"]
-visible = false
-layout_mode = 1
-anchor_left = 0.0
+layout_mode = 3
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -100,13 +97,12 @@ theme_override_constants/separation = 12
 [node name="DialogueLabel" type="Label" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
+theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_font")
 theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 text = " "
-autowrap_mode = 3
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="BottomRow" type="HBoxContainer" parent="DialogueLayer/DialoguePanel/MainMargin/MainVBox"]
 layout_mode = 2
@@ -141,10 +137,9 @@ ignore_texture_size = true
 stretch_mode = 4
 
 [node name="EventPanel" type="Panel" parent="DialogueLayer"]
-z_index = 1
 visible = false
-layout_mode = 1
-anchor_left = 0.0
+z_index = 1
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -169,7 +164,6 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 14
-theme_override_styles/normal = SubResource("StyleBoxEmpty_options")
 metadata/_edit_use_anchors_ = true
 
 [node name="OptionsComponent" type="Node" parent="."]

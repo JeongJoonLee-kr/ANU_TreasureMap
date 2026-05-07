@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c5bpqlkim63q6" path="res://resources/ui/hud/hud_icon_time.svg" id="16_ikt"]
 [ext_resource type="Texture2D" uid="uid://ds2bvtk4rs5s6" path="res://resources/ui/hud/hud_icon_money.svg" id="17_ikm"]
 
-[sub_resource type="StyleBoxFlat" id="TopBar_bg"]
+[sub_resource type="StyleBoxFlat" id="BottomBar_bg"]
 bg_color = Color(0.98, 0.99, 1, 0.94)
 border_width_left = 1
 border_width_top = 1
@@ -40,31 +40,37 @@ script = ExtResource("1_main")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="TopBarBackground" type="Panel" parent="HUD"]
-anchors_preset = 10
+[node name="BottomBarBackground" type="Panel" parent="HUD"]
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = 14.0
-offset_right = -20.0
-offset_bottom = 74.0
+offset_top = -92.0
+offset_right = -140.0
+offset_bottom = -28.0
 grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("TopBar_bg")
+theme_override_styles/panel = SubResource("BottomBar_bg")
 
-[node name="Topbar" type="HBoxContainer" parent="HUD"]
+[node name="Bottombar" type="HBoxContainer" parent="HUD"]
 custom_minimum_size = Vector2(0, 48)
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 32.0
-offset_top = 20.0
-offset_right = -32.0
-offset_bottom = 68.0
+offset_top = -84.0
+offset_right = -152.0
+offset_bottom = -36.0
 grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 0
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="MenuButton" type="TextureButton" parent="HUD/Topbar"]
+[node name="MenuButton" type="TextureButton" parent="HUD/Bottombar"]
 visible = false
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
@@ -77,7 +83,7 @@ texture_focused = ExtResource("8_ms")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="MenuLabel" type="Label" parent="HUD/Topbar/MenuButton"]
+[node name="MenuLabel" type="Label" parent="HUD/Bottombar/MenuButton"]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 8.0
@@ -89,7 +95,7 @@ theme_override_font_sizes/font_size = 18
 text = "Menu"
 vertical_alignment = 1
 
-[node name="TopSep" type="TextureRect" parent="HUD/Topbar"]
+[node name="BottomSep" type="TextureRect" parent="HUD/Bottombar"]
 custom_minimum_size = Vector2(2, 24)
 layout_mode = 2
 size_flags_vertical = 4
@@ -98,15 +104,15 @@ texture = ExtResource("13_sep")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="WeekStatus" type="HBoxContainer" parent="HUD/Topbar"]
-custom_minimum_size = Vector2(130, 0)
+[node name="WeekStatus" type="HBoxContainer" parent="HUD/Bottombar"]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="WeekIcon" type="TextureRect" parent="HUD/Topbar/WeekStatus"]
-custom_minimum_size = Vector2(40, 40)
+[node name="WeekIcon" type="TextureRect" parent="HUD/Bottombar/WeekStatus"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
@@ -114,35 +120,37 @@ texture = ExtResource("14_ikw")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="WeekTexts" type="VBoxContainer" parent="HUD/Topbar/WeekStatus"]
+[node name="WeekTexts" type="VBoxContainer" parent="HUD/Bottombar/WeekStatus"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="WeekNameLabel" type="Label" parent="HUD/Topbar/WeekStatus/WeekTexts"]
+[node name="WeekNameLabel" type="Label" parent="HUD/Bottombar/WeekStatus/WeekTexts"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
 text = "Week:"
 
-[node name="WeekValueLabel" type="Label" parent="HUD/Topbar/WeekStatus/WeekTexts"]
+[node name="WeekValueLabel" type="Label" parent="HUD/Bottombar/WeekStatus/WeekTexts"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
-theme_override_font_sizes/font_size = 18
-text = "week1"
+theme_override_font_sizes/font_size = 30
+text = "Week1"
+vertical_alignment = 1
 
-[node name="LocationStatus" type="HBoxContainer" parent="HUD/Topbar"]
-custom_minimum_size = Vector2(260, 0)
+[node name="LocationStatus" type="HBoxContainer" parent="HUD/Bottombar"]
+custom_minimum_size = Vector2(330, 0)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="LocationIcon" type="TextureRect" parent="HUD/Topbar/LocationStatus"]
-custom_minimum_size = Vector2(40, 40)
+[node name="LocationIcon" type="TextureRect" parent="HUD/Bottombar/LocationStatus"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
@@ -150,35 +158,38 @@ texture = ExtResource("15_ikloc")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="LocationTexts" type="VBoxContainer" parent="HUD/Topbar/LocationStatus"]
+[node name="LocationTexts" type="VBoxContainer" parent="HUD/Bottombar/LocationStatus"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="LocationNameLabel" type="Label" parent="HUD/Topbar/LocationStatus/LocationTexts"]
+[node name="LocationNameLabel" type="Label" parent="HUD/Bottombar/LocationStatus/LocationTexts"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
 text = "Location:"
 
-[node name="LocationValueLabel" type="Label" parent="HUD/Topbar/LocationStatus/LocationTexts"]
+[node name="LocationValueLabel" type="Label" parent="HUD/Bottombar/LocationStatus/LocationTexts"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 30
 text = "-"
+vertical_alignment = 1
+text_overrun_behavior = 3
 
-[node name="TimeStatus" type="HBoxContainer" parent="HUD/Topbar"]
-custom_minimum_size = Vector2(100, 0)
+[node name="TimeStatus" type="HBoxContainer" parent="HUD/Bottombar"]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TimeIcon" type="TextureRect" parent="HUD/Topbar/TimeStatus"]
-custom_minimum_size = Vector2(40, 40)
+[node name="TimeIcon" type="TextureRect" parent="HUD/Bottombar/TimeStatus"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
@@ -186,35 +197,37 @@ texture = ExtResource("16_ikt")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TimeTexts" type="VBoxContainer" parent="HUD/Topbar/TimeStatus"]
+[node name="TimeTexts" type="VBoxContainer" parent="HUD/Bottombar/TimeStatus"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="TimeNameLabel" type="Label" parent="HUD/Topbar/TimeStatus/TimeTexts"]
+[node name="TimeNameLabel" type="Label" parent="HUD/Bottombar/TimeStatus/TimeTexts"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
 text = "Time:"
 
-[node name="TimeValueLabel" type="Label" parent="HUD/Topbar/TimeStatus/TimeTexts"]
+[node name="TimeValueLabel" type="Label" parent="HUD/Bottombar/TimeStatus/TimeTexts"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
-theme_override_font_sizes/font_size = 18
-text = "8"
+theme_override_font_sizes/font_size = 30
+text = "Time:8"
+vertical_alignment = 1
 
-[node name="MoneyStatus" type="HBoxContainer" parent="HUD/Topbar"]
+[node name="MoneyStatus" type="HBoxContainer" parent="HUD/Bottombar"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="MoneyIcon" type="TextureRect" parent="HUD/Topbar/MoneyStatus"]
-custom_minimum_size = Vector2(40, 40)
+[node name="MoneyIcon" type="TextureRect" parent="HUD/Bottombar/MoneyStatus"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
@@ -222,31 +235,33 @@ texture = ExtResource("17_ikm")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="MoneyTexts" type="VBoxContainer" parent="HUD/Topbar/MoneyStatus"]
+[node name="MoneyTexts" type="VBoxContainer" parent="HUD/Bottombar/MoneyStatus"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="MoneyNameLabel" type="Label" parent="HUD/Topbar/MoneyStatus/MoneyTexts"]
+[node name="MoneyNameLabel" type="Label" parent="HUD/Bottombar/MoneyStatus/MoneyTexts"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.62, 0.62, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
 theme_override_font_sizes/font_size = 12
 text = "Money:"
 
-[node name="MoneyValueLabel" type="Label" parent="HUD/Topbar/MoneyStatus/MoneyTexts"]
+[node name="MoneyValueLabel" type="Label" parent="HUD/Bottombar/MoneyStatus/MoneyTexts"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.3686, 0.4235, 0.5176, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 30
 text = "$0"
+vertical_alignment = 1
 
-[node name="TopbarSpacer" type="Control" parent="HUD/Topbar"]
+[node name="BottombarSpacer" type="Control" parent="HUD/Bottombar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NextWeekButton" type="TextureButton" parent="HUD/Topbar"]
+[node name="NextWeekButton" type="TextureButton" parent="HUD/Bottombar"]
 custom_minimum_size = Vector2(160, 44)
 layout_mode = 2
 focus_mode = 0
@@ -258,7 +273,7 @@ texture_disabled = ExtResource("12_nd")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="NextWeekLabel" type="Label" parent="HUD/Topbar/NextWeekButton"]
+[node name="NextWeekLabel" type="Label" parent="HUD/Bottombar/NextWeekButton"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 8.0
@@ -266,11 +281,11 @@ offset_right = 128.0
 offset_bottom = 36.0
 theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("5_hudfont")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "Next Week"
 vertical_alignment = 1
 
-[node name="BackButton" type="TextureButton" parent="HUD/Topbar"]
+[node name="BackButton" type="TextureButton" parent="HUD/Bottombar"]
 visible = false
 custom_minimum_size = Vector2(160, 44)
 layout_mode = 2
@@ -283,7 +298,7 @@ texture_disabled = ExtResource("12_nd")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="BackLabel" type="Label" parent="HUD/Topbar/BackButton"]
+[node name="BackLabel" type="Label" parent="HUD/Bottombar/BackButton"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 8.0

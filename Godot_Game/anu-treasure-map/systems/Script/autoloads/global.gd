@@ -14,7 +14,7 @@ var player_location_id: String = "chifley_marie_reay"
 
 var stamina: int = 100
 var current_week: int = 1
-var current_week_tag: String = "week1"
+var current_week_tag: String = "Week1"
 var max_time_per_week: int = 8
 var max_week: int = 16
 var time: int = 8
@@ -205,8 +205,9 @@ func _layout_toast() -> void:
 		return
 	var viewport_size := get_viewport().get_visible_rect().size
 	var panel_size := Vector2(420, 64)
+	var margin := Vector2(30.0, 24.0)
 	_toast_panel.size = panel_size
-	_toast_panel.position = Vector2(viewport_size.x - panel_size.x - 30.0, 110.0)
+	_toast_panel.position = Vector2(viewport_size.x - panel_size.x - margin.x, margin.y)
 
 
 func _make_toast_style() -> StyleBoxFlat:
@@ -227,7 +228,7 @@ func _make_toast_style() -> StyleBoxFlat:
 
 
 func refresh_week_tag() -> void:
-	current_week_tag = "week%d" % current_week
+	current_week_tag = "Week%d" % current_week
 
 
 func normalize_location_id(location_id: String) -> String:
@@ -467,6 +468,8 @@ func load_game() -> void:
 
 			if current_week_tag == "":
 				refresh_week_tag()
+			elif current_week_tag.to_lower().begins_with("week"):
+				current_week_tag = "Week%s" % current_week_tag.substr(4)
 
 			print("Game loaded successfully. Current player data: ", player_data)
 	else:
