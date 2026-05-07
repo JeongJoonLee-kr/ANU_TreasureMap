@@ -315,6 +315,74 @@
 	  }
 	}
   },
+  "wamburun_ursula_duck_drive_slow_sign": {
+	"id": "wamburun_ursula_duck_drive_slow_sign",
+	"title": "Small Feet, Slow Wheels",
+	"location_id": "wamburun_halls_ursula_hall",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_wamburun_ursula_duck_drive_slow_sign",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_duck_drive_slow_sign.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_wamburun_ursula_duck_drive_slow_sign_intro.png",
+	  "investigation": "res://resources/event/event_wamburun_ursula_duck_drive_slow_sign_investigation.png",
+	  "choice_a_success": "res://resources/event/event_wamburun_ursula_duck_drive_slow_sign_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_wamburun_ursula_duck_drive_slow_sign_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_wamburun_ursula_duck_drive_slow_sign_choice_c_hint.png"
+	},
+	"narrative": [
+	  "Between Wamburun Halls and Ursula Hall, the path slips into eucalyptus shade and the afternoon becomes speckled with leaf light.",
+	  "A new international student stops in front of a bright yellow signpost.",
+	  "The upper sign makes enough sense: a walking figure, an arrow, the ordinary grammar of getting somewhere.",
+	  "But the lower sign catches them first. A duck walks across the diamond with three ducklings following in a tidy little line.",
+	  "\"Wait,\" the student says, half laughing. \"Is this a real sign, or does Australia just have very cute campus jokes?\"",
+	  "They lean closer, as if the duck family might explain itself.",
+	  "At home, road signs had warned them about crossings, schools, speed cameras, construction. Not this small procession of feet.",
+	  "Behind the pole, shrubs thicken under pale trunks, and the path carries walkers, bikes, and scooters past the residences.",
+	  "For a moment the sign looks like a mascot. Then a faint rustle answers from the low green edge of the path.",
+	  "The student lowers their voice. \"Maybe it means somebody smaller than us also uses this road.\"",
+	  "The yellow sign no longer feels silly. It feels like a tiny local sentence you have not learned to read yet.",
+	  "You can pause and listen, keep it as a funny photo, or mark the place for a slower return."
+	],
+	"choices": {
+	  "A": {
+		"label": "Pause and work out what the duck sign is trying to tell you.",
+		"outcome_texts": [
+		  "You and the student step to the side of the path and let the next bike roll past slowly.",
+		  "The rustle becomes movement: a duck emerges from the shrubs, then one duckling, then another, then a third small comma of feathers.",
+		  "The student watches them cross beneath the yellow sign and whispers, \"It was not a joke. It was a translation.\"",
+		  "You found Duck Drive Slow Sign. The treasure is learning that a new place sometimes teaches itself through the smallest feet."
+		],
+		"treasure_found": true,
+		"treasure_name": "Duck Drive Slow Sign",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Take a quick photo of the cute sign and keep walking.",
+		"outcome_texts": [
+		  "The student frames the sign, laughs, and saves it as proof that Australian campus life has surprises.",
+		  "A soft sound stirs behind the shrubs after you leave, too late to belong to the photo.",
+		  "The sign stays cute, but its real sentence remains unread."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Mark the location and ask what signs like this mean here.",
+		"outcome_texts": [
+		  "The student saves the spot and writes a note: yellow duck sign, Wamburun side, slow down here.",
+		  "They add a second question underneath: how many campus rules are hidden inside things that look cute?",
+		  "You have not found the treasure yet, but the strange little sign has become a doorway into reading this place more carefully."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
   "bruce_hall_lemon_tree": {
 	"id": "bruce_hall_lemon_tree",
 	"title": "The Lemon Tree Rumour",
@@ -1271,6 +1339,74 @@
 		  "The student takes a wide photo without touching or covering any poster.",
 		  "They set a reminder to confirm event details through an official page or organiser before going.",
 		  "You have not found the treasure yet, but Copland's wall has become the start of a future plan."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true,
+		"boost_trigger_chance": true
+	  }
+	}
+  },
+  "medical_physics_school_anatomical_model": {
+	"id": "medical_physics_school_anatomical_model",
+	"title": "The Window That Looked Back",
+	"location_id": "medical_physics_school",
+	"require_afternoon": false,
+	"base_trigger_chance": 0.3,
+	"clue_id": "clue_medical_physics_school_anatomical_model",
+	"enabled": true,
+	"treasure_image_path": "res://resources/treasure/treasure_anatomical_model.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_medical_physics_school_anatomical_model_intro.png",
+	  "investigation": "res://resources/event/event_medical_physics_school_anatomical_model_investigation.png",
+	  "choice_a_success": "res://resources/event/event_medical_physics_school_anatomical_model_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_medical_physics_school_anatomical_model_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_medical_physics_school_anatomical_model_choice_c_hint.png"
+	},
+	"narrative": [
+	  "Night has settled over the Medical & Physics School, but one warm window is still awake.",
+	  "Behind half-lowered blinds, a human-shaped figure stands perfectly still among trophies and soft blocks of poster colour.",
+	  "For a second you think someone is working late. Then you realise the shape is too straight, too patient, too quiet.",
+	  "Wind moves the trees outside, and their reflection makes the figure seem to shift inside the glass.",
+	  "A student on the path lowers their voice. \"That thing gets me every time. In daylight it is obviously just a teaching model.\"",
+	  "Closer to the window, you can make out a plastic anatomical torso on a display stand.",
+	  "The room beyond it is ordinary: a notice board, old award shapes, a skull diagram with unreadable labels, and the thin shine of cabinet glass.",
+	  "But the window folds the outside trees over the model, turning shoulders, skull, and organ colours into one uneasy field note.",
+	  "The student tries to laugh. \"Anatomy is meant to explain the body. At night it starts speaking a language I do not know.\"",
+	  "A corridor light flickers once, splitting the model between warm yellow and cold blue.",
+	  "Maybe the frightening part is not the model itself. Maybe it is how daytime knowledge changes its face after dark.",
+	  "You can read the shape carefully, look away, or leave yourself a safer question for tomorrow."
+	],
+	"choices": {
+	  "A": {
+		"label": "Step closer and work out what the shape really is.",
+		"outcome_texts": [
+		  "You and the student move closer to the glass, staying on the public side of the path.",
+		  "The shoulder that looked human becomes a plastic torso curve; the strange expression becomes a line of shadow from the blinds.",
+		  "The student lets out a breath. \"I guess even familiar things need a second lesson at night.\"",
+		  "You found Anatomical Model. The treasure is not removing fear, but giving an unknown shape a careful name."
+		],
+		"treasure_found": true,
+		"treasure_name": "Anatomical Model",
+		"re_trigger": false
+	  },
+	  "B": {
+		"label": "Pretend you did not see it and keep walking.",
+		"outcome_texts": [
+		  "You quicken your pace, and the student follows after one last glance.",
+		  "The warm window shrinks behind you, but the still figure grows larger in your imagination.",
+		  "Leaving is understandable. Unchecked shadows are simply very good at writing their own stories."
+		],
+		"treasure_found": false,
+		"treasure_name": "",
+		"re_trigger": true
+	  },
+	  "C": {
+		"label": "Make a respectful note and come back in daylight.",
+		"outcome_texts": [
+		  "You do not photograph through the window. Instead, you note the building side, the lit room, and the way the blinds cut the silhouette.",
+		  "The student decides to check the same spot tomorrow when the hallway belongs to daylight again.",
+		  "You have not found the treasure yet, but the night fear has become a question you can carry safely."
 		],
 		"treasure_found": false,
 		"treasure_name": "",
