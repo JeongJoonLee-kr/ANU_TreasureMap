@@ -2,32 +2,7 @@ extends Control
 
 const InsShader = preload("res://ins.gdshader")
 
-const TREASURE_COLLECTION := {
-	"yuki":
-	{
-		"name": "Yuki the White Dog",
-		"image_path": "res://resources/treasure/treasure_yuki.png",
-		"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
-		"description":
-		"A gentle white dog whose small bell became the first sign of a hidden campus relic."
-	},
-	"chess_board":
-	{
-		"name": "The Giant Chess Board",
-		"image_path": "res://resources/treasure/treasure_chessboard.png",
-		"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
-		"description":
-		"A human-sized chess set waiting behind the library, quiet as an old campus secret."
-	},
-	"kangaroo":
-	{
-		"name": "The Kangaroo",
-		"image_path": "res://resources/treasure/treasure_kangaroo.png",
-		"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
-		"description":
-		"A fleeting brown shape near the sports field, fast enough to become a story."
-	}
-}
+const TREASURE_COLLECTION_PATH := "res://data/treasure_collection.json"
 
 # ========== NODE REFERENCES ==========
 @onready var bg_mask = $BackgroundMask
@@ -79,9 +54,11 @@ var active_tween: Tween
 # Rest position from center anchors
 var card_home: Vector2
 var shadow_home: Vector2
+var treasure_collection_data: Dictionary = {}
 
 
 func _ready():
+	_load_treasure_collection()
 	modulate.a = 0.0
 	hide()
 
@@ -148,10 +125,10 @@ func _refresh_collection_slots() -> void:
 	for treasure_id in Global.unlocked_treasures:
 		if slot_index >= collection_cards.size():
 			return
-		if not TREASURE_COLLECTION.has(treasure_id):
+		if not treasure_collection_data.has(treasure_id):
 			continue
 
-		var entry: Dictionary = TREASURE_COLLECTION[treasure_id]
+		var entry: Dictionary = treasure_collection_data[treasure_id]
 		var frame := load(str(entry.get("frame_path", ""))) as Texture2D
 		var image := _load_texture(str(entry.get("image_path", "")))
 		var card := collection_cards[slot_index]
@@ -163,9 +140,28 @@ func _refresh_collection_slots() -> void:
 		slot_index += 1
 
 
+func _load_treasure_collection() -> void:
+	var file := FileAccess.open(TREASURE_COLLECTION_PATH, FileAccess.READ)
+	if file == null:
+		push_warning("Could not open %s" % TREASURE_COLLECTION_PATH)
+		return
+
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	file.close()
+	if parsed is Dictionary:
+		treasure_collection_data = parsed as Dictionary
+	else:
+		push_warning("Could not parse %s" % TREASURE_COLLECTION_PATH)
+
+
 func _load_texture(image_path: String) -> Texture2D:
 	if image_path == "":
 		return null
+
+	if ResourceLoader.exists(image_path):
+		var resource: Variant = load(image_path)
+		if resource is Texture2D:
+			return resource as Texture2D
 
 	var file := FileAccess.open(image_path, FileAccess.READ)
 	if file == null:
