@@ -90,6 +90,77 @@ choice, and positive resolution.
   2. 학생들은 당신에게 다음 경기에는 꼭 뛰어 보라고 말한다.
   3. 당신은 이 코트에 다시 와도 어색하지 않을 이유를 얻었다.
 
+## Wamburun Halls & Ursula Hall -- Duck Drive Slow Sign
+
+- **ID draft**: `wamburun_ursula_duck_drive_slow_sign`
+- **Location ID**: `wamburun_halls_ursula_hall`
+- **Treasure**: Duck Drive Slow Sign
+- **Evidence note**: 사용자 제공 사진의 호주식 duck / drive slow warning sign을 기반으로 한다. 이 초안은 유학생이 캠퍼스에서 처음 보는 귀여운 오리 표지판에 호기심을 느끼고, Wamburun Halls와 Ursula Hall 주변 길이 사람뿐 아니라 작은 야생동물도 함께 쓰는 공간임을 알아가는 장면에 초점을 둔다.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_duck_drive_slow_sign.png`
+- **Treasure image prompt**: 1:1 pixel-art collectible image of an Australian yellow diamond duck drive slow warning sign, a black duck with three ducklings icon on a bright yellow sign, simplified and cute like a game item, centered on a small grey pole with a few eucalyptus leaves behind it, clean readable silhouette, no text, no watermark.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_duck_drive_slow_sign_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 warm pixel-art campus path near Wamburun Halls and Ursula Hall, an international student pausing with curious expression at a cute bright yellow Australian duck drive slow warning sign on a pole beside eucalyptus trees and shrubs, upper pedestrian sign present but secondary, afternoon light, quiet residential campus mood, no UI, no readable text.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_duck_drive_slow_sign_investigation.png`
+    - **Show during**: Narrative 5-10 and choice display.
+    - **Prompt**: 16:9 pixel-art close view of a cute Australian yellow diamond duck drive slow warning sign near campus shrubs, international student looking puzzled and delighted while checking the path where walkers, bikes, and scooters pass, eucalyptus shadows across the sign, curious field-note mood, no UI, no readable text.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_duck_drive_slow_sign_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 gentle pixel-art campus path where students pause and a cyclist or scooter rider slows down while a small duck family crosses near the yellow duck drive slow sign, Wamburun and Ursula residential greenery, warm safe respectful mood, no UI, no readable text.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_duck_drive_slow_sign_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art view of an international student walking past the cute yellow duck drive slow sign after only treating it as a funny campus detail, the sign left behind among eucalyptus trees and shrubs, ordinary path feeling slightly missed, soft wistful campus mood, no UI, no readable text.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_wamburun_ursula_duck_drive_slow_sign_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art international student marking the duck drive slow sign location on a phone or notebook, still curious about this unfamiliar Australian campus sign, yellow sign beside shrubs, bike and scooter path nearby, quiet next-time clue mood, Wamburun and Ursula campus greenery, no UI, no readable text.
+
+### Narrative
+
+1. Wamburun Halls와 Ursula Hall 사이의 나무 그늘길에서, 한 유학생이 노란 표지판 앞에 멈춰 선다.
+2. 위쪽 표지보다 먼저 눈에 들어온 것은 아래쪽 다이아몬드 표지다. 오리 한 마리와 작은 새끼들이 줄지어 걷고 있다.
+3. 학생은 조금 웃으며 말한다. "이거 뭐야? 캠퍼스에 오리 가족 표지판이 있어?"
+4. 고향에서는 이런 표지판을 본 적이 없어서, 처음에는 기숙사 쪽 작은 농담이나 마스코트처럼 보인다.
+5. 하지만 표지판은 생각보다 진지한 노란색이고, 뒤쪽에는 유칼립투스 잎과 낮은 덤불이 빽빽하게 이어진다.
+6. 길 위로는 보행자와 자전거, 스쿠터가 가끔 지나가고, 표지판 아래의 오리 가족은 그 사이를 조용히 바라보는 것 같다.
+7. 학생은 표지판을 다시 보며 묻는다. "혹시 진짜 오리가 지나가니까 천천히 가라는 뜻이야?"
+8. 그때 덤불 쪽에서 잎이 아주 작게 흔들린다.
+9. 실제 오리인지, 바람인지, 아니면 표지판을 보고 나서야 들리는 캠퍼스의 작은 소리인지는 아직 모른다.
+10. 다만 조금 전까지 낯선 농담처럼 보였던 그림이, 이제는 이 길을 함께 쓰는 작은 주민들의 안내처럼 느껴진다.
+
+### Choices
+
+#### A. "잠깐 멈춰서, 이 오리 표지판이 뭘 말하는지 확인해 보자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신과 학생은 길 가장자리에서 잠시 멈추고, 지나가는 자전거와 스쿠터가 천천히 지나갈 수 있도록 자연스럽게 공간을 비워 둔다.
+  2. 덤불 사이에서 작은 오리 가족이 천천히 모습을 드러내고, 노란 표지판 아래를 지나 반대편 그늘로 향한다.
+  3. 학생은 표지판을 다시 본다. "아, 귀여워서 있는 게 아니라 진짜 필요한 표지였구나."
+  4. 당신은 Duck Drive Slow Sign을 발견했다. 오늘의 보물은 낯선 그림을 그냥 지나치지 않고, 그 그림이 지키는 작은 속도를 배운 순간이다.
+
+#### B. "귀엽다. 사진만 찍고 계속 가자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 학생은 표지판을 사진으로 남기고 웃으며 길을 계속 걷는다.
+  2. 뒤쪽 덤불에서 작은 소리가 나지만, 이미 너무 멀어져 확인할 수 없다.
+  3. 표지판은 귀여운 캠퍼스 디테일로 남는다. 아직 그 귀여움이 왜 필요한지는 알지 못한 채로.
+
+#### C. "위치를 표시해 두고, 이 표지판이 무슨 뜻인지 더 알아보자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 학생은 표지판 위치를 메모하고, "호주에는 이런 동물 표지가 많나?"라고 적어 둔다.
+  2. 오리 그림, 주변 나무, 덤불의 위치까지 함께 기록하자 길이 조금 덜 낯설게 보인다.
+  3. 아직 보물을 찾은 것은 아니지만, 다음번에는 이 노란 표지가 단순한 귀여운 그림처럼 지나가지는 않을 것이다.
+
 ## Chifley & Marie Reay -- Free Food
 
 - **ID draft**: `wamburun_ursula_free_food`
