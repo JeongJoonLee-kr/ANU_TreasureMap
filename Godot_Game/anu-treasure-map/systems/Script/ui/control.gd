@@ -1,5 +1,7 @@
 extends Control
 
+const SETTINGS_PANEL_SCRIPT = preload("res://systems/Script/ui/settings_panel.gd")
+
 @onready var _background: TextureRect = $TextureRect
 @onready var _title_label: Label = $Label
 @onready var _start_button: TextureButton = $Button
@@ -186,7 +188,17 @@ func _on_continue_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	print("TODO")
+	_open_settings_panel()
+
+
+func _open_settings_panel() -> void:
+	var existing := get_tree().root.get_node_or_null("SettingsPanel")
+	if existing != null:
+		return
+
+	var settings_panel := SETTINGS_PANEL_SCRIPT.new()
+	settings_panel.name = "SettingsPanel"
+	get_tree().root.add_child(settings_panel)
 
 #func _on_button_pressed() -> void:
 #pass # Replace with function body.

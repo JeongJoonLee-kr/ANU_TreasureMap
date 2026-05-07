@@ -153,10 +153,12 @@ func _apply_data() -> void:
 
 
 func _on_share_pressed() -> void:
+	AudioManager.play_collect()
 	choice_made.emit("share")
 
 
 func _on_collect_pressed() -> void:
+	AudioManager.play_collect()
 	closed.emit()
 	choice_made.emit("collect")
 
