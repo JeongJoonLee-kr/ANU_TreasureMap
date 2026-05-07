@@ -23,6 +23,7 @@ var location_data: Dictionary = {}
 
 
 func _ready() -> void:
+	AudioManager.start_bgm()
 	if not Global.resources_changed.is_connected(_on_resources_changed):
 		Global.resources_changed.connect(_on_resources_changed)
 	if not next_week_button.pressed.is_connected(_on_next_week_button_pressed):

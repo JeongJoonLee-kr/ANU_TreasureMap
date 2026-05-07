@@ -153,10 +153,12 @@ func _apply_data() -> void:
 
 
 func _on_share_pressed() -> void:
+	AudioManager.play_collect()
 	choice_made.emit("share")
 
 
 func _on_collect_pressed() -> void:
+	AudioManager.play_collect()
 	closed.emit()
 	choice_made.emit("collect")
 
@@ -204,22 +206,15 @@ func _load_texture(image_path: String) -> Texture2D:
 	if image_path == "":
 		return null
 
-	var file := FileAccess.open(image_path, FileAccess.READ)
-	if file == null:
+	var resource := load(image_path)
+	if resource is Texture2D:
+		return resource as Texture2D
+
+	if not FileAccess.file_exists(image_path):
 		return null
 
-	var bytes := file.get_buffer(file.get_length())
-	file.close()
-
 	var img := Image.new()
-	var decode_result := img.load_jpg_from_buffer(bytes)
-	if decode_result != OK:
-		img = Image.new()
-		decode_result = img.load_png_from_buffer(bytes)
-	if decode_result != OK:
-		img = Image.new()
-		decode_result = img.load_webp_from_buffer(bytes)
-	if decode_result == OK:
+	if img.load(image_path) == OK:
 		return ImageTexture.create_from_image(img)
 
 	return null

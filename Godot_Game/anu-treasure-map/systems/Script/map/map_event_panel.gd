@@ -124,6 +124,7 @@ func _on_close_button_pressed() -> void:
 # Save the location id globally and switch to the shared location scene.
 func _on_go_button_pressed() -> void:
 	if target_location_id != "":
+		AudioManager.play_click()
 		var map_control = get_parent()
 		if map_control != null and map_control.has_method("try_move_to_location"):
 			map_control.try_move_to_location(target_location_id)

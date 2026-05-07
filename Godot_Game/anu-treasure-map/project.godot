@@ -27,6 +27,7 @@ config/icon="uid://cd4lwtgxx7odo"
 
 Global="*res://systems/Script/autoloads/global.gd"
 EventManager="*res://systems/Script/autoloads/event_manager.gd"
+AudioManager="*res://systems/Script/autoloads/audio_manager.gd"
 
 [display]
 
