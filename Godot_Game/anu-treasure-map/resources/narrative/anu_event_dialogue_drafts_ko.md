@@ -592,6 +592,78 @@ choice, and positive resolution.
   2. 학생들은 오늘은 가까운 곳에서 먹기로 하지만, 다음 점심 약속 장소를 정한다.
   3. 아직 보물을 발견한 것은 아니지만, 다음 한 끼의 좌표는 분명해졌다.
 
+## Medical & Physics School -- Anatomical Model
+
+- **ID draft**: `medical_physics_school_anatomical_model`
+- **Location ID**: `medical_physics_school`
+- **Treasure**: Anatomical Model
+- **Evidence note**: This is a fictionalised night-campus event draft for the Medical & Physics School location. The anatomical model should be treated as an educational plastic teaching model in the story, not as a verified public exhibit unless the team later confirms the real object.
+
+### Image Assets
+
+- **Treasure image path**: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/treasure/treasure_anatomical_model.png`
+- **Treasure image prompt**: 1:1 pixel-art collectible image of a plastic anatomical teaching torso model on a small rolling stand, simplified colored organ panels, a folded anatomy note card, warm desk lamp glow, cool moonlit window behind, educational and slightly mysterious mood, centered object, no gore, no horror, no readable text, matching the square treasure art style.
+- **Event image sequence**
+  - `intro`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_intro.png`
+    - **Show during**: Narrative 1-4.
+    - **Prompt**: 16:9 night-time pixel-art exterior of the Medical & Physics School, cool blue campus path, one warm lit window, the soft silhouette of a plastic anatomical model visible through half-closed blinds, empty benches and trees, quiet first-person campus mystery, eerie but safe, no gore, no UI, no speech bubbles.
+  - `investigation`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_investigation.png`
+    - **Show during**: Narrative 5-11 and choice display.
+    - **Prompt**: 16:9 pixel-art close view through a corridor window or display-room doorway at night, plastic anatomical teaching model standing under a flickering fluorescent light, anatomy posters as abstract shapes, reflection of campus trees in glass, student holding a phone flashlight low, tense but respectful educational mood, no gore, no readable text, no UI.
+  - `choice_a_success`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_choice_a_success.png`
+    - **Show during**: Choice A outcome before treasure image.
+    - **Prompt**: 16:9 pixel-art scene where two students switch on a warmer study light and calmly identify the plastic anatomical teaching model, the scary silhouette now clearly educational, notes and model stand visible, relief and curiosity replacing fear, moonlit corridor outside, no gore, no UI.
+  - `choice_b_miss`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_choice_b_miss.png`
+    - **Show during**: Choice B outcome.
+    - **Prompt**: 16:9 pixel-art night campus path outside Medical & Physics School as the player walks away quickly, the lit window and anatomical model silhouette still small in the background, cool blue shadows, uneasy missed-mystery mood, safe campus atmosphere, no gore, no UI.
+  - `choice_c_hint`: `/ANU_TreasureMap/Godot_Game/anu-treasure-map/resources/event/event_medical_physics_school_anatomical_model_choice_c_hint.png`
+    - **Show during**: Choice C outcome.
+    - **Prompt**: 16:9 pixel-art student making a respectful note on a phone outside a night-lit Medical & Physics School window, anatomical model silhouette softened by blinds, small campus safety light and trees nearby, promise-to-check-in-daylight mood, eerie but gentle, no readable text, no UI.
+
+### Narrative
+
+1. 밤이 내려앉은 Medical & Physics School 앞을 지나가는데, 건물 안쪽 창문 하나만 아직 노랗게 켜져 있다.
+2. 반쯤 내려간 블라인드 사이로 사람처럼 보이는 형체가 조용히 서 있다.
+3. 처음에는 늦게 남은 학생인가 싶었지만, 그 형체는 너무 똑바로 서 있고 너무 움직이지 않는다.
+4. 바람이 나뭇잎을 흔들자 창문에 비친 그림자가 잠깐 살아 움직인 것처럼 겹쳐진다.
+5. 옆길에서 같은 창문을 보던 학생이 낮게 말한다. "저거 볼 때마다 심장이 한 번씩 내려앉아. 낮에는 분명 수업용 모형일 텐데."
+6. 가까이 다가가 보니 창문 안쪽에는 플라스틱 anatomical model이 서 있고, 그 옆에는 닫힌 노트와 작은 스탠드 조명이 놓여 있다.
+7. 유리에는 바깥 나무 그림자와 안쪽 형체가 겹쳐 보여, 모형의 어깨가 실제 사람처럼 보였다가 다시 교육용 도구처럼 돌아온다.
+8. 학생은 웃으려다 실패한다. "해부학은 몸을 이해하는 공부인데, 밤에는 몸이 모르는 언어처럼 보여."
+9. 복도 불빛이 한 번 깜빡이고, 모형의 반쪽 얼굴이 노란빛과 파란빛 사이에서 나뉜다.
+10. 무서운 것은 모형 자체가 아니라, 낮의 지식이 밤의 그림자 속에서 다른 얼굴을 갖는 순간인지도 모른다.
+11. 당신은 창문 앞에서 한 걸음 더 읽을 수도 있고, 그대로 지나칠 수도 있다.
+
+### Choices
+
+#### A. "가까이서 확인하자. 무서운 게 아니라 무엇인지 알아보자."
+
+- **Treasure found**: true
+- **Outcome**
+  1. 당신은 학생과 함께 창문 가까이 다가가 조명과 그림자의 위치를 차분히 확인한다.
+  2. 사람처럼 보였던 어깨는 플라스틱 torso의 단단한 곡선이고, 이상한 표정은 블라인드 그림자가 만든 선이었다.
+  3. 학생은 길게 숨을 내쉬며 말한다. "낮에 배우는 것도 밤에는 다시 배워야 하네."
+  4. 당신은 Anatomical Model을 발견했다. 오늘의 보물은 무서움을 지우는 것이 아니라, 모르는 형체에 이름을 붙이는 용기다.
+
+#### B. "아니, 저건 그냥 못 본 걸로 하자."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Outcome**
+  1. 당신은 발걸음을 빠르게 하고, 학생도 잠시 뒤를 보다가 따라온다.
+  2. 창문은 금방 멀어지지만, 움직이지 않는 형체는 머릿속에서 오히려 더 커진다.
+  3. 도망친 것이 틀린 선택은 아니다. 다만 밤의 그림자는 확인하지 않으면 계속 자기 이야기를 덧붙인다.
+
+#### C. "오늘은 밖에서 위치만 기억하자. 낮에 다시 확인하면 덜 무서울 거야."
+
+- **Treasure found**: false
+- **Re-trigger**: true
+- **Boost trigger chance**: true
+- **Outcome**
+  1. 당신은 창문 안을 촬영하지 않고, 건물 바깥 위치와 불빛이 보였던 방향만 메모한다.
+  2. 학생은 다음 날 밝을 때 같은 장소를 확인해 보겠다고 말한다.
+  3. 아직 보물을 발견한 것은 아니지만, 밤의 불안은 낮의 질문으로 바뀌었다.
+
 ## Source Notes
 
 - Yukeembruk residence page: half basketball court and student accommodation context.
@@ -602,3 +674,4 @@ choice, and positive resolution.
 - ANU Sport Sport page: high-level athlete and casual player pathways, year-round opportunities, online sign-up, UniSport Nationals, Social Sport, Interhall Sport, and sport for ANU students plus the general public.
 - Chifley Library page: SS&H collections, study spaces, group study rooms, The Deck, lockers, and library facilities.
 - ANU map Subway entry: Subway location at 20 Union Court.
+- Medical & Physics School anatomical model draft: fictionalised night-campus story seed; confirm any real model or display before treating it as factual campus evidence.
