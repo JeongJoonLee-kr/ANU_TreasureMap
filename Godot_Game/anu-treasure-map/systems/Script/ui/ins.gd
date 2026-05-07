@@ -104,8 +104,8 @@ func _wire_app_icon_feedback() -> void:
 			btn.button_up.connect(_on_app_btn_up.bind(btn))
 		if not btn.mouse_entered.is_connected(_on_app_btn_hovered.bind(btn)):
 			btn.mouse_entered.connect(_on_app_btn_hovered.bind(btn))
-		if not btn.mouse_exited.is_connected(_reset_phone_title):
-			btn.mouse_exited.connect(_reset_phone_title)
+		if not btn.mouse_exited.is_connected(_on_app_btn_exited.bind(btn)):
+			btn.mouse_exited.connect(_on_app_btn_exited.bind(btn))
 	call_deferred("_refresh_app_button_pivots")
 
 
@@ -135,8 +135,9 @@ func _on_app_btn_down(btn: BaseButton) -> void:
 
 
 func _on_app_btn_up(btn: BaseButton) -> void:
+	var target_scale = Vector2(1.08, 1.08) if btn.is_hovered() else Vector2(1.0, 1.0)
 	var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.22)
+	tw.tween_property(btn, "scale", target_scale, 0.22)
 	var icon := btn.get_node_or_null("Icon") as CanvasItem
 	if icon != null:
 		icon.modulate = Color(1, 1, 1, 1)
@@ -146,8 +147,17 @@ func _on_app_btn_up(btn: BaseButton) -> void:
 
 
 func _on_app_btn_hovered(btn: BaseButton) -> void:
+	btn.pivot_offset = btn.size * 0.5
+	var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(btn, "scale", Vector2(1.08, 1.08), 0.15)
 	if _APP_NAMES.has(btn.name):
 		phone_title_label.text = _APP_NAMES[btn.name]
+
+
+func _on_app_btn_exited(btn: BaseButton) -> void:
+	var tw := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.15)
+	_reset_phone_title()
 
 
 func _reset_phone_title() -> void:

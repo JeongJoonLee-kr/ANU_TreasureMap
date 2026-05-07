@@ -70,24 +70,22 @@ func _load_texture(target_node: Node, path: String) -> void:
 
 
 func _load_texture_resource(path: String) -> Texture2D:
-	var file := FileAccess.open(path, FileAccess.READ)
-	if file == null:
+	if path.is_empty():
 		return null
 
-	var bytes := file.get_buffer(file.get_length())
-	file.close()
+	# Try to load directly via ResourceLoader (handles .imported resources)
+	var tex := ResourceLoader.load(path) as Texture2D
+	if tex != null:
+		return tex
 
+	# Fallback: load raw image file
 	var img := Image.new()
-	var decode_result := img.load_jpg_from_buffer(bytes)
-	if decode_result != OK:
-		img = Image.new()
-		decode_result = img.load_png_from_buffer(bytes)
-	if decode_result != OK:
-		img = Image.new()
-		decode_result = img.load_webp_from_buffer(bytes)
-	if decode_result == OK:
+	var load_result := img.load(path)
+	if load_result == OK:
 		return ImageTexture.create_from_image(img)
 
+	# If still fails, log error and return null
+	push_error("Failed to load texture: ", path)
 	return null
 
 

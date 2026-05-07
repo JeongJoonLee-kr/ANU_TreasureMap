@@ -8,6 +8,20 @@
 	"clue_id": "clue_yuki",
 	"enabled": true,
 	"treasure_image_path": "res://resources/treasure/treasure_yuki.png",
+	"portrait_config": {
+	  "yuki_master": {
+		"path": "res://resources/character/yuki_master.png",
+		"side": "left",
+		"h": 720
+	  },
+	  "yuki": {
+		"path": "res://resources/character/yuki.png",
+		"side": "right",
+		"w": 310,
+		"h": 680,
+		"gap": 180
+	  }
+	},
 	"narrative": [
 	  "You're walking through the front grassland near the main gate.",
 	  "The afternoon sun is soft, and a light breeze carries the smell of cut grass.",
@@ -22,6 +36,20 @@
 	  "Yuki wags her tail and sniffs your shoes. The woman stands up and adds, \"We live nearby. I take her here almost every afternoon. She loves this grassland — especially the flower patch over there.\"",
       "She points to a small bed of yellow and white flowers near the library path."
 	],
+	"speakers": [
+	  "narrator",
+	  "narrator",
+	  "narrator",
+	  "narrator",
+	  "narrator",
+	  "narrator",
+	  "narrator",
+	  "yuki_master",
+	  "narrator",
+	  "yuki_master",
+	  "yuki_master",
+	  "narrator"
+	],
 	"choices": {
 	  "A": {
 		"label": "\"She's really cute. Can I hang out with you two for a bit?\"",
@@ -29,6 +57,7 @@
 		  "You kneel down and gently scratch behind Yuki's ear. Her tail wags like crazy.",
           "The owner laughs. \"She really does like you. We actually pass through here almost every afternoon around this time.\""
 		],
+		"outcome_speakers": ["yuki", "yuki_master"],
 		"treasure_found": true,
 		"treasure_name": "Yuki the White Dog",
 		"re_trigger": false
@@ -40,6 +69,7 @@
 		  "You nod politely and continue on your way. Behind you, you hear the jingling bell fade as the owner calls Yuki back.",
           "Later, you realize you never asked when they usually come. Now you're not sure if you'll see that fluffy white dog again."
 		],
+		"outcome_speakers": ["yuki", "narrator", "narrator"],
 		"treasure_found": false,
 		"treasure_name": "",
 		"re_trigger": true
@@ -50,6 +80,7 @@
 		  "The owner smiles. \"Almost every afternoon, yeah. She loves this garden.\"",
           "You say you'll come back sometime, but when you finally do, you don't see them. Maybe you missed the timing. No Yuki today."
 		],
+		"outcome_speakers": ["yuki_master", "narrator"],
 		"treasure_found": false,
 		"treasure_name": "",
 		"re_trigger": true,

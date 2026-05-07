@@ -29,6 +29,19 @@ var _treasure_canvas_layer: CanvasLayer = null
 var _treasure_popup_instance: Control = null
 var _exhaustion_toast: Panel = null
 
+const _PORTRAIT_W := 280.0
+const _PORTRAIT_H := 650.0
+const _PORTRAIT_ACTIVE_SHIFT := 28.0
+const _PORTRAIT_BOTTOM_GAP := 214.0
+const _PORTRAIT_COLOR_ACTIVE := Color(1.0, 1.0, 1.0, 1.0)
+const _PORTRAIT_COLOR_INACTIVE := Color(0.65, 0.65, 0.65, 0.78)
+
+var _portrait_canvas_layer: CanvasLayer = null
+var _portrait_nodes: Dictionary = {}
+var _portrait_home_x: Dictionary = {}
+var _portrait_active_x: Dictionary = {}
+var _speakers: Array[String] = []
+
 @onready var background: TextureRect = $TextureRect
 @onready var dialogue_panel: Control = $DialogueLayer/DialoguePanel
 @onready var dialogue_label: Label = $DialogueLayer/DialoguePanel/MainMargin/MainVBox/DialogueLabel
@@ -105,6 +118,9 @@ func _start_random_event(ev: Dictionary) -> void:
 	_hide_choice_panel()
 	_hide_legacy_options_panel()
 
+	_setup_portraits(ev)
+	_speakers = _to_string_array(ev.get("speakers", []))
+
 	var narrative := _to_string_array(ev.get("narrative", []))
 	_show_text_sequence(narrative, TextFlow.EVENT_NARRATIVE)
 
@@ -115,6 +131,7 @@ func _show_event_choices() -> void:
 		_complete_current_event_and_show_location()
 		return
 
+	_update_portraits("narrator")
 	_show_choice_panel(_normalize_event_choices(choices), _on_event_choice_selected)
 
 
@@ -124,6 +141,8 @@ func _on_event_choice_selected(choice_key: String) -> void:
 
 	var choices: Dictionary = _active_event.get("choices", {})
 	_selected_event_choice = choices.get(choice_key, {})
+
+	_speakers = _to_string_array(_selected_event_choice.get("outcome_speakers", []))
 
 	var outcome_texts := _to_string_array(_selected_event_choice.get("outcome_texts", []))
 	_show_text_sequence(outcome_texts, TextFlow.EVENT_OUTCOME)
@@ -137,6 +156,7 @@ func _finish_event_outcome() -> void:
 
 
 func _show_treasure_popup() -> void:
+	_clear_portraits()
 	_hide_treasure_popup()
 
 	var treasure_name := str(_selected_event_choice.get("treasure_name", "Unknown Treasure"))
@@ -164,6 +184,7 @@ func _complete_current_event_and_show_location(treasure_action: String = "collec
 	_active_event = {}
 	_selected_event_choice_key = ""
 	_selected_event_choice = {}
+	_clear_portraits()
 	show_location()
 
 
@@ -280,6 +301,7 @@ func _show_text_sequence(next_texts: Array[String], flow: int) -> void:
 	dialogue_label.text = texts[text_index]
 	dialogue_panel.show()
 	_refresh_dialogue_progress()
+	_update_portraits_for_index(0)
 
 
 func _finish_text_sequence() -> void:
@@ -328,6 +350,7 @@ func show_next_text() -> void:
 		text_index += 1
 		dialogue_label.text = texts[text_index]
 		_refresh_dialogue_progress()
+		_update_portraits_for_index(text_index)
 	else:
 		_finish_text_sequence()
 
@@ -513,3 +536,88 @@ func _to_string_array(value: Variant) -> Array[String]:
 	elif value != null:
 		result.append(str(value))
 	return result
+
+
+func _setup_portraits(event: Dictionary) -> void:
+	_clear_portraits()
+	var config: Dictionary = event.get("portrait_config", {}) as Dictionary
+	if config.is_empty():
+		return
+
+	_portrait_canvas_layer = CanvasLayer.new()
+	_portrait_canvas_layer.layer = 2
+	add_child(_portrait_canvas_layer)
+
+	var vp_size := get_viewport().get_visible_rect().size
+
+	for char_id in config:
+		var cfg: Dictionary = config[char_id] as Dictionary
+		var path := str(cfg.get("path", ""))
+		if path == "":
+			continue
+
+		var tex := load(path) as Texture2D
+		if tex == null:
+			var img := Image.load_from_file(path)
+			if img != null:
+				tex = ImageTexture.create_from_image(img)
+		if tex == null:
+			continue
+
+		var pw: float = float(cfg.get("w", _PORTRAIT_W))
+		var ph: float = float(cfg.get("h", _PORTRAIT_H))
+		var pgap: float = float(cfg.get("gap", _PORTRAIT_BOTTOM_GAP))
+
+		var portrait := TextureRect.new()
+		portrait.texture = tex
+		portrait.size = Vector2(pw, ph)
+		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		portrait.modulate = _PORTRAIT_COLOR_INACTIVE
+
+		var side := str(cfg.get("side", "left"))
+		var home_x: float
+		var active_x: float
+		if side == "right":
+			home_x = vp_size.x - pw - 380.0
+			active_x = home_x - _PORTRAIT_ACTIVE_SHIFT
+		else:
+			home_x = 30.0
+			active_x = home_x + _PORTRAIT_ACTIVE_SHIFT
+
+		portrait.position = Vector2(home_x, vp_size.y - ph - pgap)
+		_portrait_home_x[char_id] = home_x
+		_portrait_active_x[char_id] = active_x
+		_portrait_nodes[char_id] = portrait
+		_portrait_canvas_layer.add_child(portrait)
+
+
+func _update_portraits(speaker_id: String) -> void:
+	for char_id in _portrait_nodes:
+		var portrait := _portrait_nodes[char_id] as TextureRect
+		var active: bool = char_id == speaker_id
+		var target_x: float = _portrait_active_x[char_id] if active else _portrait_home_x[char_id]
+		var target_color: Color = _PORTRAIT_COLOR_ACTIVE if active else _PORTRAIT_COLOR_INACTIVE
+		var tw := portrait.create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(
+			Tween.EASE_OUT
+		)
+		tw.tween_property(portrait, "position:x", target_x, 0.25)
+		tw.tween_property(portrait, "modulate", target_color, 0.25)
+
+
+func _update_portraits_for_index(idx: int) -> void:
+	if _portrait_nodes.is_empty():
+		return
+	var speaker := _speakers[idx] if idx < _speakers.size() else "narrator"
+	_update_portraits(speaker)
+
+
+func _clear_portraits() -> void:
+	_portrait_nodes.clear()
+	_portrait_home_x.clear()
+	_portrait_active_x.clear()
+	_speakers = []
+	if is_instance_valid(_portrait_canvas_layer):
+		_portrait_canvas_layer.queue_free()
+	_portrait_canvas_layer = null
