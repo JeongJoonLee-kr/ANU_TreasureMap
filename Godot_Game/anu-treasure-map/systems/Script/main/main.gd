@@ -56,6 +56,12 @@ func _ready() -> void:
 	update_resource_ui()
 	call_deferred("_refresh_goal_and_check_end")
 	call_deferred("_start_first_time_registration_if_needed")
+	# TODO: remove after testing guide character
+	get_tree().create_timer(1.0).timeout.connect(
+		func(): GuideManager.show(
+			"Welcome to ANU Treasure Map!\nTap markers on the map to explore locations, collect clues and treasures."
+		)
+	)
 
 
 func _get_first_node(paths: Array[String]) -> Node:
