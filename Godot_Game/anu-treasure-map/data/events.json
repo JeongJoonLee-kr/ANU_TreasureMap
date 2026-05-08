@@ -7,7 +7,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_yuki",
 	"enabled": true,
-	"treasure_image_path": "res://resources/treasure/treasure_yuki.png",
+	"treasure_image_path": "res://resources/treasure/treasure_yuki.jpg",
 	"portrait_config": {
 	  "yuki_master": {
 		"path": "res://resources/character/yuki_master.png",
@@ -96,7 +96,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_chess_board",
 	"enabled": true,
-	"treasure_image_path": "res://resources/treasure/treasure_chessboard.png",
+	"treasure_image_path": "res://resources/treasure/treasure_chessboard.jpg",
 	"narrative": [
 	  "While walking along the camphor tree lane, you hear a strange, rhythmic thump… thump… sound nearby.",
 	  "It's heavy and irregular, like someone punching stone — or moving something very heavy.",
@@ -149,7 +149,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_kangaroo",
 	"enabled": true,
-	"treasure_image_path": "res://resources/treasure/treasure_kangaroo.png",
+	"treasure_image_path": "res://resources/treasure/treasure_kangaroo.jpg",
 	"narrative": [
 	  "You're cutting across the edge of the sports field when a blur of brown suddenly dashes past the far fence.",
 	  "It's fast — too fast for a dog. And it hops.",

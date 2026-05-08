@@ -1,7 +1,7 @@
 {
   "yuki": {
 	"text": "I found Yuki near [color=#F6416C][url=bruce_hall_grassland]Bruce Hall grassland[/url][/color] today. A small white dog with a red collar turned an ordinary walk into the warmest little campus mystery. If you are around in the afternoon, keep an eye out for the bell on her collar.",
-	"image_path": "res://resources/treasure/treasure_yuki.png",
+	"image_path": "res://resources/treasure/treasure_yuki.jpg",
 	"annotations": {
 	  "bruce_hall_grassland": {
 		"text": "A small white dog with a red collar is often seen around the Bruce Hall grassland in the afternoon.",
@@ -12,7 +12,7 @@
   },
   "chess_board": {
 	"text": "The strange thumping near [color=#F6416C][url=library_chessboard]the library[/url][/color] led me to the giant chess board. The pieces are huge, quiet, and almost ceremonial, like the campus has been hiding a puzzle in plain sight.",
-	"image_path": "res://resources/treasure/treasure_chessboard.png",
+	"image_path": "res://resources/treasure/treasure_chessboard.jpg",
 	"annotations": {
 	  "library_chessboard": {
 		"text": "A rhythmic thumping sound near the library might point toward the giant chess board.",
@@ -23,7 +23,7 @@
   },
   "kangaroo": {
 	"text": "I really did see a kangaroo near [color=#F6416C][url=sports_field_fence]the sports field fence[/url][/color]. It paused for a second, looked right at me, then slipped back toward Black Mountain Park. ANU still has surprises tucked between ordinary paths.",
-	"image_path": "res://resources/treasure/treasure_kangaroo.png",
+	"image_path": "res://resources/treasure/treasure_kangaroo.jpg",
 	"annotations": {
 	  "sports_field_fence": {
 		"text": "Something unusual was spotted near the sports field fence, close to the edge of Black Mountain Park.",

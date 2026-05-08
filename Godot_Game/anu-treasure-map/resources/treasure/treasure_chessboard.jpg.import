@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0t3tvixyifab"
-valid=false
+uid="uid://d28cvtfil00hq"
+path="res://.godot/imported/treasure_chessboard.jpg-10a198b283779599a2af89ce5fa6fb33.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://resources/treasure/treasure_yuki.png"
+source_file="res://resources/treasure/treasure_chessboard.jpg"
+dest_files=["res://.godot/imported/treasure_chessboard.jpg-10a198b283779599a2af89ce5fa6fb33.ctex"]
 
 [params]
 

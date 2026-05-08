@@ -1,19 +1,19 @@
 {
   "yuki": {
 	"name": "Yuki the White Dog",
-	"image_path": "res://resources/treasure/treasure_yuki.png",
+	"image_path": "res://resources/treasure/treasure_yuki.jpg",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A gentle white dog whose small bell became the first sign of a hidden campus relic."
   },
   "chess_board": {
 	"name": "The Giant Chess Board",
-	"image_path": "res://resources/treasure/treasure_chessboard.png",
+	"image_path": "res://resources/treasure/treasure_chessboard.jpg",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
 	"description": "A human-sized chess set waiting behind the library, quiet as an old campus secret."
   },
   "kangaroo": {
 	"name": "The Kangaroo",
-	"image_path": "res://resources/treasure/treasure_kangaroo.png",
+	"image_path": "res://resources/treasure/treasure_kangaroo.jpg",
 	"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
 	"description": "A fleeting brown shape near the sports field, fast enough to become a story."
   },
