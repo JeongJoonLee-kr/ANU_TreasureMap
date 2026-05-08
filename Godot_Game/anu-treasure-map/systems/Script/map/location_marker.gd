@@ -223,7 +223,9 @@ func _reset_medal_interaction_state() -> void:
 
 func _medal_fx_targets() -> Dictionary:
 	if not use_medal_visual or not is_active:
-		return {"scale": Vector2.ONE, "modulate": _medal_base_modulate(), "plate_pos": _MEDAL_PLATE_POS}
+		return {
+			"scale": Vector2.ONE, "modulate": _medal_base_modulate(), "plate_pos": _MEDAL_PLATE_POS
+		}
 	var scale := Vector2.ONE
 	var mod := _medal_base_modulate()
 	var plate_pos := _MEDAL_PLATE_POS
@@ -251,7 +253,9 @@ func _tween_medal_interaction_fx() -> void:
 	_medal_fx_tween.tween_property(medal_visual, "scale", targets.scale, _MEDAL_FX_DURATION)
 	_medal_fx_tween.tween_property(medal_visual, "modulate", targets.modulate, _MEDAL_FX_DURATION)
 	if is_instance_valid(name_plate):
-		_medal_fx_tween.tween_property(name_plate, "position", targets.plate_pos, _MEDAL_FX_DURATION)
+		_medal_fx_tween.tween_property(
+			name_plate, "position", targets.plate_pos, _MEDAL_FX_DURATION
+		)
 
 
 func _refresh_editor_preview() -> void:

@@ -14,18 +14,16 @@ const _TICKET_INSET_BOTTOM := 14.0
 
 # ========== NODE REFERENCES (Mini Metro dossier layout) ==========
 @onready var name_input: LineEdit = $ColumnVBox/BodyMargin/BodyVBox/CodenameWrap/NameInput
-@onready var comp_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnComp
-@onready var hist_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnHist
-@onready var griffin_lake_btn: TextureButton = (
-	$ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons/BtnLake
-)
-@onready var lab_cafe_btn: TextureButton = (
-	$ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons/BtnCafe
-)
+@onready
+var comp_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnComp
+@onready
+var hist_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnHist
+@onready
+var griffin_lake_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons/BtnLake
+@onready
+var lab_cafe_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons/BtnCafe
 @onready var auth_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/AuthButton
-@onready var mind_terminal: RichTextLabel = (
-	$ColumnVBox/BodyMargin/BodyVBox/DescWrap/MindTerminal
-)
+@onready var mind_terminal: RichTextLabel = $ColumnVBox/BodyMargin/BodyVBox/DescWrap/MindTerminal
 
 # ========== STATE VARIABLES ==========
 var current_major: String = ""
