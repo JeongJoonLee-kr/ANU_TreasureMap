@@ -146,9 +146,9 @@ func open_ins() -> Node:
 	return ins_instance
 
 
-func set_phone_notification_visible(visible: bool) -> void:
+func set_phone_notification_visible(is_visible: bool) -> void:
 	if is_instance_valid(ins_notification_dot):
-		ins_notification_dot.visible = visible
+		ins_notification_dot.visible = is_visible
 
 
 func notify_phone_message_received() -> void:
