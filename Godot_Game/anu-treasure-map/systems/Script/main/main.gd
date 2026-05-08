@@ -58,17 +58,7 @@ func _ready() -> void:
 	set_phone_notification_visible(false)
 	update_resource_ui()
 	call_deferred("_refresh_goal_and_check_end")
-	call_deferred("_start_first_time_registration_if_needed")
-	# TODO: remove after testing guide character
-	get_tree().create_timer(1.0).timeout.connect(
-		func():
-			(
-				GuideManager
-				. show(
-					"Welcome to ANU Treasure Map!\nTap markers on the map to explore locations, collect clues and treasures."
-				)
-			)
-	)
+	call_deferred("_start_onboarding_if_needed")
 
 
 func _get_first_node(paths: Array[String]) -> Node:
@@ -146,9 +136,9 @@ func open_ins() -> Node:
 	return ins_instance
 
 
-func set_phone_notification_visible(visible: bool) -> void:
+func set_phone_notification_visible(is_visible: bool) -> void:
 	if is_instance_valid(ins_notification_dot):
-		ins_notification_dot.visible = visible
+		ins_notification_dot.visible = is_visible
 
 
 func notify_phone_message_received() -> void:
@@ -448,9 +438,7 @@ func is_player_registered() -> bool:
 	)
 
 
-func _start_first_time_registration_if_needed() -> void:
+func _start_onboarding_if_needed() -> void:
 	if is_player_registered():
 		return
-
-	open_ins()
-	get_tree().create_timer(0.15).timeout.connect(func(): open_profile(true, true))
+	GuideManager.start_onboarding(self)
