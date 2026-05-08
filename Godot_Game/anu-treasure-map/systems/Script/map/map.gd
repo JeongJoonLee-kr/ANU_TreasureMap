@@ -256,7 +256,9 @@ func to_parent_local_point(node: CanvasItem, global_point: Vector2) -> Vector2:
 	return parent_transform * global_point
 
 
-func show_location_preview(image_path: String, title: String, title_color: Color, anchor: Control) -> void:
+func show_location_preview(
+	image_path: String, title: String, title_color: Color, anchor: Control
+) -> void:
 	if image_path == "" or not ResourceLoader.exists(image_path):
 		hide_location_preview()
 		return

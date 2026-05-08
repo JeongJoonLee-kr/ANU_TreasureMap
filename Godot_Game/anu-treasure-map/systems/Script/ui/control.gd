@@ -101,7 +101,9 @@ func _layout_start_screen() -> void:
 	_position_button(
 		_settings_button, Vector2(button_x, button_y + (_BUTTON_SIZE.y + _BUTTON_GAP) * 2.0)
 	)
-	_position_button(_exit_button, Vector2(button_x, button_y + (_BUTTON_SIZE.y + _BUTTON_GAP) * 3.0))
+	_position_button(
+		_exit_button, Vector2(button_x, button_y + (_BUTTON_SIZE.y + _BUTTON_GAP) * 3.0)
+	)
 
 
 func _position_button(button: TextureButton, target_position: Vector2) -> void:
@@ -213,7 +215,9 @@ func _update_exit_label_color() -> void:
 	if _exit_label == null:
 		return
 	var active := _exit_pointer_held or _exit_button.has_focus()
-	_exit_label.add_theme_color_override("font_color", _EXIT_TEXT_ACTIVE if active else _EXIT_TEXT_NEUTRAL)
+	_exit_label.add_theme_color_override(
+		"font_color", _EXIT_TEXT_ACTIVE if active else _EXIT_TEXT_NEUTRAL
+	)
 
 
 func _on_start_button_pressed() -> void:
