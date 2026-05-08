@@ -9,19 +9,25 @@ signal selected(location_id: String, anchor: Control)
 enum MedalRibbon { BLUE, GREEN, ORANGE, PINK, PURPLE, CYAN }
 
 const ROOT_SIZE := Vector2(220, 90)
-const MEDAL_MARKER_SIZE := Vector2(220, 128)
+const MEDAL_MARKER_SIZE := Vector2(220, 156)
 
 const ACTIVE_DOT_MODULATE := Color(1, 1, 1, 1)
 
 const _CLASSIC_DOT_POS := Vector2(100.0, 48.0)
 const _CLASSIC_DOT_SIZE := Vector2(20.0, 20.0)
 
+## Horizontal center of MedalVisual in marker coords (offset_left/right in location_marker.tscn).
+const _MEDAL_CENTER_X := 110.0
+## Narrow plate under the pin so labels don’t stretch toward neighbouring markers.
+const _MEDAL_PLATE_WIDTH := 118.0
+const _MEDAL_PLATE_HEIGHT := 54.0
+
 ## Covers medal + bottom name plate (reference layout).
 const _MEDAL_HIT_POS := Vector2(52.0, 4.0)
-const _MEDAL_HIT_SIZE := Vector2(116.0, 122.0)
+const _MEDAL_HIT_SIZE := Vector2(116.0, 148.0)
 
-const _MEDAL_PLATE_POS := Vector2(54.0, 100.0)
-const _MEDAL_PLATE_SIZE := Vector2(112.0, 26.0)
+const _MEDAL_PLATE_POS := Vector2(_MEDAL_CENTER_X - _MEDAL_PLATE_WIDTH * 0.5, 97.0)
+const _MEDAL_PLATE_SIZE := Vector2(_MEDAL_PLATE_WIDTH, _MEDAL_PLATE_HEIGHT)
 
 const _CLASSIC_PLATE_RECT := Rect2(-1.0, -1.0, 220.0, 40.0)
 
@@ -34,10 +40,27 @@ const _RIBBON_TEX: Dictionary = {
 	MedalRibbon.CYAN: preload("res://resources/ui/map_badges/badge_ribbon_cyan.svg"),
 }
 
+const _RING_TEX: Dictionary = {
+	MedalRibbon.BLUE: preload("res://resources/ui/map_badges/badge_circle.svg"),
+	MedalRibbon.GREEN: preload("res://resources/ui/map_badges/badge_circle_green.svg"),
+	MedalRibbon.ORANGE: preload("res://resources/ui/map_badges/badge_circle_orange.svg"),
+	MedalRibbon.PINK: preload("res://resources/ui/map_badges/badge_circle_pink.svg"),
+	MedalRibbon.PURPLE: preload("res://resources/ui/map_badges/badge_circle_purple.svg"),
+	MedalRibbon.CYAN: preload("res://resources/ui/map_badges/badge_circle_cyan.svg"),
+}
+
+## Label color on white plate (ribbon “dark” accent for readability).
+const _MEDAL_NAME_COLORS: Dictionary = {
+	MedalRibbon.BLUE: Color(0.118, 0.533, 0.898, 1.0),
+	MedalRibbon.GREEN: Color(0.263, 0.627, 0.412, 1.0),
+	MedalRibbon.ORANGE: Color(0.984, 0.549, 0.0, 1.0),
+	MedalRibbon.PINK: Color(0.847, 0.106, 0.376, 1.0),
+	MedalRibbon.PURPLE: Color(0.369, 0.208, 0.694, 1.0),
+	MedalRibbon.CYAN: Color(0.0, 0.592, 0.655, 1.0),
+}
+
 const _PHOTO_CLIP_SHADER := preload("res://resources/shaders/map_badge_photo_clip.gdshader")
 const _MEDAL_PHOTO_CLIP_RADIUS := 20.0 / 48.0
-
-const _MEDAL_NAME_COLOR := Color(0.259, 0.647, 0.961, 1.0)
 
 const _MEDAL_FX_HOVER_SCALE := Vector2(1.075, 1.075)
 const _MEDAL_FX_PRESS_SCALE := Vector2(0.94, 0.94)
@@ -59,6 +82,7 @@ const _MEDAL_PLATE_HOVER_LIFT := 3.0
 @onready var medal_visual: Control = $MedalVisual
 @onready var medal_ribbon_rect: TextureRect = $MedalVisual/Ribbon
 @onready var medal_photo_rect: TextureRect = $MedalVisual/PhotoSlot
+@onready var medal_circle_rect: TextureRect = $MedalVisual/CircleRing
 
 var preview_image_path: String = ""
 var is_active: bool = true
@@ -95,10 +119,10 @@ func _ready() -> void:
 	_medal_plate_style.shadow_color = Color(0, 0, 0, 0.16)
 	_medal_plate_style.shadow_size = 5
 	_medal_plate_style.shadow_offset = Vector2(0, 2)
-	_medal_plate_style.content_margin_left = 8
-	_medal_plate_style.content_margin_top = 3
-	_medal_plate_style.content_margin_right = 8
-	_medal_plate_style.content_margin_bottom = 3
+	_medal_plate_style.content_margin_left = 6
+	_medal_plate_style.content_margin_top = 5
+	_medal_plate_style.content_margin_right = 6
+	_medal_plate_style.content_margin_bottom = 5
 
 	_classic_plate_clear_style = StyleBoxFlat.new()
 	_classic_plate_clear_style.bg_color = Color(0, 0, 0, 0)
@@ -144,6 +168,8 @@ func _apply_visual_mode() -> void:
 		dot_button.size = _MEDAL_HIT_SIZE
 		if medal_ribbon_rect and _RIBBON_TEX.has(medal_ribbon):
 			medal_ribbon_rect.texture = _RIBBON_TEX[medal_ribbon]
+		if medal_circle_rect and _RING_TEX.has(medal_ribbon):
+			medal_circle_rect.texture = _RING_TEX[medal_ribbon]
 		_refresh_medal_photo()
 		_reset_medal_interaction_state()
 	else:
@@ -165,11 +191,22 @@ func _apply_name_plate_layout() -> void:
 	if use_medal_visual:
 		name_plate.position = _MEDAL_PLATE_POS
 		name_plate.size = _MEDAL_PLATE_SIZE
+		name_plate.clip_contents = true
 		name_plate.add_theme_stylebox_override("panel", _medal_plate_style)
-		name_label.add_theme_color_override("font_color", _MEDAL_NAME_COLOR)
+		var name_col: Color = (
+			_MEDAL_NAME_COLORS[medal_ribbon]
+			if _MEDAL_NAME_COLORS.has(medal_ribbon)
+			else Color(0.259, 0.647, 0.961, 1.0)
+		)
+		name_label.add_theme_color_override("font_color", name_col)
 		name_label.add_theme_constant_override("outline_size", 0)
-		name_label.add_theme_font_size_override("font_size", 15)
+		name_label.add_theme_font_size_override("font_size", 12)
+		name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		name_label.max_lines_visible = 3
+		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	else:
+		name_plate.clip_contents = false
 		name_plate.position = _CLASSIC_PLATE_RECT.position
 		name_plate.size = _CLASSIC_PLATE_RECT.size
 		name_plate.add_theme_stylebox_override("panel", _classic_plate_clear_style)
@@ -177,6 +214,8 @@ func _apply_name_plate_layout() -> void:
 		name_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
 		name_label.add_theme_constant_override("outline_size", 5)
 		name_label.add_theme_font_size_override("font_size", 24)
+		name_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+		name_label.max_lines_visible = -1
 
 
 func _ensure_medal_photo_clip() -> void:
@@ -263,7 +302,7 @@ func _refresh_editor_preview() -> void:
 		return
 
 	name_label.visible = true
-	name_plate.visible = true
+	name_plate.visible = not use_medal_visual
 	dot_button.disabled = false
 	dot_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	dot_button.modulate = ACTIVE_DOT_MODULATE
@@ -294,8 +333,8 @@ func configure_from_data(data: Dictionary) -> void:
 		display_name = str(data.get("map_label", data.get("title", location_id)))
 	name_label.text = display_name
 	is_active = bool(data.get("active", true))
-	name_label.visible = is_active
-	name_plate.visible = is_active
+	name_label.visible = is_active and not use_medal_visual
+	name_plate.visible = is_active and not use_medal_visual
 	dot_button.disabled = not is_active
 	dot_button.mouse_default_cursor_shape = (
 		Control.CURSOR_POINTING_HAND if is_active else Control.CURSOR_ARROW
@@ -310,6 +349,7 @@ func configure_from_data(data: Dictionary) -> void:
 		_apply_medal_hit_style_overrides()
 		_refresh_medal_photo()
 		_reset_medal_interaction_state()
+		_apply_name_plate_layout()
 		name_plate.modulate = Color(1, 1, 1, 1) if is_active else Color(0.88, 0.88, 0.88, 1)
 	else:
 		name_plate.modulate = Color(1, 1, 1, 1)

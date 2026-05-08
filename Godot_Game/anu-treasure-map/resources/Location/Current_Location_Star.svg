@@ -1,0 +1,9 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft halo so the marker stays visible on busy map tiles -->
+  <circle cx="32" cy="32" r="24" fill="#42A5F5" fill-opacity="0.14"/>
+
+  <!-- Five-point star body -->
+  <path d="M32 8L38.7 21.8L53.9 24L43 34.6L45.6 49.8L32 42.6L18.4 49.8L21 34.6L10.1 24L25.3 21.8L32 8Z" fill="#FFA726"/>
+  <!-- Inner highlight -->
+  <path d="M32 13.2L37.4 24.3L49.7 26.1L40.9 34.7L43 47L32 41.2L21 47L23.1 34.7L14.3 26.1L26.6 24.3L32 13.2Z" fill="#FFD54F"/>
+</svg>
