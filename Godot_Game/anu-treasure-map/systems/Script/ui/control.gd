@@ -221,6 +221,10 @@ func _update_exit_label_color() -> void:
 
 
 func _on_start_button_pressed() -> void:
+	# Clear registration so onboarding always runs for a new game.
+	# "Continue" loads the save file and restores these values instead.
+	Global.player_data["major"] = ""
+	Global.player_data["homebase"] = ""
 	get_tree().change_scene_to_file("res://main.tscn")
 
 
