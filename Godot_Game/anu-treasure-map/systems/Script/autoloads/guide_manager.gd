@@ -35,7 +35,6 @@ func _ready() -> void:
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
-
 func show(text: String) -> void:
 	_ensure_guide()
 	if _guide:
@@ -75,7 +74,6 @@ func start_onboarding(main_node: Node) -> void:
 
 # ── Onboarding steps ──────────────────────────────────────────────────────────
 
-
 func _on_step_advanced() -> void:
 	if not _in_onboarding:
 		return
@@ -94,7 +92,9 @@ func _run_step(step: int) -> void:
 
 		1:
 			var bear_pos := Vector2(vp.x * 0.5 - 130.0, vp.y * 0.42 - 130.0)
-			_guide.show_step(_get_text(1), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, true)
+			_guide.show_step(
+				_get_text(1), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, true
+			)
 
 		2:
 			var goal_rect := _get_hud_rect("HUD/EndGameGoalPanel/GoalPanel")
@@ -345,7 +345,6 @@ func _run_step(step: int) -> void:
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
-
 func _get_hud_rect(path: String) -> Rect2:
 	if _main_ref == null:
 		return Rect2()
@@ -353,6 +352,7 @@ func _get_hud_rect(path: String) -> Rect2:
 	if node == null or not (node is Control):
 		return Rect2()
 	return (node as Control).get_global_rect()
+
 
 
 func _connect_phone_listener() -> void:
@@ -503,7 +503,6 @@ func _on_profile_card_closed() -> void:
 
 # ── Text loading ──────────────────────────────────────────────────────────────
 
-
 func _load_texts() -> void:
 	var file := FileAccess.open(_GUIDE_TEXTS_PATH, FileAccess.READ)
 	if file == null:
@@ -524,7 +523,6 @@ func _get_text(step: int) -> String:
 
 
 # ── Internal ──────────────────────────────────────────────────────────────────
-
 
 func _ensure_guide() -> void:
 	if _guide == null or not is_instance_valid(_guide):
