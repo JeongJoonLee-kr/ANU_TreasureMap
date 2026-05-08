@@ -1,100 +1,316 @@
-[gd_scene load_steps=9 format=3 uid="uid://biyroqgl0ktah"]
+[gd_scene load_steps=16 format=3 uid="uid://biyroqgl0ktah"]
 
-[ext_resource type="FontFile" uid="uid://h63222ofaftp" path="res://resources/font/AlegreyaSans-Bold.ttf" id="1_kbojo"]
-[ext_resource type="Script" uid="uid://cycmob7xp0snd" path="res://systems/Script/ui/register_panel.gd" id="1_qaf3w"]
-[ext_resource type="FontFile" uid="uid://g3eq45m8b1ri" path="res://resources/font/CourierPrime-Regular.ttf" id="3_qaf3w"]
-[ext_resource type="FontFile" uid="uid://dpdyiv2aqdwrk" path="res://resources/font/CourierPrime-Bold.ttf" id="4_8v5yy"]
-[ext_resource type="FontFile" uid="uid://bt8aoyxnp67jh" path="res://resources/font/CourierPrime-BoldItalic.ttf" id="5_bp4vq"]
-[ext_resource type="FontFile" uid="uid://cx36y8ekfwy86" path="res://resources/font/CourierPrime-Italic.ttf" id="6_nl4kd"]
-[ext_resource type="Texture2D" uid="uid://dlhdgkqpol6bp" path="res://resources/icon/enter button2048×2048px.png" id="7_8v5yy"]
+[ext_resource type="Script" uid="uid://cycmob7xp0snd" path="res://systems/Script/ui/register_panel.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://h63222ofaftp" path="res://resources/font/AlegreyaSans-Bold.ttf" id="2_font_bold"]
+[ext_resource type="FontFile" uid="uid://g3eq45m8b1ri" path="res://resources/font/CourierPrime-Regular.ttf" id="3_cq_reg"]
+[ext_resource type="FontFile" uid="uid://dpdyiv2aqdwrk" path="res://resources/font/CourierPrime-Bold.ttf" id="4_cq_bold"]
+[ext_resource type="FontFile" uid="uid://bt8aoyxnp67jh" path="res://resources/font/CourierPrime-BoldItalic.ttf" id="5_cq_bi"]
+[ext_resource type="FontFile" uid="uid://cx36y8ekfwy86" path="res://resources/font/CourierPrime-Italic.ttf" id="6_cq_it"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/panel_background.svg" id="7_bg"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/header_bar.svg" id="8_header"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/input_field.svg" id="9_input"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/button_green_major.svg" id="10_btn_gm"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/button_green_location.svg" id="11_btn_gl"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/button_gray.svg" id="12_btn_gray"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/button_continue.svg" id="13_continue"]
+[ext_resource type="Texture2D" path="res://resources/ui/dossier/description_box.svg" id="14_desc"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nl4kd"]
-bg_color = Color(1, 1, 1, 0)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clear"]
+bg_color = Color(0, 0, 0, 0)
 
-[node name="RegisterPanel" type="Panel"]
-offset_right = 291.0
-offset_bottom = 418.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_nl4kd")
-script = ExtResource("1_qaf3w")
+[node name="RegisterPanel" type="Control"]
+custom_minimum_size = Vector2(448, 600)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 448.0
+offset_bottom = 600.0
+mouse_filter = 0
+script = ExtResource("1_script")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+mouse_filter = 2
+texture = ExtResource("7_bg")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 12
+[node name="ColumnVBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/separation = 0
 
-[node name="Header" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="HeaderWrap" type="Control" parent="ColumnVBox"]
+custom_minimum_size = Vector2(448, 60)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_kbojo")
+mouse_filter = 0
+
+[node name="HeaderBar" type="TextureRect" parent="ColumnVBox/HeaderWrap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_header")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TitleLabel" type="Label" parent="ColumnVBox/HeaderWrap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 18
 text = "A.N.U. RELIC // DOSSIER"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="NameInput" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+[node name="BodyMargin" type="MarginContainer" parent="ColumnVBox"]
 layout_mode = 2
-text = "ENTER CODENAME..."
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
-[node name="MajorLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="BodyVBox" type="VBoxContainer" parent="ColumnVBox/BodyMargin"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+mouse_filter = 0
+theme_override_constants/separation = 24
+
+[node name="CodenameWrap" type="Control" parent="ColumnVBox/BodyMargin/BodyVBox"]
+custom_minimum_size = Vector2(400, 48)
+layout_mode = 2
+mouse_filter = 0
+
+[node name="InputBg" type="TextureRect" parent="ColumnVBox/BodyMargin/BodyVBox/CodenameWrap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_input")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameInput" type="LineEdit" parent="ColumnVBox/BodyMargin/BodyVBox/CodenameWrap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.5)
+theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_clear")
+theme_override_styles/focus = SubResource("StyleBoxFlat_clear")
+
+[node name="MajorSection" type="VBoxContainer" parent="ColumnVBox/BodyMargin/BodyVBox"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/separation = 10
+
+[node name="MajorLabel" type="Label" parent="ColumnVBox/BodyMargin/BodyVBox/MajorSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.24313726, 0.15294118, 0.13725491, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 14
 text = "MAJOR:"
 
-[node name="MajorButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MajorButtons" type="HBoxContainer" parent="ColumnVBox/BodyMargin/BodyVBox/MajorSection"]
 layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
 
-[node name="BtnComp" type="Button" parent="MarginContainer/VBoxContainer/MajorButtons"]
+[node name="BtnComp" type="TextureButton" parent="ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons"]
+custom_minimum_size = Vector2(192, 48)
 layout_mode = 2
-text = "[ COMPUTING ]"
+focus_mode = 2
+texture_normal = ExtResource("12_btn_gray")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="BtnHist" type="Button" parent="MarginContainer/VBoxContainer/MajorButtons"]
-layout_mode = 2
-text = "HISTORY ]"
+[node name="BtnCompLabel" type="Label" parent="ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnComp"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 13
+text = "COMPUTING"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="BaseLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="BtnHist" type="TextureButton" parent="ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons"]
+custom_minimum_size = Vector2(192, 48)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+focus_mode = 2
+texture_normal = ExtResource("12_btn_gray")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BtnHistLabel" type="Label" parent="ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnHist"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 13
+text = "HISTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BaseSection" type="VBoxContainer" parent="ColumnVBox/BodyMargin/BodyVBox"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/separation = 10
+
+[node name="BaseLabel" type="Label" parent="ColumnVBox/BodyMargin/BodyVBox/BaseSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.24313726, 0.15294118, 0.13725491, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 14
 text = "START LOCATION:"
 
-[node name="BaseButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="BaseButtons" type="HBoxContainer" parent="ColumnVBox/BodyMargin/BodyVBox/BaseSection"]
 layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
 
-[node name="BtnCafe" type="Button" parent="MarginContainer/VBoxContainer/BaseButtons"]
+[node name="BtnLake" type="TextureButton" parent="ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons"]
+custom_minimum_size = Vector2(192, 48)
 layout_mode = 2
-text = "[ CHIFLEY & MARIE REAY ]"
+focus_mode = 2
+texture_normal = ExtResource("11_btn_gl")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="BtnLake" type="Button" parent="MarginContainer/VBoxContainer/BaseButtons"]
-layout_mode = 2
-text = "[ LODGES ]"
+[node name="BtnLakeLabel" type="Label" parent="ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons/BtnLake"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 13
+text = "LODGES"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="BtnCafe" type="TextureButton" parent="ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons"]
+visible = false
+custom_minimum_size = Vector2(192, 48)
 layout_mode = 2
+texture_normal = ExtResource("12_btn_gray")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="MindTerminal" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 90)
+[node name="Divider" type="ColorRect" parent="ColumnVBox/BodyMargin/BodyVBox"]
+custom_minimum_size = Vector2(400, 1)
 layout_mode = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_qaf3w")
-theme_override_fonts/bold_font = ExtResource("4_8v5yy")
-theme_override_fonts/bold_italics_font = ExtResource("5_bp4vq")
-theme_override_fonts/italics_font = ExtResource("6_nl4kd")
+mouse_filter = 2
+color = Color(0.36862746, 0.42352942, 0.5176471, 1)
+
+[node name="DescWrap" type="Control" parent="ColumnVBox/BodyMargin/BodyVBox"]
+custom_minimum_size = Vector2(400, 120)
+layout_mode = 2
+mouse_filter = 0
+
+[node name="DescBg" type="TextureRect" parent="ColumnVBox/BodyMargin/BodyVBox/DescWrap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_desc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MindTerminal" type="RichTextLabel" parent="ColumnVBox/BodyMargin/BodyVBox/DescWrap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.24313726, 0.15294118, 0.13725491, 1)
+theme_override_colors/font_italic_color = Color(0.36862746, 0.42352942, 0.5176471, 1)
+theme_override_fonts/normal_font = ExtResource("3_cq_reg")
+theme_override_fonts/bold_font = ExtResource("4_cq_bold")
+theme_override_fonts/bold_italics_font = ExtResource("5_cq_bi")
+theme_override_fonts/italics_font = ExtResource("6_cq_it")
 theme_override_font_sizes/normal_font_size = 12
 theme_override_font_sizes/bold_font_size = 12
 theme_override_font_sizes/bold_italics_font_size = 12
 theme_override_font_sizes/italics_font_size = 12
 bbcode_enabled = true
+scroll_active = true
 
-[node name="AuthButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 40)
+[node name="AuthButton" type="TextureButton" parent="ColumnVBox/BodyMargin/BodyVBox"]
+custom_minimum_size = Vector2(400, 56)
 layout_mode = 2
-texture_normal = ExtResource("7_8v5yy")
+focus_mode = 2
+texture_normal = ExtResource("13_continue")
+disabled = true
 ignore_texture_size = true
-stretch_mode = 4
+stretch_mode = 5
+
+[node name="AuthLabel" type="Label" parent="ColumnVBox/BodyMargin/BodyVBox/AuthButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 17
+text = "CONTINUE"
+horizontal_alignment = 1
+vertical_alignment = 1

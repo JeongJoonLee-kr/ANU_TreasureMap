@@ -11,6 +11,7 @@ var location_value_label: Label = $HUD/Topbar/LocationStatus/LocationTexts/Locat
 @onready var time_value_label: Label = $HUD/Topbar/TimeStatus/TimeTexts/TimeValueLabel
 @onready var money_value_label: Label = $HUD/Topbar/MoneyStatus/MoneyTexts/MoneyValueLabel
 @onready var ins_button: TextureButton = $HUD/MarginContainer/InsButton
+@onready var ins_notification_dot: TextureRect = $HUD/MarginContainer/InsButton/NotificationDot
 @onready var menu_button: TextureButton = $HUD/Topbar/MenuButton
 @onready var next_week_button: TextureButton = $HUD/Topbar/NextWeekButton
 @onready var next_week_label: Label = $HUD/Topbar/NextWeekButton/NextWeekLabel
@@ -32,6 +33,7 @@ func _ready() -> void:
 	initialize_progress_state()
 	load_location_data()
 	show_map()
+	set_phone_notification_visible(false)
 	update_resource_ui()
 	call_deferred("_start_first_time_registration_if_needed")
 
@@ -76,11 +78,22 @@ func open_ins() -> Node:
 	if existing_ins != null:
 		return existing_ins
 
+	# Opening the phone means the pending notification is acknowledged.
+	set_phone_notification_visible(false)
 	var ins_instance = INS_SCENE.instantiate()
 	if ins_instance is CanvasLayer:
 		ins_instance.layer = 2
 	add_child(ins_instance)
 	return ins_instance
+
+
+func set_phone_notification_visible(visible: bool) -> void:
+	if is_instance_valid(ins_notification_dot):
+		ins_notification_dot.visible = visible
+
+
+func notify_phone_message_received() -> void:
+	set_phone_notification_visible(true)
 
 
 func open_profile(

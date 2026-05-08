@@ -2,15 +2,30 @@ extends Control
 
 signal auth_completed
 
-# ========== NODE REFERENCES ==========
-# Referencing the exact names from your Scene Tree
-@onready var name_input: LineEdit = $MarginContainer/VBoxContainer/NameInput
-@onready var comp_btn: Button = $MarginContainer/VBoxContainer/MajorButtons/BtnComp
-@onready var hist_btn: Button = $MarginContainer/VBoxContainer/MajorButtons/BtnHist
-@onready var griffin_lake_btn: Button = $MarginContainer/VBoxContainer/BaseButtons/BtnLake
-@onready var lab_cafe_btn: Button = $MarginContainer/VBoxContainer/BaseButtons/BtnCafe
-@onready var auth_btn: TextureButton = $MarginContainer/VBoxContainer/AuthButton
-@onready var mind_terminal: RichTextLabel = $MarginContainer/VBoxContainer/MindTerminal
+const TEX_BTN_GREEN_MAJOR := preload("res://resources/ui/dossier/button_green_major.svg")
+const TEX_BTN_GREEN_LOCATION := preload("res://resources/ui/dossier/button_green_location.svg")
+const TEX_BTN_GRAY := preload("res://resources/ui/dossier/button_gray.svg")
+const _DOSSIER_DESIGN_SIZE := Vector2(448.0, 600.0)
+## Inner bounds vs LeftZone; right slightly larger so we miss COLLECTION tab art without shrinking too much.
+const _TICKET_INSET_LEFT := 10.0
+const _TICKET_INSET_TOP := 10.0
+const _TICKET_INSET_RIGHT := 34.0
+const _TICKET_INSET_BOTTOM := 14.0
+
+# ========== NODE REFERENCES (Mini Metro dossier layout) ==========
+@onready var name_input: LineEdit = $ColumnVBox/BodyMargin/BodyVBox/CodenameWrap/NameInput
+@onready var comp_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnComp
+@onready var hist_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/MajorSection/MajorButtons/BtnHist
+@onready var griffin_lake_btn: TextureButton = (
+	$ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons/BtnLake
+)
+@onready var lab_cafe_btn: TextureButton = (
+	$ColumnVBox/BodyMargin/BodyVBox/BaseSection/BaseButtons/BtnCafe
+)
+@onready var auth_btn: TextureButton = $ColumnVBox/BodyMargin/BodyVBox/AuthButton
+@onready var mind_terminal: RichTextLabel = (
+	$ColumnVBox/BodyMargin/BodyVBox/DescWrap/MindTerminal
+)
 
 # ========== STATE VARIABLES ==========
 var current_major: String = ""
@@ -63,14 +78,46 @@ func _ready():
 	else:
 		apply_registration_mode()
 
+	_fit_panel_scale()
+	call_deferred("_fit_panel_scale")
+	var zone := get_parent() as Control
+	if zone != null and not zone.resized.is_connected(_on_ticket_zone_resized):
+		zone.resized.connect(_on_ticket_zone_resized)
+
+
+func _on_ticket_zone_resized() -> void:
+	call_deferred("_fit_panel_scale")
+
 
 # ========== HELPER FOR VISUAL FEEDBACK ==========
-func _reset_button_colors():
-	# Make all buttons slightly dim by default (70% brightness)
-	comp_btn.modulate = Color(0.7, 0.7, 0.7, 1)
-	hist_btn.modulate = Color(0.7, 0.7, 0.7, 1)
-	griffin_lake_btn.modulate = Color(0.7, 0.7, 0.7, 1)
-	lab_cafe_btn.modulate = Color(0.7, 0.7, 0.7, 1)
+func _fit_panel_scale() -> void:
+	var zone := get_parent() as Control
+	if zone == null:
+		return
+	var avail := Vector2(
+		zone.size.x - _TICKET_INSET_LEFT - _TICKET_INSET_RIGHT,
+		zone.size.y - _TICKET_INSET_TOP - _TICKET_INSET_BOTTOM,
+	)
+	if avail.x <= 1.0 or avail.y <= 1.0:
+		return
+	var s: float = minf(avail.x / _DOSSIER_DESIGN_SIZE.x, avail.y / _DOSSIER_DESIGN_SIZE.y)
+	scale = Vector2(s, s)
+	var drawn := _DOSSIER_DESIGN_SIZE * s
+	position = Vector2(
+		_TICKET_INSET_LEFT + (avail.x - drawn.x) * 0.5,
+		_TICKET_INSET_TOP + (avail.y - drawn.y) * 0.5,
+	)
+
+
+func _reset_button_colors() -> void:
+	comp_btn.texture_normal = TEX_BTN_GRAY
+	hist_btn.texture_normal = TEX_BTN_GRAY
+	griffin_lake_btn.texture_normal = TEX_BTN_GRAY
+	lab_cafe_btn.texture_normal = TEX_BTN_GRAY
+	comp_btn.modulate = Color(1, 1, 1, 1)
+	hist_btn.modulate = Color(1, 1, 1, 1)
+	griffin_lake_btn.modulate = Color(1, 1, 1, 1)
+	lab_cafe_btn.modulate = Color(1, 1, 1, 1)
 
 
 func set_profile_mode(enabled: bool) -> void:
@@ -80,6 +127,7 @@ func set_profile_mode(enabled: bool) -> void:
 			apply_profile_mode()
 		else:
 			apply_registration_mode()
+		call_deferred("_fit_panel_scale")
 
 
 func prefill_from_player_data() -> void:
@@ -106,6 +154,7 @@ func apply_registration_mode() -> void:
 	auth_btn.modulate = Color(0.3, 0.3, 0.3, 1)
 
 	_reset_button_colors()
+	griffin_lake_btn.texture_normal = TEX_BTN_GREEN_LOCATION
 	griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
 	update_mind_terminal(DESCRIPTIONS["lodges"])
 
@@ -132,15 +181,21 @@ func apply_profile_mode() -> void:
 
 func highlight_current_selection() -> void:
 	if current_major == "comp":
-		comp_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-		hist_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+		comp_btn.texture_normal = TEX_BTN_GREEN_MAJOR
+		hist_btn.texture_normal = TEX_BTN_GRAY
+		comp_btn.modulate = Color(1, 1, 1, 1)
+		hist_btn.modulate = Color(0.58, 0.58, 0.58, 1)
 	elif current_major == "hist":
-		hist_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-		comp_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+		hist_btn.texture_normal = TEX_BTN_GREEN_LOCATION
+		comp_btn.texture_normal = TEX_BTN_GRAY
+		hist_btn.modulate = Color(1, 1, 1, 1)
+		comp_btn.modulate = Color(0.58, 0.58, 0.58, 1)
 
 	if current_homebase == "lodges":
-		griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-		lab_cafe_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+		griffin_lake_btn.texture_normal = TEX_BTN_GREEN_LOCATION
+		griffin_lake_btn.modulate = Color(1, 1, 1, 1)
+		lab_cafe_btn.texture_normal = TEX_BTN_GRAY
+		lab_cafe_btn.modulate = Color(0.58, 0.58, 0.58, 1)
 
 
 func build_profile_summary() -> String:
@@ -165,9 +220,10 @@ func build_profile_summary() -> String:
 # ========== MAJOR BUTTON HANDLERS ==========
 func _on_comp_pressed():
 	current_major = "comp"
-	# Highlight selected, dim the other
-	comp_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-	hist_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+	comp_btn.texture_normal = TEX_BTN_GREEN_MAJOR
+	hist_btn.texture_normal = TEX_BTN_GRAY
+	comp_btn.modulate = Color(1, 1, 1, 1)
+	hist_btn.modulate = Color(1, 1, 1, 1)
 
 	update_mind_terminal(DESCRIPTIONS["comp"])
 	check_auth_status()
@@ -175,9 +231,10 @@ func _on_comp_pressed():
 
 func _on_hist_pressed():
 	current_major = "hist"
-	# Highlight selected, dim the other
-	hist_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-	comp_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+	hist_btn.texture_normal = TEX_BTN_GREEN_LOCATION
+	comp_btn.texture_normal = TEX_BTN_GRAY
+	hist_btn.modulate = Color(1, 1, 1, 1)
+	comp_btn.modulate = Color(1, 1, 1, 1)
 
 	update_mind_terminal(DESCRIPTIONS["hist"])
 	check_auth_status()
@@ -186,9 +243,10 @@ func _on_hist_pressed():
 # ========== HOMEBASE BUTTON HANDLERS ==========
 func _on_griffin_lake_pressed():
 	current_homebase = "lodges"
-	# Highlight selected, dim the other
-	griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-	lab_cafe_btn.modulate = Color(0.4, 0.4, 0.4, 1)
+	griffin_lake_btn.texture_normal = TEX_BTN_GREEN_LOCATION
+	lab_cafe_btn.texture_normal = TEX_BTN_GRAY
+	griffin_lake_btn.modulate = Color(1, 1, 1, 1)
+	lab_cafe_btn.modulate = Color(1, 1, 1, 1)
 
 	update_mind_terminal(DESCRIPTIONS["lodges"])
 	check_auth_status()
