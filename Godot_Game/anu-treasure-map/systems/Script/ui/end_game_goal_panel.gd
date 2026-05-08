@@ -38,13 +38,14 @@ func refresh() -> void:
 	var treasure_count := Global.unlocked_treasures.size()
 
 	_title_label.text = str(panel_config.get("title", "End Goals"))
-	_week_label.text = str(panel_config.get("week_progress_format", "Week%d / Week%d")) % [
-		min(Global.current_week, target_week_display),
-		target_week_display
-	]
-	_treasure_label.text = str(
-		panel_config.get("treasure_progress_format", "Treasures %d/%d")
-	) % [min(treasure_count, target_treasures), target_treasures]
+	_week_label.text = (
+		str(panel_config.get("week_progress_format", "Week%d / Week%d"))
+		% [min(Global.current_week, target_week_display), target_week_display]
+	)
+	_treasure_label.text = (
+		str(panel_config.get("treasure_progress_format", "Treasures %d/%d"))
+		% [min(treasure_count, target_treasures), target_treasures]
+	)
 	_hint_label.text = str(panel_config.get("hint", ""))
 	_toggle_button.text = str(panel_config.get("collapse_text", "Hide"))
 	_edge_button.text = str(panel_config.get("expand_text", "Goals"))

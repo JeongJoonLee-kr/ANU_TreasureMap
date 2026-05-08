@@ -18,18 +18,21 @@ var location_value_label: Label = $HUD/Bottombar/LocationStatus/LocationTexts/Lo
 @onready var money_value_label: Label = $HUD/Bottombar/MoneyStatus/MoneyTexts/MoneyValueLabel
 @onready var ins_button: TextureButton = $HUD/MarginContainer/InsButton
 @onready var ins_notification_dot: TextureRect = $HUD/MarginContainer/InsButton/NotificationDot
-@onready var menu_button: TextureButton = _get_first_node(
-	["HUD/Bottombar/MenuButton", "HUD/Topbar/MenuButton"]
-) as TextureButton
-@onready var next_week_button: TextureButton = _get_first_node(
-	["HUD/Bottombar/NextWeekButton", "HUD/Topbar/NextWeekButton"]
-) as TextureButton
-@onready var next_week_label: Label = _get_first_node(
-	["HUD/Bottombar/NextWeekButton/NextWeekLabel", "HUD/Topbar/NextWeekButton/NextWeekLabel"]
-) as Label
-@onready var back_button: TextureButton = _get_first_node(
-	["HUD/Bottombar/BackButton", "HUD/Topbar/BackButton"]
-) as TextureButton
+@onready var menu_button: TextureButton = (
+	_get_first_node(["HUD/Bottombar/MenuButton", "HUD/Topbar/MenuButton"]) as TextureButton
+)
+@onready var next_week_button: TextureButton = (
+	_get_first_node(["HUD/Bottombar/NextWeekButton", "HUD/Topbar/NextWeekButton"]) as TextureButton
+)
+@onready var next_week_label: Label = (
+	_get_first_node(
+		["HUD/Bottombar/NextWeekButton/NextWeekLabel", "HUD/Topbar/NextWeekButton/NextWeekLabel"]
+	)
+	as Label
+)
+@onready var back_button: TextureButton = (
+	_get_first_node(["HUD/Bottombar/BackButton", "HUD/Topbar/BackButton"]) as TextureButton
+)
 
 var location_instance: Node = null
 var location_data: Dictionary = {}
@@ -58,9 +61,13 @@ func _ready() -> void:
 	call_deferred("_start_first_time_registration_if_needed")
 	# TODO: remove after testing guide character
 	get_tree().create_timer(1.0).timeout.connect(
-		func(): GuideManager.show(
-			"Welcome to ANU Treasure Map!\nTap markers on the map to explore locations, collect clues and treasures."
-		)
+		func():
+			(
+				GuideManager
+				. show(
+					"Welcome to ANU Treasure Map!\nTap markers on the map to explore locations, collect clues and treasures."
+				)
+			)
 	)
 
 
@@ -378,7 +385,10 @@ func _reset_for_second_run() -> void:
 		Global.unlocked_clues.clear()
 	if bool(reset_config.get("reset_treasures", true)):
 		Global.unlocked_treasures.clear()
-	if bool(reset_config.get("reset_events", true)) and EventManager.has_method("reset_for_new_run"):
+	if (
+		bool(reset_config.get("reset_events", true))
+		and EventManager.has_method("reset_for_new_run")
+	):
 		EventManager.reset_for_new_run()
 
 	Global.notify_resources_changed()
