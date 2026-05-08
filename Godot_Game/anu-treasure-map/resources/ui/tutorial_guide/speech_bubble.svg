@@ -1,0 +1,15 @@
+<svg width="320" height="100" viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Godot/ThorVG: use fill-opacity on shapes instead of element opacity; stroke-linejoin kept explicit. -->
+  <!-- Speech bubble body -->
+  <rect x="0" y="0" width="320" height="84" rx="42" fill="#FFFFFF"/>
+  <rect x="0" y="0" width="320" height="84" rx="42" fill="none" stroke="#FFA726" stroke-width="3"/>
+
+  <!-- Decorative dots (semi-transparent orange) -->
+  <circle cx="300" cy="12" r="3" fill="#FFA726" fill-opacity="0.3"/>
+  <circle cx="310" cy="12" r="3" fill="#FFA726" fill-opacity="0.3"/>
+  <circle cx="305" cy="18" r="3" fill="#FFA726" fill-opacity="0.3"/>
+
+  <!-- Tail pointer (filled then stroked for crisp corners in ThorVG) -->
+  <path d="M148 84 L160 100 L172 84 Z" fill="#FFFFFF"/>
+  <path d="M148 84 L160 100 L172 84" fill="none" stroke="#FFA726" stroke-width="3" stroke-linejoin="round"/>
+</svg>

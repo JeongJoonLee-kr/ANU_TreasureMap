@@ -272,9 +272,10 @@ layout_mode = 0
 offset_left = 754.0
 offset_top = 570.0
 offset_right = 974.0
-offset_bottom = 660.0
+offset_bottom = 698.0
 location_id = "central"
 display_name_override = "Central"
+use_medal_visual = true
 
 [node name="FellowsOvalMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
 layout_mode = 0
