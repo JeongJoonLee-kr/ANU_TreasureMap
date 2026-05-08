@@ -29,6 +29,7 @@ func _ready() -> void:
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
+
 func show(text: String) -> void:
 	_ensure_guide()
 	if _guide:
@@ -68,6 +69,7 @@ func start_onboarding(main_node: Node) -> void:
 
 # ── Onboarding steps ──────────────────────────────────────────────────────────
 
+
 func _on_step_advanced() -> void:
 	if not _in_onboarding:
 		return
@@ -86,15 +88,15 @@ func _run_step(step: int) -> void:
 
 		1:
 			var bear_pos := Vector2(vp.x * 0.5 - 130.0, vp.y * 0.42 - 130.0)
-			_guide.show_step(
-				_get_text(1), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, true
-			)
+			_guide.show_step(_get_text(1), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, true)
 
 		2:
 			var week_rect := _get_hud_rect("HUD/Bottombar/WeekStatus")
 			var bear_x := (week_rect.position.x if week_rect.size != Vector2.ZERO else 40.0) - 10.0
 			var bear_pos := Vector2(maxf(bear_x, 20.0), vp.y - 360.0)
-			_guide.show_step(_get_text(2), bear_pos, GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
+			_guide.show_step(
+				_get_text(2), bear_pos, GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true
+			)
 			if week_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(week_rect.grow(10.0))
 
@@ -160,13 +162,16 @@ func _run_step(step: int) -> void:
 			else:
 				bear_pos = Vector2(vp.x - 300.0, vp.y * 0.40 - 130.0)
 
-			_guide.show_step(
-				_get_text(6),
-				bear_pos,
-				GuideCharacter.OVERLAY_SPOTLIGHT,
-				false,
-				true,   # overlay_passthrough → MOUSE_FILTER_IGNORE, InsButton gets hover/click
-				true,   # keep_overlay
+			(
+				_guide
+				. show_step(
+					_get_text(6),
+					bear_pos,
+					GuideCharacter.OVERLAY_SPOTLIGHT,
+					false,
+					true,  # overlay_passthrough → MOUSE_FILTER_IGNORE, InsButton gets hover/click
+					true,  # keep_overlay
+				)
 			)
 			if phone_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(phone_rect.grow(14.0))
@@ -179,6 +184,7 @@ func _run_step(step: int) -> void:
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+
 func _get_hud_rect(path: String) -> Rect2:
 	if _main_ref == null:
 		return Rect2()
@@ -186,7 +192,6 @@ func _get_hud_rect(path: String) -> Rect2:
 	if node == null or not (node is Control):
 		return Rect2()
 	return (node as Control).get_global_rect()
-
 
 
 func _connect_phone_listener() -> void:
@@ -248,6 +253,7 @@ func _unlock_non_phone_input() -> void:
 
 # ── Text loading ──────────────────────────────────────────────────────────────
 
+
 func _load_texts() -> void:
 	var file := FileAccess.open(_GUIDE_TEXTS_PATH, FileAccess.READ)
 	if file == null:
@@ -268,6 +274,7 @@ func _get_text(step: int) -> String:
 
 
 # ── Internal ──────────────────────────────────────────────────────────────────
+
 
 func _ensure_guide() -> void:
 	if _guide == null or not is_instance_valid(_guide):
