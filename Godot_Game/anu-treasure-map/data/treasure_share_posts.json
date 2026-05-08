@@ -1,0 +1,222 @@
+{
+  "yuki": {
+	"text": "I found Yuki near [color=#F6416C][url=bruce_hall_grassland]Bruce Hall grassland[/url][/color] today. A small white dog with a red collar turned an ordinary walk into the warmest little campus mystery. If you are around in the afternoon, keep an eye out for the bell on her collar.",
+	"image_path": "res://resources/treasure/treasure_yuki.png",
+	"annotations": {
+	  "bruce_hall_grassland": {
+		"text": "A small white dog with a red collar is often seen around the Bruce Hall grassland in the afternoon.",
+		"clue_id": "clue_yuki",
+		"clue_name": "Bruce Hall Grassland"
+	  }
+	}
+  },
+  "chess_board": {
+	"text": "The strange thumping near [color=#F6416C][url=library_chessboard]the library[/url][/color] led me to the giant chess board. The pieces are huge, quiet, and almost ceremonial, like the campus has been hiding a puzzle in plain sight.",
+	"image_path": "res://resources/treasure/treasure_chessboard.png",
+	"annotations": {
+	  "library_chessboard": {
+		"text": "A rhythmic thumping sound near the library might point toward the giant chess board.",
+		"clue_id": "clue_chess_board",
+		"clue_name": "Library Chessboard"
+	  }
+	}
+  },
+  "kangaroo": {
+	"text": "I really did see a kangaroo near [color=#F6416C][url=sports_field_fence]the sports field fence[/url][/color]. It paused for a second, looked right at me, then slipped back toward Black Mountain Park. ANU still has surprises tucked between ordinary paths.",
+	"image_path": "res://resources/treasure/treasure_kangaroo.png",
+	"annotations": {
+	  "sports_field_fence": {
+		"text": "Something unusual was spotted near the sports field fence, close to the edge of Black Mountain Park.",
+		"clue_id": "clue_kangaroo",
+		"clue_name": "Sports Field Fence"
+	  }
+	}
+  },
+  "student_accommodation_basketball_court": {
+	"text": "Joined a quick game at [color=#F6416C][url=student_accommodation_basketball_court]the Student Accommodation basketball court[/url][/color]. It started as one missing player and turned into names, passes, and a tiny first-week team.",
+	"image_path": "res://resources/treasure/treasure_basketball_court.png",
+	"annotations": {
+	  "student_accommodation_basketball_court": {
+		"text": "A half-court near Student Accommodation can turn an awkward first meeting into a small team.",
+		"clue_id": "clue_student_accommodation_basketball_court",
+		"clue_name": "Student Accommodation Basketball Court"
+	  }
+	}
+  },
+  "wamburun_ursula_free_food": {
+	"text": "Found the real route behind [color=#F6416C][url=anusa_food_support]ANUSA food support[/url][/color]: free breakfast, Student Bites, food recovery, grocery vouchers, and people making sure help is visible before someone skips a meal.",
+	"image_path": "res://resources/treasure/treasure_free_food.png",
+	"annotations": {
+	  "anusa_food_support": {
+		"text": "ANUSA food support points students toward BKSS, Student Bites, food recovery, grocery vouchers, and other support options.",
+		"clue_id": "clue_wamburun_ursula_free_food",
+		"clue_name": "ANUSA Food Support"
+	  }
+	}
+  },
+  "bruce_hall_lemon_tree": {
+	"text": "Followed a sticky-note rumour at [color=#F6416C][url=bruce_hall_lemon_tree]Bruce Hall[/url][/color] and found Lemon Tree. The treasure was not only a plant, but the reminder not to let someone look for hope alone.",
+	"image_path": "res://resources/treasure/treasure_lemon_tree.png",
+	"annotations": {
+	  "bruce_hall_lemon_tree": {
+		"text": "A Bruce Hall rumour points toward a small sign of hope in the roof-top garden.",
+		"clue_id": "clue_bruce_hall_lemon_tree",
+		"clue_name": "Bruce Hall Lemon Tree"
+	  }
+	}
+  },
+  "central_studying_area_board_games_society": {
+	"text": "The invitation at [color=#F6416C][url=board_games_society]Board Games Society[/url][/color] was worth following. One table, one rules explanation, and suddenly the study break had room for new people.",
+	"image_path": "res://resources/treasure/treasure_board_games_society.png",
+	"annotations": {
+	  "board_games_society": {
+		"text": "A Friday game night invitation can lead stressed students out of study mode and into a welcoming table.",
+		"clue_id": "clue_central_studying_area_board_games_society",
+		"clue_name": "Board Games Society"
+	  }
+	}
+  },
+  "csit_engn_escape_room": {
+	"text": "Solved the trail to [color=#F6416C][url=csit_escape_room]the CSIT escape room[/url][/color]. The lock was less important than the moment everyone stopped rushing and started thinking together.",
+	"image_path": "res://resources/treasure/treasure_escape_room.png",
+	"annotations": {
+	  "csit_escape_room": {
+		"text": "A puzzle room near CSIT rewards clear teamwork more than frantic guessing.",
+		"clue_id": "clue_csit_engn_escape_room",
+		"clue_name": "CSIT Escape Room"
+	  }
+	}
+  },
+  "anu_sport_north_oval_anu_sport": {
+	"text": "Found [color=#F6416C][url=anu_sport_north_oval]ANU Sport[/url][/color] through North Oval. The treasure was learning that campus sport has more than one way in, even if you are not already on a team.",
+	"image_path": "res://resources/treasure/treasure_anu_sport.png",
+	"annotations": {
+	  "anu_sport_north_oval": {
+		"text": "North Oval can point students toward ANU Sport, casual activity, and ways into campus movement.",
+		"clue_id": "clue_anu_sport_north_oval_anu_sport",
+		"clue_name": "ANU Sport at North Oval"
+	  }
+	}
+  },
+  "chifley_marie_reay_chifley_library": {
+	"text": "Mapped a quiet path through [color=#F6416C][url=chifley_library]Chifley Library[/url][/color]. The notebook clue made the shelves feel less like a maze and more like a place that can answer back.",
+	"image_path": "res://resources/treasure/treasure_chifley_library.png",
+	"annotations": {
+	  "chifley_library": {
+		"text": "A notebook map near Chifley Library helps turn shelves and study habits into a navigable campus clue.",
+		"clue_id": "clue_chifley_marie_reay_chifley_library",
+		"clue_name": "Chifley Library"
+	  }
+	}
+  },
+  "copland_subway": {
+	"text": "Found the lunch route from [color=#F6416C][url=copland_subway_route]Copland to Subway[/url][/color]. It turns out a good campus shortcut can rescue more than just your timetable.",
+	"image_path": "res://resources/treasure/treasure_subway.png",
+	"annotations": {
+	  "copland_subway_route": {
+		"text": "The route from Copland toward Subway can turn a busy campus day into something manageable.",
+		"clue_id": "clue_copland_subway",
+		"clue_name": "Copland Subway Route"
+	  }
+	}
+  },
+  "southwest_aboriginal_land_management": {
+	"text": "Spent time with [color=#F6416C][url=aboriginal_land_management]Aboriginal Land Management[/url][/color] in the Southwest area. The treasure was learning to read the campus landscape with more care.",
+	"image_path": "res://resources/treasure/treasure_aboriginal_land_management.png",
+	"annotations": {
+	  "aboriginal_land_management": {
+		"text": "The Southwest landscape can point toward Aboriginal land management knowledge and careful attention to Country.",
+		"clue_id": "clue_southwest_aboriginal_land_management",
+		"clue_name": "Aboriginal Land Management"
+	  }
+	}
+  },
+  "houses_canberra_traditional_bus_stop": {
+	"text": "Looked twice at [color=#F6416C][url=canberra_bus_stop]the Canberra traditional bus stop[/url][/color] near Houses. A place for waiting became a small lesson in campus design.",
+	"image_path": "res://resources/treasure/treasure_canberra_traditional_bus_stop.png",
+	"annotations": {
+	  "canberra_bus_stop": {
+		"text": "A concrete bus stop near Houses carries a small piece of Canberra design language.",
+		"clue_id": "clue_houses_canberra_traditional_bus_stop",
+		"clue_name": "Canberra Traditional Bus Stop"
+	  }
+	}
+  },
+  "houses_spiral_floor_tile": {
+	"text": "Found [color=#F6416C][url=spiral_floor_tile]the spiral floor tile[/url][/color] near Houses. The clue was underfoot the whole time, waiting for someone to stop walking automatically.",
+	"image_path": "res://resources/treasure/treasure_spiral_floor_tile.png",
+	"annotations": {
+	  "spiral_floor_tile": {
+		"text": "A spiral floor tile near Houses rewards students who slow down and look at the ground.",
+		"clue_id": "clue_houses_spiral_floor_tile",
+		"clue_name": "Spiral Floor Tile"
+	  }
+	}
+  },
+  "blocks_metal_frames_sculpture_six_fixed": {
+	"text": "Walked around [color=#F6416C][url=metal_frames_sculpture]the metal frames sculpture[/url][/color] until the angles finally made sense. This one only becomes clear when you move.",
+	"image_path": "res://resources/treasure/treasure_metal_frames_sculpture.png",
+	"annotations": {
+	  "metal_frames_sculpture": {
+		"text": "The metal frames sculpture near Blocks changes meaning as the viewer changes position.",
+		"clue_id": "clue_blocks_metal_frames_sculpture_six_fixed",
+		"clue_name": "Metal Frames Sculpture"
+	  }
+	}
+  },
+  "southwest_winged_harvest": {
+	"text": "Found [color=#F6416C][url=winged_harvest]Winged Harvest[/url][/color] in Southwest and took the slow route through its notes. Some campus treasures ask for respect before interpretation.",
+	"image_path": "res://resources/treasure/treasure_winged_harvest.png",
+	"annotations": {
+	  "winged_harvest": {
+		"text": "Winged Harvest is an artwork whose materials and references ask for careful, respectful reading.",
+		"clue_id": "clue_southwest_winged_harvest",
+		"clue_name": "Winged Harvest"
+	  }
+	}
+  },
+  "central_dragon_art_installation": {
+	"text": "Looked up inside [color=#F6416C][url=central_dragon]Central[/url][/color] and found the dragon art installation. The building had a sky after all.",
+	"image_path": "res://resources/treasure/treasure_dragon_art_installation.png",
+	"annotations": {
+	  "central_dragon": {
+		"text": "A suspended dragon inside Central rewards players who remember to look above the usual line of sight.",
+		"clue_id": "clue_central_dragon_art_installation",
+		"clue_name": "Central Dragon Art Installation"
+	  }
+	}
+  },
+  "fellows_oval_game_on": {
+	"text": "After Fellows Oval, [color=#F6416C][url=game_on_joplin_lane]Game On[/url][/color] kept the team energy going without another scoreboard. Turns out cooldown can still feel like play.",
+	"image_path": "res://resources/treasure/treasure_game_on.png",
+	"annotations": {
+	  "game_on_joplin_lane": {
+		"text": "Game On in Joplin Lane gives students a casual arcade space after sport or study.",
+		"clue_id": "clue_fellows_oval_game_on",
+		"clue_name": "Game On"
+	  }
+	}
+  },
+  "art_and_music_cafe_on_4th_floor": {
+	"text": "Found [color=#F6416C][url=cafe_on_4th_floor]Cafe on 4th Floor[/url][/color] inside Art and Music. It is the kind of pause that makes rehearsal, coffee, and the next performance fit into one day.",
+	"image_path": "res://resources/treasure/treasure_cafe_on_4th_floor.png",
+	"annotations": {
+	  "cafe_on_4th_floor": {
+		"text": "The fourth-floor cafe in Art and Music works as a quiet pause between practice, performance, and campus life.",
+		"clue_id": "clue_art_and_music_cafe_on_4th_floor",
+		"clue_name": "Cafe on 4th Floor"
+	  }
+	}
+  },
+  "copland_event_notice_board": {
+	"text": "Decoded [color=#F6416C][url=copland_notice_board]the Copland event notice board[/url][/color]. Once the date, place, and host are clear, the wall stops being noise and starts becoming doors.",
+	"image_path": "res://resources/treasure/treasure_event_notice_board.png",
+	"annotations": {
+	  "copland_notice_board": {
+		"text": "The Copland notice board helps students turn crowded event flyers into real campus invitations.",
+		"clue_id": "clue_copland_event_notice_board",
+		"clue_name": "Copland Event Notice Board"
+	  }
+	}
+  }
+}

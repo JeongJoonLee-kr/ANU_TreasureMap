@@ -5,11 +5,13 @@ const INS_SCENE = preload("res://ins.tscn")
 const INVESTIGATOR_CARD_SCENE = preload("res://investigator_card.tscn")
 
 @onready var map_instance: Node2D = $Map
-@onready var week_value_label: Label = $HUD/Topbar/WeekStatus/WeekTexts/WeekValueLabel
+@onready var bottom_bar_background: Panel = $HUD/BottomBarBackground
+@onready var bottom_bar: HBoxContainer = $HUD/Bottombar
+@onready var week_value_label: Label = $HUD/Bottombar/WeekStatus/WeekTexts/WeekValueLabel
 @onready
-var location_value_label: Label = $HUD/Topbar/LocationStatus/LocationTexts/LocationValueLabel
-@onready var time_value_label: Label = $HUD/Topbar/TimeStatus/TimeTexts/TimeValueLabel
-@onready var money_value_label: Label = $HUD/Topbar/MoneyStatus/MoneyTexts/MoneyValueLabel
+var location_value_label: Label = $HUD/Bottombar/LocationStatus/LocationTexts/LocationValueLabel
+@onready var time_value_label: Label = $HUD/Bottombar/TimeStatus/TimeTexts/TimeValueLabel
+@onready var money_value_label: Label = $HUD/Bottombar/MoneyStatus/MoneyTexts/MoneyValueLabel
 @onready var ins_button: TextureButton = $HUD/MarginContainer/InsButton
 @onready var ins_notification_dot: TextureRect = $HUD/MarginContainer/InsButton/NotificationDot
 @onready var menu_button: TextureButton = $HUD/Topbar/MenuButton
@@ -22,6 +24,7 @@ var location_data: Dictionary = {}
 
 
 func _ready() -> void:
+	AudioManager.start_bgm()
 	if not Global.resources_changed.is_connected(_on_resources_changed):
 		Global.resources_changed.connect(_on_resources_changed)
 	if not next_week_button.pressed.is_connected(_on_next_week_button_pressed):
@@ -45,6 +48,8 @@ func show_map() -> void:
 
 	map_instance.show()
 	ins_button.show()
+	bottom_bar_background.show()
+	bottom_bar.show()
 	menu_button.hide()
 	back_button.hide()
 	next_week_button.show()
@@ -67,9 +72,11 @@ func show_location(location_id: String = "") -> void:
 	location_instance = LOCATIONS_SCENE.instantiate()
 	add_child(location_instance)
 	ins_button.hide()
+	bottom_bar_background.hide()
+	bottom_bar.hide()
 	menu_button.hide()
 	next_week_button.hide()
-	back_button.show()
+	back_button.hide()
 	update_resource_ui()
 
 
@@ -141,7 +148,7 @@ const _HUD_NEXT_WEEK_OFF: Color = Color(0.62, 0.62, 0.62, 1.0)
 func update_resource_ui() -> void:
 	week_value_label.text = Global.current_week_tag
 	location_value_label.text = get_current_location_title()
-	time_value_label.text = str(Global.time)
+	time_value_label.text = "Time:%d" % Global.time
 	money_value_label.text = "$" + str(Global.money)
 	var at_max: bool = Global.current_week >= Global.max_week
 	next_week_button.disabled = at_max

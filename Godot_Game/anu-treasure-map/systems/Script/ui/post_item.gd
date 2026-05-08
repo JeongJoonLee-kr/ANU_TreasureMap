@@ -35,11 +35,11 @@ func _ready() -> void:
 # Setup post data from JSON
 func setup_post(data: Dictionary, characters_data: Dictionary = {}) -> void:
 	my_post_id = data.get("post_id", "")
-	var author_id = data.get("author", "Unknown")
+	var author_id := str(data.get("author", "Unknown"))
 	var author_info = characters_data.get(author_id, {})
 
-	name_label.text = author_info.get("name", author_id)
-	_load_texture(avatar_img, author_info.get("avatar_path", ""))
+	name_label.text = str(data.get("author_name", author_info.get("name", author_id)))
+	_load_texture(avatar_img, str(data.get("avatar_path", author_info.get("avatar_path", ""))))
 
 	post_text.text = data.get("text", "")
 	_load_texture(post_image, data.get("image_path", ""))
@@ -53,24 +53,57 @@ func setup_post(data: Dictionary, characters_data: Dictionary = {}) -> void:
 
 	current_annotations = data.get("annotations", {})
 
-	for clue_id in current_annotations.keys():
-		if not clue_id in Global.unlocked_clues:
-			Global.unlocked_clues.append(clue_id)
-			Global.clue_discovered.emit(clue_id)
-
 
 func _load_texture(target_node: Node, path: String) -> void:
-	if target_node and path != "" and ResourceLoader.exists(path):
-		target_node.texture = load(path)
-		target_node.show()
-	elif target_node:
+	if target_node == null:
+		return
+	if path == "":
 		target_node.hide()
+		return
+
+	var texture := _load_texture_resource(path)
+	if texture != null:
+		target_node.texture = texture
+		target_node.show()
+	else:
+		target_node.hide()
+
+
+func _load_texture_resource(path: String) -> Texture2D:
+	if path.is_empty():
+		return null
+
+	# Try to load directly via ResourceLoader (handles .imported resources)
+	var tex := ResourceLoader.load(path) as Texture2D
+	if tex != null:
+		return tex
+
+	# Fallback: load raw image file
+	var img := Image.new()
+	var load_result := img.load(path)
+	if load_result == OK:
+		return ImageTexture.create_from_image(img)
+
+	# If still fails, log error and return null
+	push_error("Failed to load texture: ", path)
+	return null
 
 
 func _on_post_text_meta_clicked(meta: Variant) -> void:
 	var keyword = str(meta)
 	if current_annotations.has(keyword):
-		_reveal_annotation(current_annotations[keyword])
+		var annotation := _normalize_annotation(current_annotations[keyword])
+		_reveal_annotation(str(annotation.get("text", "")))
+
+		var clue_id := str(annotation.get("clue_id", ""))
+		if clue_id != "":
+			Global.unlock_clue(clue_id, str(annotation.get("clue_name", clue_id)))
+
+
+func _normalize_annotation(raw_annotation: Variant) -> Dictionary:
+	if raw_annotation is Dictionary:
+		return raw_annotation as Dictionary
+	return {"text": str(raw_annotation)}
 
 
 func _reveal_annotation(text_content: String) -> void:

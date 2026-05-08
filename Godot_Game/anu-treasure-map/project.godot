@@ -20,13 +20,14 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="ANU_Treasure_Map"
 run/main_scene="uid://2wtnh4gdwks"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://cd4lwtgxx7odo"
 
 [autoload]
 
 Global="*res://systems/Script/autoloads/global.gd"
 EventManager="*res://systems/Script/autoloads/event_manager.gd"
+AudioManager="*res://systems/Script/autoloads/audio_manager.gd"
 
 [display]
 

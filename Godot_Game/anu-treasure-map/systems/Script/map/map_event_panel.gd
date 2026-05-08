@@ -4,6 +4,10 @@ extends Control
 # This id will be used when the player presses the Go button.
 var target_location_id: String = ""
 
+const SCREEN_EDGE_MARGIN := 16.0
+const BOTTOM_HUD_SAFE_MARGIN := 112.0
+const STAR_GAP := 16.0
+
 @onready var location_title: Label = $LocationTitle
 @onready var description: Label = $Description
 @onready var close_button: TextureButton = $CloseButton
@@ -49,11 +53,12 @@ func open_popup(
 	# Get popup size, window size, and icon position/size.
 	var popup_size: Vector2 = size
 	var window_size: Vector2 = get_viewport_rect().size
+	var safe_bottom := window_size.y - BOTTOM_HUD_SAFE_MARGIN
+	var max_popup_y := maxf(SCREEN_EDGE_MARGIN, safe_bottom - popup_size.y)
 	var icon_pos: Vector2 = icon.global_position
 	var icon_size: Vector2 = icon.size
 
 	var margin_x := 180
-	var margin_y := 0
 	var pos := Vector2.ZERO
 
 	# Default position:
@@ -70,17 +75,18 @@ func open_popup(
 	# If it still goes outside the left edge,
 	# move it back inside the window.
 	if pos.x < 0:
-		pos.x = margin_x
+		pos.x = SCREEN_EDGE_MARGIN
 
-	# If the popup goes below the bottom edge,
+	# If the popup goes below the bottom HUD safe area,
 	# move it upward.
-	if pos.y + popup_size.y > window_size.y:
+	if pos.y + popup_size.y > safe_bottom:
 		pos.y = icon_pos.y + icon_size.y - popup_size.y
 
 	# If the popup goes above the top edge,
 	# move it back down.
-	if pos.y < 0:
-		pos.y = margin_y
+	if pos.y < SCREEN_EDGE_MARGIN:
+		pos.y = SCREEN_EDGE_MARGIN
+	pos.y = clampf(pos.y, SCREEN_EDGE_MARGIN, max_popup_y)
 
 	# Keep the panel clear of the current-location star (player marker). When the
 	# popup overlaps it (often under/near the star), prefer placing above the star.
@@ -89,16 +95,15 @@ func open_popup(
 		var star_rect: Rect2 = star.get_global_rect()
 		var panel_rect := Rect2(pos, popup_size)
 		if panel_rect.intersects(star_rect):
-			const STAR_GAP := 16.0
 			var above_y: float = star_rect.position.y - popup_size.y - STAR_GAP
-			if above_y >= 0.0:
+			var below_y: float = star_rect.end.y + STAR_GAP
+			if above_y >= SCREEN_EDGE_MARGIN:
 				pos.y = above_y
+			elif below_y + popup_size.y <= safe_bottom:
+				pos.y = below_y
 			else:
-				pos.y = star_rect.end.y + STAR_GAP
-			if pos.y + popup_size.y > window_size.y:
-				pos.y = window_size.y - popup_size.y
-			if pos.y < 0.0:
-				pos.y = 0.0
+				pos.y = max_popup_y
+			pos.y = clampf(pos.y, SCREEN_EDGE_MARGIN, max_popup_y)
 
 	# Apply the final popup position.
 	global_position = pos
@@ -119,6 +124,7 @@ func _on_close_button_pressed() -> void:
 # Save the location id globally and switch to the shared location scene.
 func _on_go_button_pressed() -> void:
 	if target_location_id != "":
+		AudioManager.play_click()
 		var map_control = get_parent()
 		if map_control != null and map_control.has_method("try_move_to_location"):
 			map_control.try_move_to_location(target_location_id)

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const SETTINGS_PANEL_SCRIPT = preload("res://systems/Script/ui/settings_panel.gd")
+
 @onready var pause_menu: Control = $PauseMenu
 
 @onready var _pause_resume_btn: TextureButton = %PauseResume
@@ -31,6 +33,8 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if get_tree().root.get_node_or_null("SettingsPanel") != null:
+		return
 	if not pause_menu.visible:
 		return
 	if event.is_action_pressed("ui_cancel"):
@@ -84,12 +88,13 @@ func _on_continue_pressed() -> void:
 # Home / Retry
 func _on_home_pressed() -> void:
 	get_tree().paused = false
+	AudioManager.stop_bgm()
 	get_tree().change_scene_to_file("res://Start.tscn")
 
 
 # Settings
 func _on_settings_pressed() -> void:
-	print("TODO")
+	_open_settings_panel()
 
 
 # Profile
@@ -105,3 +110,13 @@ func _on_profile_pressed() -> void:
 # Exit
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+
+func _open_settings_panel() -> void:
+	var existing := get_tree().root.get_node_or_null("SettingsPanel")
+	if existing != null:
+		return
+
+	var settings_panel := SETTINGS_PANEL_SCRIPT.new()
+	settings_panel.name = "SettingsPanel"
+	get_tree().root.add_child(settings_panel)

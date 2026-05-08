@@ -126,30 +126,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 72
-theme_override_constants/margin_top = 52
+theme_override_constants/margin_left = 78
+theme_override_constants/margin_top = 42
 theme_override_constants/margin_right = 28
-theme_override_constants/margin_bottom = 28
+theme_override_constants/margin_bottom = 24
 
-[node name="Row" type="HBoxContainer" parent="CardPivot/RightZone/CollectionSlots"]
+[node name="Grid" type="GridContainer" parent="CardPivot/RightZone/CollectionSlots"]
 layout_mode = 2
-alignment = 1
-theme_override_constants/separation = 14
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 14
+columns = 4
 
-[node name="SlotBeige" parent="CardPivot/RightZone/CollectionSlots/Row" instance=ExtResource("9_flip_card")]
+[node name="Slot1" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
 layout_mode = 2
 front_border_texture = ExtResource("6_coll_beige")
 item_texture = ExtResource("10_icon_coll")
 treasure_name = "Treasure 1"
 
-[node name="SlotBlue" parent="CardPivot/RightZone/CollectionSlots/Row" instance=ExtResource("9_flip_card")]
+[node name="Slot2" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
 layout_mode = 2
 front_border_texture = ExtResource("7_coll_blue")
 item_texture = ExtResource("11_icon_prof")
 treasure_name = "Treasure 2"
 
-[node name="SlotPink" parent="CardPivot/RightZone/CollectionSlots/Row" instance=ExtResource("9_flip_card")]
+[node name="Slot3" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
 layout_mode = 2
 front_border_texture = ExtResource("8_coll_pink")
 item_texture = ExtResource("12_icon_ins")
 treasure_name = "Treasure 3"
+
+[node name="Slot4" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
+layout_mode = 2
+
+[node name="Slot5" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
+layout_mode = 2
+
+[node name="Slot6" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
+layout_mode = 2
+
+[node name="Slot7" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
+layout_mode = 2
+
+[node name="Slot8" parent="CardPivot/RightZone/CollectionSlots/Grid" instance=ExtResource("9_flip_card")]
+layout_mode = 2

@@ -35,13 +35,11 @@ func _on_button_down() -> void:
 func _on_button_up() -> void:
 	if disabled:
 		return
+	var target_scale = Vector2(1.1, 1.1) if is_hovered() else Vector2(1.0, 1.0)
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "self_modulate", hover_color, 0.2)
-	(
-		tween
-		. tween_property(self, "scale", Vector2(1.0, 1.0), 0.3)
-		. set_trans(Tween.TRANS_BACK)
-		. set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", target_scale, 0.3).set_trans(Tween.TRANS_BACK).set_ease(
+		Tween.EASE_OUT
 	)
 
 
@@ -49,8 +47,14 @@ func _on_button_up() -> void:
 func _on_mouse_entered() -> void:
 	if disabled:
 		return
-	var tween = create_tween()
+	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "self_modulate", hover_color, 0.2)
+	(
+		tween
+		. tween_property(self, "scale", Vector2(1.1, 1.1), 0.2)
+		. set_trans(Tween.TRANS_BACK)
+		. set_ease(Tween.EASE_OUT)
+	)
 
 
 # 4. leave

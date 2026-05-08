@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bonyeilr4ukjn"
+path="res://.godot/imported/Meadow Quest(happy).mp3-2524e5c7a626265371108fdf27df44fc.mp3str"
+
+[deps]
+
+source_file="res://resources/music/Meadow Quest(happy).mp3"
+dest_files=["res://.godot/imported/Meadow Quest(happy).mp3-2524e5c7a626265371108fdf27df44fc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

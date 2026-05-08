@@ -2,6 +2,8 @@ extends Control
 
 const InsShader = preload("res://ins.gdshader")
 
+const TREASURE_COLLECTION_PATH := "res://data/treasure_collection.json"
+
 # ========== NODE REFERENCES ==========
 @onready var bg_mask = $BackgroundMask
 @onready var shadow_pivot = $ShadowPivot
@@ -14,6 +16,16 @@ const InsShader = preload("res://ins.gdshader")
 
 # IMPORTANT: Make sure this path correctly points to the RegisterPanel you dragged into the LeftZone!
 @onready var register_panel: Control = $CardPivot/LeftZone/RegisterPanel
+@onready var collection_cards: Array[Control] = [
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot1,
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot2,
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot3,
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot4,
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot5,
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot6,
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot7,
+	$CardPivot/RightZone/CollectionSlots/Grid/Slot8
+]
 
 # (Optional) If you have a specific QR code button, reference it here.
 # If the QR code is just the LeftZone itself, we will handle that in _on_click_zone.
@@ -42,9 +54,11 @@ var active_tween: Tween
 # Rest position from center anchors
 var card_home: Vector2
 var shadow_home: Vector2
+var treasure_collection_data: Dictionary = {}
 
 
 func _ready():
+	_load_treasure_collection()
 	modulate.a = 0.0
 	hide()
 
@@ -92,7 +106,82 @@ func _ready():
 		# Initially hide it until the left zone is clicked/zoomed
 		register_panel.hide()
 
+	_refresh_collection_slots()
+	if not Global.treasure_discovered.is_connected(_on_treasure_discovered):
+		Global.treasure_discovered.connect(_on_treasure_discovered)
+
 	get_tree().create_timer(0.2).timeout.connect(drop_in)
+
+
+func _on_treasure_discovered(_treasure_id: String) -> void:
+	_refresh_collection_slots()
+
+
+func _refresh_collection_slots() -> void:
+	for card in collection_cards:
+		card.hide()
+
+	var slot_index := 0
+	for treasure_id in Global.unlocked_treasures:
+		if slot_index >= collection_cards.size():
+			return
+		if not treasure_collection_data.has(treasure_id):
+			continue
+
+		var entry: Dictionary = treasure_collection_data[treasure_id]
+		var frame := load(str(entry.get("frame_path", ""))) as Texture2D
+		var image := _load_texture(str(entry.get("image_path", "")))
+		var card := collection_cards[slot_index]
+		if card.has_method("set_entry"):
+			card.set_entry(
+				frame, image, str(entry.get("name", treasure_id)), str(entry.get("description", ""))
+			)
+		card.show()
+		slot_index += 1
+
+
+func _load_treasure_collection() -> void:
+	var file := FileAccess.open(TREASURE_COLLECTION_PATH, FileAccess.READ)
+	if file == null:
+		push_warning("Could not open %s" % TREASURE_COLLECTION_PATH)
+		return
+
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	file.close()
+	if parsed is Dictionary:
+		treasure_collection_data = parsed as Dictionary
+	else:
+		push_warning("Could not parse %s" % TREASURE_COLLECTION_PATH)
+
+
+func _load_texture(image_path: String) -> Texture2D:
+	if image_path == "":
+		return null
+
+	if ResourceLoader.exists(image_path):
+		var resource: Variant = load(image_path)
+		if resource is Texture2D:
+			return resource as Texture2D
+
+	var file := FileAccess.open(image_path, FileAccess.READ)
+	if file == null:
+		return null
+
+	var bytes := file.get_buffer(file.get_length())
+	file.close()
+
+	var img := Image.new()
+	var decode_result := img.load_jpg_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_png_from_buffer(bytes)
+	if decode_result != OK:
+		img = Image.new()
+		decode_result = img.load_webp_from_buffer(bytes)
+	if decode_result == OK:
+		return ImageTexture.create_from_image(img)
+
+	return null
 
 
 # ========== ANIMATION: DROP IN ==========

@@ -4,3 +4,10 @@
 **/.DS_Store
 .idea/
 Godot_Game/anu-treasure-map/build/
+# AI Agent Tools
+.claude/
+agents/
+CLAUDE.md
+.aider*
+.agent-config/
+agent-config.local.yaml
