@@ -4,6 +4,17 @@ extends Control
 var location_data: Dictionary = {}
 var location_markers: Dictionary = {}
 
+const _PREVIEW_TITLE_DEFAULT_COLOR := Color(0.2588, 0.6471, 0.9608, 1.0)
+const _CURRENT_MARKER_OFFSET := Vector2(0.0, -64.0)
+const _PREVIEW_TITLE_COLORS := {
+	LocationMarker.MedalRibbon.BLUE: Color(0.118, 0.533, 0.898, 1.0),
+	LocationMarker.MedalRibbon.GREEN: Color(0.263, 0.627, 0.412, 1.0),
+	LocationMarker.MedalRibbon.ORANGE: Color(0.984, 0.549, 0.0, 1.0),
+	LocationMarker.MedalRibbon.PINK: Color(0.847, 0.106, 0.376, 1.0),
+	LocationMarker.MedalRibbon.PURPLE: Color(0.369, 0.208, 0.694, 1.0),
+	LocationMarker.MedalRibbon.CYAN: Color(0.0, 0.592, 0.655, 1.0),
+}
+
 # References to the popup panel and editor-placed location markers.
 @onready var event_panel: Control = $EventPanel
 @onready var markers_layer: Control = $MarkersLayer
@@ -11,11 +22,16 @@ var location_markers: Dictionary = {}
 @onready var current_location_marker: TextureRect = $CurrentLocationMarker
 @onready var hover_preview: Panel = $HoverPreview
 @onready var hover_preview_image: TextureRect = $HoverPreview/PreviewImage
+@onready var hover_preview_title: Label = $HoverPreview/PreviewTitle
 
 
 func _ready() -> void:
 	event_panel.hide()
 	hover_preview.hide()
+	hover_preview_title.add_theme_font_size_override("font_size", 22)
+	var bold_font_path := "res://resources/font/AlegreyaSans-Bold.ttf"
+	if ResourceLoader.exists(bold_font_path):
+		hover_preview_title.add_theme_font_override("font", load(bold_font_path))
 	load_location_data()
 	bind_location_markers()
 	await get_tree().process_frame
@@ -99,7 +115,9 @@ func update_current_location_marker() -> void:
 	var anchor_rect := anchor.get_global_rect()
 	var anchor_center := anchor_rect.position + anchor_rect.size / 2.0
 	var local_anchor_center := to_parent_local_point(current_location_marker, anchor_center)
-	current_location_marker.position = local_anchor_center - current_location_marker.size / 2.0
+	current_location_marker.position = (
+		local_anchor_center + _CURRENT_MARKER_OFFSET - current_location_marker.size / 2.0
+	)
 	current_location_marker.show()
 
 
@@ -238,12 +256,14 @@ func to_parent_local_point(node: CanvasItem, global_point: Vector2) -> Vector2:
 	return parent_transform * global_point
 
 
-func show_location_preview(image_path: String, anchor: Control) -> void:
+func show_location_preview(image_path: String, title: String, title_color: Color, anchor: Control) -> void:
 	if image_path == "" or not ResourceLoader.exists(image_path):
 		hide_location_preview()
 		return
 
 	hover_preview_image.texture = load(image_path)
+	hover_preview_title.text = title
+	hover_preview_title.add_theme_color_override("font_color", title_color)
 	hover_preview.show()
 	await get_tree().process_frame
 
@@ -266,12 +286,21 @@ func show_location_preview(image_path: String, anchor: Control) -> void:
 func hide_location_preview() -> void:
 	hover_preview.hide()
 	hover_preview_image.texture = null
+	hover_preview_title.text = ""
 
 
 func _on_location_preview_requested(
-	_location_id: String, image_path: String, anchor: Control
+	location_id: String, image_path: String, anchor: Control
 ) -> void:
-	show_location_preview(image_path, anchor)
+	var title := location_id
+	if location_data.has(location_id):
+		var data := location_data[location_id] as Dictionary
+		title = str(data.get("map_label", data.get("title", location_id)))
+	var title_color := _PREVIEW_TITLE_DEFAULT_COLOR
+	var marker := location_markers.get(location_id) as LocationMarker
+	if marker != null and _PREVIEW_TITLE_COLORS.has(marker.medal_ribbon):
+		title_color = _PREVIEW_TITLE_COLORS[marker.medal_ribbon]
+	show_location_preview(image_path, title, title_color, anchor)
 
 
 func _on_location_marker_selected(location_id: String, anchor: Control) -> void:

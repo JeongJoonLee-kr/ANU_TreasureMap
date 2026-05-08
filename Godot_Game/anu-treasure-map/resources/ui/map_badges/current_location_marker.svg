@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft glow for readability on busy map -->
+  <circle cx="32" cy="32" r="24" fill="#42A5F5" fill-opacity="0.16"/>
+
+  <!-- Main locator ring -->
+  <circle cx="32" cy="30" r="14" fill="#FFFFFF" stroke="#42A5F5" stroke-width="3"/>
+  <circle cx="32" cy="30" r="6" fill="#42A5F5"/>
+
+  <!-- Small pointer tail -->
+  <path d="M25 44 L32 56 L39 44 Z" fill="#42A5F5"/>
+  <path d="M25 44 L32 56 L39 44" stroke="#1E88E5" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

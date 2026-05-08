@@ -10,12 +10,14 @@ const SETTINGS_PANEL_SCRIPT = preload("res://systems/Script/ui/settings_panel.gd
 @onready var _continue_label: Label = $ContinueButton/ContinueLabel
 @onready var _settings_button: TextureButton = $SettingsButton
 @onready var _settings_label: Label = $SettingsButton/SettingsLabel
+@onready var _exit_button: TextureButton = $ExitButton
+@onready var _exit_label: Label = $ExitButton/ExitLabel
 
 const _TITLE_HEIGHT: float = 150.0
 const _TITLE_TOP_RATIO: float = 0.25
 const _BUTTON_SIZE: Vector2 = Vector2(400.0, 60.0)
 const _BUTTON_GAP: float = 15.0
-const _BUTTON_GROUP_TOP_RATIO: float = 0.68
+const _BUTTON_GROUP_TOP_RATIO: float = 0.64
 
 ## Matches Figma normal/hover label (#5E6C84) and selected/pressed text (#EF5350).
 const _START_TEXT_NEUTRAL: Color = Color(0.3686, 0.4235, 0.5176, 1.0)
@@ -29,9 +31,14 @@ const _CONTINUE_TEXT_ACTIVE: Color = Color(0.2588, 0.6471, 0.9608, 1.0)
 const _SETTINGS_TEXT_NEUTRAL: Color = Color(0.3686, 0.4235, 0.5176, 1.0)
 const _SETTINGS_TEXT_ACTIVE: Color = Color(0.4, 0.7333, 0.4157, 1.0)
 
+## Exit: active = #7C4DFF (distinct from Start).
+const _EXIT_TEXT_NEUTRAL: Color = Color(0.3686, 0.4235, 0.5176, 1.0)
+const _EXIT_TEXT_ACTIVE: Color = Color(0.486, 0.302, 1.0, 1.0)
+
 var _start_pointer_held: bool = false
 var _continue_pointer_held: bool = false
 var _settings_pointer_held: bool = false
+var _exit_pointer_held: bool = false
 
 
 func _ready() -> void:
@@ -39,6 +46,7 @@ func _ready() -> void:
 	_update_start_label_color()
 	_update_continue_label_color()
 	_update_settings_label_color()
+	_update_exit_label_color()
 	_start_button.button_down.connect(_on_start_button_button_down)
 	_start_button.button_up.connect(_on_start_button_button_up)
 	_start_button.focus_entered.connect(_on_start_button_focus_in)
@@ -51,6 +59,10 @@ func _ready() -> void:
 	_settings_button.button_up.connect(_on_settings_button_button_up)
 	_settings_button.focus_entered.connect(_on_settings_button_focus_in)
 	_settings_button.focus_exited.connect(_on_settings_button_focus_out)
+	_exit_button.button_down.connect(_on_exit_button_button_down)
+	_exit_button.button_up.connect(_on_exit_button_button_up)
+	_exit_button.focus_entered.connect(_on_exit_button_focus_in)
+	_exit_button.focus_exited.connect(_on_exit_button_focus_out)
 
 
 func _notification(what: int) -> void:
@@ -80,7 +92,7 @@ func _layout_start_screen() -> void:
 	_title_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 	var button_x: float = (viewport_size.x - _BUTTON_SIZE.x) * 0.5
-	var button_group_height: float = _BUTTON_SIZE.y * 3.0 + _BUTTON_GAP * 2.0
+	var button_group_height: float = _BUTTON_SIZE.y * 4.0 + _BUTTON_GAP * 3.0
 	var button_y: float = min(
 		viewport_size.y * _BUTTON_GROUP_TOP_RATIO, viewport_size.y - button_group_height - 48.0
 	)
@@ -89,6 +101,7 @@ func _layout_start_screen() -> void:
 	_position_button(
 		_settings_button, Vector2(button_x, button_y + (_BUTTON_SIZE.y + _BUTTON_GAP) * 2.0)
 	)
+	_position_button(_exit_button, Vector2(button_x, button_y + (_BUTTON_SIZE.y + _BUTTON_GAP) * 3.0))
 
 
 func _position_button(button: TextureButton, target_position: Vector2) -> void:
@@ -178,6 +191,31 @@ func _update_settings_label_color() -> void:
 	)
 
 
+func _on_exit_button_button_down() -> void:
+	_exit_pointer_held = true
+	_update_exit_label_color()
+
+
+func _on_exit_button_button_up() -> void:
+	_exit_pointer_held = false
+	_update_exit_label_color()
+
+
+func _on_exit_button_focus_in() -> void:
+	_update_exit_label_color()
+
+
+func _on_exit_button_focus_out() -> void:
+	_update_exit_label_color()
+
+
+func _update_exit_label_color() -> void:
+	if _exit_label == null:
+		return
+	var active := _exit_pointer_held or _exit_button.has_focus()
+	_exit_label.add_theme_color_override("font_color", _EXIT_TEXT_ACTIVE if active else _EXIT_TEXT_NEUTRAL)
+
+
 func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://main.tscn")
 
@@ -189,6 +227,10 @@ func _on_continue_button_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
 	_open_settings_panel()
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit()
 
 
 func _open_settings_panel() -> void:
