@@ -1,6 +1,6 @@
 # ANU TreasureMap Client Meeting
 
-**Client Meeting** - **Week 7** - [28/04/24] ([13:45 - 14:45])
+**Client Meeting** - **Week 8** - [28/04/24] ([13:45 - 14:45])
 
 **Absent:** None
 **Lead/scribe:** [Jeongjoon Lee]
