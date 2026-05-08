@@ -260,3 +260,8 @@ func load_save_data(data: Dictionary) -> void:
 		completed_events = data["completed_events"]
 	if data.has("trigger_chance_boosts") and data["trigger_chance_boosts"] is Dictionary:
 		trigger_chance_boosts = data["trigger_chance_boosts"]
+
+
+func reset_for_new_run() -> void:
+	completed_events.clear()
+	trigger_chance_boosts.clear()

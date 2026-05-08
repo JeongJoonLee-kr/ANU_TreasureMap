@@ -1,0 +1,42 @@
+{
+  "enabled": true,
+  "target_week_end": 5,
+  "target_treasures": 8,
+  "start_menu_scene": "res://Start.tscn",
+  "new_run": {
+	"start_location_id": "chifley_marie_reay",
+	"reset_clues": true,
+	"reset_treasures": true,
+	"reset_events": true,
+	"keep_shared_posts": true
+  },
+  "goal_panel": {
+	"title": "Task",
+	"week_label": "Survive 4 weeks",
+	"treasure_label": "Collect treasures",
+	"treasure_progress_format": "Collected %d/%d treasures",
+	"week_progress_format": "Current: Week%d / Week%d",
+	"hint": "Reach Week5 or collect all treasures",
+	"collapse_text": "Hide",
+	"expand_text": "Goals"
+  },
+  "ending": {
+	"treasure_title": "Collected Treasures",
+	"empty_treasure_text": "No treasures collected yet",
+	"filmstrip_seconds": 4.5,
+	"credits_title": "Thanks for Playing",
+	"credits_hint": "Click anywhere to return to Start",
+	"fade_seconds": 0.55
+  },
+  "credits": {
+	"members": [
+	  {"name": "Anlin Bai", "role": "Art Designer"},
+	  {"name": "Jeongjoon Lee", "role": "Team Leader, Project Manager and Game Designer"},
+	  {"name": "Shaoming Qin", "role": "Programmer and Game Designer"},
+	  {"name": "Suya Xie", "role": "Programmer and Game Designer"},
+	  {"name": "Wing Sze Shing", "role": "Narrative and Programmer"},
+	  {"name": "Xiyin Li", "role": "Art Designer"},
+	  {"name": "Zijun Yang", "role": "Game Designer"}
+	]
+  }
+}

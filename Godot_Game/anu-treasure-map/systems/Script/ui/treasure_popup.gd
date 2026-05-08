@@ -209,6 +209,8 @@ func _load_texture(image_path: String) -> Texture2D:
 	var resource := load(image_path)
 	if resource is Texture2D:
 		return resource as Texture2D
+	if resource is Image:
+		return ImageTexture.create_from_image(resource as Image)
 
 	if not FileAccess.file_exists(image_path):
 		return null

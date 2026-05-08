@@ -3,6 +3,10 @@ extends Node2D
 const LOCATIONS_SCENE = preload("res://locations.tscn")
 const INS_SCENE = preload("res://ins.tscn")
 const INVESTIGATOR_CARD_SCENE = preload("res://investigator_card.tscn")
+const END_GAME_GOAL_PANEL_SCRIPT = preload("res://systems/Script/ui/end_game_goal_panel.gd")
+const END_GAME_OVERLAY_SCRIPT = preload("res://systems/Script/ui/end_game_overlay.gd")
+const END_GAME_GOAL_PATH := "res://data/end_game_goal.json"
+const TREASURE_COLLECTION_PATH := "res://data/treasure_collection.json"
 
 @onready var map_instance: Node2D = $Map
 @onready var bottom_bar_background: Panel = $HUD/BottomBarBackground
@@ -14,31 +18,60 @@ var location_value_label: Label = $HUD/Bottombar/LocationStatus/LocationTexts/Lo
 @onready var money_value_label: Label = $HUD/Bottombar/MoneyStatus/MoneyTexts/MoneyValueLabel
 @onready var ins_button: TextureButton = $HUD/MarginContainer/InsButton
 @onready var ins_notification_dot: TextureRect = $HUD/MarginContainer/InsButton/NotificationDot
-@onready var menu_button: TextureButton = $HUD/Topbar/MenuButton
-@onready var next_week_button: TextureButton = $HUD/Topbar/NextWeekButton
-@onready var next_week_label: Label = $HUD/Topbar/NextWeekButton/NextWeekLabel
-@onready var back_button: TextureButton = $HUD/Topbar/BackButton
+@onready var menu_button: TextureButton = _get_first_node(
+	["HUD/Bottombar/MenuButton", "HUD/Topbar/MenuButton"]
+) as TextureButton
+@onready var next_week_button: TextureButton = _get_first_node(
+	["HUD/Bottombar/NextWeekButton", "HUD/Topbar/NextWeekButton"]
+) as TextureButton
+@onready var next_week_label: Label = _get_first_node(
+	["HUD/Bottombar/NextWeekButton/NextWeekLabel", "HUD/Topbar/NextWeekButton/NextWeekLabel"]
+) as Label
+@onready var back_button: TextureButton = _get_first_node(
+	["HUD/Bottombar/BackButton", "HUD/Topbar/BackButton"]
+) as TextureButton
 
 var location_instance: Node = null
 var location_data: Dictionary = {}
+var end_game_config: Dictionary = {}
+var end_game_goal_panel: Control = null
+var _end_game_triggered := false
 
 
 func _ready() -> void:
 	AudioManager.start_bgm()
 	if not Global.resources_changed.is_connected(_on_resources_changed):
 		Global.resources_changed.connect(_on_resources_changed)
-	if not next_week_button.pressed.is_connected(_on_next_week_button_pressed):
-		next_week_button.pressed.connect(_on_next_week_button_pressed)
-	if not menu_button.pressed.is_connected(_on_hud_menu_button_pressed):
-		menu_button.pressed.connect(_on_hud_menu_button_pressed)
-	if not back_button.pressed.is_connected(_on_hud_back_button_pressed):
-		back_button.pressed.connect(_on_hud_back_button_pressed)
+	if not Global.treasure_discovered.is_connected(_on_treasure_discovered):
+		Global.treasure_discovered.connect(_on_treasure_discovered)
+	_connect_button(next_week_button, _on_next_week_button_pressed)
+	_connect_button(menu_button, _on_hud_menu_button_pressed)
+	_connect_button(back_button, _on_hud_back_button_pressed)
+	load_end_game_config()
 	initialize_progress_state()
 	load_location_data()
+	setup_end_game_goal_panel()
 	show_map()
 	set_phone_notification_visible(false)
 	update_resource_ui()
+	call_deferred("_refresh_goal_and_check_end")
 	call_deferred("_start_first_time_registration_if_needed")
+
+
+func _get_first_node(paths: Array[String]) -> Node:
+	for path in paths:
+		var node := get_node_or_null(path)
+		if node != null:
+			return node
+	push_error("Main: missing HUD node. Tried %s" % str(paths))
+	return null
+
+
+func _connect_button(button: BaseButton, callback: Callable) -> void:
+	if button == null:
+		return
+	if not button.pressed.is_connected(callback):
+		button.pressed.connect(callback)
 
 
 func show_map() -> void:
@@ -50,6 +83,10 @@ func show_map() -> void:
 	ins_button.show()
 	bottom_bar_background.show()
 	bottom_bar.show()
+	if is_instance_valid(end_game_goal_panel):
+		end_game_goal_panel.show()
+		if end_game_goal_panel.has_method("refresh"):
+			end_game_goal_panel.call("refresh")
 	menu_button.hide()
 	back_button.hide()
 	next_week_button.show()
@@ -74,6 +111,8 @@ func show_location(location_id: String = "") -> void:
 	ins_button.hide()
 	bottom_bar_background.hide()
 	bottom_bar.hide()
+	if is_instance_valid(end_game_goal_panel):
+		end_game_goal_panel.hide()
 	menu_button.hide()
 	next_week_button.hide()
 	back_button.hide()
@@ -156,10 +195,17 @@ func update_resource_ui() -> void:
 	next_week_label.add_theme_color_override(
 		"font_color", _HUD_NEXT_WEEK_OFF if at_max else _HUD_NEXT_WEEK_ON
 	)
+	if is_instance_valid(end_game_goal_panel) and end_game_goal_panel.has_method("refresh"):
+		end_game_goal_panel.call("refresh")
 
 
 func _on_resources_changed(_time_value: int, _money_value: int) -> void:
 	update_resource_ui()
+	call_deferred("_refresh_goal_and_check_end")
+
+
+func _on_treasure_discovered(_treasure_id: String) -> void:
+	call_deferred("_refresh_goal_and_check_end")
 
 
 func spend_time(amount: int) -> bool:
@@ -184,6 +230,7 @@ func advance_week() -> void:
 	Global.current_week += 1
 	Global.refresh_week_tag()
 	Global.time = Global.max_time_per_week
+	call_deferred("_refresh_goal_and_check_end")
 
 
 func initialize_progress_state() -> void:
@@ -216,6 +263,120 @@ func load_location_data() -> void:
 		location_data = parsed
 	else:
 		push_error("Failed to parse locations.json in Main.")
+
+
+func load_end_game_config() -> void:
+	var file := FileAccess.open(END_GAME_GOAL_PATH, FileAccess.READ)
+	if file == null:
+		push_warning("Failed to open %s in Main." % END_GAME_GOAL_PATH)
+		end_game_config = {}
+		return
+
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	file.close()
+	if parsed is Dictionary:
+		end_game_config = parsed as Dictionary
+	else:
+		push_warning("Failed to parse %s in Main." % END_GAME_GOAL_PATH)
+		end_game_config = {}
+
+
+func setup_end_game_goal_panel() -> void:
+	if end_game_config.is_empty() or not bool(end_game_config.get("enabled", true)):
+		return
+
+	end_game_goal_panel = END_GAME_GOAL_PANEL_SCRIPT.new()
+	end_game_goal_panel.name = "EndGameGoalPanel"
+	$HUD.add_child(end_game_goal_panel)
+	if end_game_goal_panel.has_method("setup"):
+		end_game_goal_panel.call("setup", end_game_config)
+
+
+func _refresh_goal_and_check_end() -> void:
+	if is_instance_valid(end_game_goal_panel) and end_game_goal_panel.has_method("refresh"):
+		end_game_goal_panel.call("refresh")
+	if _should_end_game():
+		_trigger_end_game()
+
+
+func _should_end_game() -> bool:
+	if _end_game_triggered:
+		return false
+	if end_game_config.is_empty() or not bool(end_game_config.get("enabled", true)):
+		return false
+
+	var target_week_end := int(end_game_config.get("target_week_end", 5))
+	var target_treasures := int(end_game_config.get("target_treasures", 8))
+	var reached_week := target_week_end > 0 and Global.current_week >= target_week_end
+	var reached_treasures := (
+		target_treasures > 0 and Global.unlocked_treasures.size() >= target_treasures
+	)
+	return reached_week or reached_treasures
+
+
+func _trigger_end_game() -> void:
+	_end_game_triggered = true
+	if is_instance_valid(end_game_goal_panel):
+		end_game_goal_panel.hide()
+
+	var overlay = END_GAME_OVERLAY_SCRIPT.new()
+	overlay.name = "EndGameOverlay"
+	overlay.call("setup", end_game_config, _get_collected_treasure_entries())
+	add_child(overlay)
+	_reset_for_second_run()
+
+
+func _get_collected_treasure_entries() -> Array[Dictionary]:
+	var collection_data := _load_treasure_collection_data()
+	var entries: Array[Dictionary] = []
+	for treasure_id in Global.unlocked_treasures:
+		var entry: Dictionary = collection_data.get(treasure_id, {})
+		if entry.is_empty():
+			entries.append({"name": treasure_id, "image_path": ""})
+			continue
+		entries.append(
+			{
+				"name": str(entry.get("name", treasure_id)),
+				"image_path": str(entry.get("image_path", ""))
+			}
+		)
+	return entries
+
+
+func _load_treasure_collection_data() -> Dictionary:
+	var file := FileAccess.open(TREASURE_COLLECTION_PATH, FileAccess.READ)
+	if file == null:
+		return {}
+
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	file.close()
+	if parsed is Dictionary:
+		return parsed as Dictionary
+	return {}
+
+
+func _reset_for_second_run() -> void:
+	var reset_config: Dictionary = end_game_config.get("new_run", {})
+	var start_location := Global.normalize_location_id(
+		str(reset_config.get("start_location_id", Global.current_location_id))
+	)
+
+	Global.current_week = 1
+	Global.refresh_week_tag()
+	Global.time = Global.max_time_per_week
+	Global.current_location_id = start_location
+	Global.selected_location_id = start_location
+	Global.player_location_id = start_location
+
+	if bool(reset_config.get("reset_clues", true)):
+		Global.unlocked_clues.clear()
+	if bool(reset_config.get("reset_treasures", true)):
+		Global.unlocked_treasures.clear()
+	if bool(reset_config.get("reset_events", true)) and EventManager.has_method("reset_for_new_run"):
+		EventManager.reset_for_new_run()
+
+	Global.notify_resources_changed()
+	Global.save_game()
 
 
 func get_current_location_title() -> String:
