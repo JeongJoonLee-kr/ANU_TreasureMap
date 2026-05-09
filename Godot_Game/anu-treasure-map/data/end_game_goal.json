@@ -30,12 +30,12 @@
   },
   "credits": {
 	"members": [
-	  {"name": "Anlin Bai", "role": "Art Designer"},
+	  {"name": "Anlin Bai", "role": "Art Designer and Programmer"},
 	  {"name": "Jeongjoon Lee", "role": "Team Leader, Project Manager and Game Designer"},
 	  {"name": "Shaoming Qin", "role": "Programmer and Game Designer"},
 	  {"name": "Suya Xie", "role": "Programmer and Game Designer"},
 	  {"name": "Wing Sze Shing", "role": "Narrative and Programmer"},
-	  {"name": "Xiyin Li", "role": "Art Designer"},
+	  {"name": "Xiyin Li", "role": "Art Designer and Audio Designer"},
 	  {"name": "Zijun Yang", "role": "Game Designer"}
 	]
   }
