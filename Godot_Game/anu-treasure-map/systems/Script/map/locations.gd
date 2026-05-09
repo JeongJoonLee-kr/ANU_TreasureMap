@@ -34,6 +34,7 @@ var _treasure_canvas_layer: CanvasLayer = null
 var _treasure_popup_instance: Control = null
 var _exhaustion_toast: Panel = null
 var _event_scene_stage: String = ""
+var _event_bgm_active: bool = false
 var _force_leave_option_once: bool = false
 var _show_leave_only_after_failed_event: bool = false
 
@@ -135,10 +136,15 @@ func _start_random_event(ev: Dictionary) -> void:
 	_active_event = ev
 	_selected_event_choice_key = ""
 	_selected_event_choice = {}
+	_event_bgm_active = false
 	_force_leave_option_once = false
 	_show_leave_only_after_failed_event = false
 	_hide_choice_panel()
 	_hide_legacy_options_panel()
+
+	var bgm_path := str(ev.get("bgm_path", "")).strip_edges()
+	if bgm_path != "":
+		_event_bgm_active = AudioManager.play_bgm(bgm_path)
 
 	_setup_portraits(ev)
 	_speakers = _to_string_array(ev.get("speakers", []))
@@ -254,9 +260,12 @@ func _clear_event_scene_stage() -> void:
 func _complete_current_event_and_show_location(treasure_action: String = "collect") -> void:
 	var event_id := str(_active_event.get("id", ""))
 	EventManager.complete_event(event_id, _selected_event_choice_key, treasure_action)
+	if _event_bgm_active:
+		AudioManager.play_default_bgm()
 	_active_event = {}
 	_selected_event_choice_key = ""
 	_selected_event_choice = {}
+	_event_bgm_active = false
 	_clear_portraits()
 	_clear_event_scene_stage()
 	if _show_leave_only_after_failed_event:

@@ -14,6 +14,7 @@ var _music_player: AudioStreamPlayer
 var _sfx_player: AudioStreamPlayer
 var _click_stream: AudioStream
 var _collect_stream: AudioStream
+var _current_bgm_path: String = BGM_PATH
 
 
 func _ready() -> void:
@@ -28,6 +29,34 @@ func start_bgm() -> void:
 		return
 	if not _music_player.playing:
 		_music_player.play()
+
+
+func play_bgm(path: String) -> bool:
+	var normalized_path := path.strip_edges()
+	if normalized_path == "":
+		return false
+	if _music_player == null:
+		return false
+	if normalized_path == _current_bgm_path and _music_player.playing:
+		return true
+
+	var stream := _load_audio_stream(normalized_path)
+	if stream == null:
+		push_warning("Could not load BGM: %s" % normalized_path)
+		return false
+
+	_current_bgm_path = normalized_path
+	_music_player.stream = stream
+	_set_bgm_loop(stream)
+	_apply_volumes()
+	_music_player.play()
+	return true
+
+
+func play_default_bgm() -> void:
+	if play_bgm(BGM_PATH):
+		return
+	start_bgm()
 
 
 func stop_bgm() -> void:
@@ -62,8 +91,7 @@ func _setup_players() -> void:
 	_music_player.name = "MusicPlayer"
 	_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	_music_player.stream = _load_audio_stream(BGM_PATH)
-	if _music_player.stream is AudioStreamMP3:
-		(_music_player.stream as AudioStreamMP3).loop = true
+	_set_bgm_loop(_music_player.stream)
 	add_child(_music_player)
 
 	_sfx_player = AudioStreamPlayer.new()
@@ -89,6 +117,11 @@ func _load_audio_stream(path: String) -> AudioStream:
 	if path.get_extension().to_lower() == "wav":
 		return AudioStreamWAV.load_from_file(path)
 	return null
+
+
+func _set_bgm_loop(stream: AudioStream) -> void:
+	if stream is AudioStreamMP3:
+		(stream as AudioStreamMP3).loop = true
 
 
 func _apply_volumes() -> void:
