@@ -34,6 +34,8 @@ var _treasure_canvas_layer: CanvasLayer = null
 var _treasure_popup_instance: Control = null
 var _exhaustion_toast: Panel = null
 var _event_scene_stage: String = ""
+var _force_leave_option_once: bool = false
+var _show_leave_only_after_failed_event: bool = false
 
 const _PORTRAIT_W := 280.0
 const _PORTRAIT_H := 650.0
@@ -121,6 +123,8 @@ func _start_random_event(ev: Dictionary) -> void:
 	_active_event = ev
 	_selected_event_choice_key = ""
 	_selected_event_choice = {}
+	_force_leave_option_once = false
+	_show_leave_only_after_failed_event = false
 	_hide_choice_panel()
 	_hide_legacy_options_panel()
 
@@ -160,6 +164,7 @@ func _finish_event_outcome() -> void:
 	if _selected_event_choice.get("treasure_found", false):
 		_show_treasure_popup()
 	else:
+		_show_leave_only_after_failed_event = true
 		_complete_current_event_and_show_location()
 
 
@@ -242,7 +247,20 @@ func _complete_current_event_and_show_location(treasure_action: String = "collec
 	_selected_event_choice = {}
 	_clear_portraits()
 	_clear_event_scene_stage()
-	show_location()
+	if _show_leave_only_after_failed_event:
+		_show_leave_only_after_failed_event = false
+		_show_leave_only_choice()
+	else:
+		show_location()
+
+
+func _show_leave_only_choice() -> void:
+	dialogue_panel.hide()
+	_hide_legacy_options_panel()
+	_hide_choice_panel()
+	_show_choice_panel(
+		{"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_location_choice_selected
+	)
 
 
 func _on_not_enough_ap() -> void:
@@ -438,9 +456,13 @@ func show_interactive_options() -> void:
 
 	if options_component.get_option("can_leave", true):
 		choices["leave"] = {"label": "Leave", "display_key": "", "_order": order}
+	elif _force_leave_option_once:
+		choices["leave"] = {"label": "Leave", "display_key": "", "_order": order}
+	_force_leave_option_once = false
 
 	if choices.is_empty():
-		return
+		# Final safety net: do not leave the player in a dead-end UI state.
+		choices["leave"] = {"label": "Leave", "display_key": "", "_order": order}
 
 	_show_choice_panel(choices, _on_location_choice_selected)
 

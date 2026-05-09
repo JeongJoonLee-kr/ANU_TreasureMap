@@ -3,6 +3,7 @@ extends Control
 const InsShader = preload("res://ins.gdshader")
 
 const TREASURE_COLLECTION_PATH := "res://data/treasure_collection.json"
+const EMPTY_COLLECTION_HINT_FONT_PATH := "res://resources/font/Literata-Italic.ttf"
 
 # ========== NODE REFERENCES ==========
 @onready var bg_mask = $BackgroundMask
@@ -55,10 +56,12 @@ var active_tween: Tween
 var card_home: Vector2
 var shadow_home: Vector2
 var treasure_collection_data: Dictionary = {}
+var _empty_collection_hint_label: Label = null
 
 
 func _ready():
 	_load_treasure_collection()
+	_ensure_empty_collection_hint()
 	modulate.a = 0.0
 	hide()
 
@@ -124,7 +127,7 @@ func _refresh_collection_slots() -> void:
 	var slot_index := 0
 	for treasure_id in Global.unlocked_treasures:
 		if slot_index >= collection_cards.size():
-			return
+			break
 		if not treasure_collection_data.has(treasure_id):
 			continue
 
@@ -138,6 +141,41 @@ func _refresh_collection_slots() -> void:
 			)
 		card.show()
 		slot_index += 1
+
+	_update_empty_collection_hint()
+
+
+func _ensure_empty_collection_hint() -> void:
+	if _empty_collection_hint_label != null or right_zone == null:
+		return
+
+	_empty_collection_hint_label = Label.new()
+	_empty_collection_hint_label.name = "EmptyCollectionHint"
+	_empty_collection_hint_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_empty_collection_hint_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_empty_collection_hint_label.offset_left = 72.0
+	_empty_collection_hint_label.offset_top = 96.0
+	_empty_collection_hint_label.offset_right = -56.0
+	_empty_collection_hint_label.offset_bottom = -96.0
+	_empty_collection_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_empty_collection_hint_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_empty_collection_hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_empty_collection_hint_label.add_theme_font_size_override("font_size", 24)
+	_empty_collection_hint_label.add_theme_color_override(
+		"font_color", Color(0.29, 0.32, 0.43, 0.94)
+	)
+	if ResourceLoader.exists(EMPTY_COLLECTION_HINT_FONT_PATH):
+		_empty_collection_hint_label.add_theme_font_override(
+			"font", load(EMPTY_COLLECTION_HINT_FONT_PATH)
+		)
+	_empty_collection_hint_label.text = ("Keep exploring, and the treasure might be waiting at the next location.")
+	right_zone.add_child(_empty_collection_hint_label)
+
+
+func _update_empty_collection_hint() -> void:
+	if _empty_collection_hint_label == null:
+		return
+	_empty_collection_hint_label.visible = Global.unlocked_treasures.is_empty()
 
 
 func _load_treasure_collection() -> void:
