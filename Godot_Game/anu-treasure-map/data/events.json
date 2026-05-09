@@ -7,6 +7,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_yuki",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_yuki.jpg",
 	"portrait_config": {
 	  "yuki_master": {
@@ -96,6 +97,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_chess_board",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_chessboard.jpg",
 	"narrative": [
 	  "While walking along the camphor tree lane, you hear a strange, rhythmic thump… thump… sound nearby.",
@@ -149,6 +151,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_kangaroo",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_kangaroo.jpg",
 	"narrative": [
 	  "You're cutting across the edge of the sports field when a blur of brown suddenly dashes past the far fence.",
@@ -202,6 +205,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_student_accommodation_basketball_court",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_basketball_court.png",
 	"narrative": [
 	  "As you pass the Student Accommodation area, a basketball strikes the rim and bounces across the half court.",
@@ -263,6 +267,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_wamburun_ursula_free_food",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_free_food.png",
 	"narrative": [
 	  "Near Chifley and Marie Reay, a student is pinning a small ANUSA food support flyer to a noticeboard.",
@@ -323,6 +328,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_wamburun_ursula_duck_drive_slow_sign",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_duck_drive_slow_sign.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_wamburun_ursula_duck_drive_slow_sign_intro.png",
@@ -391,6 +397,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_bruce_hall_lemon_tree",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_lemon_tree.png",
 	"narrative": [
 	  "Outside Bruce Hall, a student stands near the entrance holding a yellow sticky note.",
@@ -451,6 +458,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_central_studying_area_board_games_society",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_board_games_society.png",
 	"narrative": [
 	  "On a desk in the Central Studying Area, you notice a small invitation card left between a laptop and a coffee cup.",
@@ -511,6 +519,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_csit_engn_escape_room",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_escape_room.png",
 	"narrative": [
 	  "Inside the CSIT and Engineering area, a monitor beside a classroom door blinks with a sixty-minute timer.",
@@ -571,6 +580,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_anu_sport_north_oval_anu_sport",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_anu_sport.png",
 	"narrative": [
 	  "At the edge of North Oval, three small cards flutter on an ANU Sport sign-up table.",
@@ -631,6 +641,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_chifley_marie_reay_chifley_library",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_chifley_library.png",
 	"narrative": [
 	  "Near Chifley and Marie Reay, a thin research notebook lies beside the library steps.",
@@ -691,6 +702,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_copland_subway",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_subway.png",
 	"narrative": [
 	  "Around Copland, lunchtime suddenly becomes impossible to ignore.",
@@ -751,6 +763,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_southwest_aboriginal_land_management",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_aboriginal_land_management.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_southwest_aboriginal_land_management_intro.png",
@@ -819,6 +832,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_houses_canberra_traditional_bus_stop",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_canberra_traditional_bus_stop.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_houses_canberra_traditional_bus_stop_intro.png",
@@ -886,6 +900,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_houses_spiral_floor_tile",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_spiral_floor_tile.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_houses_spiral_floor_tile_intro.png",
@@ -953,6 +968,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_blocks_metal_frames_sculpture_six_fixed",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_metal_frames_sculpture.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_blocks_metal_frames_sculpture_six_fixed_intro.png",
@@ -1020,6 +1036,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_southwest_winged_harvest",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_winged_harvest.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_southwest_winged_harvest_intro.png",
@@ -1087,6 +1104,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_central_dragon_art_installation",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_dragon_art_installation.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_central_dragon_art_installation_intro.png",
@@ -1154,6 +1172,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_fellows_oval_game_on",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_game_on.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_fellows_oval_game_on_intro.png",
@@ -1221,6 +1240,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_art_and_music_cafe_on_4th_floor",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_cafe_on_4th_floor.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_art_and_music_cafe_on_4th_floor_intro.png",
@@ -1288,6 +1308,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_copland_event_notice_board",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_event_notice_board.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_copland_event_notice_board_intro.png",
@@ -1355,6 +1376,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_medical_physics_school_anatomical_model",
 	"enabled": true,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_anatomical_model.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_medical_physics_school_anatomical_model_intro.png",
@@ -1423,6 +1445,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_lotus_lantern",
 	"enabled": false,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "",
 	"narrative": [],
 	"choices": {}
@@ -1435,6 +1458,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_trophy",
 	"enabled": false,
+	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "",
 	"narrative": [],
 	"choices": {}
