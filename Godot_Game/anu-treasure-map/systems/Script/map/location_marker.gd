@@ -441,7 +441,7 @@ func _on_dot_button_up() -> void:
 		_tween_medal_interaction_fx()
 
 
-func _set(property: StringName) -> bool:
+func _set(property: StringName, _value: Variant) -> bool:
 	if property == &"use_medal_visual" or property == &"medal_ribbon" or property == &"medal_photo":
 		call_deferred("_on_medal_export_changed")
 	return false
