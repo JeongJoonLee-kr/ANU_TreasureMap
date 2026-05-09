@@ -1,11 +1,11 @@
 {
   "onboarding": [
-    { "step": 0, "text": "Welcome to ANU Treasure Map!\nTap anywhere to continue." },
-    { "step": 1, "text": "Explore campus and collect treasures.\nTap to continue." },
-    { "step": 2, "text": "This is your Week.\nYou have 16 weeks to explore ANU campus!\nTap anywhere to continue." },
-    { "step": 3, "text": "This is your Location.\nIt shows where you are on campus.\nTap anywhere to continue." },
-    { "step": 4, "text": "This is your Time.\nExploring locations costs time each week.\nTap anywhere to continue." },
-    { "step": 5, "text": "This is your Money.\nMore features coming soon!\nTap anywhere to continue." },
-    { "step": 6, "text": "Tap the phone icon — it's your control panel\nfor messages, profile and more!" }
+	{ "step": 0, "text": "Welcome to ANU Treasure Map!\nTap anywhere to continue." },
+	{ "step": 1, "text": "Explore campus and collect treasures.\nTap to continue." },
+	{ "step": 2, "text": "This is your Week.\nYou have 16 weeks to explore ANU campus!\nTap anywhere to continue." },
+	{ "step": 3, "text": "This is your Location.\nIt shows where you are on campus.\nTap anywhere to continue." },
+	{ "step": 4, "text": "This is your Time.\nExploring locations costs time each week.\nTap anywhere to continue." },
+	{ "step": 5, "text": "This is your Money.\nMore features coming soon!\nTap anywhere to continue." },
+	{ "step": 6, "text": "Tap the phone icon — it's your control panel\nfor messages, profile and more!" }
   ]
 }

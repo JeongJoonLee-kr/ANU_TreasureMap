@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://8pxd4dalh33d"]
+[gd_scene load_steps=20 format=3 uid="uid://8pxd4dalh33d"]
 
 [ext_resource type="Script" uid="uid://dwaqcfkgh6wal" path="res://systems/Script/main/main.gd" id="1_main"]
 [ext_resource type="Texture2D" uid="uid://b44qllsqlhq42" path="res://resources/ui/phone/phone_icon_blue.svg" id="2_phone"]
@@ -337,15 +337,14 @@ script = ExtResource("3_ins_button")
 [node name="NotificationDot" type="TextureRect" parent="HUD/MarginContainer/InsButton"]
 visible = false
 layout_mode = 1
-anchors_preset = 0
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 offset_left = -10.0
 offset_top = 2.0
 offset_right = 4.0
 offset_bottom = 16.0
+grow_horizontal = 0
 mouse_filter = 2
 texture = ExtResource("18_notify_dot")
 expand_mode = 1
