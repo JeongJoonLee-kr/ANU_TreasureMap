@@ -258,7 +258,9 @@ func _show_leave_only_choice() -> void:
 	dialogue_panel.hide()
 	_hide_legacy_options_panel()
 	_hide_choice_panel()
-	_show_choice_panel({"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_location_choice_selected)
+	_show_choice_panel(
+		{"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_location_choice_selected
+	)
 
 
 func _on_not_enough_ap() -> void:
