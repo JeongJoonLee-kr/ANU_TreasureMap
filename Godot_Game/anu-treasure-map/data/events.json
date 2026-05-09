@@ -7,7 +7,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_yuki",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_yuki.jpg",
 	"portrait_config": {
 	  "yuki_master": {
@@ -97,7 +97,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_chess_board",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/finding.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_chessboard.jpg",
 	"narrative": [
 	  "While walking along the camphor tree lane, you hear a strange, rhythmic thump… thump… sound nearby.",
@@ -151,7 +151,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_kangaroo",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/finding.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_kangaroo.jpg",
 	"narrative": [
 	  "You're cutting across the edge of the sports field when a blur of brown suddenly dashes past the far fence.",
@@ -205,7 +205,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_student_accommodation_basketball_court",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_basketball_court.png",
 	"narrative": [
 	  "As you pass the Student Accommodation area, a basketball strikes the rim and bounces across the half court.",
@@ -397,7 +397,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_bruce_hall_lemon_tree",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Exam Paper Pulse（sad）.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_lemon_tree.png",
 	"narrative": [
 	  "Outside Bruce Hall, a student stands near the entrance holding a yellow sticky note.",
@@ -458,7 +458,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_central_studying_area_board_games_society",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_board_games_society.png",
 	"narrative": [
 	  "On a desk in the Central Studying Area, you notice a small invitation card left between a laptop and a coffee cup.",
@@ -519,7 +519,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_csit_engn_escape_room",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/finding.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_escape_room.png",
 	"narrative": [
 	  "Inside the CSIT and Engineering area, a monitor beside a classroom door blinks with a sixty-minute timer.",
@@ -641,7 +641,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_chifley_marie_reay_chifley_library",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Exam Paper Pulse（sad）.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_chifley_library.png",
 	"narrative": [
 	  "Near Chifley and Marie Reay, a thin research notebook lies beside the library steps.",
@@ -702,7 +702,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_copland_subway",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_subway.png",
 	"narrative": [
 	  "Around Copland, lunchtime suddenly becomes impossible to ignore.",
@@ -1104,7 +1104,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_central_dragon_art_installation",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/finding.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_dragon_art_installation.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_central_dragon_art_installation_intro.png",
@@ -1308,7 +1308,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_copland_event_notice_board",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Exam Paper Pulse（sad）.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_event_notice_board.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_copland_event_notice_board_intro.png",
@@ -1376,7 +1376,7 @@
 	"base_trigger_chance": 0.3,
 	"clue_id": "clue_medical_physics_school_anatomical_model",
 	"enabled": true,
-	"bgm_path": "res://resources/music/1.mp3",
+	"bgm_path": "res://resources/music/Exam Paper Pulse（sad）.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_anatomical_model.png",
 	"event_image_paths": {
 	  "intro": "res://resources/event/event_medical_physics_school_anatomical_model_intro.png",
