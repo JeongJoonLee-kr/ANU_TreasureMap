@@ -6,6 +6,7 @@ var location_markers: Dictionary = {}
 
 const _PREVIEW_TITLE_DEFAULT_COLOR := Color(0.2588, 0.6471, 0.9608, 1.0)
 const _CURRENT_MARKER_OFFSET := Vector2(0.0, -64.0)
+const _MARKER_CLICK_SUPPRESS_MS_AFTER_POPUP_CLOSE := 180
 const _PREVIEW_TITLE_COLORS := {
 	LocationMarker.MedalRibbon.BLUE: Color(0.118, 0.533, 0.898, 1.0),
 	LocationMarker.MedalRibbon.GREEN: Color(0.263, 0.627, 0.412, 1.0),
@@ -23,10 +24,15 @@ const _PREVIEW_TITLE_COLORS := {
 @onready var hover_preview: Panel = $HoverPreview
 @onready var hover_preview_image: TextureRect = $HoverPreview/PreviewImage
 @onready var hover_preview_title: Label = $HoverPreview/PreviewTitle
+var _ignore_marker_clicks_until_ms: int = 0
+var _popup_modal_blocker: ColorRect = null
 
 
 func _ready() -> void:
 	event_panel.hide()
+	if event_panel != null and event_panel.has_signal("popup_closed"):
+		event_panel.popup_closed.connect(_on_event_popup_closed)
+	_ensure_popup_modal_blocker()
 	hover_preview.hide()
 	hover_preview_title.add_theme_font_size_override("font_size", 22)
 	var bold_font_path := "res://resources/font/AlegreyaSans-Bold.ttf"
@@ -142,6 +148,10 @@ func open_location(location_id: String, anchor: Control) -> void:
 	var title := str(data.get("title", location_id))
 	var prompt := str(data.get("travel_prompt", "Travel to %s?" % title))
 
+	_set_popup_modal_enabled(true)
+	# Keep the popup last among MapControl children so it wins draw/input order,
+	# and ensure panel controls (not IGNORE) block map markers under the dialog.
+	move_child(event_panel, -1)
 	event_panel.open_popup(title, prompt, anchor, location_id, travel_time, can_travel)
 
 
@@ -173,6 +183,8 @@ func try_move_to_location(target_location_id: String) -> void:
 	Global.selected_location_id = target_location_id
 	Global.player_location_id = target_location_id
 	update_current_location_marker()
+	if event_panel != null and event_panel.has_method("close_popup"):
+		event_panel.close_popup()
 
 	if current_scene != null and current_scene.has_method("show_location"):
 		current_scene.show_location(target_location_id)
@@ -306,5 +318,41 @@ func _on_location_preview_requested(
 
 
 func _on_location_marker_selected(location_id: String, anchor: Control) -> void:
+	if Time.get_ticks_msec() < _ignore_marker_clicks_until_ms:
+		return
+	# Prevent click-through / accidental marker switches while the travel popup
+	# is already open (for example when tapping GO over dense marker areas).
+	if event_panel != null and event_panel.visible:
+		return
 	hide_location_preview()
 	open_location(location_id, anchor)
+
+
+func _on_event_popup_closed() -> void:
+	_ignore_marker_clicks_until_ms = (
+		Time.get_ticks_msec() + _MARKER_CLICK_SUPPRESS_MS_AFTER_POPUP_CLOSE
+	)
+	_set_popup_modal_enabled(false)
+
+
+func _ensure_popup_modal_blocker() -> void:
+	if is_instance_valid(_popup_modal_blocker):
+		return
+	_popup_modal_blocker = ColorRect.new()
+	_popup_modal_blocker.name = "PopupModalBlocker"
+	_popup_modal_blocker.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_popup_modal_blocker.color = Color(0, 0, 0, 0)
+	_popup_modal_blocker.mouse_filter = Control.MOUSE_FILTER_STOP
+	_popup_modal_blocker.z_index = 9
+	_popup_modal_blocker.hide()
+	add_child(_popup_modal_blocker)
+
+
+func _set_popup_modal_enabled(enabled: bool) -> void:
+	_ensure_popup_modal_blocker()
+	if _popup_modal_blocker == null:
+		return
+	if enabled:
+		_popup_modal_blocker.show()
+	else:
+		_popup_modal_blocker.hide()

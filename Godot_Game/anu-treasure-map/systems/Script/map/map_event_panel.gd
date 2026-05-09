@@ -1,5 +1,7 @@
 extends Control
 
+signal popup_closed
+
 # Store the selected location id
 # This id will be used when the player presses the Go button.
 var target_location_id: String = ""
@@ -113,6 +115,7 @@ func open_popup(
 func close_popup() -> void:
 	hide()
 	target_location_id = ""
+	popup_closed.emit()
 
 
 # Called when the Close button is pressed.
