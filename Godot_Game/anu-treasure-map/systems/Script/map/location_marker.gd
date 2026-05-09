@@ -18,7 +18,7 @@ const _CLASSIC_DOT_SIZE := Vector2(20.0, 20.0)
 
 ## Horizontal center of MedalVisual in marker coords (offset_left/right in location_marker.tscn).
 const _MEDAL_CENTER_X := 110.0
-## Narrow plate under the pin so labels don’t stretch toward neighbouring markers.
+## Narrow plate under the pin so labels don't stretch toward neighbouring markers.
 const _MEDAL_PLATE_WIDTH := 118.0
 const _MEDAL_PLATE_HEIGHT := 54.0
 
@@ -49,7 +49,7 @@ const _RING_TEX: Dictionary = {
 	MedalRibbon.CYAN: preload("res://resources/ui/map_badges/badge_circle_cyan.svg"),
 }
 
-## Label color on white plate (ribbon “dark” accent for readability).
+## Label color on white plate (ribbon "dark" accent for readability).
 const _MEDAL_NAME_COLORS: Dictionary = {
 	MedalRibbon.BLUE: Color(0.118, 0.533, 0.898, 1.0),
 	MedalRibbon.GREEN: Color(0.263, 0.627, 0.412, 1.0),
@@ -441,7 +441,7 @@ func _on_dot_button_up() -> void:
 		_tween_medal_interaction_fx()
 
 
-func _set(property: StringName, value: Variant) -> bool:
+func _set(property: StringName) -> bool:
 	if property == &"use_medal_visual" or property == &"medal_ribbon" or property == &"medal_photo":
 		call_deferred("_on_medal_export_changed")
 	return false
