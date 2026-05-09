@@ -39,6 +39,7 @@ var location_data: Dictionary = {}
 var end_game_config: Dictionary = {}
 var end_game_goal_panel: Control = null
 var _end_game_triggered := false
+var _pending_week_advance := false
 
 
 func _ready() -> void:
@@ -88,6 +89,8 @@ func _connect_button(button: BaseButton, callback: Callable) -> void:
 
 
 func show_map() -> void:
+	_resolve_pending_week_advance()
+
 	if is_instance_valid(location_instance):
 		location_instance.queue_free()
 		location_instance = null
@@ -230,10 +233,25 @@ func spend_time(amount: int) -> bool:
 
 	Global.time -= amount
 	if Global.time <= 0:
-		advance_week()
+		# Reaching zero time while entering a location should not end the run
+		# immediately. Defer week advancement until the player returns to map.
+		Global.time = 0
+		_pending_week_advance = true
 
 	Global.notify_resources_changed()
 	return true
+
+
+func _resolve_pending_week_advance() -> void:
+	if not _pending_week_advance:
+		return
+	_pending_week_advance = false
+
+	if Global.current_week >= Global.max_week:
+		call_deferred("_refresh_goal_and_check_end")
+		return
+
+	advance_week()
 
 
 func advance_week() -> void:
