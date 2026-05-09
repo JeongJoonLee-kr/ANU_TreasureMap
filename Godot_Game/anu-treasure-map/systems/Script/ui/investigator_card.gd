@@ -161,14 +161,14 @@ func _ensure_empty_collection_hint() -> void:
 	_empty_collection_hint_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_empty_collection_hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_empty_collection_hint_label.add_theme_font_size_override("font_size", 24)
-	_empty_collection_hint_label.add_theme_color_override(
-		"font_color", Color(0.29, 0.32, 0.43, 0.94)
-	)
+	_empty_collection_hint_label.add_theme_color_override("font_color", Color(0.29, 0.32, 0.43, 0.94))
 	if ResourceLoader.exists(EMPTY_COLLECTION_HINT_FONT_PATH):
 		_empty_collection_hint_label.add_theme_font_override(
 			"font", load(EMPTY_COLLECTION_HINT_FONT_PATH)
 		)
-	_empty_collection_hint_label.text = ("Keep exploring, and the treasure might be waiting at the next location.")
+	_empty_collection_hint_label.text = (
+		"Keep exploring, and the treasure might be waiting at the next location."
+	)
 	right_zone.add_child(_empty_collection_hint_label)
 
 
