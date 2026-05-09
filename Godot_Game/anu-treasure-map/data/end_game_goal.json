@@ -1,7 +1,7 @@
 {
   "enabled": true,
   "target_week_end": 5,
-  "target_treasures": 8,
+  "target_treasures": 5,
   "start_menu_scene": "res://Start.tscn",
   "new_run": {
 	"start_location_id": "chifley_marie_reay",

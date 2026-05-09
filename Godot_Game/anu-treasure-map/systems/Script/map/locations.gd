@@ -61,6 +61,10 @@ var progress_dots: HBoxContainer = $DialogueLayer/DialoguePanel/MainMargin/MainV
 
 
 func _ready() -> void:
+	_configure_background_rect()
+	if not get_viewport().size_changed.is_connected(_configure_background_rect):
+		get_viewport().size_changed.connect(_configure_background_rect)
+
 	location_id = (
 		Global.selected_location_id
 		if Global.selected_location_id != ""
@@ -117,6 +121,14 @@ func _try_random_event() -> void:
 		_start_random_event(triggered_event as Dictionary)
 	else:
 		show_location()
+
+
+func _configure_background_rect() -> void:
+	background.position = Vector2.ZERO
+	background.scale = Vector2.ONE
+	background.size = get_viewport_rect().size
+	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 
 
 func _start_random_event(ev: Dictionary) -> void:
