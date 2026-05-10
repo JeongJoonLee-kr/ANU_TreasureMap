@@ -54,6 +54,17 @@
 	  }
 	}
   },
+  "wamburun_ursula_duck_drive_slow_sign": {
+	"text": "Paused at [color=#F6416C][url=duck_drive_slow_sign]the duck drive slow sign[/url][/color] between Wamburun and Ursula. It looked cute at first, then became a tiny rule for sharing campus paths with smaller feet.",
+	"image_path": "res://resources/treasure/treasure_duck_drive_slow_sign.png",
+	"annotations": {
+	  "duck_drive_slow_sign": {
+		"text": "The duck drive slow sign near Wamburun and Ursula reminds students to slow down for animals crossing the path.",
+		"clue_id": "clue_wamburun_ursula_duck_drive_slow_sign",
+		"clue_name": "Duck Drive Slow Sign"
+	  }
+	}
+  },
   "bruce_hall_lemon_tree": {
 	"text": "Followed a sticky-note rumour at [color=#F6416C][url=bruce_hall_lemon_tree]Bruce Hall[/url][/color] and found Lemon Tree. The treasure was not only a plant, but the reminder not to let someone look for hope alone.",
 	"image_path": "res://resources/treasure/treasure_lemon_tree.png",
@@ -216,6 +227,17 @@
 		"text": "The Copland notice board helps students turn crowded event flyers into real campus invitations.",
 		"clue_id": "clue_copland_event_notice_board",
 		"clue_name": "Copland Event Notice Board"
+	  }
+	}
+  },
+  "medical_physics_school_anatomical_model": {
+	"text": "Checked the lit window at [color=#F6416C][url=medical_physics_anatomical_model]Medical and Physics[/url][/color] and found the anatomical model. The shape was scary until we gave it a careful name.",
+	"image_path": "res://resources/treasure/treasure_anatomical_model.png",
+	"annotations": {
+	  "medical_physics_anatomical_model": {
+		"text": "A lit window at the Medical and Physics School can turn an anatomical teaching model into an eerie night silhouette.",
+		"clue_id": "clue_medical_physics_school_anatomical_model",
+		"clue_name": "Medical and Physics Anatomical Model"
 	  }
 	}
   }

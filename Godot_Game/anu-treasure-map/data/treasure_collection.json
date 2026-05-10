@@ -29,6 +29,12 @@
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A campus support route that turns a flyer into clear help for students who need it."
   },
+  "wamburun_ursula_duck_drive_slow_sign": {
+	"name": "Duck Drive Slow Sign",
+	"image_path": "res://resources/treasure/treasure_duck_drive_slow_sign.png",
+	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
+	"description": "A small yellow sign that teaches players to slow down for the tiny lives crossing campus."
+  },
   "bruce_hall_lemon_tree": {
 	"name": "Lemon Tree",
 	"image_path": "res://resources/treasure/treasure_lemon_tree.png",
@@ -118,5 +124,11 @@
 	"image_path": "res://resources/treasure/treasure_event_notice_board.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A crowded wall that becomes useful once the date, place, and host are read carefully."
+  },
+  "medical_physics_school_anatomical_model": {
+	"name": "Anatomical Model",
+	"image_path": "res://resources/treasure/treasure_anatomical_model.png",
+	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
+	"description": "A lit window where a strange night silhouette becomes understandable through careful looking."
   }
 }
