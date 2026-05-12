@@ -7,17 +7,20 @@ const _GUIDE_TEXTS_PATH := "res://data/guide_texts.json"
 const _DEFAULT_TEXTS := {
 	0: "Welcome to ANU Treasure Map!\nTap anywhere to continue.",
 	1: "Explore campus and collect treasures.\nTap to continue.",
-	2: "These are your End Goals!\nComplete any one of them to finish the game.\nAim to collect as many treasures as you can!",
+	2:
+	"These are your End Goals!\nComplete any one of them to finish the game.\nAim to collect as many treasures as you can!",
 	3: "This is your Week.\nYou have 16 weeks to explore ANU campus!\nTap anywhere to continue.",
 	4: "This is your Location.\nIt shows where you are on campus.\nTap anywhere to continue.",
 	5: "This is your Time.\nExploring locations costs time each week.\nTap anywhere to continue.",
 	6: "This is your Money.\nMore features coming soon!\nTap anywhere to continue.",
 	7: "Tap the phone icon — it's your control panel\nfor messages, profile and more!",
 	8: "This is your Profile!\nTap this app to set up your personal info.",
-	9: "This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue.",
+	9:
+	"This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue.",
 	10: "This is the Menu.\nAdjust music or restart the game from here.\nTap anywhere to continue.",
 	11: "This is ANU Ins!\nBrowse the latest campus posts.\nTap to open it and finish setup!",
-	12: "You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!",
+	12:
+	"You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!",
 	13: "Let's head back to the map\nand see what's happening!",
 	15: "The clue just mentioned something exciting happening here!\nLet's go check it out.",
 	16: "This is the time it takes to travel here.",
@@ -42,6 +45,7 @@ func _ready() -> void:
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
+
 
 func show(text: String) -> void:
 	_ensure_guide()
@@ -86,6 +90,7 @@ func start_onboarding(main_node: Node) -> void:
 
 # ── Onboarding steps ──────────────────────────────────────────────────────────
 
+
 func _on_step_advanced() -> void:
 	if not _in_onboarding:
 		return
@@ -104,9 +109,7 @@ func _run_step(step: int) -> void:
 
 		1:
 			var bear_pos := Vector2(vp.x * 0.5 - 130.0, vp.y * 0.42 - 130.0)
-			_guide.show_step(
-				_get_text(1), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, true
-			)
+			_guide.show_step(_get_text(1), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, true)
 
 		2:
 			var goal_rect := _get_hud_rect("GoalPanelLayer/EndGameGoalPanel/GoalPanel")
@@ -127,7 +130,9 @@ func _run_step(step: int) -> void:
 				else 20.0
 			)
 			var bear_pos := Vector2(bear_x, bear_y)
-			_guide.show_step(_get_text(2), bear_pos, GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
+			_guide.show_step(
+				_get_text(2), bear_pos, GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true
+			)
 			if goal_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(goal_rect.grow(10.0))
 
@@ -224,9 +229,7 @@ func _run_step(step: int) -> void:
 			if _guide.step_advanced.is_connected(_on_step_advanced):
 				_guide.step_advanced.disconnect(_on_step_advanced)
 
-			var _app_base := (
-				"Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
-			)
+			var _app_base := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
 			var profile_rect := _get_hud_rect(_app_base + "AppProfileButton")
 			var bear_x := (
 				clampf(
@@ -249,8 +252,8 @@ func _run_step(step: int) -> void:
 					Vector2(bear_x, bear_y),
 					GuideCharacter.OVERLAY_SPOTLIGHT,
 					false,
-					true,   # overlay_passthrough → AppProfileButton keeps hover/click
-					true,   # keep_overlay from phone step
+					true,  # overlay_passthrough → AppProfileButton keeps hover/click
+					true,  # keep_overlay from phone step
 				)
 			)
 			if profile_rect.size != Vector2.ZERO:
@@ -261,9 +264,7 @@ func _run_step(step: int) -> void:
 		9:
 			if not _guide.step_advanced.is_connected(_on_step_advanced):
 				_guide.step_advanced.connect(_on_step_advanced)
-			var col_base := (
-				"Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
-			)
+			var col_base := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
 			var col_rect := _get_hud_rect(col_base + "AppCollectionButton")
 			var bear_x := (
 				clampf(
@@ -280,8 +281,12 @@ func _run_step(step: int) -> void:
 				else vp.y * 0.7
 			)
 			_guide.show_step(
-				_get_text(9), Vector2(bear_x, bear_y),
-				GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true
+				_get_text(9),
+				Vector2(bear_x, bear_y),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				true,
+				false,
+				true
 			)
 			if col_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(col_rect.grow(14.0))
@@ -289,9 +294,7 @@ func _run_step(step: int) -> void:
 		10:
 			if not _guide.step_advanced.is_connected(_on_step_advanced):
 				_guide.step_advanced.connect(_on_step_advanced)
-			var menu_base := (
-				"Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
-			)
+			var menu_base := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
 			var menu_rect := _get_hud_rect(menu_base + "AppMenuButton")
 			var bear_x := (
 				clampf(
@@ -308,8 +311,12 @@ func _run_step(step: int) -> void:
 				else vp.y * 0.7
 			)
 			_guide.show_step(
-				_get_text(10), Vector2(bear_x, bear_y),
-				GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true
+				_get_text(10),
+				Vector2(bear_x, bear_y),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				true,
+				false,
+				true
 			)
 			if menu_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(menu_rect.grow(14.0))
@@ -317,9 +324,7 @@ func _run_step(step: int) -> void:
 		11:
 			if _guide.step_advanced.is_connected(_on_step_advanced):
 				_guide.step_advanced.disconnect(_on_step_advanced)
-			var ins_base := (
-				"Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
-			)
+			var ins_base := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
 			var ins_rect := _get_hud_rect(ins_base + "AppInsButton")
 			var bear_x := (
 				clampf(
@@ -375,7 +380,9 @@ func _run_step(step: int) -> void:
 			else:
 				bear_pos_12 = Vector2(50.0, vp.y * 0.35 - 130.0)
 
-			_guide.show_step(_get_text(12), bear_pos_12, GuideCharacter.OVERLAY_FLAT, true, false, false)
+			_guide.show_step(
+				_get_text(12), bear_pos_12, GuideCharacter.OVERLAY_FLAT, true, false, false
+			)
 
 		13:
 			# Bear reappears after keyword click, tap to finish.
@@ -399,7 +406,9 @@ func _run_step(step: int) -> void:
 			else:
 				bear_pos_13 = Vector2(50.0, vp.y * 0.35 - 130.0)
 
-			_guide.show_step(_get_text(13), bear_pos_13, GuideCharacter.OVERLAY_FLAT, true, false, false)
+			_guide.show_step(
+				_get_text(13), bear_pos_13, GuideCharacter.OVERLAY_FLAT, true, false, false
+			)
 
 		14:
 			# Transition: close phone, wait, then proceed to map steps.
@@ -428,7 +437,8 @@ func _run_step(step: int) -> void:
 				"Map/MapControl/MarkersLayer/CsitEngnAreaMarker/DotButton"
 			)
 			var ref_rect := (
-				dot_rect if dot_rect.size != Vector2.ZERO
+				dot_rect
+				if dot_rect.size != Vector2.ZERO
 				else _get_hud_rect("Map/MapControl/MarkersLayer/CsitEngnAreaMarker")
 			)
 			var bear_x_15: float
@@ -452,8 +462,12 @@ func _run_step(step: int) -> void:
 				bear_x_15 = vp.x * 0.6
 				bear_y_15 = vp.y * 0.35 - 130.0
 			_guide.show_step(
-				_get_text(15), Vector2(bear_x_15, bear_y_15),
-				GuideCharacter.OVERLAY_SPOTLIGHT, false, true, false
+				_get_text(15),
+				Vector2(bear_x_15, bear_y_15),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				false,
+				true,
+				false
 			)
 			if ref_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(ref_rect.grow(18.0))
@@ -471,23 +485,28 @@ func _run_step(step: int) -> void:
 				if panel_rect_16.get_center().x > vp.x * 0.5:
 					bear_x_16 = clampf(
 						panel_rect_16.position.x - GuideCharacter.BEAR_SIZE.x - 40.0,
-						20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+						20.0,
+						vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
 					)
 				else:
 					bear_x_16 = clampf(
-						panel_rect_16.end.x + 40.0,
-						20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+						panel_rect_16.end.x + 40.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
 					)
 				bear_y_16 = clampf(
 					panel_rect_16.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5,
-					20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+					20.0,
+					vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
 				)
 			else:
 				bear_x_16 = vp.x * 0.1
 				bear_y_16 = vp.y * 0.4
 			_guide.show_step(
-				_get_text(16), Vector2(bear_x_16, bear_y_16),
-				GuideCharacter.OVERLAY_SPOTLIGHT, true, false, false
+				_get_text(16),
+				Vector2(bear_x_16, bear_y_16),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				true,
+				false,
+				false
 			)
 			if cost_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(cost_rect.grow(10.0))
@@ -516,8 +535,12 @@ func _run_step(step: int) -> void:
 				bear_x_17 = vp.x * 0.5 - 130.0
 				bear_y_17 = vp.y * 0.6
 			_guide.show_step(
-				_get_text(17), Vector2(bear_x_17, bear_y_17),
-				GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true
+				_get_text(17),
+				Vector2(bear_x_17, bear_y_17),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				true,
+				false,
+				true
 			)
 			if nw_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(nw_rect.grow(10.0))
@@ -545,8 +568,12 @@ func _run_step(step: int) -> void:
 				bear_x_18 = vp.x * 0.5 - 130.0
 				bear_y_18 = vp.y * 0.5
 			_guide.show_step(
-				_get_text(18), Vector2(bear_x_18, bear_y_18),
-				GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true
+				_get_text(18),
+				Vector2(bear_x_18, bear_y_18),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				false,
+				true,
+				true
 			)
 			if go_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(go_rect.grow(12.0))
@@ -558,6 +585,7 @@ func _run_step(step: int) -> void:
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+
 func _get_hud_rect(path: String) -> Rect2:
 	if _main_ref == null:
 		return Rect2()
@@ -565,7 +593,6 @@ func _get_hud_rect(path: String) -> Rect2:
 	if node == null or not (node is Control):
 		return Rect2()
 	return (node as Control).get_global_rect()
-
 
 
 func _connect_phone_listener() -> void:
@@ -720,9 +747,7 @@ func _unlock_event_panel_ctrls() -> void:
 func _connect_csit_listener() -> void:
 	if _main_ref == null:
 		return
-	var marker := _main_ref.get_node_or_null(
-		"Map/MapControl/MarkersLayer/CsitEngnAreaMarker"
-	)
+	var marker := _main_ref.get_node_or_null("Map/MapControl/MarkersLayer/CsitEngnAreaMarker")
 	if marker == null:
 		return
 	if not marker.selected.is_connected(_on_csit_selected):
@@ -797,9 +822,7 @@ func _on_keyword_clicked(_meta: Variant) -> void:
 func _connect_ins_listener() -> void:
 	if _main_ref == null:
 		return
-	var path := (
-		"Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/AppInsButton"
-	)
+	var path := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/AppInsButton"
 	var ins_btn := _main_ref.get_node_or_null(path)
 	if ins_btn == null:
 		return
@@ -822,9 +845,7 @@ func _on_ins_app_pressed() -> void:
 func _connect_profile_listener() -> void:
 	if _main_ref == null:
 		return
-	var path := (
-		"Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/AppProfileButton"
-	)
+	var path := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/AppProfileButton"
 	var profile_btn := _main_ref.get_node_or_null(path)
 	if profile_btn == null:
 		return
@@ -862,6 +883,7 @@ func _on_profile_card_closed() -> void:
 
 # ── Text loading ──────────────────────────────────────────────────────────────
 
+
 func _load_texts() -> void:
 	var file := FileAccess.open(_GUIDE_TEXTS_PATH, FileAccess.READ)
 	if file == null:
@@ -882,6 +904,7 @@ func _get_text(step: int) -> String:
 
 
 # ── Internal ──────────────────────────────────────────────────────────────────
+
 
 func _ensure_guide() -> void:
 	if _guide == null or not is_instance_valid(_guide):

@@ -2,26 +2,13 @@
   {
 	"post_id": "p001",
 	"author": "ALEX",
-	"text": "Just saw a weird flyer at [color=#F6416C][url=market_day]Market Day[/url][/color]... Scanned the QR code and suddenly I'm a Relic Investigator? 🤯",
+	"text": "A club stall at Market Day was handing out [color=#F6416C][url=market_day]puzzle cards[/url][/color] for something near CSIT. The note says teams do better when nobody keeps a clue to themselves. 🤯",
 	"image_path": "res://resources/icon/qr_code.png",
 	"annotations": {
 	  "market_day": {
-		"text": "Where various clubs share information with us student body.",
-		"clue_id": "clue_yuki",
-		"clue_name": "Market Day"
-	  }
-	}
-  },
-  {
-	"post_id": "p002",
-	"author": "ALEX",
-	"text": "Heard a strange heavy knock near [color=#F6416C][url=library_thump]the library path[/url][/color] this morning. Not construction, not drums. Maybe something old is shifting behind the shelves.",
-	"image_path": "res://resources/treasure/treasure_chessboard.jpg",
-	"annotations": {
-	  "library_thump": {
-		"text": "A heavy knocking sound near the library path may point toward the giant chess board hidden nearby.",
-		"clue_id": "clue_chess_board",
-		"clue_name": "Library Chessboard"
+		"text": "A puzzle card from Market Day points toward a timed team challenge near the CSIT and ENGN area.",
+		"clue_id": "clue_csit_engn_escape_room",
+		"clue_name": "CSIT Escape Room"
 	  }
 	}
   }
