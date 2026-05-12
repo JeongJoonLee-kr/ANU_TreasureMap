@@ -48,7 +48,9 @@ func _draw() -> void:
 		return
 
 	_update_draw_transform()
-	_draw_letter_box(Vector2(90.0, LETTER_BOX_TOP), GREEN_DARK, GREEN_LIGHT, "A", _letter_a_progress)
+	_draw_letter_box(
+		Vector2(90.0, LETTER_BOX_TOP), GREEN_DARK, GREEN_LIGHT, "A", _letter_a_progress
+	)
 	_draw_letter_box(Vector2(239.0, LETTER_BOX_TOP), ORANGE, ORANGE_LIGHT, "N", _letter_n_progress)
 	_draw_letter_box(Vector2(388.0, LETTER_BOX_TOP), BLUE, BLUE_LIGHT, "U", _letter_u_progress)
 	_draw_treasure_map_text()
@@ -73,20 +75,40 @@ func _start_intro_animation() -> void:
 	tween.tween_property(self, "_intro_offset_y", 0.0, 1.1).set_trans(Tween.TRANS_QUINT).set_ease(
 		Tween.EASE_OUT
 	)
-	tween.tween_property(self, "_letter_a_progress", 1.0, 0.75).set_delay(0.18).set_trans(
-		Tween.TRANS_BACK
-	).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "_letter_n_progress", 1.0, 0.75).set_delay(0.42).set_trans(
-		Tween.TRANS_BACK
-	).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "_letter_u_progress", 1.0, 0.75).set_delay(0.66).set_trans(
-		Tween.TRANS_BACK
-	).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "_underline_reveal", 1.0, 0.65).set_delay(1.15).set_trans(
-		Tween.TRANS_CUBIC
-	).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "_pin_reveal", 1.0, 0.75).set_delay(1.45).set_trans(Tween.TRANS_BACK).set_ease(
-		Tween.EASE_OUT
+	(
+		tween
+		. tween_property(self, "_letter_a_progress", 1.0, 0.75)
+		. set_delay(0.18)
+		. set_trans(Tween.TRANS_BACK)
+		. set_ease(Tween.EASE_OUT)
+	)
+	(
+		tween
+		. tween_property(self, "_letter_n_progress", 1.0, 0.75)
+		. set_delay(0.42)
+		. set_trans(Tween.TRANS_BACK)
+		. set_ease(Tween.EASE_OUT)
+	)
+	(
+		tween
+		. tween_property(self, "_letter_u_progress", 1.0, 0.75)
+		. set_delay(0.66)
+		. set_trans(Tween.TRANS_BACK)
+		. set_ease(Tween.EASE_OUT)
+	)
+	(
+		tween
+		. tween_property(self, "_underline_reveal", 1.0, 0.65)
+		. set_delay(1.15)
+		. set_trans(Tween.TRANS_CUBIC)
+		. set_ease(Tween.EASE_OUT)
+	)
+	(
+		tween
+		. tween_property(self, "_pin_reveal", 1.0, 0.75)
+		. set_delay(1.45)
+		. set_trans(Tween.TRANS_BACK)
+		. set_ease(Tween.EASE_OUT)
 	)
 
 
@@ -105,22 +127,25 @@ func _design_rect(rect: Rect2) -> Rect2:
 	return Rect2(_design_point(rect.position), rect.size * _draw_scale)
 
 
-func _draw_letter_box(origin: Vector2, top_color: Color, bottom_color: Color, letter: String, progress: float) -> void:
+func _draw_letter_box(
+	origin: Vector2, top_color: Color, bottom_color: Color, letter: String, progress: float
+) -> void:
 	var eased: float = _ease_out_back(clamp(progress, 0.0, 1.0))
 	var box_size: Vector2 = LETTER_BOX_SIZE
 	var center: Vector2 = origin + box_size * 0.5
 	var scale_factor: float = lerp(0.82, 1.0, eased)
 	var lift: float = (1.0 - eased) * 20.0
 	var rect: Rect2 = Rect2(
-		center - box_size * scale_factor * 0.5 + Vector2(0.0, lift),
-		box_size * scale_factor
+		center - box_size * scale_factor * 0.5 + Vector2(0.0, lift), box_size * scale_factor
 	)
 	var screen_rect: Rect2 = _design_rect(rect)
 	var alpha: float = _intro_alpha * eased
 
 	var shadow_rect: Rect2 = screen_rect
 	shadow_rect.position += Vector2(0.0, 12.0) * _draw_scale
-	_draw_gradient_round_rect(shadow_rect, 12.0 * _draw_scale, Color(0, 0, 0, 0.18), Color(0, 0, 0, 0.02), alpha)
+	_draw_gradient_round_rect(
+		shadow_rect, 12.0 * _draw_scale, Color(0, 0, 0, 0.18), Color(0, 0, 0, 0.02), alpha
+	)
 	_draw_gradient_round_rect(screen_rect, 12.0 * _draw_scale, top_color, bottom_color, alpha)
 	_draw_letter_box_details(screen_rect, alpha)
 	_draw_centered_string(
@@ -159,7 +184,13 @@ func _draw_letter_box_details(rect: Rect2, alpha: float) -> void:
 		rect.position + Vector2(104.0, 78.0) * _draw_scale,
 	]
 	for i in range(route_points.size() - 1):
-		draw_line(route_points[i], route_points[i + 1], _fade(Color(1, 1, 1, 0.18), alpha), line_width, true)
+		draw_line(
+			route_points[i],
+			route_points[i + 1],
+			_fade(Color(1, 1, 1, 0.18), alpha),
+			line_width,
+			true
+		)
 	for point in route_points:
 		draw_circle(point, 3.0 * _draw_scale, white_bright)
 
@@ -169,8 +200,12 @@ func _draw_letter_box_details(rect: Rect2, alpha: float) -> void:
 	var bottom_right: Vector2 = rect.position + rect.size - Vector2(inset, inset)
 	draw_line(top_left, top_left + Vector2(bracket_length, 0.0), white_bright, line_width, true)
 	draw_line(top_left, top_left + Vector2(0.0, bracket_length), white_bright, line_width, true)
-	draw_line(bottom_right, bottom_right - Vector2(bracket_length, 0.0), white_bright, line_width, true)
-	draw_line(bottom_right, bottom_right - Vector2(0.0, bracket_length), white_bright, line_width, true)
+	draw_line(
+		bottom_right, bottom_right - Vector2(bracket_length, 0.0), white_bright, line_width, true
+	)
+	draw_line(
+		bottom_right, bottom_right - Vector2(0.0, bracket_length), white_bright, line_width, true
+	)
 
 
 func _draw_treasure_map_text() -> void:
@@ -226,7 +261,9 @@ func _draw_underline() -> void:
 	)
 
 	var shine_x: float = rect.position.x + fmod(_time * 50.0 * _draw_scale, max(rect.size.x, 1.0))
-	var shine_rect: Rect2 = Rect2(shine_x - 18.0 * _draw_scale, rect.position.y, 24.0 * _draw_scale, rect.size.y)
+	var shine_rect: Rect2 = Rect2(
+		shine_x - 18.0 * _draw_scale, rect.position.y, 24.0 * _draw_scale, rect.size.y
+	)
 	draw_rect(shine_rect, Color(1, 1, 1, 0.22 * _intro_alpha), true)
 
 
@@ -263,9 +300,13 @@ func _draw_location_pin(center: Vector2, alpha: float, marker_radius: float) -> 
 	draw_colored_polygon([left, right, point], color)
 
 
-func _draw_centered_string(text: String, baseline_center: Vector2, font_size: float, color: Color) -> void:
+func _draw_centered_string(
+	text: String, baseline_center: Vector2, font_size: float, color: Color
+) -> void:
 	var size_px: int = int(round(font_size))
-	var text_size: Vector2 = LOGO_FONT.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size_px)
+	var text_size: Vector2 = LOGO_FONT.get_string_size(
+		text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size_px
+	)
 	draw_string(
 		LOGO_FONT,
 		Vector2(baseline_center.x - text_size.x * 0.5, baseline_center.y),
@@ -277,12 +318,16 @@ func _draw_centered_string(text: String, baseline_center: Vector2, font_size: fl
 	)
 
 
-func _draw_tracking_text(text: String, baseline_center: Vector2, font_size: float, tracking: float, color: Color) -> void:
+func _draw_tracking_text(
+	text: String, baseline_center: Vector2, font_size: float, tracking: float, color: Color
+) -> void:
 	var size_px: int = int(round(font_size))
 	var total_width: float = 0.0
 	for i in range(text.length()):
 		var character: String = text.substr(i, 1)
-		total_width += LOGO_FONT.get_string_size(character, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size_px).x
+		total_width += (
+			LOGO_FONT.get_string_size(character, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size_px).x
+		)
 		if i < text.length() - 1:
 			total_width += tracking
 
@@ -298,10 +343,15 @@ func _draw_tracking_text(text: String, baseline_center: Vector2, font_size: floa
 			size_px,
 			color
 		)
-		x += LOGO_FONT.get_string_size(character, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size_px).x + tracking
+		x += (
+			LOGO_FONT.get_string_size(character, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size_px).x
+			+ tracking
+		)
 
 
-func _draw_gradient_circle(center: Vector2, radius: float, top_color: Color, bottom_color: Color, alpha: float) -> void:
+func _draw_gradient_circle(
+	center: Vector2, radius: float, top_color: Color, bottom_color: Color, alpha: float
+) -> void:
 	var diameter: int = max(1, int(ceil(radius * 2.0)))
 	for index in range(diameter):
 		var local_y: float = -radius + float(index)
@@ -317,7 +367,9 @@ func _draw_gradient_circle(center: Vector2, radius: float, top_color: Color, bot
 		)
 
 
-func _draw_gradient_round_rect(rect: Rect2, radius: float, top_color: Color, bottom_color: Color, alpha: float) -> void:
+func _draw_gradient_round_rect(
+	rect: Rect2, radius: float, top_color: Color, bottom_color: Color, alpha: float
+) -> void:
 	var height: int = max(1, int(ceil(rect.size.y)))
 	for index in range(height):
 		var y: float = float(index)
@@ -333,7 +385,9 @@ func _draw_gradient_round_rect(rect: Rect2, radius: float, top_color: Color, bot
 		)
 
 
-func _draw_horizontal_gradient_round_rect(rect: Rect2, radius: float, colors: Array[Color], alpha: float) -> void:
+func _draw_horizontal_gradient_round_rect(
+	rect: Rect2, radius: float, colors: Array[Color], alpha: float
+) -> void:
 	var width: int = max(1, int(ceil(rect.size.x)))
 	for index in range(width):
 		var x: float = float(index)
@@ -360,7 +414,9 @@ func _draw_rounded_rect_outline(rect: Rect2, radius: float, color: Color, width:
 	draw_line(Vector2(right, top + radius), Vector2(right, bottom - radius), color, width, true)
 	draw_arc(Vector2(left + radius, top + radius), radius, PI, PI * 1.5, 16, color, width, true)
 	draw_arc(Vector2(right - radius, top + radius), radius, PI * 1.5, TAU, 16, color, width, true)
-	draw_arc(Vector2(right - radius, bottom - radius), radius, 0.0, PI * 0.5, 16, color, width, true)
+	draw_arc(
+		Vector2(right - radius, bottom - radius), radius, 0.0, PI * 0.5, 16, color, width, true
+	)
 	draw_arc(Vector2(left + radius, bottom - radius), radius, PI * 0.5, PI, 16, color, width, true)
 
 

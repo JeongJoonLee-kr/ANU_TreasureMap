@@ -189,7 +189,9 @@ func _apply_status_button_theme(button: Button) -> void:
 	)
 	button.add_theme_stylebox_override(
 		"pressed",
-		_make_status_button_style(Color(0.925, 0.965, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.85))
+		_make_status_button_style(
+			Color(0.925, 0.965, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.85)
+		)
 	)
 	button.add_theme_stylebox_override(
 		"focus",
