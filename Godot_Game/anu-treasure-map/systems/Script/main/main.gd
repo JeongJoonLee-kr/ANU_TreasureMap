@@ -99,6 +99,8 @@ func show_map() -> void:
 	var map_controller := get_map_controller()
 	if map_controller != null and map_controller.has_method("update_current_location_marker"):
 		map_controller.update_current_location_marker()
+	if map_controller != null and map_controller.has_method("refresh_clue_event_markers"):
+		map_controller.refresh_clue_event_markers()
 	update_resource_ui()
 
 
