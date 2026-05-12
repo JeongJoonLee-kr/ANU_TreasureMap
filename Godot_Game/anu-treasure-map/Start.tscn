@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://2wtnh4gdwks"]
+[gd_scene load_steps=17 format=3 uid="uid://2wtnh4gdwks"]
 
 [ext_resource type="Script" uid="uid://c44qcr4grsjxa" path="res://systems/Script/ui/control.gd" id="1_52bhu"]
 [ext_resource type="Texture2D" uid="uid://bp55syjg5uxno" path="res://resources/Map/ANU Map.png" id="1_r305v"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" path="res://resources/ui/exit_button/exit_normal.svg" id="12_exb"]
 [ext_resource type="Texture2D" path="res://resources/ui/exit_button/exit_hover.svg" id="13_exb"]
 [ext_resource type="Texture2D" path="res://resources/ui/exit_button/exit_selected.svg" id="14_exb"]
+[ext_resource type="Script" path="res://systems/Script/ui/start_logo.gd" id="15_logo"]
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -45,18 +46,14 @@ texture = ExtResource("1_r305v")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="Control"]
-modulate = Color(1, 1, 0, 1)
-self_modulate = Color(1, 0.4745098, 1, 1)
+[node name="StartLogo" type="Control" parent="Control"]
 layout_mode = 0
-offset_left = 96.0
-offset_top = 270.0
-offset_right = 1824.0
-offset_bottom = 420.0
-theme_override_font_sizes/font_size = 110
-text = "ANU Treasure Map"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 580.0
+offset_top = 86.0
+offset_right = 1340.0
+offset_bottom = 592.667
+mouse_filter = 2
+script = ExtResource("15_logo")
 
 [node name="Button" type="TextureButton" parent="Control"]
 custom_minimum_size = Vector2(400, 60)

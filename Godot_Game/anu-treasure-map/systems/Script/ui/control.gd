@@ -3,7 +3,7 @@ extends Control
 const SETTINGS_PANEL_SCRIPT = preload("res://systems/Script/ui/settings_panel.gd")
 
 @onready var _background: TextureRect = $TextureRect
-@onready var _title_label: Label = $Label
+@onready var _title_logo: Control = $StartLogo
 @onready var _start_button: TextureButton = $Button
 @onready var _start_label: Label = $Button/StartLabel
 @onready var _continue_button: TextureButton = $ContinueButton
@@ -13,8 +13,10 @@ const SETTINGS_PANEL_SCRIPT = preload("res://systems/Script/ui/settings_panel.gd
 @onready var _exit_button: TextureButton = $ExitButton
 @onready var _exit_label: Label = $ExitButton/ExitLabel
 
-const _TITLE_HEIGHT: float = 150.0
-const _TITLE_TOP_RATIO: float = 0.25
+const _TITLE_LOGO_ASPECT: float = 600.0 / 340.0
+const _TITLE_TOP_RATIO: float = 0.115
+const _TITLE_MAX_WIDTH: float = 760.0
+const _TITLE_BOTTOM_GAP: float = 72.0
 const _BUTTON_SIZE: Vector2 = Vector2(400.0, 60.0)
 const _BUTTON_GAP: float = 15.0
 const _BUTTON_GROUP_TOP_RATIO: float = 0.64
@@ -83,19 +85,19 @@ func _layout_start_screen() -> void:
 	_background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 
-	var title_width: float = viewport_size.x * 0.9
-	_title_label.position = Vector2(
-		(viewport_size.x - title_width) * 0.5, viewport_size.y * _TITLE_TOP_RATIO
-	)
-	_title_label.size = Vector2(title_width, _TITLE_HEIGHT)
-	_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_title_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-
 	var button_x: float = (viewport_size.x - _BUTTON_SIZE.x) * 0.5
 	var button_group_height: float = _BUTTON_SIZE.y * 4.0 + _BUTTON_GAP * 3.0
 	var button_y: float = min(
 		viewport_size.y * _BUTTON_GROUP_TOP_RATIO, viewport_size.y - button_group_height - 48.0
 	)
+	var logo_top: float = max(24.0, viewport_size.y * _TITLE_TOP_RATIO)
+	var logo_width: float = min(viewport_size.x * 0.62, _TITLE_MAX_WIDTH)
+	var max_logo_height: float = max(120.0, button_y - logo_top - _TITLE_BOTTOM_GAP)
+	var logo_height: float = min(logo_width / _TITLE_LOGO_ASPECT, max_logo_height)
+	logo_width = logo_height * _TITLE_LOGO_ASPECT
+	_title_logo.position = Vector2((viewport_size.x - logo_width) * 0.5, logo_top)
+	_title_logo.size = Vector2(logo_width, logo_height)
+
 	_position_button(_start_button, Vector2(button_x, button_y))
 	_position_button(_continue_button, Vector2(button_x, button_y + _BUTTON_SIZE.y + _BUTTON_GAP))
 	_position_button(
