@@ -21,6 +21,7 @@ enum TimePhase { MORNING, MIDDAY, AFTERNOON }
 # ─── Signals ──────────────────────────────────────────
 signal event_triggered(event_data: Dictionary)
 signal not_enough_ap
+signal event_state_changed
 
 # ─── State ────────────────────────────────────────────
 var events_data: Dictionary = {}
@@ -102,6 +103,13 @@ func try_trigger_event(location_id: String) -> Variant:
 		not_enough_ap.emit()
 		return null
 
+	var clue_events := get_pending_clue_events_for_location(location_id)
+	if not clue_events.is_empty():
+		var clue_event: Dictionary = clue_events[randi() % clue_events.size()]
+		event_triggered.emit(clue_event)
+		_show_event_toast(clue_event, "clue")
+		return clue_event
+
 	# ── Gather eligible events for this location ──
 	var eligible: Array[Dictionary] = []
 	for event_id in events_data:
@@ -112,6 +120,9 @@ func try_trigger_event(location_id: String) -> Variant:
 			continue
 		if _is_event_completed(event_id):
 			continue
+		var clue_id := str(ev.get("clue_id", ""))
+		if clue_id != "" and Global.unlocked_clues.has(clue_id):
+			continue
 		# Time-of-day gate
 		if ev.get("require_afternoon", false) and not is_afternoon():
 			continue
@@ -120,39 +131,36 @@ func try_trigger_event(location_id: String) -> Variant:
 	if eligible.is_empty():
 		return null
 
-	# ── Clue-based selection logic ──
-	var player_clues: Array[String] = Global.unlocked_clues
-	var clue_events: Array[Dictionary] = []
-	var non_clue_events: Array[Dictionary] = []
+	var triggered_event: Variant = _roll_trigger(eligible)
+	if triggered_event != null:
+		var rolled_event: Dictionary = triggered_event as Dictionary
+		event_triggered.emit(rolled_event)
+		_show_event_toast(rolled_event, "normal")
+		return rolled_event
 
-	for ev in eligible:
-		var clue_id := str(ev.get("clue_id", ""))
-		if clue_id != "" and player_clues.has(clue_id):
-			# Player already has this clue → this event is "clue-related" for re-pick
-			clue_events.append(ev)
-		else:
-			non_clue_events.append(ev)
-
-	if not clue_events.is_empty():
-		var clue_event: Dictionary = clue_events[randi() % clue_events.size()]
-		event_triggered.emit(clue_event)
-		_show_event_toast(clue_event, "clue")
-		return clue_event
-
-	# If player holds clues for some events but not all, prioritise unclued ones
-	if not non_clue_events.is_empty():
-		# Roll trigger chance for each non-clue event
-		var triggered_event: Variant = _roll_trigger(non_clue_events)
-		if triggered_event != null:
-			var rolled_event: Dictionary = triggered_event as Dictionary
-			event_triggered.emit(rolled_event)
-			_show_event_toast(rolled_event, "normal")
-			return rolled_event
-		# Nothing triggered — no event this visit
-		return null
-
-	# All eligible events are clue-owned → randomly pick one (guaranteed trigger)
 	return null
+
+
+func get_pending_clue_events_for_location(location_id: String) -> Array[Dictionary]:
+	var pending_events: Array[Dictionary] = []
+	for event_key in events_data:
+		var ev: Dictionary = events_data[event_key]
+		if not ev.get("enabled", false):
+			continue
+		if str(ev.get("location_id", "")) != location_id:
+			continue
+		var event_id := str(ev.get("id", event_key))
+		if _is_event_completed(event_id):
+			continue
+		var clue_id := str(ev.get("clue_id", ""))
+		if clue_id == "" or not Global.unlocked_clues.has(clue_id):
+			continue
+		pending_events.append(ev)
+	return pending_events
+
+
+func has_pending_clue_event_for_location(location_id: String) -> bool:
+	return not get_pending_clue_events_for_location(location_id).is_empty()
 
 
 func _show_event_toast(ev: Dictionary, fallback_type: String) -> void:
@@ -240,6 +248,7 @@ func complete_event(
 		var current_boost: float = trigger_chance_boosts.get(event_id, 0.0)
 		trigger_chance_boosts[event_id] = current_boost + TRIGGER_CHANCE_BOOST
 
+	event_state_changed.emit()
 	Global.save_game()
 
 
@@ -260,8 +269,10 @@ func load_save_data(data: Dictionary) -> void:
 		completed_events = data["completed_events"]
 	if data.has("trigger_chance_boosts") and data["trigger_chance_boosts"] is Dictionary:
 		trigger_chance_boosts = data["trigger_chance_boosts"]
+	event_state_changed.emit()
 
 
 func reset_for_new_run() -> void:
 	completed_events.clear()
 	trigger_chance_boosts.clear()
+	event_state_changed.emit()
