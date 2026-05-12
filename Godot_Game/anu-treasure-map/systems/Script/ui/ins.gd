@@ -241,12 +241,17 @@ func close_phone() -> void:
 
 
 func _on_bg_blur_gui_input(event: InputEvent) -> void:
+	if GuideManager.is_in_onboarding():
+		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		close_phone()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
+		if GuideManager.is_in_onboarding():
+			get_viewport().set_input_as_handled()
+			return
 		if is_instance_valid(ins_app_screen) and ins_app_screen.visible:
 			_on_ins_back_pressed()
 			get_viewport().set_input_as_handled()

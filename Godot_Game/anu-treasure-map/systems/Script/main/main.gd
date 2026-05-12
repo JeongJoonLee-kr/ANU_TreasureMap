@@ -310,7 +310,12 @@ func setup_end_game_goal_panel() -> void:
 
 	end_game_goal_panel = END_GAME_GOAL_PANEL_SCRIPT.new()
 	end_game_goal_panel.name = "EndGameGoalPanel"
-	$HUD.add_child(end_game_goal_panel)
+	# Layer 82 sits above the guide overlay (79/80) so the goal panel is never dimmed.
+	var goal_layer := CanvasLayer.new()
+	goal_layer.name = "GoalPanelLayer"
+	goal_layer.layer = 82
+	add_child(goal_layer)
+	goal_layer.add_child(end_game_goal_panel)
 	if end_game_goal_panel.has_method("setup"):
 		end_game_goal_panel.call("setup", end_game_config)
 

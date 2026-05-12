@@ -154,10 +154,10 @@ func _build_ui() -> void:
 	_tap_block_timer.timeout.connect(func() -> void: _tap_blocked = false)
 	add_child(_tap_block_timer)
 
-	# ── Tap overlay — layer 81 ────────────────────────────────────────────────
+	# ── Tap overlay — layer 83 (above GoalPanelLayer 82, so taps still advance the tutorial) ──
 	_tap_canvas = CanvasLayer.new()
 	_tap_canvas.name = "TapCanvas"
-	_tap_canvas.layer = 81
+	_tap_canvas.layer = 83
 	add_child(_tap_canvas)
 
 	_tap_overlay = ColorRect.new()
