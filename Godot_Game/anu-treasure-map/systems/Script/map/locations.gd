@@ -283,7 +283,9 @@ func _show_leave_only_choice() -> void:
 	dialogue_panel.hide()
 	_hide_legacy_options_panel()
 	_hide_choice_panel()
-	_show_choice_panel({"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_location_choice_selected)
+	_show_choice_panel(
+		{"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_location_choice_selected
+	)
 
 
 func _on_not_enough_ap() -> void:
@@ -630,7 +632,6 @@ func _on_buy_meal(cost: int) -> void:
 	else:
 		Global.unlock_clue(_MEAL_CLUE_ID, _MEAL_CLUE_NAME)
 		feedback.append(_MEAL_CLUE_DISCOVERY_TEXT)
-		feedback.append("Clue obtained: %s." % _MEAL_CLUE_NAME)
 
 	_show_text_sequence(feedback, TextFlow.LOCATION_FEEDBACK)
 
