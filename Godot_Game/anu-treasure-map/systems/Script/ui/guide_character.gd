@@ -126,9 +126,10 @@ func _build_ui() -> void:
 	_canvas.add_child(_bubble_tail)
 	_bubble_tail.hide()
 	# Re-place tail whenever the bubble resizes (e.g. after text layout settles).
-	_bubble_bg.resized.connect(func() -> void:
-		if _bubble_bg.visible:
-			_place_all()
+	_bubble_bg.resized.connect(
+		func() -> void:
+			if _bubble_bg.visible:
+				_place_all()
 	)
 
 	_label = Label.new()
@@ -188,6 +189,7 @@ func _on_overlay_gui_input(event: InputEvent) -> void:
 
 # ── Input blocking ────────────────────────────────────────────────────────────
 
+
 # Block all input immediately (transparent overlay) before the guide fades in.
 func block_input() -> void:
 	var vp_size := get_viewport_rect().size
@@ -203,6 +205,7 @@ func block_input() -> void:
 
 # ── Phone zone ────────────────────────────────────────────────────────────────
 
+
 func set_phone_zone(rect: Rect2) -> void:
 	_phone_zone = rect
 	_phone_zone_active = true
@@ -213,6 +216,7 @@ func clear_phone_zone() -> void:
 
 
 # ── Onboarding step API ───────────────────────────────────────────────────────
+
 
 func show_step(
 	text: String,
@@ -237,7 +241,9 @@ func show_step(
 				_overlay.material = _overlay_mat
 				_overlay.color = Color.WHITE
 				_overlay.mouse_filter = (
-					Control.MOUSE_FILTER_IGNORE if overlay_passthrough else Control.MOUSE_FILTER_STOP
+					Control.MOUSE_FILTER_IGNORE
+					if overlay_passthrough
+					else Control.MOUSE_FILTER_STOP
 				)
 				if not keep_overlay:
 					_overlay.modulate.a = 0.0
@@ -246,7 +252,9 @@ func show_step(
 				_overlay.material = null
 				_overlay.color = Color(0.04, 0.05, 0.14, 0.80)
 				_overlay.mouse_filter = (
-					Control.MOUSE_FILTER_IGNORE if overlay_passthrough else Control.MOUSE_FILTER_STOP
+					Control.MOUSE_FILTER_IGNORE
+					if overlay_passthrough
+					else Control.MOUSE_FILTER_STOP
 				)
 				if not keep_overlay:
 					_overlay.modulate.a = 0.0
@@ -296,9 +304,7 @@ func _do_fade_in() -> void:
 		_tween.kill()
 	_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	var overlay_needs_fade := (
-		_pending_overlay_mode != OVERLAY_NONE
-		and _overlay.visible
-		and _overlay.modulate.a < 0.99
+		_pending_overlay_mode != OVERLAY_NONE and _overlay.visible and _overlay.modulate.a < 0.99
 	)
 	if _pending_overlay_mode == OVERLAY_FLAT and overlay_needs_fade:
 		# Gray overlay fades in first, then bear appears on top.
@@ -332,6 +338,7 @@ func set_spotlight_rect(rect: Rect2) -> void:
 
 
 # ── Legacy single-message API ─────────────────────────────────────────────────
+
 
 func show_tutorial(text: String) -> void:
 	_label.text = text
@@ -373,6 +380,7 @@ func set_bear_position(pos: Vector2) -> void:
 
 
 # ── Internal ──────────────────────────────────────────────────────────────────
+
 
 func _toggle_bear() -> void:
 	_is_happy = not _is_happy
@@ -440,15 +448,12 @@ func _update_spotlight(vp: Vector2) -> void:
 		var bubble_s := _bubble_bg.size
 		if bubble_s.x < 20.0:
 			bubble_s = Vector2(BUBBLE_LABEL_MIN_W + 36.0, 64.0)
-		var combined := Rect2(_bear.position, BEAR_SIZE).merge(
-			Rect2(_bubble_bg.position, bubble_s)
-		)
+		var combined := Rect2(_bear.position, BEAR_SIZE).merge(Rect2(_bubble_bg.position, bubble_s))
 		content_center = combined.get_center()
 		feather = 0.08
 		var pad := 30.0
 		rect_half = Vector2(
-			(combined.size.x * 0.5 + pad) / vp.x * aspect,
-			(combined.size.y * 0.5 + pad) / vp.y
+			(combined.size.x * 0.5 + pad) / vp.x * aspect, (combined.size.y * 0.5 + pad) / vp.y
 		)
 
 	_overlay_mat.set_shader_parameter("center_uv", content_center / vp)
