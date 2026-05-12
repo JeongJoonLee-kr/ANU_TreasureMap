@@ -151,7 +151,7 @@ func _build_ui() -> void:
 	_tap_block_timer = Timer.new()
 	_tap_block_timer.name = "TapBlockTimer"
 	_tap_block_timer.one_shot = true
-	_tap_block_timer.wait_time = 1.2
+	_tap_block_timer.wait_time = 0.5
 	_tap_block_timer.timeout.connect(func() -> void: _tap_blocked = false)
 	add_child(_tap_block_timer)
 
