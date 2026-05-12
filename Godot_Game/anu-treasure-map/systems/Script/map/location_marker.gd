@@ -15,6 +15,9 @@ const ACTIVE_DOT_MODULATE := Color(1, 1, 1, 1)
 
 const _CLASSIC_DOT_POS := Vector2(100.0, 48.0)
 const _CLASSIC_DOT_SIZE := Vector2(20.0, 20.0)
+const _CLUE_EVENT_DOT_SIZE := Vector2(18.0, 18.0)
+const _CLUE_EVENT_DOT_MEDAL_POS := Vector2(130.0, 4.0)
+const _CLUE_EVENT_DOT_CLASSIC_POS := Vector2(114.0, 40.0)
 
 ## Horizontal center of MedalVisual in marker coords (offset_left/right in location_marker.tscn).
 const _MEDAL_CENTER_X := 110.0
@@ -93,10 +96,13 @@ var inactive_style: StyleBoxFlat
 var _medal_hit_style: StyleBoxFlat
 var _medal_plate_style: StyleBoxFlat
 var _classic_plate_clear_style: StyleBoxFlat
+var _clue_event_dot: Panel
+var _clue_event_dot_style: StyleBoxFlat
 
 var _medal_hovering: bool = false
 var _medal_pressed: bool = false
 var _medal_fx_tween: Tween
+var _has_pending_clue_event := false
 
 
 func _ready() -> void:
@@ -130,8 +136,10 @@ func _ready() -> void:
 	_classic_plate_clear_style.border_width_top = 0
 	_classic_plate_clear_style.border_width_right = 0
 	_classic_plate_clear_style.border_width_bottom = 0
+	_clue_event_dot_style = _make_clue_event_dot_style()
 
 	_cache_button_styles()
+	_ensure_clue_event_dot()
 
 	if not dot_button.mouse_entered.is_connected(_on_dot_mouse_entered):
 		dot_button.mouse_entered.connect(_on_dot_mouse_entered)
@@ -182,6 +190,7 @@ func _apply_visual_mode() -> void:
 		_reset_medal_interaction_state()
 
 	_apply_name_plate_layout()
+	_layout_clue_event_dot()
 
 
 func _apply_name_plate_layout() -> void:
@@ -354,6 +363,7 @@ func configure_from_data(data: Dictionary) -> void:
 	else:
 		name_plate.modulate = Color(1, 1, 1, 1)
 		_apply_button_style(is_active)
+	_update_clue_event_dot_visibility()
 
 
 func get_is_active() -> bool:
@@ -401,6 +411,58 @@ func _apply_button_style(active: bool) -> void:
 
 func get_anchor_control() -> Control:
 	return dot_button
+
+
+func set_pending_clue_event(has_pending: bool) -> void:
+	_has_pending_clue_event = has_pending
+	_update_clue_event_dot_visibility()
+
+
+func _ensure_clue_event_dot() -> void:
+	if is_instance_valid(_clue_event_dot):
+		return
+	_clue_event_dot = Panel.new()
+	_clue_event_dot.name = "ClueEventDot"
+	_clue_event_dot.custom_minimum_size = _CLUE_EVENT_DOT_SIZE
+	_clue_event_dot.size = _CLUE_EVENT_DOT_SIZE
+	_clue_event_dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_clue_event_dot.z_index = 5
+	_clue_event_dot.add_theme_stylebox_override("panel", _clue_event_dot_style)
+	add_child(_clue_event_dot)
+	_layout_clue_event_dot()
+	_update_clue_event_dot_visibility()
+
+
+func _make_clue_event_dot_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.95, 0.04, 0.12, 1.0)
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.border_color = Color(1.0, 1.0, 1.0, 0.95)
+	style.corner_radius_top_left = 999
+	style.corner_radius_top_right = 999
+	style.corner_radius_bottom_right = 999
+	style.corner_radius_bottom_left = 999
+	style.shadow_color = Color(0, 0, 0, 0.24)
+	style.shadow_size = 4
+	return style
+
+
+func _layout_clue_event_dot() -> void:
+	if not is_instance_valid(_clue_event_dot):
+		return
+	_clue_event_dot.position = (
+		_CLUE_EVENT_DOT_MEDAL_POS if use_medal_visual else _CLUE_EVENT_DOT_CLASSIC_POS
+	)
+	_clue_event_dot.size = _CLUE_EVENT_DOT_SIZE
+
+
+func _update_clue_event_dot_visibility() -> void:
+	if not is_instance_valid(_clue_event_dot):
+		return
+	_clue_event_dot.visible = _has_pending_clue_event and is_active
 
 
 func _on_dot_mouse_entered() -> void:

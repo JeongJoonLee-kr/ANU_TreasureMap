@@ -32,6 +32,10 @@ func _ready() -> void:
 	event_panel.hide()
 	if event_panel != null and event_panel.has_signal("popup_closed"):
 		event_panel.popup_closed.connect(_on_event_popup_closed)
+	if not Global.clue_discovered.is_connected(_on_clue_discovered):
+		Global.clue_discovered.connect(_on_clue_discovered)
+	if not EventManager.event_state_changed.is_connected(_on_event_state_changed):
+		EventManager.event_state_changed.connect(_on_event_state_changed)
 	_ensure_popup_modal_blocker()
 	hover_preview.hide()
 	hover_preview_title.add_theme_font_size_override("font_size", 22)
@@ -43,6 +47,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	refresh_connection_lines()
 	update_current_location_marker()
+	refresh_clue_event_markers()
 
 
 func test_change_resources() -> void:
@@ -100,6 +105,7 @@ func bind_location_markers() -> void:
 		marker.preview_hidden.connect(hide_location_preview)
 		marker.selected.connect(_on_location_marker_selected)
 		location_markers[marker.location_id] = marker
+	refresh_clue_event_markers()
 
 
 func refresh_connection_lines() -> void:
@@ -125,6 +131,15 @@ func update_current_location_marker() -> void:
 		local_anchor_center + _CURRENT_MARKER_OFFSET - current_location_marker.size / 2.0
 	)
 	current_location_marker.show()
+
+
+func refresh_clue_event_markers() -> void:
+	for location_id_variant in location_markers.keys():
+		var location_id := String(location_id_variant)
+		var marker := location_markers.get(location_id) as LocationMarker
+		if marker == null:
+			continue
+		marker.set_pending_clue_event(EventManager.has_pending_clue_event_for_location(location_id))
 
 
 func get_location_anchor(location_id: String) -> Control:
@@ -333,6 +348,14 @@ func _on_event_popup_closed() -> void:
 		Time.get_ticks_msec() + _MARKER_CLICK_SUPPRESS_MS_AFTER_POPUP_CLOSE
 	)
 	_set_popup_modal_enabled(false)
+
+
+func _on_clue_discovered(_clue_id: String) -> void:
+	refresh_clue_event_markers()
+
+
+func _on_event_state_changed() -> void:
+	refresh_clue_event_markers()
 
 
 func _ensure_popup_modal_blocker() -> void:
