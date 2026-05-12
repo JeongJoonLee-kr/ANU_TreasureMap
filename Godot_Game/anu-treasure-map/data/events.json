@@ -207,6 +207,13 @@
 	"enabled": true,
 	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_basketball_court.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_student_accommodation_basketball_court_intro.png",
+	  "investigation": "res://resources/event/event_student_accommodation_basketball_court_investigation.png",
+	  "choice_a_success": "res://resources/event/event_student_accommodation_basketball_court_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_student_accommodation_basketball_court_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_student_accommodation_basketball_court_choice_c_hint.png"
+	},
 	"narrative": [
 	  "As you pass the Student Accommodation area, a basketball strikes the rim and bounces across the half court.",
 	  "Three students stand beside the hoop. One holds the ball, another checks the time, and the third scans the path for help.",
@@ -460,6 +467,13 @@
 	"enabled": true,
 	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_board_games_society.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_central_studying_area_board_games_society_intro.png",
+	  "investigation": "res://resources/event/event_central_studying_area_board_games_society_investigation.png",
+	  "choice_a_success": "res://resources/event/event_central_studying_area_board_games_society_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_central_studying_area_board_games_society_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_central_studying_area_board_games_society_choice_c_hint.png"
+	},
 	"narrative": [
 	  "On a desk in the Central Studying Area, you notice a small invitation card left between a laptop and a coffee cup.",
 	  "It says Friday game night, with a tiny drawing of dice in the corner.",
@@ -521,6 +535,13 @@
 	"enabled": true,
 	"bgm_path": "res://resources/music/finding.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_escape_room.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_csit_engn_escape_room_intro.png",
+	  "investigation": "res://resources/event/event_csit_engn_escape_room_investigation.png",
+	  "choice_a_success": "res://resources/event/event_csit_engn_escape_room_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_csit_engn_escape_room_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_csit_engn_escape_room_choice_c_hint.png"
+	},
 	"narrative": [
 	  "Inside the CSIT and Engineering area, a monitor beside a classroom door blinks with a sixty-minute timer.",
 	  "A tutor is explaining rules to a group of students gathered around old keyboards, circuit boards, clue cards, and a UV torch.",
@@ -582,6 +603,13 @@
 	"enabled": true,
 	"bgm_path": "res://resources/music/1.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_anu_sport.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_anu_sport_north_oval_anu_sport_intro.png",
+	  "investigation": "res://resources/event/event_anu_sport_north_oval_anu_sport_investigation.png",
+	  "choice_a_success": "res://resources/event/event_anu_sport_north_oval_anu_sport_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_anu_sport_north_oval_anu_sport_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_anu_sport_north_oval_anu_sport_choice_c_hint.png"
+	},
 	"narrative": [
 	  "At the edge of North Oval, three small cards flutter on an ANU Sport sign-up table.",
 	  "One points toward UniSport Nationals, one toward Social Sport, and one toward Interhall Sport.",
@@ -643,6 +671,13 @@
 	"enabled": true,
 	"bgm_path": "res://resources/music/Exam Paper Pulse（sad）.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_chifley_library.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_chifley_marie_reay_chifley_library_intro.png",
+	  "investigation": "res://resources/event/event_chifley_marie_reay_chifley_library_investigation.png",
+	  "choice_a_success": "res://resources/event/event_chifley_marie_reay_chifley_library_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_chifley_marie_reay_chifley_library_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_chifley_marie_reay_chifley_library_choice_c_hint.png"
+	},
 	"narrative": [
 	  "Near Chifley and Marie Reay, a thin research notebook lies beside the library steps.",
 	  "On the cover, someone has written: SS&H sources, do not lose.",
@@ -704,6 +739,13 @@
 	"enabled": true,
 	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
 	"treasure_image_path": "res://resources/treasure/treasure_subway.png",
+	"event_image_paths": {
+	  "intro": "res://resources/event/event_copland_subway_intro.png",
+	  "investigation": "res://resources/event/event_copland_subway_investigation.png",
+	  "choice_a_success": "res://resources/event/event_copland_subway_choice_a_success.png",
+	  "choice_b_miss": "res://resources/event/event_copland_subway_choice_b_miss.png",
+	  "choice_c_hint": "res://resources/event/event_copland_subway_choice_c_hint.png"
+	},
 	"narrative": [
 	  "Around Copland, lunchtime suddenly becomes impossible to ignore.",
 	  "Three students stand outside, each pointing in a different direction.",
