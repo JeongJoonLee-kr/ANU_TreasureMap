@@ -43,6 +43,8 @@ var _tap_block_timer: Timer
 var _phone_zone := Rect2()
 var _phone_zone_active := false
 
+var _bear_desired_pos: Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -92,12 +94,10 @@ func _build_ui() -> void:
 	_bubble_tail = ColorRect.new()
 	_bubble_tail.name = "BubbleTail"
 	_bubble_tail.color = Color(0.98, 0.99, 1.0, 0.96)
-	_bubble_tail.size = Vector2(16.0, 16.0)
-	_bubble_tail.pivot_offset = Vector2(8.0, 8.0)
+	_bubble_tail.size = Vector2(22.0, 22.0)
+	_bubble_tail.pivot_offset = Vector2(11.0, 11.0)
 	_bubble_tail.rotation = PI / 4.0
 	_bubble_tail.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_canvas.add_child(_bubble_tail)
-	_bubble_tail.hide()
 
 	_bubble_bg = PanelContainer.new()
 	_bubble_bg.name = "BubbleBg"
@@ -122,6 +122,9 @@ func _build_ui() -> void:
 	_bubble_bg.add_theme_stylebox_override("panel", style)
 	_canvas.add_child(_bubble_bg)
 	_bubble_bg.hide()
+	# Tail is added after bubble_bg so it renders on top, forming a seamless speech-bubble point.
+	_canvas.add_child(_bubble_tail)
+	_bubble_tail.hide()
 	# Re-place tail whenever the bubble resizes (e.g. after text layout settles).
 	_bubble_bg.resized.connect(
 		func() -> void:
@@ -230,6 +233,7 @@ func show_step(
 	var apply := func() -> void:
 		_label.text = text
 		_bear.position = bear_pos
+		_bear_desired_pos = bear_pos
 		_timer.start()
 
 		match overlay_mode:
@@ -294,6 +298,8 @@ func show_step(
 
 func _do_fade_in() -> void:
 	_place_all()
+	# Re-place tail one deferred frame later so layout has settled before the tail becomes visible.
+	call_deferred("_reposition_tail")
 	if _tween and _tween.is_valid():
 		_tween.kill()
 	_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -302,6 +308,15 @@ func _do_fade_in() -> void:
 	_tween.parallel().tween_property(_bubble_tail, "modulate:a", 1.0, 0.30)
 	if _pending_overlay_mode != OVERLAY_NONE and _overlay.visible and _overlay.modulate.a < 0.99:
 		_tween.parallel().tween_property(_overlay, "modulate:a", 1.0, 0.35)
+
+
+func _reposition_tail() -> void:
+	if not (_bubble_bg.visible and _bubble_bg.size.y > 20.0):
+		return
+	_bubble_tail.position = Vector2(
+		_bubble_bg.position.x + _bubble_bg.size.x * 0.5 - 11.0,
+		_bubble_bg.position.y + _bubble_bg.size.y - 11.0,
+	)
 
 
 func set_spotlight_rect(rect: Rect2) -> void:
@@ -350,6 +365,7 @@ func hide_tutorial() -> void:
 
 func set_bear_position(pos: Vector2) -> void:
 	_bear.position = pos
+	_bear_desired_pos = pos
 	_place_all()
 
 
@@ -364,8 +380,11 @@ func _toggle_bear() -> void:
 func _place_all() -> void:
 	var vp := get_viewport_rect().size
 
-	if _bear.position == Vector2.ZERO:
-		_bear.position = Vector2(1580, 590)
+	# Always start from the intended position so repeated calls (e.g. from the
+	# resized callback) give the same result regardless of previous push-downs.
+	if _bear_desired_pos == Vector2.ZERO:
+		_bear_desired_pos = Vector2(1580, 590)
+	_bear.position = _bear_desired_pos
 
 	var bubble_s := _bubble_bg.size
 	if bubble_s.x < 20.0:
@@ -379,12 +398,21 @@ func _place_all() -> void:
 	bubble_x = clampf(bubble_x, 12.0, vp.x - bubble_s.x - 12.0)
 	bubble_y = clampf(bubble_y, 12.0, vp.y - bubble_s.y - BEAR_SIZE.y - 12.0)
 
+	# Keep the bear below the bubble + tail tip so they never overlap.
+	_bear.position.y = maxf(_bear.position.y, bubble_y + bubble_s.y + 20.0)
+	_bear.position.y = minf(_bear.position.y, vp.y - BEAR_SIZE.y - 12.0)
+
 	_bubble_bg.position = Vector2(bubble_x, bubble_y)
 
-	_bubble_tail.position = Vector2(
-		bubble_x + bubble_s.x * 0.5 - 8.0,
-		bubble_y + bubble_s.y - 8.0,
-	)
+	# Center the 22×22 diamond (pivot = 11,11) at the bottom-centre of the bubble so
+	# its top half merges seamlessly into the bubble and its bottom tip is the arrow.
+	# Skip placement when bubble hasn't been laid out yet to prevent mid-bubble flicker
+	# during rapid step transitions.
+	if _bubble_bg.size.y > 20.0:
+		_bubble_tail.position = Vector2(
+			bubble_x + bubble_s.x * 0.5 - 11.0,
+			bubble_y + bubble_s.y - 11.0,
+		)
 
 	_update_spotlight(vp)
 
