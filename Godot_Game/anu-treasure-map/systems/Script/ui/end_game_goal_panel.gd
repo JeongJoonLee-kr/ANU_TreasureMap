@@ -11,6 +11,9 @@ var _hint_label: Label
 var _toggle_button: Button
 var _edge_button: Button
 
+const _BUTTON_TEXT_COLOR := Color(0.3686, 0.4235, 0.5176, 1.0)
+const _BUTTON_TEXT_ACTIVE := Color(0.2588, 0.6471, 0.9608, 1.0)
+
 
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -47,8 +50,10 @@ func refresh() -> void:
 		% [min(treasure_count, target_treasures), target_treasures]
 	)
 	_hint_label.text = str(panel_config.get("hint", ""))
-	_toggle_button.text = str(panel_config.get("collapse_text", "Hide"))
-	_edge_button.text = str(panel_config.get("expand_text", "Goals"))
+	_toggle_button.text = "◀"
+	_toggle_button.tooltip_text = str(panel_config.get("collapse_text", "Hide"))
+	_edge_button.text = "▶"
+	_edge_button.tooltip_text = str(panel_config.get("expand_text", "Goals"))
 	_update_visibility()
 
 
@@ -86,8 +91,9 @@ func _build_ui() -> void:
 
 	_toggle_button = Button.new()
 	_toggle_button.name = "Toggle"
-	_toggle_button.custom_minimum_size = Vector2(64, 30)
+	_toggle_button.custom_minimum_size = Vector2(34, 30)
 	_toggle_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_apply_status_button_theme(_toggle_button)
 	_toggle_button.pressed.connect(_on_toggle_pressed)
 	header.add_child(_toggle_button)
 
@@ -105,9 +111,10 @@ func _build_ui() -> void:
 
 	_edge_button = Button.new()
 	_edge_button.name = "EdgeButton"
-	_edge_button.custom_minimum_size = Vector2(58, 92)
+	_edge_button.custom_minimum_size = Vector2(42, 84)
 	_edge_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	_edge_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_apply_status_button_theme(_edge_button)
 	_edge_button.pressed.connect(_on_edge_button_pressed)
 	add_child(_edge_button)
 
@@ -127,8 +134,8 @@ func _update_layout() -> void:
 	var viewport_size := get_viewport_rect().size
 	_panel.position = Vector2(24.0, 24.0)
 	_panel.size = Vector2(min(360.0, viewport_size.x - 48.0), 156.0)
-	_edge_button.position = Vector2(0.0, 28.0)
-	_edge_button.size = Vector2(58.0, 92.0)
+	_edge_button.position = Vector2(6.0, 32.0)
+	_edge_button.size = Vector2(42.0, 84.0)
 
 
 func _on_toggle_pressed() -> void:
@@ -162,4 +169,49 @@ func _make_panel_style() -> StyleBoxFlat:
 	style.corner_radius_bottom_right = 8
 	style.shadow_color = Color(0, 0, 0, 0.18)
 	style.shadow_size = 8
+	return style
+
+
+func _apply_status_button_theme(button: Button) -> void:
+	button.focus_mode = Control.FOCUS_NONE
+	button.add_theme_color_override("font_color", _BUTTON_TEXT_COLOR)
+	button.add_theme_color_override("font_hover_color", _BUTTON_TEXT_ACTIVE)
+	button.add_theme_color_override("font_pressed_color", _BUTTON_TEXT_ACTIVE)
+	button.add_theme_color_override("font_focus_color", _BUTTON_TEXT_ACTIVE)
+	button.add_theme_font_size_override("font_size", 18)
+	button.add_theme_stylebox_override(
+		"normal",
+		_make_status_button_style(Color(0.98, 0.99, 1.0, 0.94), Color(0.36, 0.41, 0.55, 0.35))
+	)
+	button.add_theme_stylebox_override(
+		"hover",
+		_make_status_button_style(Color(1.0, 1.0, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.65))
+	)
+	button.add_theme_stylebox_override(
+		"pressed",
+		_make_status_button_style(
+			Color(0.925, 0.965, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.85)
+		)
+	)
+	button.add_theme_stylebox_override(
+		"focus",
+		_make_status_button_style(Color(1.0, 1.0, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.65))
+	)
+
+
+func _make_status_button_style(bg_color: Color, border_color: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg_color
+	style.border_width_left = 1
+	style.border_width_top = 1
+	style.border_width_right = 1
+	style.border_width_bottom = 1
+	style.border_color = border_color
+	style.corner_radius_top_left = 10
+	style.corner_radius_top_right = 10
+	style.corner_radius_bottom_left = 10
+	style.corner_radius_bottom_right = 10
+	style.shadow_color = Color(0, 0, 0, 0.14)
+	style.shadow_size = 8
+	style.shadow_offset = Vector2(0, 2)
 	return style
