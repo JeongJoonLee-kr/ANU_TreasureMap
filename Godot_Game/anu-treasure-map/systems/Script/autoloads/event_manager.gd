@@ -32,6 +32,9 @@ var completed_events: Dictionary = {}
 # Tracks per-event trigger chance boosts (event_id → float offset)
 var trigger_chance_boosts: Dictionary = {}
 
+# Tracks events that were opened through an owned clue during the current visit.
+var _active_clue_triggered_events: Dictionary = {}
+
 
 func _ready() -> void:
 	_load_events()
@@ -106,6 +109,7 @@ func try_trigger_event(location_id: String) -> Variant:
 	var clue_events := get_pending_clue_events_for_location(location_id)
 	if not clue_events.is_empty():
 		var clue_event: Dictionary = clue_events[randi() % clue_events.size()]
+		_active_clue_triggered_events[str(clue_event.get("id", ""))] = true
 		event_triggered.emit(clue_event)
 		_show_event_toast(clue_event, "clue")
 		return clue_event
@@ -161,6 +165,10 @@ func get_pending_clue_events_for_location(location_id: String) -> Array[Dictiona
 
 func has_pending_clue_event_for_location(location_id: String) -> bool:
 	return not get_pending_clue_events_for_location(location_id).is_empty()
+
+
+func is_event_completed(event_id: String) -> bool:
+	return _is_event_completed(event_id)
 
 
 func _show_event_toast(ev: Dictionary, fallback_type: String) -> void:
@@ -238,6 +246,10 @@ func complete_event(
 		else:
 			Global.unlock_treasure(treasure_id, treasure_name)
 		completed_events[event_id] = true
+
+	if _active_clue_triggered_events.has(event_id):
+		completed_events[event_id] = true
+		_active_clue_triggered_events.erase(event_id)
 
 	# Handle re-trigger flag
 	if not choice.get("re_trigger", true):

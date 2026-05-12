@@ -15,6 +15,10 @@ const _EVENT_IMAGE_CHOICE_STAGES := {
 	"B": "choice_b_miss",
 	"C": "choice_c_hint",
 }
+const _MEAL_CLUE_EVENT_ID := "copland_subway"
+const _MEAL_CLUE_ID := "clue_copland_subway"
+const _MEAL_CLUE_NAME := "Copland Subway Route"
+const _MEAL_CLUE_DISCOVERY_TEXT := "While waiting for your meal, you overhear students comparing the fastest route from Copland to Subway."
 
 enum TextFlow { NONE, EVENT_NARRATIVE, EVENT_OUTCOME, LOCATION_TEXT, LOCATION_FEEDBACK }
 
@@ -596,26 +600,41 @@ func _on_buy_coffee(cost: int) -> void:
 	if not try_spend_money(cost):
 		return
 
-	_show_text_sequence(
-		[
-			"You spent %d Gold and enjoyed a hot coffee!" % cost,
-			"You now have %d Gold left." % Global.money
-		],
-		TextFlow.LOCATION_FEEDBACK
-	)
+	var time_before := Global.time
+	Global.time = mini(Global.time + 1, Global.max_time_per_week)
+	var time_gained := Global.time - time_before
+	Global.notify_resources_changed()
+
+	var feedback: Array[String] = [
+		"You spent %d Gold and enjoyed a hot coffee!" % cost,
+	]
+	if time_gained > 0:
+		feedback.append("The coffee steadies you. You feel ready to make a little more of the day.")
+		feedback.append("Time +%d. You now have %d Time left." % [time_gained, Global.time])
+	else:
+		feedback.append("You already feel as ready as you can for the day.")
+		feedback.append("You now have %d Time left." % Global.time)
+
+	_show_text_sequence(feedback, TextFlow.LOCATION_FEEDBACK)
 
 
 func _on_buy_meal(cost: int) -> void:
 	if not try_spend_money(cost):
 		return
 
-	_show_text_sequence(
-		[
-			"You spent %d Gold and had a hearty meal!" % cost,
-			"You now have %d Gold left." % Global.money
-		],
-		TextFlow.LOCATION_FEEDBACK
-	)
+	var feedback: Array[String] = ["You spent %d Gold and had a hearty meal!" % cost]
+	if EventManager.is_event_completed(_MEAL_CLUE_EVENT_ID):
+		feedback.append("You already know that lunch route by heart.")
+		feedback.append("Today, the meal is just a meal.")
+	elif Global.unlocked_clues.has(_MEAL_CLUE_ID):
+		feedback.append("You already know the Copland Subway route.")
+		feedback.append("The meal still helps you settle your plan for the day.")
+	else:
+		Global.unlock_clue(_MEAL_CLUE_ID, _MEAL_CLUE_NAME)
+		feedback.append(_MEAL_CLUE_DISCOVERY_TEXT)
+		feedback.append("Clue obtained: %s." % _MEAL_CLUE_NAME)
+
+	_show_text_sequence(feedback, TextFlow.LOCATION_FEEDBACK)
 
 
 func try_spend_money(cost: int) -> bool:
