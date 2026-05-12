@@ -310,7 +310,7 @@ func setup_end_game_goal_panel() -> void:
 
 	end_game_goal_panel = END_GAME_GOAL_PANEL_SCRIPT.new()
 	end_game_goal_panel.name = "EndGameGoalPanel"
-	# Layer 82 sits above the guide overlay (79/80) so the goal panel is never dimmed.
+	# Layer 82 sits below the guide overlay (84/85) so it can be dimmed during tutorial.
 	var goal_layer := CanvasLayer.new()
 	goal_layer.name = "GoalPanelLayer"
 	goal_layer.layer = 82

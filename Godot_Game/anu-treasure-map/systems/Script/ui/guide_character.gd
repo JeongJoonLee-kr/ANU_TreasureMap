@@ -56,10 +56,10 @@ func _ready() -> void:
 
 
 func _build_ui() -> void:
-	# ── Spotlight overlay — layer 79 ──────────────────────────────────────────
+	# ── Spotlight overlay — layer 84 (above GoalPanelLayer 82) ──────────────
 	_overlay_canvas = CanvasLayer.new()
 	_overlay_canvas.name = "SpotlightCanvas"
-	_overlay_canvas.layer = 79
+	_overlay_canvas.layer = 84
 	add_child(_overlay_canvas)
 
 	_overlay_mat = ShaderMaterial.new()
@@ -74,10 +74,10 @@ func _build_ui() -> void:
 	_overlay.hide()
 	_overlay_canvas.add_child(_overlay)
 
-	# ── Bear + bubble canvas — layer 80 ──────────────────────────────────────
+	# ── Bear + bubble canvas — layer 85 (above overlay 84) ──────────────────
 	_canvas = CanvasLayer.new()
 	_canvas.name = "GuideCanvas"
-	_canvas.layer = 80
+	_canvas.layer = 85
 	add_child(_canvas)
 
 	_bear = TextureRect.new()
@@ -154,10 +154,10 @@ func _build_ui() -> void:
 	_tap_block_timer.timeout.connect(func() -> void: _tap_blocked = false)
 	add_child(_tap_block_timer)
 
-	# ── Tap overlay — layer 83 (above GoalPanelLayer 82, so taps still advance the tutorial) ──
+	# ── Tap overlay — layer 86 (above all guide layers, so taps still advance the tutorial) ──
 	_tap_canvas = CanvasLayer.new()
 	_tap_canvas.name = "TapCanvas"
-	_tap_canvas.layer = 83
+	_tap_canvas.layer = 86
 	add_child(_tap_canvas)
 
 	_tap_overlay = ColorRect.new()
@@ -295,11 +295,23 @@ func _do_fade_in() -> void:
 	if _tween and _tween.is_valid():
 		_tween.kill()
 	_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	_tween.tween_property(_bear, "modulate:a", 1.0, 0.30)
-	_tween.parallel().tween_property(_bubble_bg, "modulate:a", 1.0, 0.30)
-	_tween.parallel().tween_property(_bubble_tail, "modulate:a", 1.0, 0.30)
-	if _pending_overlay_mode != OVERLAY_NONE and _overlay.visible and _overlay.modulate.a < 0.99:
-		_tween.parallel().tween_property(_overlay, "modulate:a", 1.0, 0.35)
+	var overlay_needs_fade := (
+		_pending_overlay_mode != OVERLAY_NONE
+		and _overlay.visible
+		and _overlay.modulate.a < 0.99
+	)
+	if _pending_overlay_mode == OVERLAY_FLAT and overlay_needs_fade:
+		# Gray overlay fades in first, then bear appears on top.
+		_tween.tween_property(_overlay, "modulate:a", 1.0, 0.30)
+		_tween.tween_property(_bear, "modulate:a", 1.0, 0.30)
+		_tween.parallel().tween_property(_bubble_bg, "modulate:a", 1.0, 0.30)
+		_tween.parallel().tween_property(_bubble_tail, "modulate:a", 1.0, 0.30)
+	else:
+		_tween.tween_property(_bear, "modulate:a", 1.0, 0.30)
+		_tween.parallel().tween_property(_bubble_bg, "modulate:a", 1.0, 0.30)
+		_tween.parallel().tween_property(_bubble_tail, "modulate:a", 1.0, 0.30)
+		if overlay_needs_fade:
+			_tween.parallel().tween_property(_overlay, "modulate:a", 1.0, 0.35)
 
 
 func _reposition_tail() -> void:
