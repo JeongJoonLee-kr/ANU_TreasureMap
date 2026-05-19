@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0t3tvixyifab"
-path="res://.godot/imported/treasure_yuki.jpg-a66aa9a3988934dd848ff6c6ca99b199.ctex"
+uid="uid://cia74dy4gqjbo"
+path="res://.godot/imported/treasure_yuki.png-d90da56b9bbf0426c1cff4200c6245b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/treasure/treasure_yuki.jpg"
-dest_files=["res://.godot/imported/treasure_yuki.jpg-a66aa9a3988934dd848ff6c6ca99b199.ctex"]
+source_file="res://resources/treasure/treasure_yuki.png"
+dest_files=["res://.godot/imported/treasure_yuki.png-d90da56b9bbf0426c1cff4200c6245b0.ctex"]
 
 [params]
 

@@ -2,7 +2,7 @@
   "yuki": {
 	"text": "I found Yuki near [color=#F6416C][url=bruce_hall_grassland]Bruce Hall grassland[/url][/color] today. A small white dog with a red collar turned an ordinary walk into the warmest little campus mystery. If you are around in the afternoon, keep an eye out for the bell on her collar.",
 	"location_id": "bruce_hall",
-	"image_path": "res://resources/treasure/treasure_yuki.jpg",
+	"image_path": "res://resources/treasure/treasure_yuki.png",
 	"annotations": {
 	  "bruce_hall_grassland": {
 		"text": "A small white dog with a red collar is often seen around the Bruce Hall grassland in the afternoon.",
