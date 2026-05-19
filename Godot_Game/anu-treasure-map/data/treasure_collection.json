@@ -1,132 +1,154 @@
 {
   "yuki": {
 	"name": "Yuki the White Dog",
+	"location_id": "bruce_hall",
 	"image_path": "res://resources/treasure/treasure_yuki.jpg",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A gentle white dog whose small bell became the first sign of a hidden campus relic."
   },
   "chess_board": {
 	"name": "The Giant Chess Board",
+	"location_id": "chifley_library_and_kambri_precinct",
 	"image_path": "res://resources/treasure/treasure_chessboard.jpg",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
 	"description": "A human-sized chess set waiting behind the library, quiet as an old campus secret."
   },
   "kangaroo": {
 	"name": "The Kangaroo",
+	"location_id": "bruce_hall",
 	"image_path": "res://resources/treasure/treasure_kangaroo.jpg",
 	"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
 	"description": "A fleeting brown shape near the sports field, fast enough to become a story."
   },
   "student_accommodation_basketball_court": {
 	"name": "Basketball Court",
+	"location_id": "yukeembruk_village",
 	"image_path": "res://resources/treasure/treasure_basketball_court.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
 	"description": "A half-court where first-week awkwardness turns into names, passes, and a small team."
   },
   "wamburun_ursula_free_food": {
 	"name": "Free Food",
+	"location_id": "chifley_library_and_kambri_precinct",
 	"image_path": "res://resources/treasure/treasure_free_food.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A campus support route that turns a flyer into clear help for students who need it."
   },
   "wamburun_ursula_duck_drive_slow_sign": {
 	"name": "Duck Drive Slow Sign",
+	"location_id": "wamburun_hall",
 	"image_path": "res://resources/treasure/treasure_duck_drive_slow_sign.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
 	"description": "A small yellow sign that teaches players to slow down for the tiny lives crossing campus."
   },
   "bruce_hall_lemon_tree": {
 	"name": "Lemon Tree",
+	"location_id": "bruce_hall",
 	"image_path": "res://resources/treasure/treasure_lemon_tree.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
 	"description": "A small Bruce Hall rumour about sunlight, hope, and not searching alone."
   },
   "central_studying_area_board_games_society": {
 	"name": "Board Games Society",
+	"location_id": "biology_and_chemistry_precinct",
 	"image_path": "res://resources/treasure/treasure_board_games_society.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_purple.svg",
 	"description": "An invitation card that turns a study break into one more turn with new people."
   },
   "csit_engn_escape_room": {
 	"name": "Escape Room",
+	"location_id": "college_of_systems_and_society_precinct",
 	"image_path": "res://resources/treasure/treasure_escape_room.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
 	"description": "A timed puzzle that rewards calm teamwork more than rushing at the locked door."
   },
   "anu_sport_north_oval_anu_sport": {
 	"name": "ANU Sport",
+	"location_id": "anu_sport",
 	"image_path": "res://resources/treasure/treasure_anu_sport.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
 	"description": "A field-side reminder that campus sport has more than one doorway in."
   },
   "chifley_marie_reay_chifley_library": {
 	"name": "Chifley Library",
+	"location_id": "chifley_library_and_kambri_precinct",
 	"image_path": "res://resources/treasure/treasure_chifley_library.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A library map made of quiet shelves, notes, and the patience to ask where knowledge lives."
   },
   "copland_subway": {
 	"name": "Subway",
+	"location_id": "copland_building",
 	"image_path": "res://resources/treasure/treasure_subway.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_purple.svg",
 	"description": "A lunch route that helps a busy campus day become manageable again."
   },
   "southwest_aboriginal_land_management": {
 	"name": "Aboriginal Land Management",
+	"location_id": "crawford_precinct",
 	"image_path": "res://resources/treasure/treasure_aboriginal_land_management.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A careful reading of Country, plant life, and the knowledge held in campus landscape."
   },
   "houses_canberra_traditional_bus_stop": {
 	"name": "Canberra Traditional Bus Stop",
+	"location_id": "balmain_cottages",
 	"image_path": "res://resources/treasure/treasure_canberra_traditional_bus_stop.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
 	"description": "A concrete campus stop that turns waiting into a small lesson in Canberra design."
   },
   "houses_spiral_floor_tile": {
 	"name": "Spiral Floor Tile",
+	"location_id": "balmain_cottages",
 	"image_path": "res://resources/treasure/treasure_spiral_floor_tile.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
 	"description": "A pattern underfoot that asks players to slow down and look at the ground differently."
   },
   "blocks_metal_frames_sculpture_six_fixed": {
 	"name": "Metal Frames Sculpture",
+	"location_id": "earth_sciences_precinct",
 	"image_path": "res://resources/treasure/treasure_metal_frames_sculpture.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_purple.svg",
 	"description": "A sculpture whose order appears only when you walk around it and compare perspectives."
   },
   "southwest_winged_harvest": {
 	"name": "Winged Harvest",
+	"location_id": "crawford_precinct",
 	"image_path": "res://resources/treasure/treasure_winged_harvest.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A quiet artwork that asks for respect before interpretation."
   },
   "central_dragon_art_installation": {
 	"name": "Dragon Art Installation",
+	"location_id": "menzies_library_precinct",
 	"image_path": "res://resources/treasure/treasure_dragon_art_installation.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
-	"description": "A bright suspended dragon that reminds players to look up inside Central."
+	"description": "A bright suspended dragon that reminds players to look up inside Menzies Library Precinct."
   },
   "fellows_oval_game_on": {
 	"name": "Game On",
+	"location_id": "fellows_oval",
 	"image_path": "res://resources/treasure/treasure_game_on.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_pink.svg",
 	"description": "A post-oval arcade stop where the team keeps hanging out after the score stops mattering."
   },
   "art_and_music_cafe_on_4th_floor": {
 	"name": "Cafe on 4th Floor",
+	"location_id": "art_and_music_precinct",
 	"image_path": "res://resources/treasure/treasure_cafe_on_4th_floor.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_purple.svg",
 	"description": "A room for breathing between rehearsal, coffee, posters, and the next performance."
   },
   "copland_event_notice_board": {
 	"name": "Event Notice Board",
+	"location_id": "copland_building",
 	"image_path": "res://resources/treasure/treasure_event_notice_board.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A crowded wall that becomes useful once the date, place, and host are read carefully."
   },
   "medical_physics_school_anatomical_model": {
 	"name": "Anatomical Model",
+	"location_id": "health_and_physics_precinct",
 	"image_path": "res://resources/treasure/treasure_anatomical_model.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_blue.svg",
 	"description": "A lit window where a strange night silhouette becomes understandable through careful looking."

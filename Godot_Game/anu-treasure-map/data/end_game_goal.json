@@ -4,7 +4,7 @@
   "target_treasures": 5,
   "start_menu_scene": "res://Start.tscn",
   "new_run": {
-	"start_location_id": "chifley_marie_reay",
+	"start_location_id": "chifley_library_and_kambri_precinct",
 	"reset_clues": true,
 	"reset_treasures": true,
 	"reset_events": true,
@@ -30,13 +30,34 @@
   },
   "credits": {
 	"members": [
-	  {"name": "Anlin Bai", "role": "Art Designer and Programmer"},
-	  {"name": "Jeongjoon Lee", "role": "Team Leader, Project Manager and Game Designer"},
-	  {"name": "Shaoming Qin", "role": "Programmer and Game Designer"},
-	  {"name": "Suya Xie", "role": "Programmer and Game Designer"},
-	  {"name": "Wing Sze Shing", "role": "Narrative and Programmer"},
-	  {"name": "Xiyin Li", "role": "Art Designer and Audio Designer"},
-	  {"name": "Zijun Yang", "role": "Game Designer"}
+	  {
+		"name": "Anlin Bai",
+		"role": "Art Designer and Programmer"
+	  },
+	  {
+		"name": "Jeongjoon Lee",
+		"role": "Team Leader, Project Manager and Game Designer"
+	  },
+	  {
+		"name": "Shaoming Qin",
+		"role": "Programmer and Game Designer"
+	  },
+	  {
+		"name": "Suya Xie",
+		"role": "Programmer and Game Designer"
+	  },
+	  {
+		"name": "Wing Sze Shing",
+		"role": "Narrative and Programmer"
+	  },
+	  {
+		"name": "Xiyin Li",
+		"role": "Art Designer and Audio Designer"
+	  },
+	  {
+		"name": "Zijun Yang",
+		"role": "Game Designer"
+	  }
 	]
   }
 }

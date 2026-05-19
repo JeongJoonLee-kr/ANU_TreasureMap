@@ -40,7 +40,7 @@ const DESCRIPTIONS = {
 	"Your academic background grants heightened intuition for digital artifacts and computation-based puzzles.\n[i]You perceive the world not as stone and glass, but as an intricate topology of nodes and edges waiting to be deciphered.[/i]",
 	"hist":
 	"Your focus provides deeper insights into archival relics, unlocking hidden narrative branches from historical anomalies.\n[i]The ghosts of the past whisper through the cracked concrete, eager to tell tales of what once was.[/i]",
-	"lodges":
+	"toad_lodges_precinct":
 	"Starting here grants a calm mindset, offering a slight edge in resisting psychological stress during your first encounters.\n[i]The gentle ripples of the water reflect a mind seeking clarity in the depths of reflection.[/i]"
 }
 
@@ -138,7 +138,7 @@ func prefill_from_player_data() -> void:
 
 func apply_registration_mode() -> void:
 	current_major = ""
-	current_homebase = "lodges"
+	current_homebase = "toad_lodges_precinct"
 
 	name_input.editable = true
 	prefill_from_player_data()
@@ -154,7 +154,7 @@ func apply_registration_mode() -> void:
 	_reset_button_colors()
 	griffin_lake_btn.texture_normal = TEX_BTN_GREEN_LOCATION
 	griffin_lake_btn.modulate = Color(1.0, 1.0, 1.0, 1)
-	update_mind_terminal(DESCRIPTIONS["lodges"])
+	update_mind_terminal(DESCRIPTIONS["toad_lodges_precinct"])
 
 
 func apply_profile_mode() -> void:
@@ -189,7 +189,7 @@ func highlight_current_selection() -> void:
 		hist_btn.modulate = Color(1, 1, 1, 1)
 		comp_btn.modulate = Color(0.58, 0.58, 0.58, 1)
 
-	if current_homebase == "lodges":
+	if current_homebase == "toad_lodges_precinct":
 		griffin_lake_btn.texture_normal = TEX_BTN_GREEN_LOCATION
 		griffin_lake_btn.modulate = Color(1, 1, 1, 1)
 		lab_cafe_btn.texture_normal = TEX_BTN_GRAY
@@ -204,9 +204,9 @@ func build_profile_summary() -> String:
 		else ("History" if current_major == "hist" else "Unregistered")
 	)
 	var homebase_text := (
-		"Lodges"
-		if current_homebase == "lodges"
-		else ("Chifley & Marie Reay" if current_homebase == "chifley_marie_reay" else "Unassigned")
+		"Toad Lodges Precinct"
+		if current_homebase == "toad_lodges_precinct"
+		else ("Chifley Library and Kambri Precinct" if current_homebase == "chifley_library_and_kambri_precinct" else "Unassigned")
 	)
 
 	return (
@@ -240,13 +240,13 @@ func _on_hist_pressed():
 
 # ========== HOMEBASE BUTTON HANDLERS ==========
 func _on_griffin_lake_pressed():
-	current_homebase = "lodges"
+	current_homebase = "toad_lodges_precinct"
 	griffin_lake_btn.texture_normal = TEX_BTN_GREEN_LOCATION
 	lab_cafe_btn.texture_normal = TEX_BTN_GRAY
 	griffin_lake_btn.modulate = Color(1, 1, 1, 1)
 	lab_cafe_btn.modulate = Color(1, 1, 1, 1)
 
-	update_mind_terminal(DESCRIPTIONS["lodges"])
+	update_mind_terminal(DESCRIPTIONS["toad_lodges_precinct"])
 	check_auth_status()
 
 
@@ -303,11 +303,11 @@ func _on_auth_button_pressed():
 
 	var current_scene := get_tree().current_scene
 	if current_scene != null and current_scene.has_method("set_player_location"):
-		current_scene.set_player_location("lodges")
+		current_scene.set_player_location("toad_lodges_precinct")
 	else:
-		Global.current_location_id = "lodges"
-		Global.selected_location_id = "lodges"
-		Global.player_location_id = "lodges"
+		Global.current_location_id = "toad_lodges_precinct"
+		Global.selected_location_id = "toad_lodges_precinct"
+		Global.player_location_id = "toad_lodges_precinct"
 
 	# 1. save data
 	Global.player_data["name"] = entered_name

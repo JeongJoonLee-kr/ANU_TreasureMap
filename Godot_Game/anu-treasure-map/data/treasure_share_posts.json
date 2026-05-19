@@ -1,6 +1,7 @@
 {
   "yuki": {
 	"text": "I found Yuki near [color=#F6416C][url=bruce_hall_grassland]Bruce Hall grassland[/url][/color] today. A small white dog with a red collar turned an ordinary walk into the warmest little campus mystery. If you are around in the afternoon, keep an eye out for the bell on her collar.",
+	"location_id": "bruce_hall",
 	"image_path": "res://resources/treasure/treasure_yuki.jpg",
 	"annotations": {
 	  "bruce_hall_grassland": {
@@ -12,6 +13,7 @@
   },
   "chess_board": {
 	"text": "The strange thumping near [color=#F6416C][url=library_chessboard]the library[/url][/color] led me to the giant chess board. The pieces are huge, quiet, and almost ceremonial, like the campus has been hiding a puzzle in plain sight.",
+	"location_id": "chifley_library_and_kambri_precinct",
 	"image_path": "res://resources/treasure/treasure_chessboard.jpg",
 	"annotations": {
 	  "library_chessboard": {
@@ -23,6 +25,7 @@
   },
   "kangaroo": {
 	"text": "I really did see a kangaroo near [color=#F6416C][url=sports_field_fence]the sports field fence[/url][/color]. It paused for a second, looked right at me, then slipped back toward Black Mountain Park. ANU still has surprises tucked between ordinary paths.",
+	"location_id": "bruce_hall",
 	"image_path": "res://resources/treasure/treasure_kangaroo.jpg",
 	"annotations": {
 	  "sports_field_fence": {
@@ -33,18 +36,20 @@
 	}
   },
   "student_accommodation_basketball_court": {
-	"text": "Joined a quick game at [color=#F6416C][url=student_accommodation_basketball_court]the Student Accommodation basketball court[/url][/color]. It started as one missing player and turned into names, passes, and a tiny first-week team.",
+	"text": "Joined a quick game at [color=#F6416C][url=student_accommodation_basketball_court]the Yukeembruk Village basketball court[/url][/color]. It started as one missing player and turned into names, passes, and a tiny first-week team.",
+	"location_id": "yukeembruk_village",
 	"image_path": "res://resources/treasure/treasure_basketball_court.png",
 	"annotations": {
 	  "student_accommodation_basketball_court": {
-		"text": "A half-court near Student Accommodation can turn an awkward first meeting into a small team.",
+		"text": "A half-court near Yukeembruk Village can turn an awkward first meeting into a small team.",
 		"clue_id": "clue_student_accommodation_basketball_court",
-		"clue_name": "Student Accommodation Basketball Court"
+		"clue_name": "Yukeembruk Village Basketball Court"
 	  }
 	}
   },
   "wamburun_ursula_free_food": {
 	"text": "Found the real route behind [color=#F6416C][url=anusa_food_support]ANUSA food support[/url][/color]: free breakfast, Student Bites, food recovery, grocery vouchers, and people making sure help is visible before someone skips a meal.",
+	"location_id": "chifley_library_and_kambri_precinct",
 	"image_path": "res://resources/treasure/treasure_free_food.png",
 	"annotations": {
 	  "anusa_food_support": {
@@ -55,11 +60,12 @@
 	}
   },
   "wamburun_ursula_duck_drive_slow_sign": {
-	"text": "Paused at [color=#F6416C][url=duck_drive_slow_sign]the duck drive slow sign[/url][/color] between Wamburun and Ursula. It looked cute at first, then became a tiny rule for sharing campus paths with smaller feet.",
+	"text": "Paused at [color=#F6416C][url=duck_drive_slow_sign]the duck drive slow sign[/url][/color] near Wamburun Hall. It looked cute at first, then became a tiny rule for sharing campus paths with smaller feet.",
+	"location_id": "wamburun_hall",
 	"image_path": "res://resources/treasure/treasure_duck_drive_slow_sign.png",
 	"annotations": {
 	  "duck_drive_slow_sign": {
-		"text": "The duck drive slow sign near Wamburun and Ursula reminds students to slow down for animals crossing the path.",
+		"text": "The duck drive slow sign near Wamburun Hall reminds students to slow down for animals crossing the path.",
 		"clue_id": "clue_wamburun_ursula_duck_drive_slow_sign",
 		"clue_name": "Duck Drive Slow Sign"
 	  }
@@ -67,6 +73,7 @@
   },
   "bruce_hall_lemon_tree": {
 	"text": "Followed a sticky-note rumour at [color=#F6416C][url=bruce_hall_lemon_tree]Bruce Hall[/url][/color] and found Lemon Tree. The treasure was not only a plant, but the reminder not to let someone look for hope alone.",
+	"location_id": "bruce_hall",
 	"image_path": "res://resources/treasure/treasure_lemon_tree.png",
 	"annotations": {
 	  "bruce_hall_lemon_tree": {
@@ -78,6 +85,7 @@
   },
   "central_studying_area_board_games_society": {
 	"text": "The invitation at [color=#F6416C][url=board_games_society]Board Games Society[/url][/color] was worth following. One table, one rules explanation, and suddenly the study break had room for new people.",
+	"location_id": "biology_and_chemistry_precinct",
 	"image_path": "res://resources/treasure/treasure_board_games_society.png",
 	"annotations": {
 	  "board_games_society": {
@@ -88,29 +96,32 @@
 	}
   },
   "csit_engn_escape_room": {
-	"text": "Solved the trail to [color=#F6416C][url=csit_escape_room]the CSIT escape room[/url][/color]. The lock was less important than the moment everyone stopped rushing and started thinking together.",
+	"text": "Solved the trail to [color=#F6416C][url=csit_escape_room]the College of Systems and Society Precinct escape room[/url][/color]. The lock was less important than the moment everyone stopped rushing and started thinking together.",
+	"location_id": "college_of_systems_and_society_precinct",
 	"image_path": "res://resources/treasure/treasure_escape_room.png",
 	"annotations": {
 	  "csit_escape_room": {
-		"text": "A puzzle room near CSIT rewards clear teamwork more than frantic guessing.",
+		"text": "A puzzle room near College of Systems and Society Precinct rewards clear teamwork more than frantic guessing.",
 		"clue_id": "clue_csit_engn_escape_room",
-		"clue_name": "CSIT Escape Room"
+		"clue_name": "College of Systems and Society Precinct Escape Room"
 	  }
 	}
   },
   "anu_sport_north_oval_anu_sport": {
-	"text": "Found [color=#F6416C][url=anu_sport_north_oval]ANU Sport[/url][/color] through North Oval. The treasure was learning that campus sport has more than one way in, even if you are not already on a team.",
+	"text": "Found [color=#F6416C][url=anu_sport_north_oval]ANU Sport[/url][/color]. The treasure was learning that campus sport has more than one way in, even if you are not already on a team.",
+	"location_id": "anu_sport",
 	"image_path": "res://resources/treasure/treasure_anu_sport.png",
 	"annotations": {
 	  "anu_sport_north_oval": {
-		"text": "North Oval can point students toward ANU Sport, casual activity, and ways into campus movement.",
+		"text": "ANU Sport can point students toward casual activity and ways into campus movement.",
 		"clue_id": "clue_anu_sport_north_oval_anu_sport",
-		"clue_name": "ANU Sport at North Oval"
+		"clue_name": "ANU Sport"
 	  }
 	}
   },
   "chifley_marie_reay_chifley_library": {
 	"text": "Mapped a quiet path through [color=#F6416C][url=chifley_library]Chifley Library[/url][/color]. The notebook clue made the shelves feel less like a maze and more like a place that can answer back.",
+	"location_id": "chifley_library_and_kambri_precinct",
 	"image_path": "res://resources/treasure/treasure_chifley_library.png",
 	"annotations": {
 	  "chifley_library": {
@@ -121,44 +132,48 @@
 	}
   },
   "copland_subway": {
-	"text": "Found the lunch route from [color=#F6416C][url=copland_subway_route]Copland to Subway[/url][/color]. It turns out a good campus shortcut can rescue more than just your timetable.",
+	"text": "Found the lunch route from [color=#F6416C][url=copland_subway_route]Copland Building to Subway[/url][/color]. It turns out a good campus shortcut can rescue more than just your timetable.",
+	"location_id": "copland_building",
 	"image_path": "res://resources/treasure/treasure_subway.png",
 	"annotations": {
 	  "copland_subway_route": {
-		"text": "The route from Copland toward Subway can turn a busy campus day into something manageable.",
+		"text": "The route from Copland Building toward Subway can turn a busy campus day into something manageable.",
 		"clue_id": "clue_copland_subway",
-		"clue_name": "Copland Subway Route"
+		"clue_name": "Copland Building Subway Route"
 	  }
 	}
   },
   "southwest_aboriginal_land_management": {
-	"text": "Spent time with [color=#F6416C][url=aboriginal_land_management]Aboriginal Land Management[/url][/color] in the Southwest area. The treasure was learning to read the campus landscape with more care.",
+	"text": "Spent time with [color=#F6416C][url=aboriginal_land_management]Aboriginal Land Management[/url][/color] in Crawford Precinct. The treasure was learning to read the campus landscape with more care.",
+	"location_id": "crawford_precinct",
 	"image_path": "res://resources/treasure/treasure_aboriginal_land_management.png",
 	"annotations": {
 	  "aboriginal_land_management": {
-		"text": "The Southwest landscape can point toward Aboriginal land management knowledge and careful attention to Country.",
+		"text": "The Crawford Precinct landscape can point toward Aboriginal land management knowledge and careful attention to Country.",
 		"clue_id": "clue_southwest_aboriginal_land_management",
 		"clue_name": "Aboriginal Land Management"
 	  }
 	}
   },
   "houses_canberra_traditional_bus_stop": {
-	"text": "Looked twice at [color=#F6416C][url=canberra_bus_stop]the Canberra traditional bus stop[/url][/color] near Houses. A place for waiting became a small lesson in campus design.",
+	"text": "Looked twice at [color=#F6416C][url=canberra_bus_stop]the Canberra traditional bus stop[/url][/color] near Balmain Cottages. A place for waiting became a small lesson in campus design.",
+	"location_id": "balmain_cottages",
 	"image_path": "res://resources/treasure/treasure_canberra_traditional_bus_stop.png",
 	"annotations": {
 	  "canberra_bus_stop": {
-		"text": "A concrete bus stop near Houses carries a small piece of Canberra design language.",
+		"text": "A concrete bus stop near Balmain Cottages carries a small piece of Canberra design language.",
 		"clue_id": "clue_houses_canberra_traditional_bus_stop",
 		"clue_name": "Canberra Traditional Bus Stop"
 	  }
 	}
   },
   "houses_spiral_floor_tile": {
-	"text": "Found [color=#F6416C][url=spiral_floor_tile]the spiral floor tile[/url][/color] near Houses. The clue was underfoot the whole time, waiting for someone to stop walking automatically.",
+	"text": "Found [color=#F6416C][url=spiral_floor_tile]the spiral floor tile[/url][/color] near Balmain Cottages. The clue was underfoot the whole time, waiting for someone to stop walking automatically.",
+	"location_id": "balmain_cottages",
 	"image_path": "res://resources/treasure/treasure_spiral_floor_tile.png",
 	"annotations": {
 	  "spiral_floor_tile": {
-		"text": "A spiral floor tile near Houses rewards students who slow down and look at the ground.",
+		"text": "A spiral floor tile near Balmain Cottages rewards students who slow down and look at the ground.",
 		"clue_id": "clue_houses_spiral_floor_tile",
 		"clue_name": "Spiral Floor Tile"
 	  }
@@ -166,17 +181,19 @@
   },
   "blocks_metal_frames_sculpture_six_fixed": {
 	"text": "Walked around [color=#F6416C][url=metal_frames_sculpture]the metal frames sculpture[/url][/color] until the angles finally made sense. This one only becomes clear when you move.",
+	"location_id": "earth_sciences_precinct",
 	"image_path": "res://resources/treasure/treasure_metal_frames_sculpture.png",
 	"annotations": {
 	  "metal_frames_sculpture": {
-		"text": "The metal frames sculpture near Blocks changes meaning as the viewer changes position.",
+		"text": "The metal frames sculpture near Earth Sciences Precinct changes meaning as the viewer changes position.",
 		"clue_id": "clue_blocks_metal_frames_sculpture_six_fixed",
 		"clue_name": "Metal Frames Sculpture"
 	  }
 	}
   },
   "southwest_winged_harvest": {
-	"text": "Found [color=#F6416C][url=winged_harvest]Winged Harvest[/url][/color] in Southwest and took the slow route through its notes. Some campus treasures ask for respect before interpretation.",
+	"text": "Found [color=#F6416C][url=winged_harvest]Winged Harvest[/url][/color] in Crawford Precinct and took the slow route through its notes. Some campus treasures ask for respect before interpretation.",
+	"location_id": "crawford_precinct",
 	"image_path": "res://resources/treasure/treasure_winged_harvest.png",
 	"annotations": {
 	  "winged_harvest": {
@@ -187,18 +204,20 @@
 	}
   },
   "central_dragon_art_installation": {
-	"text": "Looked up inside [color=#F6416C][url=central_dragon]Central[/url][/color] and found the dragon art installation. The building had a sky after all.",
+	"text": "Looked up inside [color=#F6416C][url=central_dragon]Menzies Library Precinct[/url][/color] and found the dragon art installation. The building had a sky after all.",
+	"location_id": "menzies_library_precinct",
 	"image_path": "res://resources/treasure/treasure_dragon_art_installation.png",
 	"annotations": {
 	  "central_dragon": {
-		"text": "A suspended dragon inside Central rewards players who remember to look above the usual line of sight.",
+		"text": "A suspended dragon inside Menzies Library Precinct rewards players who remember to look above the usual line of sight.",
 		"clue_id": "clue_central_dragon_art_installation",
-		"clue_name": "Central Dragon Art Installation"
+		"clue_name": "Menzies Library Precinct Dragon Art Installation"
 	  }
 	}
   },
   "fellows_oval_game_on": {
 	"text": "After Fellows Oval, [color=#F6416C][url=game_on_joplin_lane]Game On[/url][/color] kept the team energy going without another scoreboard. Turns out cooldown can still feel like play.",
+	"location_id": "fellows_oval",
 	"image_path": "res://resources/treasure/treasure_game_on.png",
 	"annotations": {
 	  "game_on_joplin_lane": {
@@ -209,35 +228,38 @@
 	}
   },
   "art_and_music_cafe_on_4th_floor": {
-	"text": "Found [color=#F6416C][url=cafe_on_4th_floor]Cafe on 4th Floor[/url][/color] inside Art and Music. It is the kind of pause that makes rehearsal, coffee, and the next performance fit into one day.",
+	"text": "Found [color=#F6416C][url=cafe_on_4th_floor]Cafe on 4th Floor[/url][/color] inside Art and Music Precinct. It is the kind of pause that makes rehearsal, coffee, and the next performance fit into one day.",
+	"location_id": "art_and_music_precinct",
 	"image_path": "res://resources/treasure/treasure_cafe_on_4th_floor.png",
 	"annotations": {
 	  "cafe_on_4th_floor": {
-		"text": "The fourth-floor cafe in Art and Music works as a quiet pause between practice, performance, and campus life.",
+		"text": "The fourth-floor cafe in Art and Music Precinct works as a quiet pause between practice, performance, and campus life.",
 		"clue_id": "clue_art_and_music_cafe_on_4th_floor",
 		"clue_name": "Cafe on 4th Floor"
 	  }
 	}
   },
   "copland_event_notice_board": {
-	"text": "Decoded [color=#F6416C][url=copland_notice_board]the Copland event notice board[/url][/color]. Once the date, place, and host are clear, the wall stops being noise and starts becoming doors.",
+	"text": "Decoded [color=#F6416C][url=copland_notice_board]the Copland Building event notice board[/url][/color]. Once the date, place, and host are clear, the wall stops being noise and starts becoming doors.",
+	"location_id": "copland_building",
 	"image_path": "res://resources/treasure/treasure_event_notice_board.png",
 	"annotations": {
 	  "copland_notice_board": {
-		"text": "The Copland notice board helps students turn crowded event flyers into real campus invitations.",
+		"text": "The Copland Building notice board helps students turn crowded event flyers into real campus invitations.",
 		"clue_id": "clue_copland_event_notice_board",
-		"clue_name": "Copland Event Notice Board"
+		"clue_name": "Copland Building Event Notice Board"
 	  }
 	}
   },
   "medical_physics_school_anatomical_model": {
-	"text": "Checked the lit window at [color=#F6416C][url=medical_physics_anatomical_model]Medical and Physics[/url][/color] and found the anatomical model. The shape was scary until we gave it a careful name.",
+	"text": "Checked the lit window at [color=#F6416C][url=medical_physics_anatomical_model]Health and Physics Precinct[/url][/color] and found the anatomical model. The shape was scary until we gave it a careful name.",
+	"location_id": "health_and_physics_precinct",
 	"image_path": "res://resources/treasure/treasure_anatomical_model.png",
 	"annotations": {
 	  "medical_physics_anatomical_model": {
-		"text": "A lit window at the Medical and Physics School can turn an anatomical teaching model into an eerie night silhouette.",
+		"text": "A lit window at Health and Physics Precinct can turn an anatomical teaching model into an eerie night silhouette.",
 		"clue_id": "clue_medical_physics_school_anatomical_model",
-		"clue_name": "Medical and Physics Anatomical Model"
+		"clue_name": "Health and Physics Precinct Anatomical Model"
 	  }
 	}
   }

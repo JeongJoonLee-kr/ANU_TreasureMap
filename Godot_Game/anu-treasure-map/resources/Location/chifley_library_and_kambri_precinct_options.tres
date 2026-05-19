@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GameOptionsData" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://ixh6qolxp45v" path="res://systems/Script/options/options_data.gd" id="1_u2y5x"]
+
+[resource]
+script = ExtResource("1_u2y5x")
+data = {
+"coffee_cost": 6,
+"coffee_reward": 2,
+"description": "You arrive at Chifley Library and Kambri Precinct. The rich aroma of coffee instantly lifts your spirits.",
+"location_name": "Chifley Library and Kambri Precinct",
+"meal_cost": 15,
+"meal_reward": 5
+}
+metadata/_custom_type_script = "uid://ixh6qolxp45v"
