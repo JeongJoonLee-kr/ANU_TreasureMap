@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://sus40uftj6hg" path="res://resources/ui/pause_menu/pause_retry_hover.svg" id="16_ryh"]
 [ext_resource type="Texture2D" uid="uid://dd8mkajsp2dwv" path="res://resources/ui/pause_menu/pause_retry_selected.svg" id="17_rys"]
 [ext_resource type="Texture2D" uid="uid://ci23g6unk3gnq" path="res://resources/ui/pause_menu/pause_settings_normal.svg" id="18_sen"]
-[ext_resource type="Texture2D" path="res://resources/Location/Current_Location_Star.svg" id="18_star"]
+[ext_resource type="Texture2D" uid="uid://b08abiidhufns" path="res://resources/Location/Current_Location_Star.svg" id="18_star"]
 [ext_resource type="Script" uid="uid://sgskvhp784a5" path="res://systems/Script/map/map_connections_layer.gd" id="19_connections"]
 [ext_resource type="Texture2D" uid="uid://cskkpgl3mve1a" path="res://resources/ui/pause_menu/pause_settings_hover.svg" id="19_seh"]
 [ext_resource type="Texture2D" uid="uid://ddlwo030jpqxn" path="res://resources/ui/pause_menu/pause_settings_selected.svg" id="20_ses"]
@@ -57,11 +57,11 @@ grow_vertical = 2
 script = ExtResource("1_71pa8")
 
 [node name="EventPanel" type="Control" parent="MapControl"]
+visible = false
 z_index = 10
 anchors_preset = 0
 offset_right = 480.0
 offset_bottom = 320.0
-mouse_filter = 0
 script = ExtResource("2_05x41")
 
 [node name="Background" type="TextureRect" parent="MapControl/EventPanel"]
@@ -192,28 +192,31 @@ mouse_filter = 2
 script = ExtResource("19_connections")
 
 [node name="StudentAccommodationMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 491.0
 offset_top = 74.0
 offset_right = 711.0
 offset_bottom = 230.0
-location_id = "student_accommodation"
-display_name_override = "Student Accommodation"
+location_id = "yukeembruk_village"
+display_name_override = "Yukeembruk Village"
 use_medal_visual = true
 medal_ribbon = 1
 
 [node name="WamburunUrsulaMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 888.0
 offset_top = 90.0
 offset_right = 1108.0
 offset_bottom = 246.0
-location_id = "wamburun_halls_ursula_hall"
-display_name_override = "Wamburun Halls & Ursula Hall"
+location_id = "wamburun_hall"
+display_name_override = "Wamburun Hall"
 use_medal_visual = true
 medal_ribbon = 2
 
 [node name="BruceHallMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 1206.0
 offset_top = 83.0
@@ -225,50 +228,54 @@ use_medal_visual = true
 medal_ribbon = 3
 
 [node name="MedicalPhysicsSchoolMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 462.0
 offset_top = 354.0
 offset_right = 682.0
 offset_bottom = 510.0
-location_id = "medical_physics_school"
-display_name_override = "Medical & Physics School"
+location_id = "health_and_physics_precinct"
+display_name_override = "Health and Physics Precinct"
 use_medal_visual = true
 medal_ribbon = 4
 
 [node name="CentralStudyingAreaMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 1023.0
 offset_top = 252.0
 offset_right = 1243.0
 offset_bottom = 408.0
-location_id = "central_studying_area"
-display_name_override = "Central Studying Area"
+location_id = "biology_and_chemistry_precinct"
+display_name_override = "Biology and Chemistry Precinct"
 use_medal_visual = true
 medal_ribbon = 5
 
 [node name="CsitEngnAreaMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 1276.0
 offset_top = 269.0
 offset_right = 1496.0
 offset_bottom = 425.0
-location_id = "csit_engn_area"
-display_name_override = "CSIT&ENGN Area"
+location_id = "college_of_systems_and_society_precinct"
+display_name_override = "College of Systems and Society Precinct"
 use_medal_visual = true
-medal_ribbon = 0
 
 [node name="AnuSportsNorthOvalMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 1359.0
 offset_top = 410.0
 offset_right = 1579.0
 offset_bottom = 566.0
-location_id = "anu_sports_north_oval"
-display_name_override = "ANU Sports North Oval"
+location_id = "anu_sport"
+display_name_override = "ANU Sport"
 use_medal_visual = true
 medal_ribbon = 1
 
 [node name="SouthOvalMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 705.0
 offset_top = 395.0
@@ -280,28 +287,30 @@ use_medal_visual = true
 medal_ribbon = 2
 
 [node name="BlocksMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 497.0
 offset_top = 504.0
 offset_right = 717.0
 offset_bottom = 660.0
-location_id = "blocks"
-display_name_override = "Blocks"
+location_id = "earth_sciences_precinct"
+display_name_override = "Earth Sciences Precinct"
 use_medal_visual = true
 medal_ribbon = 3
 
 [node name="CentralMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 754.0
 offset_top = 570.0
 offset_right = 974.0
 offset_bottom = 726.0
-location_id = "central"
-display_name_override = "Central"
+location_id = "menzies_library_precinct"
+display_name_override = "Menzies Library Precinct"
 use_medal_visual = true
-medal_ribbon = 0
 
 [node name="FellowsOvalMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 986.0
 offset_top = 466.0
@@ -313,88 +322,95 @@ use_medal_visual = true
 medal_ribbon = 4
 
 [node name="ChifleyMarieReayMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 574.0
-offset_right = 1327.0
-offset_bottom = 730.0
-location_id = "chifley_marie_reay"
-display_name_override = "Chifley & Marie Reay"
+offset_left = 1157.0
+offset_top = 525.0
+offset_right = 1377.0
+offset_bottom = 681.0
+location_id = "chifley_library_and_kambri_precinct"
+display_name_override = "Chifley Library and Kambri Precinct"
 use_medal_visual = true
 medal_ribbon = 5
 
 [node name="FennerHallMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
-offset_left = 1227.0
-offset_top = 498.0
-offset_right = 1447.0
-offset_bottom = 654.0
+offset_left = 1308.0
+offset_top = 544.0
+offset_right = 1528.0
+offset_bottom = 700.0
 location_id = "fenner_hall"
 display_name_override = "Fenner Hall"
 use_medal_visual = true
 medal_ribbon = 1
 
 [node name="CoplandMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
-offset_left = 1219.0
-offset_top = 646.0
-offset_right = 1439.0
-offset_bottom = 802.0
-location_id = "copland"
-display_name_override = "Copland"
+offset_left = 1237.0
+offset_top = 619.0
+offset_right = 1457.0
+offset_bottom = 775.0
+location_id = "copland_building"
+display_name_override = "Copland Building"
 use_medal_visual = true
 medal_ribbon = 2
 
 [node name="LodgesMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
-offset_left = 1326.0
-offset_top = 684.0
-offset_right = 1546.0
-offset_bottom = 840.0
-location_id = "lodges"
-display_name_override = "Lodges"
+offset_left = 1389.0
+offset_top = 653.0
+offset_right = 1609.0
+offset_bottom = 809.0
+location_id = "toad_lodges_precinct"
+display_name_override = "Toad Lodges Precinct"
 use_medal_visual = true
 medal_ribbon = 3
 
 [node name="ArtAndMusicMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 1033.0
 offset_top = 788.0
 offset_right = 1253.0
 offset_bottom = 944.0
-location_id = "art_and_music"
-display_name_override = "Art & Music"
+location_id = "art_and_music_precinct"
+display_name_override = "Art and Music Precinct"
 use_medal_visual = true
 medal_ribbon = 4
 
 [node name="HousesMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 439.0
 offset_top = 684.0
 offset_right = 659.0
 offset_bottom = 840.0
-location_id = "houses"
-display_name_override = "Houses"
+location_id = "balmain_cottages"
+display_name_override = "Balmain Cottages"
 use_medal_visual = true
 medal_ribbon = 5
 
 [node name="SouthwestMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
 offset_left = 227.0
 offset_top = 815.0
 offset_right = 447.0
 offset_bottom = 971.0
-location_id = "southwest"
-display_name_override = "Southwest"
+location_id = "crawford_precinct"
+display_name_override = "Crawford Precinct"
 use_medal_visual = true
-medal_ribbon = 0
 
 [node name="CityMarker" parent="MapControl/MarkersLayer" instance=ExtResource("21_marker")]
+custom_minimum_size = Vector2(220, 156)
 layout_mode = 0
-offset_left = 1499.0
-offset_top = 827.0
-offset_right = 1719.0
-offset_bottom = 983.0
+offset_left = 1365.0
+offset_top = 860.0
+offset_right = 1585.0
+offset_bottom = 1016.0
 location_id = "city"
 display_name_override = "City"
 use_medal_visual = true
@@ -435,7 +451,6 @@ offset_left = 12.0
 offset_top = 174.0
 offset_right = 268.0
 offset_bottom = 210.0
-mouse_filter = 2
 theme_override_colors/font_color = Color(0.2588, 0.6471, 0.9608, 1)
 theme_override_fonts/font = ExtResource("27_pausefont")
 theme_override_font_sizes/font_size = 18
@@ -445,6 +460,7 @@ autowrap_mode = 3
 
 [node name="Menu" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 script = ExtResource("10_oysan")
 
 [node name="PauseMenu" type="ColorRect" parent="Menu"]

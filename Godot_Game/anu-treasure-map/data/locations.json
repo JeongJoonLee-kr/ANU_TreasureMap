@@ -1,31 +1,31 @@
 {
-  "student_accommodation": {
-	"title": "Student Accommodation",
-	"map_label": "Student Accommodation",
+  "yukeembruk_village": {
+	"title": "Yukeembruk Village",
+	"map_label": "Yukeembruk Village",
 	"active": true,
-	"description": "You go to Student Accommodation, something might happen here.",
+	"description": "You go to Yukeembruk Village, something might happen here.",
 	"image_path": "res://resources/Location/Student Accommodation.jpg",
 	"texts": [
-      "This is Student Accommodation."
+      "This is Yukeembruk Village."
 	],
 	"neighbors": [
-	  "wamburun_halls_ursula_hall",
-      "medical_physics_school"
+	  "wamburun_hall",
+      "health_and_physics_precinct"
 	]
   },
-  "wamburun_halls_ursula_hall": {
-	"title": "Wamburun Halls & Ursula Hall",
-	"map_label": "Wamburun Halls & Ursula Hall",
+  "wamburun_hall": {
+	"title": "Wamburun Hall",
+	"map_label": "Wamburun Hall",
 	"active": true,
-	"description": "You go to Wamburun Halls & Ursula Hall, something might happen here.",
+	"description": "You go to Wamburun Hall, something might happen here.",
 	"image_path": "res://resources/Location/Wamburun Halls & Ursula Hall.jpg",
 	"texts": [
-      "This is Wamburun Halls & Ursula Hall."
+      "This is Wamburun Hall."
 	],
 	"neighbors": [
-	  "student_accommodation",
+	  "yukeembruk_village",
 	  "bruce_hall",
-	  "central_studying_area",
+	  "biology_and_chemistry_precinct",
       "south_oval"
 	]
   },
@@ -39,69 +39,69 @@
       "This is Bruce Hall."
 	],
 	"neighbors": [
-	  "wamburun_halls_ursula_hall",
-	  "central_studying_area",
-      "csit_engn_area"
+	  "wamburun_hall",
+	  "biology_and_chemistry_precinct",
+      "college_of_systems_and_society_precinct"
 	]
   },
-  "central_studying_area": {
-	"title": "Central Studying Area",
-	"map_label": "Central Studying Area",
+  "biology_and_chemistry_precinct": {
+	"title": "Biology and Chemistry Precinct",
+	"map_label": "Biology and Chemistry Precinct",
 	"active": true,
-	"description": "You go to Central Studying Area, something might happen here.",
+	"description": "You go to Biology and Chemistry Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Central Studying Area.jpg",
 	"texts": [
-      "This is Central Studying Area."
+      "This is Biology and Chemistry Precinct."
 	],
 	"neighbors": [
-	  "wamburun_halls_ursula_hall",
+	  "wamburun_hall",
 	  "bruce_hall",
-	  "csit_engn_area",
+	  "college_of_systems_and_society_precinct",
       "fellows_oval"
 	]
   },
-  "csit_engn_area": {
-	"title": "CSIT&ENGN Area",
-	"map_label": "CSIT&ENGN Area",
+  "college_of_systems_and_society_precinct": {
+	"title": "College of Systems and Society Precinct",
+	"map_label": "College of Systems and Society Precinct",
 	"active": true,
-	"description": "You go to CSIT&ENGN Area, something might happen here.",
+	"description": "You go to College of Systems and Society Precinct, something might happen here.",
 	"image_path": "res://resources/Location/CSIT&ENGN Area.jpg",
 	"texts": [
-      "This is CSIT&ENGN Area."
+      "This is College of Systems and Society Precinct."
 	],
 	"neighbors": [
 	  "bruce_hall",
-	  "central_studying_area",
-      "anu_sports_north_oval"
+	  "biology_and_chemistry_precinct",
+      "anu_sport"
 	]
   },
-  "anu_sports_north_oval": {
-	"title": "ANU Sports North Oval",
-	"map_label": "ANU Sports North Oval",
+  "anu_sport": {
+	"title": "ANU Sport",
+	"map_label": "ANU Sport",
 	"active": true,
-	"description": "You go to ANU Sports North Oval, something might happen here.",
+	"description": "You go to ANU Sport, something might happen here.",
 	"image_path": "res://resources/Location/ANU Sports North Oval.jpg",
 	"texts": [
-      "This is ANU Sports North Oval."
+      "This is ANU Sport."
 	],
 	"neighbors": [
-	  "csit_engn_area",
+	  "college_of_systems_and_society_precinct",
       "fenner_hall"
 	]
   },
-  "medical_physics_school": {
-	"title": "Medical & Physics School",
-	"map_label": "Medical & Physics School",
+  "health_and_physics_precinct": {
+	"title": "Health and Physics Precinct",
+	"map_label": "Health and Physics Precinct",
 	"active": true,
-	"description": "You go to Medical & Physics School, something might happen here.",
+	"description": "You go to Health and Physics Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Medical & Physics School.jpg",
 	"texts": [
-      "This is Medical & Physics School."
+      "This is Health and Physics Precinct."
 	],
 	"neighbors": [
-	  "student_accommodation",
+	  "yukeembruk_village",
 	  "south_oval",
-      "blocks"
+      "earth_sciences_precinct"
 	]
   },
   "south_oval": {
@@ -114,69 +114,69 @@
       "This is South Oval."
 	],
 	"neighbors": [
-	  "wamburun_halls_ursula_hall",
-	  "medical_physics_school",
-	  "blocks",
-	  "central",
+	  "wamburun_hall",
+	  "health_and_physics_precinct",
+	  "earth_sciences_precinct",
+	  "menzies_library_precinct",
       "fellows_oval"
 	]
   },
-  "blocks": {
-	"title": "Blocks",
-	"map_label": "Blocks",
+  "earth_sciences_precinct": {
+	"title": "Earth Sciences Precinct",
+	"map_label": "Earth Sciences Precinct",
 	"active": true,
-	"description": "You go to Blocks, something might happen here.",
+	"description": "You go to Earth Sciences Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Blocks.png",
 	"texts": [
-      "This is Blocks."
+      "This is Earth Sciences Precinct."
 	],
 	"neighbors": [
-	  "medical_physics_school",
+	  "health_and_physics_precinct",
 	  "south_oval",
-      "houses"
+      "balmain_cottages"
 	]
   },
-  "houses": {
-	"title": "Houses",
-	"map_label": "Houses",
+  "balmain_cottages": {
+	"title": "Balmain Cottages",
+	"map_label": "Balmain Cottages",
 	"active": true,
-	"description": "You go to Houses, something might happen here.",
+	"description": "You go to Balmain Cottages, something might happen here.",
 	"image_path": "res://resources/Location/Houses.png",
 	"texts": [
-      "This is Houses."
+      "This is Balmain Cottages."
 	],
 	"neighbors": [
-	  "blocks",
-	  "southwest",
-      "central"
+	  "earth_sciences_precinct",
+	  "crawford_precinct",
+      "menzies_library_precinct"
 	]
   },
-  "southwest": {
-	"title": "Southwest",
-	"map_label": "Southwest",
+  "crawford_precinct": {
+	"title": "Crawford Precinct",
+	"map_label": "Crawford Precinct",
 	"active": true,
-	"description": "You go to Southwest, something might happen here.",
+	"description": "You go to Crawford Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Southwest.jpg",
 	"texts": [
-      "This is Southwest."
+      "This is Crawford Precinct."
 	],
 	"neighbors": [
-      "houses"
+      "balmain_cottages"
 	]
   },
-  "central": {
-	"title": "Central",
-	"map_label": "Central",
+  "menzies_library_precinct": {
+	"title": "Menzies Library Precinct",
+	"map_label": "Menzies Library Precinct",
 	"active": true,
-	"description": "You go to Central, something might happen here.",
+	"description": "You go to Menzies Library Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Central.jpg",
 	"texts": [
-      "This is Central."
+      "This is Menzies Library Precinct."
 	],
 	"neighbors": [
 	  "south_oval",
-	  "houses",
-      "art_and_music"
+	  "balmain_cottages",
+      "art_and_music_precinct"
 	]
   },
   "fellows_oval": {
@@ -189,27 +189,27 @@
       "This is Fellows Oval."
 	],
 	"neighbors": [
-	  "central_studying_area",
+	  "biology_and_chemistry_precinct",
 	  "south_oval",
-      "chifley_marie_reay"
+      "chifley_library_and_kambri_precinct"
 	]
   },
-  "chifley_marie_reay": {
-	"title": "Chifley & Marie Reay",
-	"map_label": "Chifley & Marie Reay",
+  "chifley_library_and_kambri_precinct": {
+	"title": "Chifley Library and Kambri Precinct",
+	"map_label": "Chifley Library and Kambri Precinct",
 	"active": true,
-	"description": "You go to Chifley & Marie Reay, something might happen here.",
+	"description": "You go to Chifley Library and Kambri Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Chifley & Marie Reay.jpg",
 	"texts": [
-	  "This is Chifley & Marie Reay.",
+	  "This is Chifley Library and Kambri Precinct.",
 	  "It is a good place to take a break.",
       "Many students come here for coffee and food."
 	],
 	"neighbors": [
 	  "fellows_oval",
 	  "fenner_hall",
-	  "art_and_music",
-	  "copland"
+	  "art_and_music_precinct",
+      "copland_building"
 	]
   },
   "fenner_hall": {
@@ -222,42 +222,42 @@
       "This is Fenner Hall."
 	],
 	"neighbors": [
-	  "anu_sports_north_oval",
-	  "chifley_marie_reay",
-	  "copland",
-      "lodges"
+	  "anu_sport",
+	  "chifley_library_and_kambri_precinct",
+	  "copland_building",
+      "toad_lodges_precinct"
 	]
   },
-  "copland": {
-	"title": "Copland",
-	"map_label": "Copland",
+  "copland_building": {
+	"title": "Copland Building",
+	"map_label": "Copland Building",
 	"active": true,
-	"description": "You go to Copland, something might happen here.",
+	"description": "You go to Copland Building, something might happen here.",
 	"image_path": "res://resources/Location/Copland.jpg",
 	"texts": [
-      "This is Copland."
+      "This is Copland Building."
 	],
 	"neighbors": [
 	  "fenner_hall",
-	  "lodges",
-	  "chifley_marie_reay",
-	  "art_and_music"
+	  "toad_lodges_precinct",
+	  "chifley_library_and_kambri_precinct",
+      "art_and_music_precinct"
 	]
   },
-  "lodges": {
-	"title": "Lodges",
-	"map_label": "Lodges",
+  "toad_lodges_precinct": {
+	"title": "Toad Lodges Precinct",
+	"map_label": "Toad Lodges Precinct",
 	"active": true,
-	"description": "You go to Lodges, something might happen here.",
+	"description": "You go to Toad Lodges Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Lodges.jpg",
 	"texts": [
-	  "This is Lodges."
+      "This is Toad Lodges Precinct."
 	],
 	"neighbors": [
 	  "fenner_hall",
-	  "copland",
-	  "art_and_music",
-	  "city"
+	  "copland_building",
+	  "art_and_music_precinct",
+      "city"
 	]
   },
   "city": {
@@ -270,23 +270,23 @@
       "This is City."
 	],
 	"neighbors": [
-		"lodges"
+      "toad_lodges_precinct"
 	]
   },
-  "art_and_music": {
-	"title": "Art & Music",
-	"map_label": "Art & Music",
+  "art_and_music_precinct": {
+	"title": "Art and Music Precinct",
+	"map_label": "Art and Music Precinct",
 	"active": true,
-	"description": "You go to Art & Music, something might happen here.",
+	"description": "You go to Art and Music Precinct, something might happen here.",
 	"image_path": "res://resources/Location/Art & Music.jpg",
 	"texts": [
-      "This is Art & Music."
+      "This is Art and Music Precinct."
 	],
 	"neighbors": [
-	  "central",
-	  "chifley_marie_reay",
-	  "lodges",
-	  "copland"
+	  "menzies_library_precinct",
+	  "chifley_library_and_kambri_precinct",
+	  "toad_lodges_precinct",
+      "copland_building"
 	]
   }
 }

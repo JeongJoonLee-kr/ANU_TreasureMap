@@ -430,7 +430,7 @@ func _run_step(step: int) -> void:
 			if _guide.step_advanced.is_connected(_on_step_advanced):
 				_guide.step_advanced.disconnect(_on_step_advanced)
 			_unlock_map_only()
-			_lock_map_markers_except("csit_engn_area")
+			_lock_map_markers_except("college_of_systems_and_society_precinct")
 			_lock_ins_button()
 
 			var dot_rect := _get_hud_rect(

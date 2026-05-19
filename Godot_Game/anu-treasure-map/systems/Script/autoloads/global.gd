@@ -8,9 +8,9 @@ const PLAYER_SHARE_AVATAR_PATH := "res://resources/icon/1-removebg-preview 1.png
 # Store the currently selected location id.
 # This value is used to pass location information
 # from the map scene to the shared location scene.
-var current_location_id: String = "chifley_marie_reay"
-var selected_location_id: String = "chifley_marie_reay"
-var player_location_id: String = "chifley_marie_reay"
+var current_location_id: String = "chifley_library_and_kambri_precinct"
+var selected_location_id: String = "chifley_library_and_kambri_precinct"
+var player_location_id: String = "chifley_library_and_kambri_precinct"
 
 var stamina: int = 100
 var current_week: int = 1
@@ -234,9 +234,37 @@ func refresh_week_tag() -> void:
 func normalize_location_id(location_id: String) -> String:
 	match location_id:
 		"lab_cafe":
-			return "chifley_marie_reay"
+			return "chifley_library_and_kambri_precinct"
 		"lake", "griffin_lake":
-			return "lodges"
+			return "toad_lodges_precinct"
+		"student_accommodation":
+			return "yukeembruk_village"
+		"wamburun_halls_ursula_hall":
+			return "wamburun_hall"
+		"central_studying_area":
+			return "biology_and_chemistry_precinct"
+		"csit_engn_area":
+			return "college_of_systems_and_society_precinct"
+		"anu_sports_north_oval":
+			return "anu_sport"
+		"medical_physics_school":
+			return "health_and_physics_precinct"
+		"blocks":
+			return "earth_sciences_precinct"
+		"houses":
+			return "balmain_cottages"
+		"southwest":
+			return "crawford_precinct"
+		"central":
+			return "menzies_library_precinct"
+		"chifley_marie_reay":
+			return "chifley_library_and_kambri_precinct"
+		"copland":
+			return "copland_building"
+		"lodges":
+			return "toad_lodges_precinct"
+		"art_and_music":
+			return "art_and_music_precinct"
 		_:
 			return location_id
 
