@@ -11,6 +11,9 @@ var _film_root: Control
 var _strip: HBoxContainer
 var _empty_treasure_label: Label
 var _credits_root: Control
+var _credits_scroller: VBoxContainer
+var _credits_hint: Label
+var _credits_scroll_tween: Tween
 var _credits_ready := false
 var _sequence_started := false
 
@@ -145,40 +148,110 @@ func _build_credits() -> void:
 	black.name = "BlackBackground"
 	black.set_anchors_preset(Control.PRESET_FULL_RECT)
 	black.color = Color.BLACK
+	black.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_credits_root.add_child(black)
 
-	var center := VBoxContainer.new()
-	center.name = "CreditsList"
-	center.set_anchors_preset(Control.PRESET_CENTER)
-	center.add_theme_constant_override("separation", 18)
-	_credits_root.add_child(center)
+	_credits_scroller = VBoxContainer.new()
+	_credits_scroller.name = "CreditsScroller"
+	_credits_scroller.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_credits_scroller.add_theme_constant_override("separation", 14)
+	_credits_root.add_child(_credits_scroller)
 
 	var title := Label.new()
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	title.add_theme_font_size_override("font_size", 44)
 	title.add_theme_color_override("font_color", Color.WHITE)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var ending_config: Dictionary = config.get("ending", {})
 	title.text = str(ending_config.get("credits_title", "Thanks for Playing"))
-	center.add_child(title)
+	_credits_scroller.add_child(title)
+
+	var title_gap := Control.new()
+	title_gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	title_gap.custom_minimum_size = Vector2(1.0, 42.0)
+	_credits_scroller.add_child(title_gap)
 
 	var credits_config: Dictionary = config.get("credits", {})
-	var members: Array = credits_config.get("members", [])
+	_build_credit_sections(credits_config)
+
+	_credits_hint = Label.new()
+	_credits_hint.name = "CreditsHint"
+	_credits_hint.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	_credits_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_credits_hint.offset_top = -78.0
+	_credits_hint.offset_bottom = -28.0
+	_credits_hint.add_theme_font_size_override("font_size", 18)
+	_credits_hint.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.72))
+	_credits_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_credits_hint.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_credits_hint.text = str(ending_config.get("credits_hint", "Click anywhere to return to Start"))
+	_credits_root.add_child(_credits_hint)
+
+
+func _build_credit_sections(credits_config: Dictionary) -> void:
+	var sections: Array = credits_config.get("sections", [])
+	if sections.is_empty():
+		sections = _sections_from_legacy_members(credits_config.get("members", []))
+
+	for section in sections:
+		if not (section is Dictionary):
+			continue
+		var section_data := section as Dictionary
+		var section_title := str(section_data.get("title", "")).strip_edges()
+		var names: Array = section_data.get("names", [])
+		if section_title == "" or names.is_empty():
+			continue
+
+		_credits_scroller.add_child(_make_credit_section_label(section_title))
+		for name_value in names:
+			var name := str(name_value).strip_edges()
+			if name != "":
+				_credits_scroller.add_child(_make_credit_name_label(name))
+
+		var gap := Control.new()
+		gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		gap.custom_minimum_size = Vector2(1.0, 36.0)
+		_credits_scroller.add_child(gap)
+
+
+func _sections_from_legacy_members(members: Array) -> Array:
+	var grouped := {}
 	for credit in members:
 		if not (credit is Dictionary):
 			continue
-		var line := Label.new()
-		line.add_theme_font_size_override("font_size", 26)
-		line.add_theme_color_override("font_color", Color.WHITE)
-		line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		line.text = "%s - %s" % [str(credit.get("name", "")), str(credit.get("role", ""))]
-		center.add_child(line)
+		var credit_data := credit as Dictionary
+		var role := str(credit_data.get("role", "Game Team")).strip_edges()
+		var name := str(credit_data.get("name", "")).strip_edges()
+		if role == "" or name == "":
+			continue
+		var grouped_names: Array = grouped.get(role, [])
+		grouped_names.append(name)
+		grouped[role] = grouped_names
 
-	var hint := Label.new()
-	hint.add_theme_font_size_override("font_size", 18)
-	hint.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.72))
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hint.text = str(ending_config.get("credits_hint", "Click anywhere to return to Start"))
-	center.add_child(hint)
+	var sections: Array = []
+	for role in grouped.keys():
+		sections.append({"title": str(role), "names": grouped[role]})
+	return sections
+
+
+func _make_credit_section_label(text: String) -> Label:
+	var label := Label.new()
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.add_theme_font_size_override("font_size", 34)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.text = text
+	return label
+
+
+func _make_credit_name_label(text: String) -> Label:
+	var label := Label.new()
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.add_theme_font_size_override("font_size", 26)
+	label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.88))
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.text = text
+	return label
 
 
 func _layout() -> void:
@@ -190,10 +263,16 @@ func _layout() -> void:
 		_empty_treasure_label.size = Vector2(min(720.0, viewport_size.x * 0.82), 120.0)
 		_empty_treasure_label.position = (viewport_size - _empty_treasure_label.size) * 0.5
 
-	var center := _credits_root.get_node_or_null("CreditsList") as VBoxContainer
-	if center != null:
-		center.size = Vector2(min(920.0, viewport_size.x * 0.9), 520.0)
-		center.position = (viewport_size - center.size) * 0.5
+	if _credits_scroller != null:
+		_credits_scroller.size = Vector2(min(920.0, viewport_size.x * 0.9), 0.0)
+		_credits_scroller.position.x = (viewport_size.x - _credits_scroller.size.x) * 0.5
+
+
+func _position_credits_at_scroll_start() -> void:
+	if _credits_scroller == null:
+		return
+	var viewport_size := get_viewport().get_visible_rect().size
+	_credits_scroller.position.y = viewport_size.y + 80.0
 
 
 func _start_sequence() -> void:
@@ -233,12 +312,40 @@ func _show_credits() -> void:
 	await tween.finished
 	_film_root.hide()
 	_gray_background.hide()
+	_layout()
+	_position_credits_at_scroll_start()
 	_credits_root.show()
+	_credits_ready = true
 
 	var fade_in := create_tween()
 	fade_in.tween_property(_credits_root, "modulate:a", 1.0, fade_seconds)
 	await fade_in.finished
-	_credits_ready = true
+	_start_credits_scroll()
+
+
+func _start_credits_scroll() -> void:
+	if _credits_scroller == null:
+		return
+
+	await get_tree().process_frame
+	_layout()
+
+	var viewport_size := get_viewport().get_visible_rect().size
+	var content_height: float = maxf(
+		_credits_scroller.get_combined_minimum_size().y, _credits_scroller.size.y
+	)
+	_position_credits_at_scroll_start()
+
+	if is_instance_valid(_credits_scroll_tween):
+		_credits_scroll_tween.kill()
+
+	var credits_config: Dictionary = config.get("credits", {})
+	var seconds := float(credits_config.get("scroll_seconds", 18.0))
+	_credits_scroll_tween = create_tween()
+	_credits_scroll_tween.set_trans(Tween.TRANS_LINEAR)
+	_credits_scroll_tween.tween_property(
+		_credits_scroller, "position:y", -content_height - 80.0, seconds
+	)
 
 
 func _on_credits_gui_input(event: InputEvent) -> void:
