@@ -29,35 +29,29 @@
 	"fade_seconds": 0.55
   },
   "credits": {
-	"members": [
-	  {
-		"name": "Anlin Bai",
-		"role": "Art Designer and Programmer"
-	  },
-	  {
-		"name": "Jeongjoon Lee",
-		"role": "Team Leader, Project Manager and Game Designer"
-	  },
-	  {
-		"name": "Shaoming Qin",
-		"role": "Programmer and Game Designer"
-	  },
-	  {
-		"name": "Suya Xie",
-		"role": "Programmer and Game Designer"
-	  },
-	  {
-		"name": "Wing Sze Shing",
-		"role": "Narrative and Programmer"
-	  },
-	  {
-		"name": "Xiyin Li",
-		"role": "Art Designer and Audio Designer"
-	  },
-	  {
-		"name": "Zijun Yang",
-		"role": "Game Designer"
-	  }
+	"scroll_seconds": 18.0,
+	"sections": [
+  {
+	"title": "Special Thanks",
+	"names": [
+	  "Susan Hansen",
+	  "Thomas Biedermann",
+	  "Sandy Zhao",
+      "Yumin Li"
 	]
+  },
+  {
+	"title": "Game Team",
+	"names": [
+	  "Anlin Bai",
+	  "Jeongjoon Lee",
+	  "Shaoming Qin",
+	  "Suya Xie",
+	  "Wing Sze Shing",
+	  "Xiyin Li",
+      "Zijun Yang"
+	]
+  }
+]
   }
 }
