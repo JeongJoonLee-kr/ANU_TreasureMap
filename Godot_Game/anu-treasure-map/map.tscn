@@ -57,7 +57,6 @@ grow_vertical = 2
 script = ExtResource("1_71pa8")
 
 [node name="EventPanel" type="Control" parent="MapControl"]
-visible = false
 z_index = 10
 anchors_preset = 0
 offset_right = 480.0
@@ -460,7 +459,6 @@ autowrap_mode = 3
 
 [node name="Menu" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 script = ExtResource("10_oysan")
 
 [node name="PauseMenu" type="ColorRect" parent="Menu"]

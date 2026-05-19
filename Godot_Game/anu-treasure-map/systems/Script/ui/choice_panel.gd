@@ -5,6 +5,8 @@ signal choice_selected(choice_key: String)
 
 const MAX_CHOICES := 5
 const FONT_PATH := "res://resources/font/AlegreyaSans-Regular.ttf"
+const CHOICE_FONT_SIZE := 28
+const CHOICE_BUTTON_HEIGHT := 88.0
 
 var _choices: Dictionary = {}
 var _content_panel: PanelContainer
@@ -108,13 +110,13 @@ func _sort_choice_keys(a: Variant, b: Variant) -> bool:
 func _create_choice_button(text: String) -> Button:
 	var button := Button.new()
 	button.text = ""
-	button.custom_minimum_size = Vector2(0.0, 78.0)
+	button.custom_minimum_size = Vector2(0.0, CHOICE_BUTTON_HEIGHT)
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
 	if _font != null:
 		button.add_theme_font_override("font", _font)
-	button.add_theme_font_size_override("font_size", 19)
+	button.add_theme_font_size_override("font_size", CHOICE_FONT_SIZE)
 	button.add_theme_color_override("font_color", Color(0.24, 0.31, 0.43, 1.0))
 	button.add_theme_color_override("font_hover_color", Color(0.12, 0.42, 0.72, 1.0))
 	button.add_theme_color_override("font_pressed_color", Color(0.08, 0.32, 0.58, 1.0))
@@ -148,7 +150,7 @@ func _create_choice_button(text: String) -> Button:
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	label.add_theme_font_size_override("font_size", 19)
+	label.add_theme_font_size_override("font_size", CHOICE_FONT_SIZE)
 	label.add_theme_color_override("font_color", Color(0.24, 0.31, 0.43, 1.0))
 	if _font != null:
 		label.add_theme_font_override("font", _font)

@@ -51,7 +51,7 @@ func _ready() -> void:
 
 
 func test_change_resources() -> void:
-	Global.time += 1
+	Global.time = mini(Global.time + 1, Global.max_time_per_week)
 	Global.money += 20
 	Global.notify_resources_changed()
 
