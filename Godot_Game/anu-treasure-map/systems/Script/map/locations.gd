@@ -36,7 +36,6 @@ var _choice_canvas_layer: CanvasLayer = null
 var _choice_panel_instance: Control = null
 var _treasure_canvas_layer: CanvasLayer = null
 var _treasure_popup_instance: Control = null
-var _exhaustion_toast: Panel = null
 var _event_scene_stage: String = ""
 var _event_bgm_active: bool = false
 var _force_leave_option_once: bool = false
@@ -76,9 +75,6 @@ func _ready() -> void:
 		else Global.current_location_id
 	)
 	load_location_data()
-
-	if not EventManager.not_enough_ap.is_connected(_on_not_enough_ap):
-		EventManager.not_enough_ap.connect(_on_not_enough_ap)
 
 	_try_random_event()
 
@@ -286,69 +282,6 @@ func _show_leave_only_choice() -> void:
 	_show_choice_panel(
 		{"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_location_choice_selected
 	)
-
-
-func _on_not_enough_ap() -> void:
-	_show_exhaustion_toast()
-
-
-func _show_exhaustion_toast() -> void:
-	if is_instance_valid(_exhaustion_toast):
-		return
-
-	_exhaustion_toast = Panel.new()
-	_exhaustion_toast.set_anchors_preset(Control.PRESET_CENTER)
-	_exhaustion_toast.custom_minimum_size = Vector2(700, 160)
-	_exhaustion_toast.size = Vector2(700, 160)
-	_exhaustion_toast.position = Vector2(-350, -80)
-
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.15, 0.1, 0.1, 0.95)
-	style.corner_radius_top_left = 12
-	style.corner_radius_top_right = 12
-	style.corner_radius_bottom_left = 12
-	style.corner_radius_bottom_right = 12
-	style.border_width_top = 2
-	style.border_width_bottom = 2
-	style.border_width_left = 2
-	style.border_width_right = 2
-	style.border_color = Color(0.8, 0.3, 0.3, 0.7)
-	_exhaustion_toast.add_theme_stylebox_override("panel", style)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 24)
-	margin.add_theme_constant_override("margin_right", 24)
-	margin.add_theme_constant_override("margin_top", 16)
-	margin.add_theme_constant_override("margin_bottom", 16)
-	_exhaustion_toast.add_child(margin)
-
-	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 12)
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	margin.add_child(vbox)
-
-	var msg := Label.new()
-	msg.text = EventManager.EXHAUSTED_MESSAGE
-	msg.add_theme_font_size_override("font_size", 18)
-	msg.add_theme_color_override("font_color", Color(1.0, 0.85, 0.7))
-	msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vbox.add_child(msg)
-
-	var ok_btn := Button.new()
-	ok_btn.text = "OK"
-	ok_btn.custom_minimum_size = Vector2(120, 36)
-	ok_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	ok_btn.pressed.connect(
-		func():
-			if is_instance_valid(_exhaustion_toast):
-				_exhaustion_toast.queue_free()
-				_exhaustion_toast = null
-	)
-	vbox.add_child(ok_btn)
-
-	add_child(_exhaustion_toast)
 
 
 func show_location() -> void:

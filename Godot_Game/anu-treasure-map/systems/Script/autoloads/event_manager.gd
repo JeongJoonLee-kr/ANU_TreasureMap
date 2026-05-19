@@ -5,22 +5,20 @@ extends Node
 
 # ─── Constants ─────────────────────────────────────────
 const EVENTS_PATH := "res://data/events.json"
-const EVENT_AP_COST := 2
+const EVENT_AP_COST := 1
 const TRIGGER_CHANCE_BOOST := 0.15
-const EXHAUSTED_MESSAGE := "It's getting late and you're exhausted. You should head back and rest. Try exploring again tomorrow."
 const EVENT_TYPE_LABELS := {"clue": "Clue Event", "normal": "Normal Event"}
 
 # ─── Virtual Clock Phases ──────────────────────────────
-# Maps AP remaining → time-of-day phase.
-# With max_time_per_week = 8:
-#   AP 8-6 → Morning   (9 AM – 11 AM)
-#   AP 5   → Midday    (12 PM)
-#   AP 4-1 → Afternoon (1 PM – 4 PM)
+# Maps AP remaining to time-of-day phase using the current weekly time limit.
+# With Global.WEEKLY_TIME_LIMIT = 12:
+#   AP 12-9 -> Morning
+#   AP 8-7  -> Midday
+#   AP 6-1  -> Afternoon
 enum TimePhase { MORNING, MIDDAY, AFTERNOON }
 
 # ─── Signals ──────────────────────────────────────────
 signal event_triggered(event_data: Dictionary)
-signal not_enough_ap
 signal event_state_changed
 
 # ─── State ────────────────────────────────────────────
@@ -46,9 +44,12 @@ func _ready() -> void:
 ## Returns the current time-of-day phase based on remaining AP.
 func get_current_phase() -> TimePhase:
 	var ap := Global.time
-	if ap >= 6:
+	var max_ap: int = maxi(Global.max_time_per_week, 1)
+	var morning_threshold := int(ceil(float(max_ap) * 0.75))
+	var midday_threshold := int(ceil(float(max_ap) * 0.5))
+	if ap >= morning_threshold:
 		return TimePhase.MORNING
-	if ap == 5:
+	if ap > midday_threshold:
 		return TimePhase.MIDDAY
 	return TimePhase.AFTERNOON
 
@@ -99,11 +100,10 @@ func _load_events() -> void:
 
 ## Main entry point. Call when the player arrives at a location.
 ## Returns the event Dictionary if one triggers, or null for normal
-## exploration. Emits not_enough_ap if AP is too low.
+## exploration.
 func try_trigger_event(location_id: String) -> Variant:
 	# ── AP gate ──
 	if not has_enough_ap():
-		not_enough_ap.emit()
 		return null
 
 	var clue_events := get_pending_clue_events_for_location(location_id)

@@ -257,8 +257,7 @@ func advance_week() -> void:
 
 
 func initialize_progress_state() -> void:
-	if Global.max_time_per_week <= 0:
-		Global.max_time_per_week = 8
+	Global.normalize_time_limits()
 
 	if Global.max_week <= 0:
 		Global.max_week = 16

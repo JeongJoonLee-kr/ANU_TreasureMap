@@ -3,6 +3,7 @@ extends Node
 const TOAST_HOLD_SECONDS := 5.0
 const TREASURE_SHARE_POSTS_PATH := "res://data/treasure_share_posts.json"
 const PLAYER_SHARE_AVATAR_PATH := "res://resources/icon/1-removebg-preview 1.png"
+const WEEKLY_TIME_LIMIT := 12
 
 # ========== GAME STATE VARIABLES ==========
 # Store the currently selected location id.
@@ -15,9 +16,9 @@ var player_location_id: String = "chifley_library_and_kambri_precinct"
 var stamina: int = 100
 var current_week: int = 1
 var current_week_tag: String = "Week1"
-var max_time_per_week: int = 8
+var max_time_per_week: int = WEEKLY_TIME_LIMIT
 var max_week: int = 16
-var time: int = 8
+var time: int = WEEKLY_TIME_LIMIT
 var money: int = 50
 
 var travel_time_per_edge: int = 1
@@ -59,6 +60,11 @@ func _ready() -> void:
 
 func notify_resources_changed() -> void:
 	resources_changed.emit(time, money)
+
+
+func normalize_time_limits() -> void:
+	max_time_per_week = WEEKLY_TIME_LIMIT
+	time = clampi(time, 0, max_time_per_week)
 
 
 func unlock_clue(clue_id: String, clue_name: String = "") -> bool:
@@ -493,6 +499,7 @@ func load_game() -> void:
 					em.load_save_data(event_data)
 
 			normalize_legacy_ids()
+			normalize_time_limits()
 
 			if current_week_tag == "":
 				refresh_week_tag()
