@@ -206,7 +206,11 @@ func build_profile_summary() -> String:
 	var homebase_text := (
 		"Toad Lodges Precinct"
 		if current_homebase == "toad_lodges_precinct"
-		else ("Chifley Library and Kambri Precinct" if current_homebase == "chifley_library_and_kambri_precinct" else "Unassigned")
+		else (
+			"Chifley Library and Kambri Precinct"
+			if current_homebase == "chifley_library_and_kambri_precinct"
+			else "Unassigned"
+		)
 	)
 
 	return (
