@@ -1,5 +1,6 @@
 extends Control
 
+const START_BGM := "res://resources/music/first.mp3"
 const SETTINGS_PANEL_SCRIPT = preload("res://systems/Script/ui/settings_panel.gd")
 
 @onready var _background: TextureRect = $TextureRect
@@ -45,6 +46,7 @@ var _exit_pointer_held: bool = false
 
 func _ready() -> void:
 	_layout_start_screen()
+	AudioManager.play_bgm(START_BGM)
 	_update_start_label_color()
 	_update_continue_label_color()
 	_update_settings_label_color()
@@ -227,11 +229,13 @@ func _on_start_button_pressed() -> void:
 	# "Continue" loads the save file and restores these values instead.
 	Global.player_data["major"] = ""
 	Global.player_data["homebase"] = ""
+	AudioManager.play_default_bgm()
 	get_tree().change_scene_to_file("res://main.tscn")
 
 
 func _on_continue_button_pressed() -> void:
 	Global.load_game()
+	AudioManager.play_default_bgm()
 	get_tree().change_scene_to_file("res://main.tscn")
 
 
