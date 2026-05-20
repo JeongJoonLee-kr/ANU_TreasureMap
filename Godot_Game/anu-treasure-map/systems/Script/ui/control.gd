@@ -42,6 +42,7 @@ var _start_pointer_held: bool = false
 var _continue_pointer_held: bool = false
 var _settings_pointer_held: bool = false
 var _exit_pointer_held: bool = false
+var _main_scene_preloaded := false
 
 
 func _ready() -> void:
@@ -67,6 +68,8 @@ func _ready() -> void:
 	_exit_button.button_up.connect(_on_exit_button_button_up)
 	_exit_button.focus_entered.connect(_on_exit_button_focus_in)
 	_exit_button.focus_exited.connect(_on_exit_button_focus_out)
+	# Start preloading main.tscn in the background while the intro plays.
+	ResourceLoader.load_threaded_request("res://main.tscn", "", true)
 
 
 func _notification(what: int) -> void:
@@ -225,18 +228,35 @@ func _update_exit_label_color() -> void:
 
 
 func _on_start_button_pressed() -> void:
-	# Clear registration so onboarding always runs for a new game.
-	# "Continue" loads the save file and restores these values instead.
+	# Full reset for a fresh game — clear all progress and delete saves.
 	Global.player_data["major"] = ""
 	Global.player_data["homebase"] = ""
+	Global.current_week = 1
+	Global.refresh_week_tag()
+	Global.time = Global.max_time_per_week
+	Global.money = 50
+	Global.current_location_id = "chifley_marie_reay"
+	Global.selected_location_id = "chifley_marie_reay"
+	Global.player_location_id = "chifley_marie_reay"
+	Global.unlocked_clues.clear()
+	Global.unlocked_treasures.clear()
+	Global.shared_treasure_records.clear()
+	Global._rebuild_posts_data()
+	if Engine.has_singleton("EventManager") or get_node_or_null("/root/EventManager") != null:
+		var em := get_node_or_null("/root/EventManager")
+		if em != null and em.has_method("reset_for_new_run"):
+			em.reset_for_new_run()
+	# Delete the save file so "Continue" won't find stale data.
+	if FileAccess.file_exists(Global.SAVE_PATH):
+		DirAccess.remove_absolute(Global.SAVE_PATH)
 	AudioManager.play_default_bgm()
-	get_tree().change_scene_to_file("res://main.tscn")
+	_do_start_transition()
 
 
 func _on_continue_button_pressed() -> void:
 	Global.load_game()
 	AudioManager.play_default_bgm()
-	get_tree().change_scene_to_file("res://main.tscn")
+	_do_start_transition()
 
 
 func _on_settings_button_pressed() -> void:
@@ -255,6 +275,17 @@ func _open_settings_panel() -> void:
 	var settings_panel := SETTINGS_PANEL_SCRIPT.new()
 	settings_panel.name = "SettingsPanel"
 	get_tree().root.add_child(settings_panel)
+
+
+func _do_start_transition() -> void:
+	# Use the preloaded scene if background loading has completed.
+	var status := ResourceLoader.load_threaded_get_status("res://main.tscn")
+	if status == ResourceLoader.THREAD_LOAD_LOADED:
+		var packed_scene := ResourceLoader.load_threaded_get("res://main.tscn")
+		if packed_scene is PackedScene:
+			get_tree().change_scene_to_packed(packed_scene)
+			return
+	get_tree().change_scene_to_file("res://main.tscn")
 
 #func _on_button_pressed() -> void:
 #pass # Replace with function body.

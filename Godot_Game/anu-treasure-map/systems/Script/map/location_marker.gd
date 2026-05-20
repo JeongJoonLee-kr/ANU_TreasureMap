@@ -274,18 +274,18 @@ func _medal_fx_targets() -> Dictionary:
 		return {
 			"scale": Vector2.ONE, "modulate": _medal_base_modulate(), "plate_pos": _MEDAL_PLATE_POS
 		}
-	var scale := Vector2.ONE
+	var medal_scale := Vector2.ONE
 	var mod := _medal_base_modulate()
 	var plate_pos := _MEDAL_PLATE_POS
 	if _medal_pressed:
-		scale = _MEDAL_FX_PRESS_SCALE
+		medal_scale = _MEDAL_FX_PRESS_SCALE
 		mod = _medal_base_modulate() * Color(0.93, 0.93, 0.96, 1.0)
 		plate_pos = Vector2(_MEDAL_PLATE_POS.x, _MEDAL_PLATE_POS.y - 1.0)
 	elif _medal_hovering:
-		scale = _MEDAL_FX_HOVER_SCALE
+		medal_scale = _MEDAL_FX_HOVER_SCALE
 		mod = _medal_base_modulate() * Color(1.07, 1.07, 1.1, 1.0)
 		plate_pos = Vector2(_MEDAL_PLATE_POS.x, _MEDAL_PLATE_POS.y - _MEDAL_PLATE_HOVER_LIFT)
-	return {"scale": scale, "modulate": mod, "plate_pos": plate_pos}
+	return {"scale": medal_scale, "modulate": mod, "plate_pos": plate_pos}
 
 
 func _tween_medal_interaction_fx() -> void:

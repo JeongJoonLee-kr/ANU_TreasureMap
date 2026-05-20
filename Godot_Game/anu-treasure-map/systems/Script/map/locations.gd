@@ -36,6 +36,7 @@ var _choice_canvas_layer: CanvasLayer = null
 var _choice_panel_instance: Control = null
 var _treasure_canvas_layer: CanvasLayer = null
 var _treasure_popup_instance: Control = null
+var _exhaustion_toast: CanvasLayer = null
 var _event_scene_stage: String = ""
 var _event_bgm_active: bool = false
 var _force_leave_option_once: bool = false
@@ -162,6 +163,9 @@ func _show_event_choices() -> void:
 	_update_portraits("narrator")
 	_set_event_scene_stage("investigation")
 	_show_choice_panel(_normalize_event_choices(choices), _on_event_choice_selected)
+	if GuideManager.is_in_onboarding():
+		_choice_panel_instance.lock_choices_except("__none__")
+		GuideManager._on_location_choices_shown(_choice_panel_instance, _active_event)
 
 
 func _on_event_choice_selected(choice_key: String) -> void:
@@ -182,8 +186,12 @@ func _finish_event_outcome() -> void:
 	if _selected_event_choice.get("treasure_found", false):
 		_show_treasure_popup()
 	else:
-		_show_leave_only_after_failed_event = true
-		_complete_current_event_and_show_location()
+		if GuideManager.is_in_onboarding():
+			_complete_tutorial_event("collect")
+			GuideManager._on_tutorial_treasure_chosen("collect")
+		else:
+			_show_leave_only_after_failed_event = true
+			_complete_current_event_and_show_location()
 
 
 func _show_treasure_popup() -> void:
@@ -203,10 +211,33 @@ func _show_treasure_popup() -> void:
 	_treasure_popup_instance.choice_made.connect(_on_treasure_popup_choice_made)
 	_treasure_canvas_layer.add_child(_treasure_popup_instance)
 
+	if GuideManager.is_in_onboarding():
+		GuideManager._on_treasure_popup_shown(_treasure_popup_instance)
+
 
 func _on_treasure_popup_choice_made(action: String) -> void:
 	_hide_treasure_popup()
-	_complete_current_event_and_show_location(action)
+	if GuideManager.is_in_onboarding():
+		_complete_tutorial_event(action)
+	else:
+		_complete_current_event_and_show_location(action)
+
+
+func _complete_tutorial_event(treasure_action: String) -> void:
+	var event_id := str(_active_event.get("id", ""))
+	EventManager.complete_event(event_id, _selected_event_choice_key, treasure_action)
+	if _event_bgm_active:
+		AudioManager.play_default_bgm()
+	_active_event = {}
+	_selected_event_choice_key = ""
+	_selected_event_choice = {}
+	_event_bgm_active = false
+	_clear_portraits()
+	_clear_event_scene_stage()
+	# Return to map so GuideManager can show post/collection book
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("show_map"):
+		current_scene.show_map()
 
 
 func _update_event_scene_for_text() -> void:
@@ -284,6 +315,75 @@ func _show_leave_only_choice() -> void:
 	)
 
 
+func _on_not_enough_ap() -> void:
+	_show_exhaustion_toast()
+
+
+func _show_exhaustion_toast() -> void:
+	if is_instance_valid(_exhaustion_toast):
+		return
+
+	_exhaustion_toast = CanvasLayer.new()
+	_exhaustion_toast.name = "ExhaustionToastLayer"
+	_exhaustion_toast.layer = 90
+	add_child(_exhaustion_toast)
+
+	var toast := Panel.new()
+	toast.name = "Toast"
+	toast.custom_minimum_size = Vector2(700, 160)
+	toast.size = Vector2(700, 160)
+
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.15, 0.1, 0.1, 0.95)
+	style.corner_radius_top_left = 12
+	style.corner_radius_top_right = 12
+	style.corner_radius_bottom_left = 12
+	style.corner_radius_bottom_right = 12
+	style.border_width_top = 2
+	style.border_width_bottom = 2
+	style.border_width_left = 2
+	style.border_width_right = 2
+	style.border_color = Color(0.8, 0.3, 0.3, 0.7)
+	toast.add_theme_stylebox_override("panel", style)
+
+	var margin := MarginContainer.new()
+	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 24)
+	margin.add_theme_constant_override("margin_right", 24)
+	margin.add_theme_constant_override("margin_top", 16)
+	margin.add_theme_constant_override("margin_bottom", 16)
+	toast.add_child(margin)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 12)
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	margin.add_child(vbox)
+
+	var msg := Label.new()
+	msg.text = EventManager.EXHAUSTED_MESSAGE
+	msg.add_theme_font_size_override("font_size", 18)
+	msg.add_theme_color_override("font_color", Color(1.0, 0.85, 0.7))
+	msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(msg)
+
+	var ok_btn := Button.new()
+	ok_btn.text = "OK"
+	ok_btn.custom_minimum_size = Vector2(120, 36)
+	ok_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	ok_btn.pressed.connect(
+		func():
+			if is_instance_valid(_exhaustion_toast):
+				_exhaustion_toast.queue_free()
+				_exhaustion_toast = null
+	)
+	vbox.add_child(ok_btn)
+
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_exhaustion_toast.add_child(center)
+	center.add_child(toast)
 func show_location() -> void:
 	if not location_data.has(location_id):
 		return

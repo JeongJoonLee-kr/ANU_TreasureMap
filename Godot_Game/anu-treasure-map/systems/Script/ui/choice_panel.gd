@@ -12,6 +12,7 @@ var _choices: Dictionary = {}
 var _content_panel: PanelContainer
 var _choices_box: VBoxContainer
 var _font: FontFile
+var _buttons_by_key: Dictionary = {}
 
 
 func _ready() -> void:
@@ -73,6 +74,7 @@ func _rebuild_choices() -> void:
 
 	for child in _choices_box.get_children():
 		child.queue_free()
+	_buttons_by_key.clear()
 
 	var keys := _choices.keys()
 	keys.sort_custom(_sort_choice_keys)
@@ -94,7 +96,29 @@ func _rebuild_choices() -> void:
 		var button := _create_choice_button(button_text)
 		button.pressed.connect(func(): choice_selected.emit(key))
 		_choices_box.add_child(button)
+		_buttons_by_key[key] = button
 		count += 1
+
+
+func lock_choices_except(keep_unlocked_key: String) -> void:
+	for key in _buttons_by_key:
+		var btn := _buttons_by_key[key] as Button
+		if is_instance_valid(btn):
+			btn.disabled = (key != keep_unlocked_key)
+
+
+func unlock_all_choices() -> void:
+	for key in _buttons_by_key:
+		var btn := _buttons_by_key[key] as Button
+		if is_instance_valid(btn):
+			btn.disabled = false
+
+
+func get_button_global_rect(key: String) -> Rect2:
+	var btn := _buttons_by_key.get(key, null) as Button
+	if is_instance_valid(btn):
+		return btn.get_global_rect()
+	return Rect2()
 
 
 func _sort_choice_keys(a: Variant, b: Variant) -> bool:

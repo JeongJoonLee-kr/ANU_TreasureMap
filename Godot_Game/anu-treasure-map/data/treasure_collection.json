@@ -2,7 +2,7 @@
   "yuki": {
 	"name": "Yuki the White Dog",
 	"location_id": "bruce_hall",
-	"image_path": "res://resources/treasure/treasure_yuki.jpg",
+	"image_path": "res://resources/treasure/treasure_yuki.png",
 	"frame_path": "res://resources/ui/collection_book/card_front_beige.svg",
 	"description": "A gentle white dog whose small bell became the first sign of a hidden campus relic."
   },

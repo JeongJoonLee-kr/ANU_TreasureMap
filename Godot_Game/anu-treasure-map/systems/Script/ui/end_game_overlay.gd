@@ -204,9 +204,9 @@ func _build_credit_sections(credits_config: Dictionary) -> void:
 
 		_credits_scroller.add_child(_make_credit_section_label(section_title))
 		for name_value in names:
-			var name := str(name_value).strip_edges()
-			if name != "":
-				_credits_scroller.add_child(_make_credit_name_label(name))
+			var person_name := str(name_value).strip_edges()
+			if person_name != "":
+				_credits_scroller.add_child(_make_credit_name_label(person_name))
 
 		var gap := Control.new()
 		gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -221,11 +221,11 @@ func _sections_from_legacy_members(members: Array) -> Array:
 			continue
 		var credit_data := credit as Dictionary
 		var role := str(credit_data.get("role", "Game Team")).strip_edges()
-		var name := str(credit_data.get("name", "")).strip_edges()
-		if role == "" or name == "":
+		var person_name := str(credit_data.get("name", "")).strip_edges()
+		if role == "" or person_name == "":
 			continue
 		var grouped_names: Array = grouped.get(role, [])
-		grouped_names.append(name)
+		grouped_names.append(person_name)
 		grouped[role] = grouped_names
 
 	var sections: Array = []
@@ -330,7 +330,6 @@ func _start_credits_scroll() -> void:
 	await get_tree().process_frame
 	_layout()
 
-	var viewport_size := get_viewport().get_visible_rect().size
 	var content_height: float = maxf(
 		_credits_scroller.get_combined_minimum_size().y, _credits_scroller.size.y
 	)

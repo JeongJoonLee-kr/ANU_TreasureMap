@@ -163,6 +163,32 @@ func _on_collect_pressed() -> void:
 	choice_made.emit("collect")
 
 
+func lock_buttons() -> void:
+	if is_instance_valid(_share_button):
+		_share_button.disabled = true
+	if is_instance_valid(_collect_button):
+		_collect_button.disabled = true
+
+
+func unlock_buttons() -> void:
+	if is_instance_valid(_share_button):
+		_share_button.disabled = false
+	if is_instance_valid(_collect_button):
+		_collect_button.disabled = false
+
+
+func get_share_button_global_rect() -> Rect2:
+	if is_instance_valid(_share_button):
+		return _share_button.get_global_rect()
+	return Rect2()
+
+
+func get_collect_button_global_rect() -> Rect2:
+	if is_instance_valid(_collect_button):
+		return _collect_button.get_global_rect()
+	return Rect2()
+
+
 func _make_card_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.12, 0.12, 0.18, 0.95)

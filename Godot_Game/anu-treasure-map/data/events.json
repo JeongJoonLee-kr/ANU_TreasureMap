@@ -8,7 +8,7 @@
 	"clue_id": "clue_yuki",
 	"enabled": true,
 	"bgm_path": "res://resources/music/Sunlit Claps.mp3",
-	"treasure_image_path": "res://resources/treasure/treasure_yuki.jpg",
+	"treasure_image_path": "res://resources/treasure/treasure_yuki.png",
 	"portrait_config": {
 	  "yuki_master": {
 		"path": "res://resources/character/yuki_master.png",
