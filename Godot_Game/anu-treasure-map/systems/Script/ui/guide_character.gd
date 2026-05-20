@@ -48,7 +48,6 @@ var _bear_desired_pos: Vector2 = Vector2.ZERO
 
 var _skip_canvas: CanvasLayer
 var _skip_button: Button
-var _skip_font: Font
 
 
 func _ready() -> void:
@@ -176,7 +175,6 @@ func _build_ui() -> void:
 
 
 	# ── Skip button — layer 87 (above tap overlay 86) ────────────────────
-	_skip_font = load("res://resources/font/AlegreyaSans-Medium.ttf")
 	_skip_canvas = CanvasLayer.new()
 	_skip_canvas.name = "SkipCanvas"
 	_skip_canvas.layer = 87
@@ -186,20 +184,21 @@ func _build_ui() -> void:
 	anchor.name = "SkipAnchor"
 	anchor.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	anchor.offset_left = -140.0
-	anchor.offset_bottom = 48.0
+	anchor.offset_top = 24.0
+	anchor.offset_bottom = 76.0
 	anchor.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_skip_canvas.add_child(anchor)
 
 	_skip_button = Button.new()
 	_skip_button.name = "SkipButton"
 	_skip_button.text = "Skip  "
-	_skip_button.add_theme_font_override("font", _skip_font)
-	_skip_button.add_theme_font_size_override("font_size", 15)
-	_skip_button.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.82))
-	_skip_button.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0, 0.95))
-	_skip_button.add_theme_stylebox_override("normal", _make_skip_style(Color(0.08, 0.09, 0.16, 0.55)))
-	_skip_button.add_theme_stylebox_override("hover", _make_skip_style(Color(0.10, 0.11, 0.20, 0.72)))
-	_skip_button.add_theme_stylebox_override("pressed", _make_skip_style(Color(0.05, 0.06, 0.12, 0.80)))
+	_skip_button.add_theme_font_size_override("font_size", 18)
+	_skip_button.add_theme_color_override("font_color", Color(0.13, 0.43, 0.73, 1.0))
+	_skip_button.add_theme_color_override("font_hover_color", Color(0.2588, 0.6471, 0.9608, 1.0))
+	_skip_button.add_theme_color_override("font_pressed_color", Color(0.2588, 0.6471, 0.9608, 1.0))
+	_skip_button.add_theme_stylebox_override("normal", _make_skip_style(Color(0.98, 0.99, 1.0, 0.94), Color(0.36, 0.41, 0.55, 0.35)))
+	_skip_button.add_theme_stylebox_override("hover", _make_skip_style(Color(1.0, 1.0, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.65)))
+	_skip_button.add_theme_stylebox_override("pressed", _make_skip_style(Color(0.925, 0.965, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.85)))
 	_skip_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	_skip_button.pressed.connect(func() -> void: skip_pressed.emit())
 	_skip_button.hide()
@@ -425,18 +424,21 @@ func hide_skip_button() -> void:
 		_skip_button.hide()
 
 
-func _make_skip_style(bg_color: Color) -> StyleBoxFlat:
+func _make_skip_style(bg_color: Color, border_color: Color) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = bg_color
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
+	style.corner_radius_top_left = 10
+	style.corner_radius_top_right = 10
+	style.corner_radius_bottom_left = 10
+	style.corner_radius_bottom_right = 10
 	style.border_width_left = 1
 	style.border_width_top = 1
 	style.border_width_right = 1
 	style.border_width_bottom = 1
-	style.border_color = Color(1.0, 1.0, 1.0, 0.18)
+	style.border_color = border_color
+	style.shadow_color = Color(0, 0, 0, 0.14)
+	style.shadow_size = 8
+	style.shadow_offset = Vector2(0, 2)
 	style.content_margin_left = 14
 	style.content_margin_right = 14
 	style.content_margin_top = 8
