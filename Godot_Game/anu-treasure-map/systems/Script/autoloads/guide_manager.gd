@@ -26,9 +26,7 @@ const _ALL_APP_BUTTONS := [
 
 # Fallback text used when the JSON file is absent or missing a step.
 const _DEFAULT_TEXTS := {
-	0: "Welcome to ANU Treasure Map!\nTap anywhere to continue.",
-	1: "Explore campus and collect treasures.\nTap to continue.",
-	2: "These are your End Goals!\nComplete any one of them to finish the game.\nAim to collect as many treasures as you can!",
+	0: "Welcome to ANU Treasure Map!\nExplore campus and collect treasures.\nTap anywhere to continue.",
 	3: "Tap the phone icon — it's your control panel\nfor messages, profile and more!",
 	4: "This is your Profile!\nTap this app to set up your personal info.",
 	5: "This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue.",
@@ -36,11 +34,13 @@ const _DEFAULT_TEXTS := {
 	7: "This is ANU Ins!\nBrowse the latest campus posts.\nTap to open it and finish setup!",
 	8: "You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!",
 	9: "Let's head back to the map\nand see what's happening!",
-	11: "These show your Week, Time, Location, and Money.\nKeep an eye on them as you explore!",
-	12: "The clue just mentioned something exciting happening here!\nLet's go check it out.",
-	13: "This is the time it takes to travel here.",
-	14: "Running out of time? Tap Next Week\nto move on to the next week!",
-	15: "Let's go take a look!",
+	11: "The clue just mentioned something exciting happening here!\nLet's go check it out.",
+	12: "Let's go take a look!",
+	13: "We're getting closer to the treasure!\nBut first, let me show you how this works.\nThis time, let's just pick the first option.\nYou'll be free to choose later!",
+	14: "Remember the Posts on your phone?\nIf you Share, you won't be able to enter\nthis event again this playthrough.\nBut other players — and your next playthrough —\ncan see the post and trigger the event directly!",
+	15: "Remember the Collection Book on your phone?\nIf you Collect, you can review your\ntreasures there anytime!",
+	16: "Now freely choose — Sharing or Collecting?\nThe adventure is yours!",
+	17: "Now go explore ANU TREASURE MAP freely!\nGood luck on your treasure hunt!",
 }
 
 var _guide: GuideCharacter = null
@@ -56,6 +56,12 @@ var _locked_event_panel_ctrls: Array[Control] = []
 
 # Smart marker: location_id derived from the keyword clicked during the Ins step.
 var _tracked_clue_location_id: String = ""
+
+# Tutorial state for options screen and treasure popup (untyped for duck typing).
+var _tutorial_choice_panel = null
+var _tutorial_treasure_choice_key: String = ""
+var _tutorial_treasure_popup = null
+var _tutorial_action: String = ""
 
 
 func _ready() -> void:
@@ -122,31 +128,14 @@ func _run_step(step: int) -> void:
 	var vp := _guide.get_viewport_rect().size
 
 	match step:
-		# ── 0–2: Welcome, explore intro, end goal ───────────────────────────
+		# ── 0: Welcome ──────────────────────────────────────────────────────
 		0:
-			_set_tap_advance(true)
-			_guide.show_step(_get_text(0), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true)
+			_set_tap_advance(false)
+			if not _guide.step_advanced.is_connected(_on_step_0_to_phone):
+				_guide.step_advanced.connect(_on_step_0_to_phone, CONNECT_ONE_SHOT)
+			_guide.show_step(_get_text(0), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
 
-		1:
-			_set_tap_advance(true)
-			_guide.show_step(_get_text(1), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, true)
-
-		2:
-			_set_tap_advance(true)
-			var goal_rect := _get_hud_rect(_PATH_GOAL_PANEL)
-			var bear_x := (
-				clampf(goal_rect.end.x + 80.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-				if goal_rect.size != Vector2.ZERO else vp.x * 0.55
-			)
-			var bear_y := (
-				clampf(goal_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
-				if goal_rect.size != Vector2.ZERO else 20.0
-			)
-			_guide.show_step(_get_text(2), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
-			if goal_rect.size != Vector2.ZERO:
-				_guide.set_spotlight_rect(goal_rect.grow(10.0))
-
-		# ── 3: Phone button ─────────────────────────────────────────────────
+		# ── 3: Phone button on HUD ──────────────────────────────────────────
 		3:
 			_set_tap_advance(false)
 			var phone_rect := _get_hud_rect(_PATH_INS_BTN)
@@ -210,27 +199,13 @@ func _run_step(step: int) -> void:
 			get_tree().create_timer(0.8).timeout.connect(
 				func():
 					if _in_onboarding:
+						_unlock_map_only()
 						_step = 11
 						_run_step(11)
 			)
 
-		# ── 11: Combined HUD — spotlight the entire Bottombar ────────────────
+		# ── 11: Map marker spotlight ────────────────────────────────────────
 		11:
-			_set_tap_advance(true)
-			var bar_rect := _get_hud_rect(_PATH_BOTTOMBAR)
-			var bear_x := clampf(vp.x * 0.5 - GuideCharacter.BEAR_SIZE.x * 0.5, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-			var bear_y: float
-			if bar_rect.size != Vector2.ZERO:
-				bear_y = clampf(bar_rect.position.y - GuideCharacter.BEAR_SIZE.y - 30.0, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
-			else:
-				bear_y = vp.y - GuideCharacter.BEAR_SIZE.y - 80.0
-			_guide.show_step(_get_text(11), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
-			if bar_rect.size != Vector2.ZERO:
-				_guide.set_spotlight_rect(bar_rect.grow(8.0))
-			_unlock_map_only()
-
-		# ── 12: Smart map marker — spotlight the location from the clue ──────
-		12:
 			_set_tap_advance(false)
 			_lock_map_markers_except(_tracked_clue_location_id if _tracked_clue_location_id != "" else "csit_engn_area")
 			_lock_ins_button()
@@ -249,52 +224,13 @@ func _run_step(step: int) -> void:
 			else:
 				bear_x = vp.x * 0.6
 				bear_y = vp.y * 0.35 - 130.0
-			_guide.show_step(_get_text(12), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true)
+			_guide.show_step(_get_text(11), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true)
 			if ref_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(ref_rect.grow(18.0))
 			_connect_marker_listener(marker_path)
 
-		# ── 13: Event panel — travel cost ────────────────────────────────────
-		13:
-			_set_tap_advance(true)
-			var panel_rect := _get_hud_rect(_PATH_EVENT_PANEL)
-			var cost_rect := _get_hud_rect(_PATH_TRAVEL_COST)
-			var bear_x: float
-			var bear_y: float
-			if panel_rect.size != Vector2.ZERO:
-				var panel_on_right := panel_rect.get_center().x > vp.x * 0.5
-				bear_x = clampf(
-					panel_rect.position.x - GuideCharacter.BEAR_SIZE.x - 40.0 if panel_on_right else panel_rect.end.x + 40.0,
-					20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
-				)
-				bear_y = clampf(panel_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
-			else:
-				bear_x = vp.x * 0.1
-				bear_y = vp.y * 0.4
-			_guide.show_step(_get_text(13), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, false)
-			if cost_rect.size != Vector2.ZERO:
-				_guide.set_spotlight_rect(cost_rect.grow(10.0))
-
-		# ── 14: Next Week button ─────────────────────────────────────────────
-		14:
-			_set_tap_advance(true)
-			var nw_rect := _get_hud_rect(_PATH_NW_BTN_BOT)
-			if nw_rect.size == Vector2.ZERO:
-				nw_rect = _get_hud_rect(_PATH_NW_BTN_TOP)
-			var bear_x: float
-			var bear_y: float
-			if nw_rect.size != Vector2.ZERO:
-				bear_x = clampf(nw_rect.get_center().x - GuideCharacter.BEAR_SIZE.x * 0.5, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-				bear_y = clampf(nw_rect.position.y - GuideCharacter.BEAR_SIZE.y - 30.0, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
-			else:
-				bear_x = vp.x * 0.5 - 130.0
-				bear_y = vp.y * 0.6
-			_guide.show_step(_get_text(14), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
-			if nw_rect.size != Vector2.ZERO:
-				_guide.set_spotlight_rect(nw_rect.grow(10.0))
-
-		# ── 15: Go button ────────────────────────────────────────────────────
-		15:
+		# ── 12: Go button spotlight ─────────────────────────────────────────
+		12:
 			_set_tap_advance(false)
 			_lock_event_panel_close()
 			var go_rect := _get_hud_rect(_PATH_GO_BTN)
@@ -306,10 +242,64 @@ func _run_step(step: int) -> void:
 			else:
 				bear_x = vp.x * 0.5 - 130.0
 				bear_y = vp.y * 0.5
-			_guide.show_step(_get_text(15), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true)
+			_guide.show_step(_get_text(12), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true)
 			if go_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(go_rect.grow(12.0))
 			_connect_go_listener()
+
+		# ── 13: Event choices at location ───────────────────────────────────
+		13:
+			_set_tap_advance(false)
+			if _tutorial_choice_panel == null:
+				_finish_onboarding()
+				return
+			var treasure_key := _tutorial_treasure_choice_key
+			var choice_rect: Rect2 = _tutorial_choice_panel.get_button_global_rect(treasure_key)
+			_tutorial_choice_panel.lock_choices_except(treasure_key)
+			var bear_x: float
+			var bear_y: float
+			if choice_rect.size != Vector2.ZERO:
+				bear_x = clampf(choice_rect.end.x + 60.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
+				bear_y = clampf(choice_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+			else:
+				bear_x = vp.x * 0.6
+				bear_y = vp.y * 0.35 - 130.0
+			_guide.show_step(_get_text(13), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, false)
+			if choice_rect.size != Vector2.ZERO:
+				_guide.set_spotlight_rect(choice_rect.grow(14.0))
+			if not _tutorial_choice_panel.choice_selected.is_connected(_on_tutorial_choice_selected):
+				_tutorial_choice_panel.choice_selected.connect(_on_tutorial_choice_selected)
+
+		# ── 14: Treasure popup — Share explanation (no dimming) ─────────────
+		14:
+			_set_tap_advance(true)
+			if _tutorial_treasure_popup != null:
+				_tutorial_treasure_popup.lock_buttons()
+			_guide.show_step(_get_text(14), _center_bear(vp), GuideCharacter.OVERLAY_NONE, true, false, false)
+
+		# ── 15: Treasure popup — Collect explanation (no dimming) ───────────
+		15:
+			_set_tap_advance(true)
+			if _tutorial_treasure_popup != null:
+				_tutorial_treasure_popup.lock_buttons()
+			_guide.show_step(_get_text(15), _center_bear(vp), GuideCharacter.OVERLAY_NONE, true, false, false)
+
+		# ── 16: Freely choose — tap to dismiss bear, then unlock ────────────
+		16:
+			_set_tap_advance(false)
+			if _tutorial_treasure_popup != null:
+				_tutorial_treasure_popup.lock_buttons()
+			if not _guide.step_advanced.is_connected(_on_step_16_dismiss):
+				_guide.step_advanced.connect(_on_step_16_dismiss, CONNECT_ONE_SHOT)
+			_guide.show_step(_get_text(16), _center_bear(vp), GuideCharacter.OVERLAY_NONE, true, false, false)
+
+		# ── 17: Post-treasure finale ────────────────────────────────────────
+		17:
+			_set_tap_advance(false)
+			var bear_pos := _center_bear(vp)
+			_guide.show_step(_get_text(17), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, false)
+			if not _guide.step_advanced.is_connected(_on_finale_advanced):
+				_guide.step_advanced.connect(_on_finale_advanced, CONNECT_ONE_SHOT)
 
 		_:
 			_finish_onboarding()
@@ -409,29 +399,12 @@ func _get_hud_rect(path: String) -> Rect2:
 	return (node as Control).get_global_rect()
 
 
-func _connect_phone_listener() -> void:
-	if _main_ref == null:
-		return
-	var ins_btn := _main_ref.get_node_or_null(_PATH_INS_BTN)
-	if ins_btn == null:
-		return
-	if not (ins_btn as BaseButton).pressed.is_connected(_on_phone_pressed):
-		(ins_btn as BaseButton).pressed.connect(_on_phone_pressed, CONNECT_ONE_SHOT)
-
-
-func _on_phone_pressed() -> void:
-	_ensure_guide()
-	_guide.block_input()
-	get_tree().create_timer(0.7).timeout.connect(
-		func():
-			if _in_onboarding:
-				_step = 4
-				_run_step(4)
-	)
-
-
 func _finish_onboarding() -> void:
 	_in_onboarding = false
+	_tutorial_choice_panel = null
+	_tutorial_treasure_choice_key = ""
+	_tutorial_treasure_popup = null
+	_tutorial_action = ""
 	_unlock_non_phone_input()
 	_unlock_phone_buttons()
 	_unlock_map_markers()
@@ -547,7 +520,42 @@ func _unlock_event_panel_ctrls() -> void:
 	_locked_event_panel_ctrls.clear()
 
 
-# ── Listeners ─────────────────────────────────────────────────────────────────
+# ── Listeners & new tutorial handlers ──────────────────────────────────────────
+
+
+# ── Step 0 → 3: welcome tapped, go to phone button ─────────────────────────────
+
+func _on_step_0_to_phone() -> void:
+	if not _in_onboarding:
+		return
+	_step = 3
+	_run_step(3)
+
+
+# ── Step 3: phone button clicked ────────────────────────────────────────────────
+
+func _connect_phone_listener() -> void:
+	if _main_ref == null:
+		return
+	var ins_btn := _main_ref.get_node_or_null(_PATH_INS_BTN)
+	if ins_btn == null:
+		return
+	if not (ins_btn as BaseButton).pressed.is_connected(_on_phone_pressed):
+		(ins_btn as BaseButton).pressed.connect(_on_phone_pressed, CONNECT_ONE_SHOT)
+
+
+func _on_phone_pressed() -> void:
+	_ensure_guide()
+	_guide.block_input()
+	get_tree().create_timer(0.7).timeout.connect(
+		func():
+			if _in_onboarding:
+				_step = 4
+				_run_step(4)
+	)
+
+
+# ── Step 11 → 12: marker clicked, show Go button ───────────────────────────────
 
 func _connect_marker_listener(marker_path: String) -> void:
 	if _main_ref == null:
@@ -567,10 +575,12 @@ func _on_marker_selected(_location_id: String, _anchor: Control) -> void:
 	get_tree().create_timer(0.4).timeout.connect(
 		func():
 			if _in_onboarding:
-				_step = 13
-				_run_step(13)
+				_step = 12
+				_run_step(12)
 	)
 
+
+# ── Step 4 → location: Go clicked, wait for event choices ──────────────────────
 
 func _connect_go_listener() -> void:
 	if _main_ref == null:
@@ -583,83 +593,109 @@ func _connect_go_listener() -> void:
 
 
 func _on_go_pressed() -> void:
-	_finish_onboarding()
-
-
-func _on_step_8_advanced() -> void:
 	if not _in_onboarding:
 		return
 	hide_guide()
-	get_tree().create_timer(0.3).timeout.connect(
-		func():
-			if _in_onboarding:
-				_connect_keyword_listeners()
-	)
 
 
-func _connect_keyword_listeners() -> void:
-	if _main_ref == null:
-		return
-	var feed_list := _main_ref.get_node_or_null(_PATH_INS_FEED)
-	if feed_list == null:
-		return
-	for post_item in feed_list.get_children():
-		var post_text := post_item.get_node_or_null("MarginContainer/VBoxContainer/PostText")
-		if post_text != null and post_text.has_signal("meta_clicked"):
-			if not post_text.meta_clicked.is_connected(_on_keyword_clicked):
-				post_text.meta_clicked.connect(_on_keyword_clicked, CONNECT_ONE_SHOT)
+# ── Location hooks: choices shown → step 13, treasure popup → step 14 ──────────
 
-
-func _on_keyword_clicked(meta: Variant) -> void:
+func _on_location_choices_shown(choice_panel: Control, event_data: Dictionary) -> void:
 	if not _in_onboarding:
 		return
-	# Capture the keyword → clue → location mapping for the smart marker step.
-	var keyword := str(meta)
-	var clue_id := _find_clue_id_for_keyword(keyword)
-	if clue_id != "":
-		_tracked_clue_location_id = _resolve_clue_to_location(clue_id)
+	_tutorial_choice_panel = choice_panel
+	_tutorial_treasure_choice_key = _find_treasure_choice(event_data)
 	_ensure_guide()
+	_guide.block_input()
 	get_tree().create_timer(0.5).timeout.connect(
 		func():
 			if _in_onboarding:
-				_step = 9
-				_run_step(9)
+				_step = 13
+				_run_step(13)
 	)
 
 
-func _find_clue_id_for_keyword(keyword: String) -> String:
-	var posts: Array = Global.get("posts_data") if Global else []
-	for post in posts:
-		if not (post is Dictionary):
-			continue
-		var annotations: Dictionary = post.get("annotations", {})
-		if annotations.has(keyword):
-			var ann: Dictionary = annotations[keyword] as Dictionary
-			return str(ann.get("clue_id", ""))
-	return ""
+func _find_treasure_choice(event_data: Dictionary) -> String:
+	var choices: Dictionary = event_data.get("choices", {})
+	var keys := choices.keys()
+	keys.sort()
+	for key in keys:
+		var choice: Dictionary = choices[key]
+		if choice.get("treasure_found", false):
+			return str(key)
+	return str(keys[0]) if not keys.is_empty() else "A"
 
 
-func _connect_ins_listener() -> void:
-	if _main_ref == null:
+func _on_tutorial_choice_selected(_choice_key: String) -> void:
+	if not _in_onboarding:
 		return
-	var ins_btn := _main_ref.get_node_or_null(_PATH_APP_GRID + "AppInsButton")
-	if ins_btn == null:
+	hide_guide()
+	_tutorial_choice_panel = null
+
+
+func _on_treasure_popup_shown(popup: Control) -> void:
+	if not _in_onboarding:
 		return
-	if not (ins_btn as BaseButton).pressed.is_connected(_on_ins_app_pressed):
-		(ins_btn as BaseButton).pressed.connect(_on_ins_app_pressed, CONNECT_ONE_SHOT)
-
-
-func _on_ins_app_pressed() -> void:
-	_unlock_phone_buttons()
+	_tutorial_treasure_popup = popup
 	_ensure_guide()
 	_guide.block_input()
-	get_tree().create_timer(0.7).timeout.connect(
+	get_tree().create_timer(0.6).timeout.connect(
 		func():
 			if _in_onboarding:
-				_step = 8
-				_run_step(8)
+				_step = 14
+				_run_step(14)
 	)
 
+
+# ── Step 14-15: treasure explanation (tap to advance, buttons locked) ──────────
+
+# Explanation steps use flat overlay with passthrough so the treasure popup remains
+# fully visible without dimming. Buttons are locked so the player can't click them.
+
+
+# ── Step 16: dismiss bear → unlock buttons ──────────────────────────────────────
+
+func _on_step_16_dismiss() -> void:
+	if not _in_onboarding:
+		return
+	hide_guide()
+	if _tutorial_treasure_popup != null:
+		_tutorial_treasure_popup.unlock_buttons()
+		if not _tutorial_treasure_popup.choice_made.is_connected(_on_tutorial_treasure_chosen):
+			_tutorial_treasure_popup.choice_made.connect(_on_tutorial_treasure_chosen)
+
+
+# ── Step 16 → 17: player chose share/collect, show result then finale ───────────
+
+func _on_tutorial_treasure_chosen(action: String) -> void:
+	if not _in_onboarding:
+		return
+	_tutorial_action = action
+	_tutorial_treasure_popup = null
+	hide_guide()
+	get_tree().create_timer(0.4).timeout.connect(
+		func():
+			if not _in_onboarding:
+				return
+			if _main_ref != null:
+				if _tutorial_action == "share":
+					_main_ref.call("open_ins")
+				else:
+					_main_ref.call("open_profile", false, false, true)
+			get_tree().create_timer(0.9).timeout.connect(
+				func():
+					if _in_onboarding:
+						_step = 17
+						_run_step(17)
+			)
+	)
+
+
+func _on_finale_advanced() -> void:
+	_finish_onboarding()
+
+
+# ── Step 4: Profile app listener ────────────────────────────────────────────────
 
 func _connect_profile_listener() -> void:
 	if _main_ref == null:
@@ -696,6 +732,84 @@ func _on_profile_card_closed() -> void:
 			if _in_onboarding:
 				_step = 5
 				_run_step(5)
+	)
+
+
+# ── Step 8: Keywords in Ins ─────────────────────────────────────────────────────
+
+func _on_step_8_advanced() -> void:
+	if not _in_onboarding:
+		return
+	hide_guide()
+	get_tree().create_timer(0.3).timeout.connect(
+		func():
+			if _in_onboarding:
+				_connect_keyword_listeners()
+	)
+
+
+func _connect_keyword_listeners() -> void:
+	if _main_ref == null:
+		return
+	var feed_list := _main_ref.get_node_or_null(_PATH_INS_FEED)
+	if feed_list == null:
+		return
+	for post_item in feed_list.get_children():
+		var post_text := post_item.get_node_or_null("MarginContainer/VBoxContainer/PostText")
+		if post_text != null and post_text.has_signal("meta_clicked"):
+			if not post_text.meta_clicked.is_connected(_on_keyword_clicked):
+				post_text.meta_clicked.connect(_on_keyword_clicked, CONNECT_ONE_SHOT)
+
+
+func _on_keyword_clicked(meta: Variant) -> void:
+	if not _in_onboarding:
+		return
+	var keyword := str(meta)
+	var clue_id := _find_clue_id_for_keyword(keyword)
+	if clue_id != "":
+		_tracked_clue_location_id = _resolve_clue_to_location(clue_id)
+	_ensure_guide()
+	get_tree().create_timer(0.5).timeout.connect(
+		func():
+			if _in_onboarding:
+				_step = 9
+				_run_step(9)
+	)
+
+
+func _find_clue_id_for_keyword(keyword: String) -> String:
+	var posts: Array = Global.get("posts_data") if Global else []
+	for post in posts:
+		if not (post is Dictionary):
+			continue
+		var annotations: Dictionary = post.get("annotations", {})
+		if annotations.has(keyword):
+			var ann: Dictionary = annotations[keyword] as Dictionary
+			return str(ann.get("clue_id", ""))
+	return ""
+
+
+# ── Step 7: Ins app listener ────────────────────────────────────────────────────
+
+func _connect_ins_listener() -> void:
+	if _main_ref == null:
+		return
+	var ins_btn := _main_ref.get_node_or_null(_PATH_APP_GRID + "AppInsButton")
+	if ins_btn == null:
+		return
+	if not (ins_btn as BaseButton).pressed.is_connected(_on_ins_app_pressed):
+		(ins_btn as BaseButton).pressed.connect(_on_ins_app_pressed, CONNECT_ONE_SHOT)
+
+
+func _on_ins_app_pressed() -> void:
+	_unlock_phone_buttons()
+	_ensure_guide()
+	_guide.block_input()
+	get_tree().create_timer(0.7).timeout.connect(
+		func():
+			if _in_onboarding:
+				_step = 8
+				_run_step(8)
 	)
 
 

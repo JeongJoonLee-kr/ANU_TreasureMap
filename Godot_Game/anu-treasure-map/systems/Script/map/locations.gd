@@ -163,6 +163,9 @@ func _show_event_choices() -> void:
 	_update_portraits("narrator")
 	_set_event_scene_stage("investigation")
 	_show_choice_panel(_normalize_event_choices(choices), _on_event_choice_selected)
+	if GuideManager.is_in_onboarding():
+		_choice_panel_instance.lock_choices_except("__none__")
+		GuideManager._on_location_choices_shown(_choice_panel_instance, _active_event)
 
 
 func _on_event_choice_selected(choice_key: String) -> void:
@@ -183,8 +186,12 @@ func _finish_event_outcome() -> void:
 	if _selected_event_choice.get("treasure_found", false):
 		_show_treasure_popup()
 	else:
-		_show_leave_only_after_failed_event = true
-		_complete_current_event_and_show_location()
+		if GuideManager.is_in_onboarding():
+			_complete_tutorial_event("collect")
+			GuideManager._on_tutorial_treasure_chosen("collect")
+		else:
+			_show_leave_only_after_failed_event = true
+			_complete_current_event_and_show_location()
 
 
 func _show_treasure_popup() -> void:
@@ -204,10 +211,33 @@ func _show_treasure_popup() -> void:
 	_treasure_popup_instance.choice_made.connect(_on_treasure_popup_choice_made)
 	_treasure_canvas_layer.add_child(_treasure_popup_instance)
 
+	if GuideManager.is_in_onboarding():
+		GuideManager._on_treasure_popup_shown(_treasure_popup_instance)
+
 
 func _on_treasure_popup_choice_made(action: String) -> void:
 	_hide_treasure_popup()
-	_complete_current_event_and_show_location(action)
+	if GuideManager.is_in_onboarding():
+		_complete_tutorial_event(action)
+	else:
+		_complete_current_event_and_show_location(action)
+
+
+func _complete_tutorial_event(treasure_action: String) -> void:
+	var event_id := str(_active_event.get("id", ""))
+	EventManager.complete_event(event_id, _selected_event_choice_key, treasure_action)
+	if _event_bgm_active:
+		AudioManager.play_default_bgm()
+	_active_event = {}
+	_selected_event_choice_key = ""
+	_selected_event_choice = {}
+	_event_bgm_active = false
+	_clear_portraits()
+	_clear_event_scene_stage()
+	# Return to map so GuideManager can show post/collection book
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("show_map"):
+		current_scene.show_map()
 
 
 func _update_event_scene_for_text() -> void:

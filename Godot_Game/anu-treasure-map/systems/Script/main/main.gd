@@ -162,7 +162,7 @@ func open_profile(
 	var requires_registration := force_first_time_setup or not is_player_registered()
 	var top_canvas := CanvasLayer.new()
 	top_canvas.name = "ProfileCardLayer"
-	top_canvas.layer = 100
+	top_canvas.layer = 83
 
 	var card_instance = INVESTIGATOR_CARD_SCENE.instantiate()
 	card_instance.is_opened_from_phone = opened_from_phone
@@ -260,7 +260,7 @@ func initialize_progress_state() -> void:
 	Global.normalize_time_limits()
 
 	if Global.max_week <= 0:
-		Global.max_week = 16
+		Global.max_week = 5
 
 	if Global.current_week <= 0:
 		Global.current_week = 1
