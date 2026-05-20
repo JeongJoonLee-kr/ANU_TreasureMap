@@ -3,6 +3,7 @@ extends Control
 
 signal step_advanced
 signal phone_zone_clicked
+signal skip_pressed
 
 const HAPPY_IMG := "res://resources/ui/tutorial_guide/guide_character_happy.png"
 const HINT_IMG := "res://resources/ui/tutorial_guide/guide_character_hint.png"
@@ -44,6 +45,10 @@ var _phone_zone := Rect2()
 var _phone_zone_active := false
 
 var _bear_desired_pos: Vector2 = Vector2.ZERO
+
+var _skip_canvas: CanvasLayer
+var _skip_button: Button
+var _skip_font: Font
 
 
 func _ready() -> void:
@@ -168,6 +173,37 @@ func _build_ui() -> void:
 	_tap_overlay.gui_input.connect(_on_tap_input)
 	_tap_overlay.hide()
 	_tap_canvas.add_child(_tap_overlay)
+
+
+	# ── Skip button — layer 87 (above tap overlay 86) ────────────────────
+	_skip_font = load("res://resources/font/AlegreyaSans-Medium.ttf")
+	_skip_canvas = CanvasLayer.new()
+	_skip_canvas.name = "SkipCanvas"
+	_skip_canvas.layer = 87
+	add_child(_skip_canvas)
+
+	var anchor := Control.new()
+	anchor.name = "SkipAnchor"
+	anchor.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	anchor.offset_left = -140.0
+	anchor.offset_bottom = 48.0
+	anchor.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_skip_canvas.add_child(anchor)
+
+	_skip_button = Button.new()
+	_skip_button.name = "SkipButton"
+	_skip_button.text = "Skip  "
+	_skip_button.add_theme_font_override("font", _skip_font)
+	_skip_button.add_theme_font_size_override("font_size", 15)
+	_skip_button.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.82))
+	_skip_button.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0, 0.95))
+	_skip_button.add_theme_stylebox_override("normal", _make_skip_style(Color(0.08, 0.09, 0.16, 0.55)))
+	_skip_button.add_theme_stylebox_override("hover", _make_skip_style(Color(0.10, 0.11, 0.20, 0.72)))
+	_skip_button.add_theme_stylebox_override("pressed", _make_skip_style(Color(0.05, 0.06, 0.12, 0.80)))
+	_skip_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	_skip_button.pressed.connect(func() -> void: skip_pressed.emit())
+	_skip_button.hide()
+	anchor.add_child(_skip_button)
 
 
 func _on_tap_input(event: InputEvent) -> void:
@@ -377,6 +413,35 @@ func set_bear_position(pos: Vector2) -> void:
 	_bear.position = pos
 	_bear_desired_pos = pos
 	_place_all()
+
+
+func show_skip_button() -> void:
+	if _skip_button:
+		_skip_button.show()
+
+
+func hide_skip_button() -> void:
+	if _skip_button:
+		_skip_button.hide()
+
+
+func _make_skip_style(bg_color: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg_color
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_left = 8
+	style.corner_radius_bottom_right = 8
+	style.border_width_left = 1
+	style.border_width_top = 1
+	style.border_width_right = 1
+	style.border_width_bottom = 1
+	style.border_color = Color(1.0, 1.0, 1.0, 0.18)
+	style.content_margin_left = 14
+	style.content_margin_right = 14
+	style.content_margin_top = 8
+	style.content_margin_bottom = 8
+	return style
 
 
 # ── Internal ──────────────────────────────────────────────────────────────────

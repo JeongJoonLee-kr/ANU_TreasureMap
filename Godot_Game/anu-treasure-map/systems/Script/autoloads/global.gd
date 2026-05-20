@@ -241,6 +241,12 @@ func normalize_location_id(location_id: String) -> String:
 			return location_id
 
 
+func normalize_time_limits() -> void:
+	if max_time_per_week <= 0:
+		max_time_per_week = 8
+	time = clampi(time, 0, max_time_per_week)
+
+
 func normalize_legacy_ids() -> void:
 	current_location_id = normalize_location_id(current_location_id)
 	selected_location_id = normalize_location_id(selected_location_id)

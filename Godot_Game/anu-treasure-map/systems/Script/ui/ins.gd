@@ -195,6 +195,14 @@ func _on_app_ins_pressed() -> void:
 	feed_scroll.scroll_vertical = 0
 
 
+func navigate_to_feed() -> void:
+	if not is_instance_valid(ins_app_screen) or not is_instance_valid(home_screen):
+		return
+	home_screen.hide()
+	ins_app_screen.show()
+	feed_scroll.scroll_vertical = 0
+
+
 func _on_ins_back_pressed() -> void:
 	if not is_instance_valid(ins_app_screen) or not is_instance_valid(home_screen):
 		return

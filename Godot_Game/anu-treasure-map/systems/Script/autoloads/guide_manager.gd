@@ -26,23 +26,53 @@ const _ALL_APP_BUTTONS := [
 
 # Fallback text used when the JSON file is absent or missing a step.
 const _DEFAULT_TEXTS := {
-	0: "Welcome to ANU Treasure Map!\nExplore campus and collect treasures.\nTap anywhere to continue.",
-	3: "Tap the phone icon — it's your control panel\nfor messages, profile and more!",
-	4: "This is your Profile!\nTap this app to set up your personal info.",
-	5: "This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue.",
-	6: "This is the Menu.\nAdjust music or restart the game from here.\nTap anywhere to continue.",
-	7: "This is ANU Ins!\nBrowse the latest campus posts.\nTap to open it and finish setup!",
-	8: "You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!",
-	9: "Let's head back to the map\nand see what's happening!",
-	11: "The clue just mentioned something exciting happening here!\nLet's go check it out.",
+	0: "Welcome to ANU Treasure Map!
+Explore campus and collect treasures.
+Tap anywhere to continue.",
+	3: "Tap the phone icon — it's your control panel
+for messages, profile and more!",
+	4: "This is your Profile!
+Tap this app to set up your personal info.",
+	5: "This is the Collection Book!
+Browse all the treasures you've discovered.
+Tap anywhere to continue.",
+	6: "This is the Menu.
+Adjust music or restart the game from here.
+Tap anywhere to continue.",
+	7: "This is ANU Ins!
+Browse the latest campus posts.
+Tap to open it and finish setup!",
+	8: "You can find clues to treasures here!
+There seems to be some key information?
+Try tapping it!",
+	9: "Let's head back to the map
+and see what's happening!",
+	11: "The clue just mentioned something exciting happening here!
+Let's go check it out.",
 	12: "Let's go take a look!",
-	13: "We're getting closer to the treasure!\nBut first, let me show you how this works.\nThis time, let's just pick the first option.\nYou'll be free to choose later!",
-	14: "Remember the Posts on your phone?\nIf you Share, you won't be able to enter\nthis event again this playthrough.\nBut other players — and your next playthrough —\ncan see the post and trigger the event directly!",
-	15: "Remember the Collection Book on your phone?\nIf you Collect, you can review your\ntreasures there anytime!",
-	16: "Now freely choose — Sharing or Collecting?\nThe adventure is yours!",
-	17: "Now go explore ANU TREASURE MAP freely!\nGood luck on your treasure hunt!",
+	13: "We're getting closer to the treasure!
+But first, let me show you how this works.
+This time, let's just pick the first option.
+You'll be free to choose later!",
+	14: "Remember the Posts on your phone?
+If you Share, you won't be able to enter
+this event again this playthrough.
+But other players — and your next playthrough —
+can see the post and trigger the event directly!",
+	15: "Remember the Collection Book on your phone?
+If you Collect, you can review your
+treasures there anytime!",
+	16: "Now freely choose — Sharing or Collecting?
+The adventure is yours!",
+	17: "These are your End Goals!
+Complete any one of them to finish the game.
+Aim to collect as many treasures as you can!",
+	18: "These show your Week, Time, Location, and Money.
+Keep an eye on them as you explore!",
+	19: "Let's take a look at what you just found!",
+	20: "Now go explore ANU TREASURE MAP freely!
+Good luck on your treasure hunt!",
 }
-
 var _guide: GuideCharacter = null
 var _step: int = -1
 var _main_ref: Node = null
@@ -104,6 +134,9 @@ func start_onboarding(main_node: Node) -> void:
 	_tracked_clue_location_id = ""
 	_ensure_guide()
 	_guide.block_input()
+	_guide.show_skip_button()
+	if not _guide.skip_pressed.is_connected(_on_skip_pressed):
+		_guide.skip_pressed.connect(_on_skip_pressed)
 	if not _guide.step_advanced.is_connected(_on_step_advanced):
 		_guide.step_advanced.connect(_on_step_advanced)
 	get_tree().create_timer(0.6).timeout.connect(
@@ -270,19 +303,19 @@ func _run_step(step: int) -> void:
 			if not _tutorial_choice_panel.choice_selected.is_connected(_on_tutorial_choice_selected):
 				_tutorial_choice_panel.choice_selected.connect(_on_tutorial_choice_selected)
 
-		# ── 14: Treasure popup — Share explanation (no dimming) ─────────────
+		# ── 14: Treasure popup — Share explanation ─────────────────────────────
 		14:
 			_set_tap_advance(true)
 			if _tutorial_treasure_popup != null:
 				_tutorial_treasure_popup.lock_buttons()
-			_guide.show_step(_get_text(14), _center_bear(vp), GuideCharacter.OVERLAY_NONE, true, false, false)
+			_guide.show_step(_get_text(14), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, false)
 
-		# ── 15: Treasure popup — Collect explanation (no dimming) ───────────
+		# ── 15: Treasure popup — Collect explanation ───────────────────────────
 		15:
 			_set_tap_advance(true)
 			if _tutorial_treasure_popup != null:
 				_tutorial_treasure_popup.lock_buttons()
-			_guide.show_step(_get_text(15), _center_bear(vp), GuideCharacter.OVERLAY_NONE, true, false, false)
+			_guide.show_step(_get_text(15), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, false)
 
 		# ── 16: Freely choose — tap to dismiss bear, then unlock ────────────
 		16:
@@ -293,11 +326,50 @@ func _run_step(step: int) -> void:
 				_guide.step_advanced.connect(_on_step_16_dismiss, CONNECT_ONE_SHOT)
 			_guide.show_step(_get_text(16), _center_bear(vp), GuideCharacter.OVERLAY_NONE, true, false, false)
 
-		# ── 17: Post-treasure finale ────────────────────────────────────────
+		# ── 17: Post-treasure — Goals panel ───────────────────────────────
 		17:
+			_set_tap_advance(true)
+			var goal_rect := _get_hud_rect(_PATH_GOAL_PANEL)
+			var bear_x := (
+				clampf(goal_rect.end.x + 80.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
+				if goal_rect.size != Vector2.ZERO else vp.x * 0.55
+			)
+			var bear_y := (
+				clampf(goal_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+				if goal_rect.size != Vector2.ZERO else 20.0
+			)
+			_guide.show_step(_get_text(17), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
+			if goal_rect.size != Vector2.ZERO:
+				_guide.set_spotlight_rect(goal_rect.grow(10.0))
+
+		# ── 18: Post-treasure — HUD bottombar ───────────────────────────────
+		18:
+			_set_tap_advance(true)
+			var bar_rect := _get_hud_rect(_PATH_BOTTOMBAR)
+			var hud_x := clampf(vp.x * 0.5 - GuideCharacter.BEAR_SIZE.x * 0.5, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
+			var hud_y: float
+			if bar_rect.size != Vector2.ZERO:
+				hud_y = clampf(bar_rect.position.y - GuideCharacter.BEAR_SIZE.y - 30.0, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+			else:
+				hud_y = vp.y - GuideCharacter.BEAR_SIZE.y - 80.0
+			_guide.show_step(_get_text(18), Vector2(hud_x, hud_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
+			if bar_rect.size != Vector2.ZERO:
+				_guide.set_spotlight_rect(bar_rect.grow(8.0))
+
+		# ── 19: Show result ─────────────────────────────────────────────────
+		19:
 			_set_tap_advance(false)
-			var bear_pos := _center_bear(vp)
-			_guide.show_step(_get_text(17), bear_pos, GuideCharacter.OVERLAY_FLAT, true, false, false)
+			var action_msg := "Let's take a look at the treasure
+you just Shared!" if _tutorial_action == "share" else "Let's take a look at the treasure
+you just Collected!"
+			_guide.show_step(action_msg, _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
+			if not _guide.step_advanced.is_connected(_on_step_19_open_result):
+				_guide.step_advanced.connect(_on_step_19_open_result, CONNECT_ONE_SHOT)
+
+		# ── 20: Finale ───────────────────────────────────────────────────────
+		20:
+			_set_tap_advance(false)
+			_guide.show_step(_get_text(20), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
 			if not _guide.step_advanced.is_connected(_on_finale_advanced):
 				_guide.step_advanced.connect(_on_finale_advanced, CONNECT_ONE_SHOT)
 
@@ -410,6 +482,9 @@ func _finish_onboarding() -> void:
 	_unlock_map_markers()
 	_unlock_event_panel_ctrls()
 	if _guide and is_instance_valid(_guide):
+		_guide.hide_skip_button()
+		if _guide.skip_pressed.is_connected(_on_skip_pressed):
+			_guide.skip_pressed.disconnect(_on_skip_pressed)
 		if _guide.step_advanced.is_connected(_on_step_advanced):
 			_guide.step_advanced.disconnect(_on_step_advanced)
 		_guide.clear_phone_zone()
@@ -524,6 +599,10 @@ func _unlock_event_panel_ctrls() -> void:
 
 
 # ── Step 0 → 3: welcome tapped, go to phone button ─────────────────────────────
+
+func _on_skip_pressed() -> void:
+	_finish_onboarding()
+
 
 func _on_step_0_to_phone() -> void:
 	if not _in_onboarding:
@@ -677,17 +756,25 @@ func _on_tutorial_treasure_chosen(action: String) -> void:
 		func():
 			if not _in_onboarding:
 				return
-			if _main_ref != null:
-				if _tutorial_action == "share":
-					_main_ref.call("open_ins")
-				else:
-					_main_ref.call("open_profile", false, false, true)
-			get_tree().create_timer(0.9).timeout.connect(
-				func():
-					if _in_onboarding:
-						_step = 17
-						_run_step(17)
-			)
+			_step = 17
+			_run_step(17)
+	)
+func _on_step_19_open_result() -> void:
+	if not _in_onboarding:
+		return
+	hide_guide()
+	if _main_ref != null:
+		if _tutorial_action == "share":
+			var ins_instance = _main_ref.call("open_ins")
+			if ins_instance != null and ins_instance.has_method("navigate_to_feed"):
+				ins_instance.navigate_to_feed()
+		else:
+			_main_ref.call("open_profile", false, false, true)
+	get_tree().create_timer(0.8).timeout.connect(
+		func():
+			if _in_onboarding:
+				_step = 20
+				_run_step(20)
 	)
 
 
