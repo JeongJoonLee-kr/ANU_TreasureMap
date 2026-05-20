@@ -308,14 +308,14 @@ func _run_step(step: int) -> void:
 			_set_tap_advance(true)
 			if _tutorial_treasure_popup != null:
 				_tutorial_treasure_popup.lock_buttons()
-			_guide.show_step(_get_text(14), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, false)
+			_guide.show_step(_get_text(14), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, true)
 
 		# ── 15: Treasure popup — Collect explanation ───────────────────────────
 		15:
 			_set_tap_advance(true)
 			if _tutorial_treasure_popup != null:
 				_tutorial_treasure_popup.lock_buttons()
-			_guide.show_step(_get_text(15), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, false)
+			_guide.show_step(_get_text(15), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, true)
 
 		# ── 16: Freely choose — tap to dismiss bear, then unlock ────────────
 		16:
@@ -324,7 +324,7 @@ func _run_step(step: int) -> void:
 				_tutorial_treasure_popup.lock_buttons()
 			if not _guide.step_advanced.is_connected(_on_step_16_dismiss):
 				_guide.step_advanced.connect(_on_step_16_dismiss, CONNECT_ONE_SHOT)
-			_guide.show_step(_get_text(16), _center_bear(vp), GuideCharacter.OVERLAY_NONE, true, false, false)
+			_guide.show_step(_get_text(16), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, true)
 
 		# ── 17: Post-treasure — Goals panel ───────────────────────────────
 		17:
@@ -410,14 +410,16 @@ func _show_phone_app_spotlight(
 ) -> void:
 	var vp := _guide.get_viewport_rect().size
 	var rect := _get_hud_rect(_PATH_APP_GRID + app_button_name)
-	var bear_x := (
-		clampf(rect.get_center().x - GuideCharacter.BEAR_SIZE.x * 0.5, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-		if rect.size != Vector2.ZERO else vp.x * 0.5 - 130.0
-	)
-	var bear_y := (
-		clampf(rect.end.y + 200.0, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
-		if rect.size != Vector2.ZERO else vp.y * 0.7
-	)
+	var phone_rect := _get_hud_rect(_PATH_PHONE_SCREEN)
+	# Position bear beside the phone (left side) so the bubble never blocks the buttons.
+	var bear_x: float
+	var bear_y: float
+	if phone_rect.size != Vector2.ZERO:
+		bear_x = clampf(phone_rect.position.x - GuideCharacter.BEAR_SIZE.x - 20.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
+		bear_y = clampf(phone_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+	else:
+		bear_x = 50.0
+		bear_y = vp.y * 0.35 - 130.0
 	_guide.show_step(
 		_get_text(text_key), Vector2(bear_x, bear_y),
 		GuideCharacter.OVERLAY_SPOTLIGHT, allow_tap, overlay_passthrough, true
@@ -527,6 +529,10 @@ func _lock_phone_buttons_except(keep_unlocked: String) -> void:
 			var ctrl := btn as Control
 			ctrl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			_locked_phone_buttons.append(ctrl)
+	# Ensure the kept button actually stays interactive.
+	var keep_btn := _main_ref.get_node_or_null(_PATH_APP_GRID + keep_unlocked)
+	if keep_btn != null and keep_btn is Control:
+		(keep_btn as Control).mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 func _unlock_phone_buttons() -> void:
@@ -770,7 +776,7 @@ func _on_step_19_open_result() -> void:
 				ins_instance.navigate_to_feed()
 		else:
 			_main_ref.call("open_profile", false, false, true)
-	get_tree().create_timer(0.8).timeout.connect(
+	get_tree().create_timer(3.0).timeout.connect(
 		func():
 			if _in_onboarding:
 				_step = 20
@@ -795,7 +801,8 @@ func _connect_profile_listener() -> void:
 
 
 func _on_profile_app_pressed() -> void:
-	_unlock_phone_buttons()
+	_ensure_guide()
+	_guide.block_input()
 	hide_guide()
 	get_tree().create_timer(0.5).timeout.connect(_poll_for_profile_closed)
 
@@ -812,6 +819,8 @@ func _poll_for_profile_closed() -> void:
 func _on_profile_card_closed() -> void:
 	if not _in_onboarding:
 		return
+	_ensure_guide()
+	_guide.block_input()
 	if _main_ref != null and _main_ref.has_method("open_ins"):
 		_main_ref.call_deferred("open_ins")
 	get_tree().create_timer(0.8).timeout.connect(
@@ -889,7 +898,6 @@ func _connect_ins_listener() -> void:
 
 
 func _on_ins_app_pressed() -> void:
-	_unlock_phone_buttons()
 	_ensure_guide()
 	_guide.block_input()
 	get_tree().create_timer(0.7).timeout.connect(
