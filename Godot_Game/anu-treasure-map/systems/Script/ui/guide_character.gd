@@ -173,7 +173,6 @@ func _build_ui() -> void:
 	_tap_overlay.hide()
 	_tap_canvas.add_child(_tap_overlay)
 
-
 	# ── Skip button — layer 87 (above tap overlay 86) ────────────────────
 	_skip_canvas = CanvasLayer.new()
 	_skip_canvas.name = "SkipCanvas"
@@ -196,9 +195,16 @@ func _build_ui() -> void:
 	_skip_button.add_theme_color_override("font_color", Color(0.13, 0.43, 0.73, 1.0))
 	_skip_button.add_theme_color_override("font_hover_color", Color(0.2588, 0.6471, 0.9608, 1.0))
 	_skip_button.add_theme_color_override("font_pressed_color", Color(0.2588, 0.6471, 0.9608, 1.0))
-	_skip_button.add_theme_stylebox_override("normal", _make_skip_style(Color(0.98, 0.99, 1.0, 0.94), Color(0.36, 0.41, 0.55, 0.35)))
-	_skip_button.add_theme_stylebox_override("hover", _make_skip_style(Color(1.0, 1.0, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.65)))
-	_skip_button.add_theme_stylebox_override("pressed", _make_skip_style(Color(0.925, 0.965, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.85)))
+	_skip_button.add_theme_stylebox_override(
+		"normal", _make_skip_style(Color(0.98, 0.99, 1.0, 0.94), Color(0.36, 0.41, 0.55, 0.35))
+	)
+	_skip_button.add_theme_stylebox_override(
+		"hover", _make_skip_style(Color(1.0, 1.0, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.65))
+	)
+	_skip_button.add_theme_stylebox_override(
+		"pressed",
+		_make_skip_style(Color(0.925, 0.965, 1.0, 0.98), Color(0.2588, 0.6471, 0.9608, 0.85))
+	)
 	_skip_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	_skip_button.pressed.connect(func() -> void: skip_pressed.emit())
 	_skip_button.hide()

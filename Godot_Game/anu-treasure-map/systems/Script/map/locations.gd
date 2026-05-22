@@ -42,7 +42,6 @@ var _exhaustion_toast: CanvasLayer = null
 var _event_scene_stage: String = ""
 var _event_bgm_active: bool = false
 var _force_leave_option_once: bool = false
-var _show_leave_only_after_failed_event: bool = false
 var _background_tween: Tween = null
 var _has_background_texture := false
 
@@ -143,7 +142,6 @@ func _start_random_event(ev: Dictionary) -> void:
 	_selected_event_choice = {}
 	_event_bgm_active = false
 	_force_leave_option_once = false
-	_show_leave_only_after_failed_event = false
 	_hide_choice_panel()
 	_hide_legacy_options_panel()
 
@@ -161,7 +159,7 @@ func _start_random_event(ev: Dictionary) -> void:
 func _show_event_choices() -> void:
 	var choices: Dictionary = _active_event.get("choices", {})
 	if choices.is_empty():
-		_complete_current_event_and_show_location()
+		_complete_current_event_and_show_leave()
 		return
 
 	_update_portraits("narrator")
@@ -194,8 +192,7 @@ func _finish_event_outcome() -> void:
 			_complete_tutorial_event("collect")
 			GuideManager._on_tutorial_treasure_chosen("collect")
 		else:
-			_show_leave_only_after_failed_event = true
-			_complete_current_event_and_show_location()
+			_complete_current_event_and_show_leave()
 
 
 func _show_treasure_popup() -> void:
@@ -224,7 +221,7 @@ func _on_treasure_popup_choice_made(action: String) -> void:
 	if GuideManager.is_in_onboarding():
 		_complete_tutorial_event(action)
 	else:
-		_complete_current_event_and_show_location(action)
+		_complete_current_event_and_show_leave(action)
 
 
 func _complete_tutorial_event(treasure_action: String) -> void:
@@ -293,7 +290,7 @@ func _clear_event_scene_stage() -> void:
 	_event_scene_stage = ""
 
 
-func _complete_current_event_and_show_location(treasure_action: String = "collect") -> void:
+func _complete_current_event_and_show_leave(treasure_action: String = "collect") -> void:
 	var event_id := str(_active_event.get("id", ""))
 	EventManager.complete_event(event_id, _selected_event_choice_key, treasure_action)
 	if _event_bgm_active:
@@ -304,20 +301,23 @@ func _complete_current_event_and_show_location(treasure_action: String = "collec
 	_event_bgm_active = false
 	_clear_portraits()
 	_clear_event_scene_stage()
-	if _show_leave_only_after_failed_event:
-		_show_leave_only_after_failed_event = false
-		_show_leave_only_choice()
-	else:
-		show_location()
+	_show_event_leave_choice()
 
 
-func _show_leave_only_choice() -> void:
+func _show_event_leave_choice() -> void:
 	dialogue_panel.hide()
 	_hide_legacy_options_panel()
 	_hide_choice_panel()
 	_show_choice_panel(
-		{"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_location_choice_selected
+		{"leave": {"label": "Leave", "display_key": "", "_order": 0}}, _on_event_leave_selected
 	)
+
+
+func _on_event_leave_selected(_choice_key: String) -> void:
+	_hide_choice_panel()
+	var current_scene := get_tree().current_scene
+	if current_scene != null and current_scene.has_method("show_map"):
+		current_scene.show_map()
 
 
 func _on_not_enough_ap() -> void:
