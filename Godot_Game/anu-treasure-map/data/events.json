@@ -554,25 +554,20 @@
 	},
 	"narrative": [
 	  "Inside the College of Systems and Society Precinct, a monitor beside a classroom door blinks with a sixty-minute timer.",
-	  "A tutor is explaining rules to a group of students gathered around old keyboards, circuit boards, clue cards, and a UV torch.",
+	  "A tutor is explaining rules to students gathered around keyboards, circuit boards, clue cards, and a UV torch.",
 	  "\"Five computing puzzles,\" the tutor says. \"The important part is the process, not just the answer.\"",
 	  "One student sees you and lowers their voice. \"Our fourth person could not make it. Can you help?\"",
-	  "The first station looks like a cipher. The second is covered in test cases. The third has diagram pieces spread across a whiteboard.",
-	  "The timer is already falling, but everyone is staring at the same clue.",
-	  "Nothing is moving because every mind is trying to be the whole machine.",
-	  "The tutor turns a small hourglass without offering another hint.",
-	  "This is not a room built for panic. It is a lab for turning solitary thinking into teamwork.",
-	  "Your choice can make the group freeze into one knot, or split into useful roles.",
-      "The timer keeps counting."
+	  "The first station looks like a cipher, the second is covered in test cases, and the third has diagram pieces spread across a whiteboard.",
+	  "The timer is falling, but everyone is staring at the same clue.",
+      "This room rewards teamwork. Your choice will decide whether the group freezes or splits into useful roles."
 	],
 	"choices": {
 	  "A": {
 		"label": "Divide the roles. Take the test cases while others handle the cipher and diagrams.",
 		"outcome_texts": [
 		  "For the first time, the team studies different clues at the same time.",
-		  "The cipher points to a test result, the test result points to a diagram, and the diagram reveals the order of the final lock.",
-		  "With a little time left, the door opens and the tutor applauds.",
-          "You found Escape Room. The treasure is not escape itself, but the moment separate thoughts click into one answer."
+		  "The cipher points to a test result, the test result points to a diagram, and the diagram reveals the final lock order.",
+          "With a little time left, the door opens. You found Escape Room: the moment separate thoughts click into one answer."
 		],
 		"treasure_found": true,
 		"treasure_name": "Escape Room",
