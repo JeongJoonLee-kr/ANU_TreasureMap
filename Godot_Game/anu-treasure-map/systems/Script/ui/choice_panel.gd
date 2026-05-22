@@ -5,11 +5,16 @@ signal choice_selected(choice_key: String)
 
 const MAX_CHOICES := 5
 const FONT_PATH := "res://resources/font/AlegreyaSans-Regular.ttf"
+const CHOICE_PROMPT_TEXT := "What will you do?"
+const CHOICE_PROMPT_FONT_SIZE := 28
+const CHOICE_PROMPT_HEIGHT := 64.0
 const CHOICE_FONT_SIZE := 28
 const CHOICE_BUTTON_HEIGHT := 88.0
 
 var _choices: Dictionary = {}
 var _content_panel: PanelContainer
+var _prompt_panel: PanelContainer
+var _prompt_label: Label
 var _choices_box: VBoxContainer
 var _font: FontFile
 var _buttons_by_key: Dictionary = {}
@@ -23,6 +28,7 @@ func _ready() -> void:
 	_build_ui()
 	_rebuild_choices()
 	get_viewport().size_changed.connect(_update_panel_width)
+	resized.connect(_sync_prompt_panel_deferred)
 
 
 func setup(choices: Dictionary) -> void:
@@ -43,6 +49,35 @@ func _build_ui() -> void:
 	_content_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	_content_panel.add_theme_stylebox_override("panel", _make_panel_style())
 	center.add_child(_content_panel)
+
+	_prompt_panel = PanelContainer.new()
+	_prompt_panel.name = "PromptPanel"
+	_prompt_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_prompt_panel.custom_minimum_size = Vector2(0.0, CHOICE_PROMPT_HEIGHT)
+	_prompt_panel.add_theme_stylebox_override("panel", _make_prompt_style())
+	add_child(_prompt_panel)
+
+	var prompt_margin := MarginContainer.new()
+	prompt_margin.name = "PromptMargin"
+	prompt_margin.add_theme_constant_override("margin_left", 40)
+	prompt_margin.add_theme_constant_override("margin_right", 22)
+	prompt_margin.add_theme_constant_override("margin_top", 12)
+	prompt_margin.add_theme_constant_override("margin_bottom", 10)
+	_prompt_panel.add_child(prompt_margin)
+
+	_prompt_label = Label.new()
+	_prompt_label.name = "PromptLabel"
+	_prompt_label.text = CHOICE_PROMPT_TEXT
+	_prompt_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_prompt_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_prompt_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	_prompt_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_prompt_label.add_theme_font_size_override("font_size", CHOICE_PROMPT_FONT_SIZE)
+	_prompt_label.add_theme_color_override("font_color", Color(0.12, 0.42, 0.72, 1.0))
+	if _font != null:
+		_prompt_label.add_theme_font_override("font", _font)
+	prompt_margin.add_child(_prompt_label)
 
 	var margin := MarginContainer.new()
 	margin.name = "MarginContainer"
@@ -66,6 +101,24 @@ func _update_panel_width() -> void:
 	var viewport_width := get_viewport_rect().size.x
 	var panel_width := clampf(viewport_width * 0.58, 680.0, 1040.0)
 	_content_panel.custom_minimum_size = Vector2(panel_width, 0.0)
+	if _prompt_panel != null:
+		_prompt_panel.custom_minimum_size = Vector2(panel_width, CHOICE_PROMPT_HEIGHT)
+	_sync_prompt_panel_deferred()
+
+
+func _sync_prompt_panel_deferred() -> void:
+	_sync_prompt_panel.call_deferred()
+
+
+func _sync_prompt_panel() -> void:
+	if _content_panel == null or _prompt_panel == null:
+		return
+
+	var content_rect := _content_panel.get_global_rect()
+	_prompt_panel.global_position = Vector2(
+		content_rect.position.x, content_rect.position.y - CHOICE_PROMPT_HEIGHT + 2.0
+	)
+	_prompt_panel.size = Vector2(content_rect.size.x, CHOICE_PROMPT_HEIGHT)
 
 
 func _rebuild_choices() -> void:
@@ -98,6 +151,10 @@ func _rebuild_choices() -> void:
 		_choices_box.add_child(button)
 		_buttons_by_key[key] = button
 		count += 1
+
+	if _prompt_panel != null:
+		_prompt_panel.visible = count > 0
+		_sync_prompt_panel_deferred()
 
 
 func lock_choices_except(keep_unlocked_key: String) -> void:
@@ -197,6 +254,14 @@ func _make_panel_style() -> StyleBoxFlat:
 	style.corner_radius_bottom_right = 4
 	style.shadow_color = Color(0.0, 0.0, 0.0, 0.25)
 	style.shadow_size = 10
+	return style
+
+
+func _make_prompt_style() -> StyleBoxFlat:
+	var style := _make_panel_style()
+	style.bg_color = Color(1.0, 1.0, 1.0, 0.92)
+	style.corner_radius_bottom_left = 0
+	style.corner_radius_bottom_right = 0
 	return style
 
 
