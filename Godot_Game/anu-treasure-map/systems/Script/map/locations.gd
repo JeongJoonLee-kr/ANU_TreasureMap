@@ -19,6 +19,8 @@ const _MEAL_CLUE_EVENT_ID := "copland_subway"
 const _MEAL_CLUE_ID := "clue_copland_subway"
 const _MEAL_CLUE_NAME := "Copland Subway Route"
 const _MEAL_CLUE_DISCOVERY_TEXT := "While waiting for your meal, you overhear students comparing the fastest route from Copland to Subway."
+const _BACKGROUND_FADE_OUT_DURATION := 0.16
+const _BACKGROUND_FADE_IN_DURATION := 0.22
 
 enum TextFlow { NONE, EVENT_NARRATIVE, EVENT_OUTCOME, LOCATION_TEXT, LOCATION_FEEDBACK }
 
@@ -41,6 +43,8 @@ var _event_scene_stage: String = ""
 var _event_bgm_active: bool = false
 var _force_leave_option_once: bool = false
 var _show_leave_only_after_failed_event: bool = false
+var _background_tween: Tween = null
+var _has_background_texture := false
 
 const _PORTRAIT_W := 280.0
 const _PORTRAIT_H := 650.0
@@ -273,8 +277,9 @@ func _set_event_scene_stage(stage: String) -> void:
 		_clear_event_scene_stage()
 		return
 
+	var animated := _event_scene_stage != ""
 	_event_scene_stage = stage
-	background.texture = texture
+	_set_background_texture(texture, animated)
 
 
 func _get_event_scene_image_path(stage: String) -> String:
@@ -384,6 +389,8 @@ func _show_exhaustion_toast() -> void:
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_exhaustion_toast.add_child(center)
 	center.add_child(toast)
+
+
 func show_location() -> void:
 	if not location_data.has(location_id):
 		return
@@ -405,7 +412,41 @@ func _apply_location_background() -> void:
 	var data: Dictionary = location_data[location_id] as Dictionary
 	var image_path: String = data.get("image_path", "") as String
 	if image_path != "":
-		background.texture = load(image_path)
+		var texture := _load_texture(image_path)
+		if texture != null:
+			_set_background_texture(texture)
+
+
+func _set_background_texture(texture: Texture2D, animated: bool = true) -> void:
+	if texture == null:
+		return
+
+	if _background_tween != null and _background_tween.is_valid():
+		_background_tween.kill()
+		_background_tween = null
+
+	if _has_background_texture and background.texture == texture:
+		background.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		return
+
+	if not animated or not _has_background_texture:
+		background.texture = texture
+		background.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		_has_background_texture = true
+		return
+
+	_background_tween = create_tween()
+	_background_tween.tween_property(
+		background, "modulate", Color(1.0, 1.0, 1.0, 0.0), _BACKGROUND_FADE_OUT_DURATION
+	)
+	_background_tween.tween_callback(
+		func():
+			background.texture = texture
+			_has_background_texture = true
+	)
+	_background_tween.tween_property(
+		background, "modulate", Color(1.0, 1.0, 1.0, 1.0), _BACKGROUND_FADE_IN_DURATION
+	)
 
 
 func _load_location_options_config() -> void:

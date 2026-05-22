@@ -1,72 +1,72 @@
 {
   "onboarding": [
-    {
-      "step": 0,
-      "text": "Welcome to ANU Treasure Map!\nExplore campus and collect treasures.\nTap anywhere to continue."
-    },
-    {
-      "step": 3,
-      "text": "Tap the phone icon — it's your control panel\nfor messages, profile and more!"
-    },
-    {
-      "step": 4,
-      "text": "This is your Profile!\nTap this app to set up your personal info."
-    },
-    {
-      "step": 5,
-      "text": "This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue."
-    },
-    {
-      "step": 6,
-      "text": "This is the Menu.\nAdjust music or restart the game from here.\nTap anywhere to continue."
-    },
-    {
-      "step": 7,
-      "text": "This is ANU Ins!\nBrowse the latest campus posts.\nTap to open it and finish setup!"
-    },
-    {
-      "step": 8,
-      "text": "You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!"
-    },
-    {
-      "step": 9,
-      "text": "Let's head back to the map\nand see what's happening!"
-    },
-    {
-      "step": 11,
-      "text": "The clue just mentioned something exciting happening here!\nLet's go check it out."
-    },
-    {
-      "step": 12,
-      "text": "Let's go take a look!"
-    },
-    {
-      "step": 13,
-      "text": "We're getting closer to the treasure!\nBut first, let me show you how this works.\nThis time, let's just pick the first option.\nYou'll be free to choose later!"
-    },
-    {
-      "step": 14,
-      "text": "Remember the Posts on your phone?\nIf you Share, you won't be able to enter\nthis event again this playthrough.\nBut other players — and your next playthrough —\ncan see the post and trigger the event directly!"
-    },
-    {
-      "step": 15,
-      "text": "Remember the Collection Book on your phone?\nIf you Collect, you can review your\ntreasures there anytime!"
-    },
-    {
-      "step": 16,
-      "text": "Now freely choose — Sharing or Collecting?\nThe adventure is yours!"
-    },
-    {
-      "step": 17,
-      "text": "These are your End Goals!\nComplete any one of them to finish the game.\nAim to collect as many treasures as you can!"
-    },
-    {
-      "step": 18,
-      "text": "These show your Week, Time, Location, and Money.\nKeep an eye on them as you explore!"
-    },
-    {
-      "step": 20,
-      "text": "Now go explore ANU TREASURE MAP freely!\nGood luck on your treasure hunt!"
-    }
+	{
+	  "step": 0,
+	  "text": "Welcome to ANU Treasure Map!\nExplore campus and collect treasures.\nTap anywhere to continue."
+	},
+	{
+	  "step": 3,
+	  "text": "Tap the phone icon — it's your control panel\nfor messages, profile and more!"
+	},
+	{
+	  "step": 4,
+	  "text": "This is your Profile!\nTap this app to set up your personal info."
+	},
+	{
+	  "step": 5,
+	  "text": "This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue."
+	},
+	{
+	  "step": 6,
+	  "text": "This is the Menu.\nAdjust music or restart the game from here.\nTap anywhere to continue."
+	},
+	{
+	  "step": 7,
+	  "text": "This is ANU Ins!\nBrowse the latest campus posts.\nTap to open it and finish setup!"
+	},
+	{
+	  "step": 8,
+	  "text": "You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!"
+	},
+	{
+	  "step": 9,
+	  "text": "Let's head back to the map\nand see what's happening!"
+	},
+	{
+	  "step": 11,
+	  "text": "The clue just mentioned something exciting happening here!\nLet's go check it out."
+	},
+	{
+	  "step": 12,
+	  "text": "Let's go take a look!"
+	},
+	{
+	  "step": 13,
+	  "text": "We're getting closer to the treasure!\nBut first, let me show you how this works.\nThis time, let's just pick the first option.\nYou'll be free to choose later!"
+	},
+	{
+	  "step": 14,
+	  "text": "Remember the Posts on your phone?\nIf you Share, you won't be able to enter\nthis event again this playthrough.\nBut other players — and your next playthrough —\ncan see the post and trigger the event directly!"
+	},
+	{
+	  "step": 15,
+	  "text": "Remember the Collection Book on your phone?\nIf you Collect, you can review your\ntreasures there anytime!"
+	},
+	{
+	  "step": 16,
+	  "text": "Now freely choose — Sharing or Collecting?\nThe adventure is yours!"
+	},
+	{
+	  "step": 17,
+	  "text": "These are your End Goals!\nComplete any one of them to finish the game.\nAim to collect as many treasures as you can!"
+	},
+	{
+	  "step": 18,
+	  "text": "These show your Week, Time, Location, and Money.\nKeep an eye on them as you explore!"
+	},
+	{
+	  "step": 20,
+	  "text": "Now go explore ANU TREASURE MAP freely!\nGood luck on your treasure hunt!"
+	}
   ]
 }
