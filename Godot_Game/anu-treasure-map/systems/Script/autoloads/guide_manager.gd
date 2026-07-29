@@ -26,52 +26,24 @@ const _ALL_APP_BUTTONS := [
 
 # Fallback text used when the JSON file is absent or missing a step.
 const _DEFAULT_TEXTS := {
-	0: "Welcome to ANU Treasure Map!
-Explore campus and collect treasures.
-Tap anywhere to continue.",
-	3: "Tap the phone icon — it's your control panel
-for messages, profile and more!",
-	4: "This is your Profile!
-Tap this app to set up your personal info.",
-	5: "This is the Collection Book!
-Browse all the treasures you've discovered.
-Tap anywhere to continue.",
-	6: "This is the Menu.
-Adjust music or restart the game from here.
-Tap anywhere to continue.",
-	7: "This is ANU Ins!
-Browse the latest campus posts.
-Tap to open it and finish setup!",
-	8: "You can find clues to treasures here!
-There seems to be some key information?
-Try tapping it!",
-	9: "Let's head back to the map
-and see what's happening!",
-	11: "The clue just mentioned something exciting happening here!
-Let's go check it out.",
+	0: "Welcome to ANU Treasure Map!\nExplore campus and collect treasures.\nTap anywhere to continue.",
+	3: "Tap the phone icon — it's your control panel\nfor messages, profile and more!",
+	4: "This is your Profile!\nTap this app to set up your personal info.",
+	5: "This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue.",
+	6: "This is the Menu.\nAdjust music or restart the game from here.\nTap anywhere to continue.",
+	7: "This is ANU Ins!\nBrowse the latest campus posts.\nTap to open it and finish setup!",
+	8: "You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!",
+	9: "Let's head back to the map\nand see what's happening!",
+	11: "The clue just mentioned something exciting happening here!\nLet's go check it out.",
 	12: "Let's go take a look!",
-	13: "We're getting closer to the treasure!
-But first, let me show you how this works.
-This time, let's just pick the first option.
-You'll be free to choose later!",
-	14: "Remember the Posts on your phone?
-If you Share, you won't be able to enter
-this event again this playthrough.
-But other players — and your next playthrough —
-can see the post and trigger the event directly!",
-	15: "Remember the Collection Book on your phone?
-If you Collect, you can review your
-treasures there anytime!",
-	16: "Now freely choose — Sharing or Collecting?
-The adventure is yours!",
-	17: "These are your End Goals!
-Complete any one of them to finish the game.
-Aim to collect as many treasures as you can!",
-	18: "These show your Week, Time, Location, and Money.
-Keep an eye on them as you explore!",
+	13: "We're getting closer to the treasure!\nBut first, let me show you how this works.\nThis time, let's just pick the first option.\nYou'll be free to choose later!",
+	14: "Remember the Posts on your phone?\nIf you Share, you won't be able to enter\nthis event again this playthrough.\nBut other players — and your next playthrough —\ncan see the post and trigger the event directly!",
+	15: "Remember the Collection Book on your phone?\nIf you Collect, you can review your\ntreasures there anytime!",
+	16: "Now freely choose — Sharing or Collecting?\nThe adventure is yours!",
+	17: "These are your End Goals!\nComplete any one of them to finish the game.\nAim to collect as many treasures as you can!",
+	18: "These show your Week, Time, Location, and Money.\nKeep an eye on them as you explore!",
 	19: "Let's take a look at what you just found!",
-	20: "Now go explore ANU TREASURE MAP freely!
-Good luck on your treasure hunt!",
+	20: "Now go explore ANU TREASURE MAP freely!\nGood luck on your treasure hunt!",
 }
 var _guide: GuideCharacter = null
 var _step: int = -1
@@ -359,9 +331,7 @@ func _run_step(step: int) -> void:
 		# ── 19: Show result ─────────────────────────────────────────────────
 		19:
 			_set_tap_advance(false)
-			var action_msg := "Let's take a look at the treasure
-you just Shared!" if _tutorial_action == "share" else "Let's take a look at the treasure
-you just Collected!"
+			var action_msg := "Let's take a look at the treasure\nyou just Shared!" if _tutorial_action == "share" else "Let's take a look at the treasure\nyou just Collected!"
 			_guide.show_step(action_msg, _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
 			if not _guide.step_advanced.is_connected(_on_step_19_open_result):
 				_guide.step_advanced.connect(_on_step_19_open_result, CONNECT_ONE_SHOT)
