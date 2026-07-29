@@ -4,20 +4,20 @@ const GuideCharacterScript = preload("res://systems/Script/ui/guide_character.gd
 const _GUIDE_TEXTS_PATH := "res://data/guide_texts.json"
 
 # ── Node paths ────────────────────────────────────────────────────────────────
-const _PATH_GOAL_PANEL    := "GoalPanelLayer/EndGameGoalPanel/GoalPanel"
-const _PATH_BOTTOMBAR     := "HUD/Bottombar"
-const _PATH_INS_BTN       := "HUD/MarginContainer/InsButton"
-const _PATH_NW_BTN_BOT    := "HUD/Bottombar/NextWeekButton"
-const _PATH_NW_BTN_TOP    := "HUD/Topbar/NextWeekButton"
-const _PATH_APP_GRID      := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
-const _PATH_PHONE_SCREEN  := "Ins/PhoneScreen"
+const _PATH_GOAL_PANEL := "GoalPanelLayer/EndGameGoalPanel/GoalPanel"
+const _PATH_BOTTOMBAR := "HUD/Bottombar"
+const _PATH_INS_BTN := "HUD/MarginContainer/InsButton"
+const _PATH_NW_BTN_BOT := "HUD/Bottombar/NextWeekButton"
+const _PATH_NW_BTN_TOP := "HUD/Topbar/NextWeekButton"
+const _PATH_APP_GRID := "Ins/PhoneScreen/MainMargin/MainVBox/HomeScreen/AppsSlot/AppsCenter/AppGrid/"
+const _PATH_PHONE_SCREEN := "Ins/PhoneScreen"
 const _PATH_MARKERS_LAYER := "Map/MapControl/MarkersLayer"
-const _PATH_EVENT_PANEL   := "Map/MapControl/EventPanel"
-const _PATH_TRAVEL_COST   := "Map/MapControl/EventPanel/TravelCostLabel"
-const _PATH_GO_BTN        := "Map/MapControl/EventPanel/GoButton"
-const _PATH_CLOSE_BTN     := "Map/MapControl/EventPanel/CloseButton"
-const _PATH_INS_FEED      := "Ins/PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer/ContentVBox/FeedList"
-const _PATH_PROFILE_CARD  := "ProfileCardLayer"
+const _PATH_EVENT_PANEL := "Map/MapControl/EventPanel"
+const _PATH_TRAVEL_COST := "Map/MapControl/EventPanel/TravelCostLabel"
+const _PATH_GO_BTN := "Map/MapControl/EventPanel/GoButton"
+const _PATH_CLOSE_BTN := "Map/MapControl/EventPanel/CloseButton"
+const _PATH_INS_FEED := "Ins/PhoneScreen/MainMargin/MainVBox/InsAppScreen/ScrollContainer/ContentVBox/FeedList"
+const _PATH_PROFILE_CARD := "ProfileCardLayer"
 
 # All phone app buttons in the home screen grid.
 const _ALL_APP_BUTTONS := [
@@ -26,52 +26,31 @@ const _ALL_APP_BUTTONS := [
 
 # Fallback text used when the JSON file is absent or missing a step.
 const _DEFAULT_TEXTS := {
-	0: "Welcome to ANU Treasure Map!
-Explore campus and collect treasures.
-Tap anywhere to continue.",
-	3: "Tap the phone icon — it's your control panel
-for messages, profile and more!",
-	4: "This is your Profile!
-Tap this app to set up your personal info.",
-	5: "This is the Collection Book!
-Browse all the treasures you've discovered.
-Tap anywhere to continue.",
-	6: "This is the Menu.
-Adjust music or restart the game from here.
-Tap anywhere to continue.",
-	7: "This is ANU Ins!
-Browse the latest campus posts.
-Tap to open it and finish setup!",
-	8: "You can find clues to treasures here!
-There seems to be some key information?
-Try tapping it!",
-	9: "Let's head back to the map
-and see what's happening!",
-	11: "The clue just mentioned something exciting happening here!
-Let's go check it out.",
+	0:
+	"Welcome to ANU Treasure Map!\nExplore campus and collect treasures.\nTap anywhere to continue.",
+	3: "Tap the phone icon — it's your control panel\nfor messages, profile and more!",
+	4: "This is your Profile!\nTap this app to set up your personal info.",
+	5:
+	"This is the Collection Book!\nBrowse all the treasures you've discovered.\nTap anywhere to continue.",
+	6: "This is the Menu.\nAdjust music or restart the game from here.\nTap anywhere to continue.",
+	7: "This is ANU Ins!\nBrowse the latest campus posts.\nTap to open it and finish setup!",
+	8:
+	"You can find clues to treasures here!\nThere seems to be some key information?\nTry tapping it!",
+	9: "Let's head back to the map\nand see what's happening!",
+	11: "The clue just mentioned something exciting happening here!\nLet's go check it out.",
 	12: "Let's go take a look!",
-	13: "We're getting closer to the treasure!
-But first, let me show you how this works.
-This time, let's just pick the first option.
-You'll be free to choose later!",
-	14: "Remember the Posts on your phone?
-If you Share, you won't be able to enter
-this event again this playthrough.
-But other players — and your next playthrough —
-can see the post and trigger the event directly!",
-	15: "Remember the Collection Book on your phone?
-If you Collect, you can review your
-treasures there anytime!",
-	16: "Now freely choose — Sharing or Collecting?
-The adventure is yours!",
-	17: "These are your End Goals!
-Complete any one of them to finish the game.
-Aim to collect as many treasures as you can!",
-	18: "These show your Week, Time, Location, and Money.
-Keep an eye on them as you explore!",
+	13:
+	"We're getting closer to the treasure!\nBut first, let me show you how this works.\nThis time, let's just pick the first option.\nYou'll be free to choose later!",
+	14:
+	"Remember the Posts on your phone?\nIf you Share, you won't be able to enter\nthis event again this playthrough.\nBut other players — and your next playthrough —\ncan see the post and trigger the event directly!",
+	15:
+	"Remember the Collection Book on your phone?\nIf you Collect, you can review your\ntreasures there anytime!",
+	16: "Now freely choose — Sharing or Collecting?\nThe adventure is yours!",
+	17:
+	"These are your End Goals!\nComplete any one of them to finish the game.\nAim to collect as many treasures as you can!",
+	18: "These show your Week, Time, Location, and Money.\nKeep an eye on them as you explore!",
 	19: "Let's take a look at what you just found!",
-	20: "Now go explore ANU TREASURE MAP freely!
-Good luck on your treasure hunt!",
+	20: "Now go explore ANU TREASURE MAP freely!\nGood luck on your treasure hunt!",
 }
 var _guide: GuideCharacter = null
 var _step: int = -1
@@ -166,7 +145,9 @@ func _run_step(step: int) -> void:
 			_set_tap_advance(false)
 			if not _guide.step_advanced.is_connected(_on_step_0_to_phone):
 				_guide.step_advanced.connect(_on_step_0_to_phone, CONNECT_ONE_SHOT)
-			_guide.show_step(_get_text(0), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
+			_guide.show_step(
+				_get_text(0), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false
+			)
 
 		# ── 3: Phone button on HUD ──────────────────────────────────────────
 		3:
@@ -175,12 +156,22 @@ func _run_step(step: int) -> void:
 			var bear_pos: Vector2
 			if phone_rect.size != Vector2.ZERO:
 				bear_pos = Vector2(
-					clampf(phone_rect.end.x - GuideCharacter.BEAR_SIZE.x, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0),
-					clampf(phone_rect.position.y - GuideCharacter.BEAR_SIZE.y - 25.0, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+					clampf(
+						phone_rect.end.x - GuideCharacter.BEAR_SIZE.x,
+						20.0,
+						vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+					),
+					clampf(
+						phone_rect.position.y - GuideCharacter.BEAR_SIZE.y - 25.0,
+						20.0,
+						vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+					)
 				)
 			else:
 				bear_pos = Vector2(vp.x - 300.0, vp.y * 0.40 - 130.0)
-			_guide.show_step(_get_text(3), bear_pos, GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true)
+			_guide.show_step(
+				_get_text(3), bear_pos, GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true
+			)
 			if phone_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(phone_rect.grow(14.0))
 			_lock_non_phone_input()
@@ -215,12 +206,26 @@ func _run_step(step: int) -> void:
 			_set_tap_advance(false)
 			if not _guide.step_advanced.is_connected(_on_step_8_advanced):
 				_guide.step_advanced.connect(_on_step_8_advanced, CONNECT_ONE_SHOT)
-			_guide.show_step(_get_text(8), _bear_pos_beside_phone(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
+			_guide.show_step(
+				_get_text(8),
+				_bear_pos_beside_phone(vp),
+				GuideCharacter.OVERLAY_FLAT,
+				true,
+				false,
+				false
+			)
 
 		# ── 9: Back to map ───────────────────────────────────────────────────
 		9:
 			_set_tap_advance(true)
-			_guide.show_step(_get_text(9), _bear_pos_beside_phone(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
+			_guide.show_step(
+				_get_text(9),
+				_bear_pos_beside_phone(vp),
+				GuideCharacter.OVERLAY_FLAT,
+				true,
+				false,
+				false
+			)
 
 		# ── 10: Transition — close phone, then jump to map steps ─────────────
 		10:
@@ -240,24 +245,44 @@ func _run_step(step: int) -> void:
 		# ── 11: Map marker spotlight ────────────────────────────────────────
 		11:
 			_set_tap_advance(false)
-			_lock_map_markers_except(_tracked_clue_location_id if _tracked_clue_location_id != "" else "csit_engn_area")
+			_lock_map_markers_except(
+				_tracked_clue_location_id if _tracked_clue_location_id != "" else "csit_engn_area"
+			)
 			_lock_ins_button()
 			var marker_path := _resolve_marker_path()
 			var dot_rect := _get_hud_rect(marker_path + "/DotButton")
-			var ref_rect := dot_rect if dot_rect.size != Vector2.ZERO else _get_hud_rect(marker_path)
+			var ref_rect := (
+				dot_rect if dot_rect.size != Vector2.ZERO else _get_hud_rect(marker_path)
+			)
 			var bear_x: float
 			var bear_y: float
 			if ref_rect.size != Vector2.ZERO:
 				var right_x := ref_rect.end.x + 20.0
 				bear_x = (
-					right_x if right_x + GuideCharacter.BEAR_SIZE.x < vp.x - 20.0
-					else clampf(ref_rect.position.x - GuideCharacter.BEAR_SIZE.x - 20.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
+					right_x
+					if right_x + GuideCharacter.BEAR_SIZE.x < vp.x - 20.0
+					else clampf(
+						ref_rect.position.x - GuideCharacter.BEAR_SIZE.x - 20.0,
+						20.0,
+						vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+					)
 				)
-				bear_y = clampf(ref_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+				bear_y = clampf(
+					ref_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5,
+					20.0,
+					vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+				)
 			else:
 				bear_x = vp.x * 0.6
 				bear_y = vp.y * 0.35 - 130.0
-			_guide.show_step(_get_text(11), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true)
+			_guide.show_step(
+				_get_text(11),
+				Vector2(bear_x, bear_y),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				false,
+				true,
+				true
+			)
 			if ref_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(ref_rect.grow(18.0))
 			_connect_marker_listener(marker_path)
@@ -270,12 +295,27 @@ func _run_step(step: int) -> void:
 			var bear_x: float
 			var bear_y: float
 			if go_rect.size != Vector2.ZERO:
-				bear_x = clampf(go_rect.get_center().x - GuideCharacter.BEAR_SIZE.x * 0.5, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-				bear_y = clampf(go_rect.position.y - GuideCharacter.BEAR_SIZE.y - 30.0, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+				bear_x = clampf(
+					go_rect.get_center().x - GuideCharacter.BEAR_SIZE.x * 0.5,
+					20.0,
+					vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+				)
+				bear_y = clampf(
+					go_rect.position.y - GuideCharacter.BEAR_SIZE.y - 30.0,
+					20.0,
+					vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+				)
 			else:
 				bear_x = vp.x * 0.5 - 130.0
 				bear_y = vp.y * 0.5
-			_guide.show_step(_get_text(12), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, true)
+			_guide.show_step(
+				_get_text(12),
+				Vector2(bear_x, bear_y),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				false,
+				true,
+				true
+			)
 			if go_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(go_rect.grow(12.0))
 			_connect_go_listener()
@@ -292,15 +332,30 @@ func _run_step(step: int) -> void:
 			var bear_x: float
 			var bear_y: float
 			if choice_rect.size != Vector2.ZERO:
-				bear_x = clampf(choice_rect.end.x + 60.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-				bear_y = clampf(choice_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+				bear_x = clampf(
+					choice_rect.end.x + 60.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+				)
+				bear_y = clampf(
+					choice_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5,
+					20.0,
+					vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+				)
 			else:
 				bear_x = vp.x * 0.6
 				bear_y = vp.y * 0.35 - 130.0
-			_guide.show_step(_get_text(13), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, false, true, false)
+			_guide.show_step(
+				_get_text(13),
+				Vector2(bear_x, bear_y),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				false,
+				true,
+				false
+			)
 			if choice_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(choice_rect.grow(14.0))
-			if not _tutorial_choice_panel.choice_selected.is_connected(_on_tutorial_choice_selected):
+			if not _tutorial_choice_panel.choice_selected.is_connected(
+				_on_tutorial_choice_selected
+			):
 				_tutorial_choice_panel.choice_selected.connect(_on_tutorial_choice_selected)
 
 		# ── 14: Treasure popup — Share explanation ─────────────────────────────
@@ -308,14 +363,18 @@ func _run_step(step: int) -> void:
 			_set_tap_advance(true)
 			if _tutorial_treasure_popup != null:
 				_tutorial_treasure_popup.lock_buttons()
-			_guide.show_step(_get_text(14), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, true)
+			_guide.show_step(
+				_get_text(14), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, true
+			)
 
 		# ── 15: Treasure popup — Collect explanation ───────────────────────────
 		15:
 			_set_tap_advance(true)
 			if _tutorial_treasure_popup != null:
 				_tutorial_treasure_popup.lock_buttons()
-			_guide.show_step(_get_text(15), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, true)
+			_guide.show_step(
+				_get_text(15), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, true, true
+			)
 
 		# ── 16: Freely choose — tap to dismiss bear, then unlock ────────────
 		16:
@@ -324,7 +383,9 @@ func _run_step(step: int) -> void:
 				_tutorial_treasure_popup.lock_buttons()
 			if not _guide.step_advanced.is_connected(_on_step_16_dismiss):
 				_guide.step_advanced.connect(_on_step_16_dismiss, CONNECT_ONE_SHOT)
-			_guide.show_step(_get_text(16), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, true)
+			_guide.show_step(
+				_get_text(16), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, true
+			)
 
 		# ── 17: Post-treasure — Goals panel ───────────────────────────────
 		17:
@@ -332,13 +393,26 @@ func _run_step(step: int) -> void:
 			var goal_rect := _get_hud_rect(_PATH_GOAL_PANEL)
 			var bear_x := (
 				clampf(goal_rect.end.x + 80.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-				if goal_rect.size != Vector2.ZERO else vp.x * 0.55
+				if goal_rect.size != Vector2.ZERO
+				else vp.x * 0.55
 			)
 			var bear_y := (
-				clampf(goal_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
-				if goal_rect.size != Vector2.ZERO else 20.0
+				clampf(
+					goal_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5,
+					20.0,
+					vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+				)
+				if goal_rect.size != Vector2.ZERO
+				else 20.0
 			)
-			_guide.show_step(_get_text(17), Vector2(bear_x, bear_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
+			_guide.show_step(
+				_get_text(17),
+				Vector2(bear_x, bear_y),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				true,
+				false,
+				true
+			)
 			if goal_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(goal_rect.grow(10.0))
 
@@ -346,30 +420,51 @@ func _run_step(step: int) -> void:
 		18:
 			_set_tap_advance(true)
 			var bar_rect := _get_hud_rect(_PATH_BOTTOMBAR)
-			var hud_x := clampf(vp.x * 0.5 - GuideCharacter.BEAR_SIZE.x * 0.5, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
+			var hud_x := clampf(
+				vp.x * 0.5 - GuideCharacter.BEAR_SIZE.x * 0.5,
+				20.0,
+				vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+			)
 			var hud_y: float
 			if bar_rect.size != Vector2.ZERO:
-				hud_y = clampf(bar_rect.position.y - GuideCharacter.BEAR_SIZE.y - 30.0, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+				hud_y = clampf(
+					bar_rect.position.y - GuideCharacter.BEAR_SIZE.y - 30.0,
+					20.0,
+					vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+				)
 			else:
 				hud_y = vp.y - GuideCharacter.BEAR_SIZE.y - 80.0
-			_guide.show_step(_get_text(18), Vector2(hud_x, hud_y), GuideCharacter.OVERLAY_SPOTLIGHT, true, false, true)
+			_guide.show_step(
+				_get_text(18),
+				Vector2(hud_x, hud_y),
+				GuideCharacter.OVERLAY_SPOTLIGHT,
+				true,
+				false,
+				true
+			)
 			if bar_rect.size != Vector2.ZERO:
 				_guide.set_spotlight_rect(bar_rect.grow(8.0))
 
 		# ── 19: Show result ─────────────────────────────────────────────────
 		19:
 			_set_tap_advance(false)
-			var action_msg := "Let's take a look at the treasure
-you just Shared!" if _tutorial_action == "share" else "Let's take a look at the treasure
-you just Collected!"
-			_guide.show_step(action_msg, _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
+			var action_msg := (
+				"Let's take a look at the treasure\nyou just Shared!"
+				if _tutorial_action == "share"
+				else "Let's take a look at the treasure\nyou just Collected!"
+			)
+			_guide.show_step(
+				action_msg, _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false
+			)
 			if not _guide.step_advanced.is_connected(_on_step_19_open_result):
 				_guide.step_advanced.connect(_on_step_19_open_result, CONNECT_ONE_SHOT)
 
 		# ── 20: Finale ───────────────────────────────────────────────────────
 		20:
 			_set_tap_advance(false)
-			_guide.show_step(_get_text(20), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false)
+			_guide.show_step(
+				_get_text(20), _center_bear(vp), GuideCharacter.OVERLAY_FLAT, true, false, false
+			)
 			if not _guide.step_advanced.is_connected(_on_finale_advanced):
 				_guide.step_advanced.connect(_on_finale_advanced, CONNECT_ONE_SHOT)
 
@@ -378,6 +473,7 @@ you just Collected!"
 
 
 # ── Step display helpers ──────────────────────────────────────────────────────
+
 
 func _set_tap_advance(enabled: bool) -> void:
 	if enabled:
@@ -396,17 +492,22 @@ func _bear_pos_beside_phone(vp: Vector2) -> Vector2:
 	var phone_rect := _get_hud_rect(_PATH_PHONE_SCREEN)
 	if phone_rect.size != Vector2.ZERO:
 		return Vector2(
-			clampf(phone_rect.position.x - GuideCharacter.BEAR_SIZE.x - 20.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0),
-			clampf(phone_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+			clampf(
+				phone_rect.position.x - GuideCharacter.BEAR_SIZE.x - 20.0,
+				20.0,
+				vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+			),
+			clampf(
+				phone_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5,
+				20.0,
+				vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+			)
 		)
 	return Vector2(50.0, vp.y * 0.35 - 130.0)
 
 
 func _show_phone_app_spotlight(
-	text_key: int,
-	app_button_name: String,
-	allow_tap: bool,
-	overlay_passthrough: bool
+	text_key: int, app_button_name: String, allow_tap: bool, overlay_passthrough: bool
 ) -> void:
 	var vp := _guide.get_viewport_rect().size
 	var rect := _get_hud_rect(_PATH_APP_GRID + app_button_name)
@@ -415,20 +516,33 @@ func _show_phone_app_spotlight(
 	var bear_x: float
 	var bear_y: float
 	if phone_rect.size != Vector2.ZERO:
-		bear_x = clampf(phone_rect.position.x - GuideCharacter.BEAR_SIZE.x - 20.0, 20.0, vp.x - GuideCharacter.BEAR_SIZE.x - 20.0)
-		bear_y = clampf(phone_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5, 20.0, vp.y - GuideCharacter.BEAR_SIZE.y - 20.0)
+		bear_x = clampf(
+			phone_rect.position.x - GuideCharacter.BEAR_SIZE.x - 20.0,
+			20.0,
+			vp.x - GuideCharacter.BEAR_SIZE.x - 20.0
+		)
+		bear_y = clampf(
+			phone_rect.get_center().y - GuideCharacter.BEAR_SIZE.y * 0.5,
+			20.0,
+			vp.y - GuideCharacter.BEAR_SIZE.y - 20.0
+		)
 	else:
 		bear_x = 50.0
 		bear_y = vp.y * 0.35 - 130.0
 	_guide.show_step(
-		_get_text(text_key), Vector2(bear_x, bear_y),
-		GuideCharacter.OVERLAY_SPOTLIGHT, allow_tap, overlay_passthrough, true
+		_get_text(text_key),
+		Vector2(bear_x, bear_y),
+		GuideCharacter.OVERLAY_SPOTLIGHT,
+		allow_tap,
+		overlay_passthrough,
+		true
 	)
 	if rect.size != Vector2.ZERO:
 		_guide.set_spotlight_rect(rect.grow(14.0))
 
 
 # ── Smart marker: resolve clue → location → marker path ───────────────────────
+
 
 func _resolve_marker_path() -> String:
 	var location_id := _tracked_clue_location_id
@@ -603,8 +717,8 @@ func _unlock_event_panel_ctrls() -> void:
 
 # ── Listeners & new tutorial handlers ──────────────────────────────────────────
 
-
 # ── Step 0 → 3: welcome tapped, go to phone button ─────────────────────────────
+
 
 func _on_skip_pressed() -> void:
 	_finish_onboarding()
@@ -618,6 +732,7 @@ func _on_step_0_to_phone() -> void:
 
 
 # ── Step 3: phone button clicked ────────────────────────────────────────────────
+
 
 func _connect_phone_listener() -> void:
 	if _main_ref == null:
@@ -641,6 +756,7 @@ func _on_phone_pressed() -> void:
 
 
 # ── Step 11 → 12: marker clicked, show Go button ───────────────────────────────
+
 
 func _connect_marker_listener(marker_path: String) -> void:
 	if _main_ref == null:
@@ -667,6 +783,7 @@ func _on_marker_selected(_location_id: String, _anchor: Control) -> void:
 
 # ── Step 4 → location: Go clicked, wait for event choices ──────────────────────
 
+
 func _connect_go_listener() -> void:
 	if _main_ref == null:
 		return
@@ -684,6 +801,7 @@ func _on_go_pressed() -> void:
 
 
 # ── Location hooks: choices shown → step 13, treasure popup → step 14 ──────────
+
 
 func _on_location_choices_shown(choice_panel: Control, event_data: Dictionary) -> void:
 	if not _in_onboarding:
@@ -737,8 +855,8 @@ func _on_treasure_popup_shown(popup: Control) -> void:
 # Explanation steps use flat overlay with passthrough so the treasure popup remains
 # fully visible without dimming. Buttons are locked so the player can't click them.
 
-
 # ── Step 16: dismiss bear → unlock buttons ──────────────────────────────────────
+
 
 func _on_step_16_dismiss() -> void:
 	if not _in_onboarding:
@@ -751,6 +869,7 @@ func _on_step_16_dismiss() -> void:
 
 
 # ── Step 16 → 17: player chose share/collect, show result then finale ───────────
+
 
 func _on_tutorial_treasure_chosen(action: String) -> void:
 	if not _in_onboarding:
@@ -765,6 +884,8 @@ func _on_tutorial_treasure_chosen(action: String) -> void:
 			_step = 17
 			_run_step(17)
 	)
+
+
 func _on_step_19_open_result() -> void:
 	if not _in_onboarding:
 		return
@@ -789,6 +910,7 @@ func _on_finale_advanced() -> void:
 
 
 # ── Step 4: Profile app listener ────────────────────────────────────────────────
+
 
 func _connect_profile_listener() -> void:
 	if _main_ref == null:
@@ -832,6 +954,7 @@ func _on_profile_card_closed() -> void:
 
 
 # ── Step 8: Keywords in Ins ─────────────────────────────────────────────────────
+
 
 func _on_step_8_advanced() -> void:
 	if not _in_onboarding:
@@ -886,6 +1009,7 @@ func _find_clue_id_for_keyword(keyword: String) -> String:
 
 
 # ── Step 7: Ins app listener ────────────────────────────────────────────────────
+
 
 func _connect_ins_listener() -> void:
 	if _main_ref == null:
